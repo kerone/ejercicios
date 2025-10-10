@@ -1028,15 +1028,21 @@
             }
             
             if (exercise.type === 'creative') {
-                exercise.fields.forEach((field, i) => {
-                    html += `<div class="question">
-                        <strong>${field.label}</strong>
-                        <input type="${field.type}" class="answer-input" id="field_${i}" style="width: 200px;">
-                    </div>`;
-                });
+                if (exercise.fields) {
+                    exercise.fields.forEach((field, i) => {
+                        html += `<div class="question">
+                            <strong>${field.label}</strong>
+                            <input type="${field.type}" class="answer-input" id="field_${i}" style="width: 200px;">
+                        </div>`;
+                    });
+                }
             }
             
-            if (exercise.drawing) {
+            // SOLO mostrar canvas si el ejercicio tiene drawing: true Y tiene instrucciones explícitas
+            if (exercise.drawing && (exercise.drawingPrompt || exercise.type === 'creative')) {
+                if (exercise.drawingPrompt) {
+                    html += `<div class="question"><strong>${exercise.drawingPrompt}</strong></div>`;
+                }
                 html += `<div style="text-align: center; margin: 20px 0;">
                     <div class="color-picker">
                         <div class="color-btn active" style="background: black;" onclick="selectColor('#000000')"></div>
@@ -1074,7 +1080,7 @@
             
             document.getElementById('exerciseContent').innerHTML = html;
             
-            if (exercise.drawing) {
+            if (exercise.drawing && (exercise.drawingPrompt || exercise.type === 'creative')) {
                 initCanvas();
             }
         }
