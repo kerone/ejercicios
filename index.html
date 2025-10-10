@@ -37,6 +37,25 @@
             color: white;
             padding: 20px;
             text-align: center;
+            position: relative;
+        }
+        
+        .admin-link {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            background: rgba(255,255,255,0.2);
+            padding: 8px 15px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.9em;
+            transition: all 0.3s;
+            border: 2px solid rgba(255,255,255,0.3);
+        }
+        
+        .admin-link:hover {
+            background: rgba(255,255,255,0.3);
+            border-color: rgba(255,255,255,0.5);
         }
         
         .week-selector {
@@ -469,11 +488,199 @@
             border-left: 5px solid #dc3545;
             margin: 20px;
         }
+        
+        /* Panel de Administración */
+        .admin-panel {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.9);
+            z-index: 10000;
+            display: none;
+            overflow-y: auto;
+            padding: 20px;
+        }
+        
+        .admin-panel.show {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .admin-login {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            max-width: 400px;
+            width: 100%;
+            text-align: center;
+        }
+        
+        .admin-login h2 {
+            color: #667eea;
+            margin-bottom: 20px;
+        }
+        
+        .admin-login input {
+            width: 100%;
+            padding: 15px;
+            font-size: 1.2em;
+            border: 3px solid #667eea;
+            border-radius: 10px;
+            text-align: center;
+            font-family: 'Fredoka', sans-serif;
+            margin: 20px 0;
+        }
+        
+        .admin-login input:focus {
+            outline: none;
+            border-color: #764ba2;
+        }
+        
+        .error-message {
+            color: #dc3545;
+            margin: 10px 0;
+            display: none;
+        }
+        
+        .error-message.show {
+            display: block;
+        }
+        
+        .admin-content {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            max-width: 600px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+        
+        .admin-header {
+            text-align: center;
+            color: #667eea;
+            margin-bottom: 30px;
+            border-bottom: 3px solid #667eea;
+            padding-bottom: 15px;
+        }
+        
+        .admin-section {
+            margin: 25px 0;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 15px;
+        }
+        
+        .admin-section h3 {
+            color: #667eea;
+            margin-bottom: 15px;
+        }
+        
+        .week-item {
+            background: white;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border: 2px solid #ddd;
+        }
+        
+        .week-info {
+            flex: 1;
+        }
+        
+        .week-stats {
+            font-size: 0.9em;
+            color: #666;
+            margin-top: 5px;
+        }
+        
+        .admin-btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-family: 'Fredoka', sans-serif;
+            font-weight: bold;
+            transition: all 0.3s;
+            margin: 5px;
+        }
+        
+        .admin-btn-danger {
+            background: #dc3545;
+            color: white;
+        }
+        
+        .admin-btn-danger:hover {
+            background: #c82333;
+            transform: scale(1.05);
+        }
+        
+        .admin-btn-warning {
+            background: #ffc107;
+            color: #333;
+        }
+        
+        .admin-btn-warning:hover {
+            background: #e0a800;
+            transform: scale(1.05);
+        }
+        
+        .admin-btn-secondary {
+            background: #6c757d;
+            color: white;
+        }
+        
+        .admin-btn-secondary:hover {
+            background: #5a6268;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-top: 15px;
+        }
+        
+        .stat-card {
+            background: white;
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+            border: 2px solid #667eea;
+        }
+        
+        .stat-card .number {
+            font-size: 2em;
+            font-weight: bold;
+            color: #667eea;
+        }
+        
+        .stat-card .label {
+            font-size: 0.9em;
+            color: #666;
+            margin-top: 5px;
+        }
+        
+        .admin-hint {
+            background: #fff3cd;
+            padding: 10px 15px;
+            border-radius: 8px;
+            border-left: 4px solid #ffc107;
+            margin-top: 20px;
+            font-size: 0.9em;
+        }
     </style>
 </head>
 <body>
     <div class="app-container">
         <div class="header">
+            <div class="admin-link" onclick="showAdminLogin()">🔧 Admin</div>
             <h1>🎮 Aventuras de Aprendizaje 🎮</h1>
             
             <div class="week-selector" id="weekSelector"></div>
@@ -533,6 +740,81 @@
     </div>
     
     <div class="celebration" id="celebration"></div>
+    
+    <!-- Panel de Administración con Login -->
+    <div class="admin-panel" id="adminPanel">
+        <!-- Pantalla de Login -->
+        <div class="admin-login" id="adminLogin">
+            <h2>🔐 Acceso Admin</h2>
+            <p style="color: #666;">Introduce la contraseña</p>
+            <input 
+                type="password" 
+                id="adminPassword" 
+                placeholder="Contraseña"
+                onkeypress="if(event.key === 'Enter') checkAdminPassword()"
+            >
+            <div class="error-message" id="errorMessage">❌ Contraseña incorrecta</div>
+            <div style="margin-top: 20px;">
+                <button class="btn btn-primary" onclick="checkAdminPassword()">
+                    Entrar
+                </button>
+                <button class="btn btn-secondary" onclick="closeAdminPanel()" style="margin-left: 10px;">
+                    Cancelar
+                </button>
+            </div>
+        </div>
+        
+        <!-- Panel de Administración (se muestra después del login) -->
+        <div class="admin-content" id="adminContent" style="display: none;">
+            <div class="admin-header">
+                <h2>🔧 Panel de Administración</h2>
+                <p style="color: #666; font-size: 0.9em;">Gestiona el progreso y las semanas completadas</p>
+            </div>
+            
+            <div class="admin-section">
+                <h3>📊 Estadísticas Globales</h3>
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="number" id="adminStars">0</div>
+                        <div class="label">⭐ Estrellas</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="number" id="adminDays">0</div>
+                        <div class="label">📅 Días completados</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="number" id="adminCorrect">0</div>
+                        <div class="label">✅ Respuestas correctas</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="number" id="adminWeeks">0</div>
+                        <div class="label">📚 Semanas con progreso</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="admin-section">
+                <h3>🗑️ Eliminar Progreso por Semana</h3>
+                <div id="weeksList"></div>
+            </div>
+            
+            <div class="admin-section">
+                <h3>⚠️ Acciones Globales</h3>
+                <button class="admin-btn admin-btn-warning" onclick="resetAllProgress()">
+                    🔄 Reiniciar TODO el progreso
+                </button>
+                <p style="margin-top: 10px; font-size: 0.9em; color: #666;">
+                    Esto borrará todas las estrellas, días completados y estadísticas.
+                </p>
+            </div>
+            
+            <div style="text-align: center; margin-top: 30px;">
+                <button class="admin-btn admin-btn-secondary" onclick="closeAdminPanel()">
+                    ✖️ Cerrar Panel
+                </button>
+            </div>
+        </div>
+    </div>
 
     <script>
         // Estado de la aplicación
@@ -1055,6 +1337,168 @@
         window.onload = function() {
             loadWeeksData();
         };
+        
+        // ===== PANEL DE ADMINISTRACIÓN =====
+        
+        const ADMIN_PASSWORD = '1234';
+        
+        // Mostrar pantalla de login
+        function showAdminLogin() {
+            document.getElementById('adminPanel').classList.add('show');
+            document.getElementById('adminLogin').style.display = 'block';
+            document.getElementById('adminContent').style.display = 'none';
+            document.getElementById('adminPassword').value = '';
+            document.getElementById('errorMessage').classList.remove('show');
+            document.getElementById('adminPassword').focus();
+        }
+        
+        // Verificar contraseña
+        function checkAdminPassword() {
+            const password = document.getElementById('adminPassword').value;
+            
+            if (password === ADMIN_PASSWORD) {
+                // Contraseña correcta - mostrar panel
+                document.getElementById('adminLogin').style.display = 'none';
+                document.getElementById('adminContent').style.display = 'block';
+                updateAdminStats();
+            } else {
+                // Contraseña incorrecta
+                document.getElementById('errorMessage').classList.add('show');
+                document.getElementById('adminPassword').value = '';
+                document.getElementById('adminPassword').focus();
+            }
+        }
+        
+        // Cerrar panel de administración
+        function closeAdminPanel() {
+            document.getElementById('adminPanel').classList.remove('show');
+            document.getElementById('adminPassword').value = '';
+            document.getElementById('errorMessage').classList.remove('show');
+        }
+        
+        // Cerrar con tecla ESC
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && document.getElementById('adminPanel').classList.contains('show')) {
+                closeAdminPanel();
+            }
+        });
+        
+        // Actualizar estadísticas en el panel admin
+        function updateAdminStats() {
+            document.getElementById('adminStars').textContent = state.stars;
+            document.getElementById('adminDays').textContent = state.daysCompleted;
+            document.getElementById('adminCorrect').textContent = state.correctAnswers;
+            
+            // Contar semanas con progreso
+            const weeksWithProgress = new Set();
+            Object.keys(state.completedDays).forEach(key => {
+                const weekNum = key.split('_')[0];
+                weeksWithProgress.add(weekNum);
+            });
+            document.getElementById('adminWeeks').textContent = weeksWithProgress.size;
+            
+            // Generar lista de semanas
+            generateWeeksList();
+        }
+        
+        // Generar lista de semanas con sus estadísticas
+        function generateWeeksList() {
+            const weeksList = document.getElementById('weeksList');
+            weeksList.innerHTML = '';
+            
+            if (!weeksData) return;
+            
+            Object.keys(weeksData).forEach(weekNum => {
+                const week = weeksData[weekNum];
+                const completedInWeek = Object.keys(state.completedDays).filter(key => 
+                    key.startsWith(`${weekNum}_`)
+                ).length;
+                
+                if (completedInWeek === 0) return; // No mostrar semanas sin progreso
+                
+                const weekItem = document.createElement('div');
+                weekItem.className = 'week-item';
+                weekItem.innerHTML = `
+                    <div class="week-info">
+                        <strong>${week.name}</strong>
+                        <div class="week-stats">
+                            📅 ${completedInWeek} de ${week.days.length} días completados
+                        </div>
+                    </div>
+                    <button class="admin-btn admin-btn-danger" onclick="deleteWeekProgress(${weekNum})">
+                        🗑️ Eliminar
+                    </button>
+                `;
+                weeksList.appendChild(weekItem);
+            });
+            
+            if (weeksList.children.length === 0) {
+                weeksList.innerHTML = '<p style="text-align: center; color: #999;">No hay progreso registrado aún</p>';
+            }
+        }
+        
+        // Eliminar progreso de una semana específica
+        function deleteWeekProgress(weekNum) {
+            if (!confirm(`¿Estás seguro de que quieres eliminar el progreso de la ${weeksData[weekNum].name}?`)) {
+                return;
+            }
+            
+            // Contar días a eliminar
+            let daysToDelete = 0;
+            Object.keys(state.completedDays).forEach(key => {
+                if (key.startsWith(`${weekNum}_`)) {
+                    delete state.completedDays[key];
+                    daysToDelete++;
+                }
+            });
+            
+            // Actualizar contador de días completados
+            state.daysCompleted -= daysToDelete;
+            if (state.daysCompleted < 0) state.daysCompleted = 0;
+            
+            saveState();
+            updateStats();
+            updateAdminStats();
+            
+            // Recargar semana actual si está viendo esa semana
+            if (state.currentWeek === weekNum) {
+                loadWeek(weekNum);
+            }
+            
+            alert(`✅ Progreso de ${weeksData[weekNum].name} eliminado correctamente`);
+        }
+        
+        // Reiniciar todo el progreso
+        function resetAllProgress() {
+            const confirmation = confirm('⚠️ ¿ESTÁS SEGURO?\n\nEsto borrará:\n- Todas las estrellas\n- Todos los días completados\n- Todas las estadísticas\n\nEsta acción NO se puede deshacer.');
+            
+            if (!confirmation) return;
+            
+            const doubleCheck = confirm('🔴 ÚLTIMA CONFIRMACIÓN\n\n¿Realmente quieres borrar TODO el progreso?');
+            
+            if (!doubleCheck) return;
+            
+            // Resetear estado
+            state = {
+                currentWeek: 1,
+                currentDay: 0,
+                currentExercise: 0,
+                stars: 0,
+                correctAnswers: 0,
+                daysCompleted: 0,
+                completedDays: {},
+                startTime: null,
+                currentColor: '#000000'
+            };
+            
+            saveState();
+            updateStats();
+            updateAdminStats();
+            closeAdminPanel();
+            goHome();
+            
+            alert('✅ Todo el progreso ha sido eliminado. ¡Comenzando desde cero!');
+        }
     </script>
 </body>
 </html>
