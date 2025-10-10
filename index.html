@@ -2337,11 +2337,27 @@
             updateAdminStats();
             
             // Recargar semana actual si está viendo esa semana
-            if (state.currentWeek === weekNum) {
+            if (state.currentWeek == weekNum) {
                 loadWeek(weekNum);
             }
             
+            // Cerrar y reabrir panel para refrescar la vista
+            closeAdminPanel();
+            setTimeout(() => {
+                openAdminPanel();
+            }, 100);
+            
             alert(`✅ Progreso de ${weeksData[weekNum].name} eliminado correctamente`);
+        }
+        
+        // Abrir panel admin directamente (sin login primero)
+        function openAdminPanel() {
+            document.getElementById('adminPanel').classList.add('show');
+            document.getElementById('adminLogin').style.display = 'block';
+            document.getElementById('adminContent').style.display = 'none';
+            document.getElementById('adminPassword').value = '';
+            document.getElementById('errorMessage').classList.remove('show');
+            document.getElementById('adminPassword').focus();
         }
         
         // Reiniciar todo el progreso
