@@ -17,7 +17,8 @@
               {"question": "34 - 9 =", "answer": 25}
             ],
             "hint": "💡 Suma las unidades primero, luego las decenas",
-            "drawing": true
+            "drawing": true,
+            "drawingPrompt": "Dibuja los nidos con los huevos que calculaste:"
           },
           {
             "type": "shapes",
@@ -34,7 +35,8 @@
                 "answer": "Cuadrado"
               }
             ],
-            "drawing": true
+            "drawing": true,
+            "drawingPrompt": "Dibuja un castillo usando triángulos y cuadrados:"
           },
           {
             "type": "reading",
@@ -62,7 +64,8 @@
                 "answer": 16
               }
             ],
-            "drawing": true
+            "drawing": true,
+            "drawingPrompt": "Dibuja un dragón lanzando bolas de fuego:"
           },
           {
             "type": "creative",
