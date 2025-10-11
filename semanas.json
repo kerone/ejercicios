@@ -24,16 +24,8 @@
             "type": "shapes",
             "title": "🔺 Las Torres del Castillo",
             "questions": [
-              {
-                "question": "Una figura con 3 lados es un...",
-                "options": ["Triángulo", "Cuadrado", "Círculo", "Rectángulo"],
-                "answer": "Triángulo"
-              },
-              {
-                "question": "Una figura con 4 lados iguales es un...",
-                "options": ["Triángulo", "Cuadrado", "Círculo", "Rectángulo"],
-                "answer": "Cuadrado"
-              }
+              {"question": "Una figura con 3 lados es un...", "options": ["Triángulo", "Cuadrado", "Círculo", "Rectángulo"], "answer": "Triángulo"},
+              {"question": "Una figura con 4 lados iguales es un...", "options": ["Triángulo", "Cuadrado", "Círculo", "Rectángulo"], "answer": "Cuadrado"}
             ],
             "drawing": true,
             "drawingPrompt": "Dibuja un castillo usando triángulos y cuadrados:"
@@ -43,20 +35,9 @@
             "title": "📖 El Dragón Llamarroja",
             "story": "El dragón Llamarroja vive en una cueva cerca del volcán. Tiene 3 años y come pescado. Cada día come 6 peces por la mañana y 4 por la tarde. Su color favorito es el azul.",
             "questions": [
-              {
-                "question": "¿Dónde vive Llamarroja?",
-                "answer": "cueva",
-                "alternatives": ["en una cueva", "cueva volcán", "cerca del volcán"]
-              },
-              {
-                "question": "¿Cuántos peces come al día? (6 + 4)",
-                "answer": 10
-              },
-              {
-                "question": "¿Por qué le gusta el color azul?",
-                "answer": "mar",
-                "alternatives": ["por el mar", "le recuerda al mar", "porque le recuerda al mar"]
-              }
+              {"question": "¿Dónde vive Llamarroja?", "answer": "cueva", "alternatives": ["en una cueva", "cueva volcán", "cerca del volcán"]},
+              {"question": "¿Cuántos peces come al día? (6 + 4)", "answer": 10},
+              {"question": "¿Por qué le gusta el color azul?", "answer": "mar", "alternatives": ["por el mar", "le recuerda al mar", "porque le recuerda al mar"]}
             ],
             "drawing": true,
             "drawingPrompt": "Dibuja a Llamarroja comiendo pescado:"
@@ -66,10 +47,7 @@
             "title": "🔥 Bolas de Fuego",
             "info": "¿Sabías que el fuego necesita combustible, oxígeno y calor?",
             "questions": [
-              {
-                "question": "Un dragón lanza 7 bolas en la 1ª ronda y 9 en la 2ª. Total: 7 + 9 =",
-                "answer": 16
-              }
+              {"question": "Un dragón lanza 7 bolas en la 1ª ronda y 9 en la 2ª. Total: 7 + 9 =", "answer": 16}
             ],
             "drawing": true,
             "drawingPrompt": "Dibuja un dragón lanzando bolas de fuego:"
@@ -105,16 +83,8 @@
             "type": "shapes",
             "title": "🗺️ El Mapa del Tesoro",
             "questions": [
-              {
-                "question": "Una figura sin esquinas, redonda, es un...",
-                "options": ["Círculo", "Cuadrado", "Triángulo", "Rectángulo"],
-                "answer": "Círculo"
-              },
-              {
-                "question": "Una figura con 4 lados (2 largos, 2 cortos) es un...",
-                "options": ["Círculo", "Cuadrado", "Triángulo", "Rectángulo"],
-                "answer": "Rectángulo"
-              }
+              {"question": "Una figura sin esquinas, redonda, es un...", "options": ["Círculo", "Cuadrado", "Triángulo", "Rectángulo"], "answer": "Círculo"},
+              {"question": "Una figura con 4 lados (2 largos, 2 cortos) es un...", "options": ["Círculo", "Cuadrado", "Triángulo", "Rectángulo"], "answer": "Rectángulo"}
             ],
             "drawing": true,
             "drawingPrompt": "Dibuja un mapa del tesoro usando estas formas:"
@@ -124,20 +94,9 @@
             "title": "📖 El Loro Pico",
             "story": "El loro Pico tiene 5 años y repite todo. Cada mañana come 4 galletas y por la tarde come 5 más. Duerme en lo alto del mástil del barco.",
             "questions": [
-              {
-                "question": "¿Cómo se llama el loro?",
-                "answer": "pico",
-                "alternatives": ["Pico", "el loro pico"]
-              },
-              {
-                "question": "¿Cuántas galletas come al día? (4 + 5)",
-                "answer": 9
-              },
-              {
-                "question": "¿Dónde duerme Pico?",
-                "answer": "mástil",
-                "alternatives": ["en el mástil", "mástil del barco", "alto del mástil"]
-              }
+              {"question": "¿Cómo se llama el loro?", "answer": "pico", "alternatives": ["Pico", "el loro pico"]},
+              {"question": "¿Cuántas galletas come al día? (4 + 5)", "answer": 9},
+              {"question": "¿Dónde duerme Pico?", "answer": "mástil", "alternatives": ["en el mástil", "mástil del barco", "alto del mástil"]}
             ],
             "drawing": true,
             "drawingPrompt": "Dibuja al loro Pico en el mástil del barco:"
@@ -146,10 +105,7 @@
             "type": "math",
             "title": "⚓ Cañones del Barco",
             "questions": [
-              {
-                "question": "Lado izquierdo: 8 cañones. Lado derecho: 8 cañones. Total: 8 + 8 =",
-                "answer": 16
-              }
+              {"question": "Lado izquierdo: 8 cañones. Lado derecho: 8 cañones. Total: 8 + 8 =", "answer": 16}
             ],
             "drawing": true,
             "drawingPrompt": "Dibuja el barco pirata con sus cañones en ambos lados:"
@@ -184,16 +140,8 @@
             "type": "shapes",
             "title": "🛸 Formas del Espacio",
             "questions": [
-              {
-                "question": "Un planeta es redondo, sin esquinas. Es un...",
-                "options": ["Círculo", "Cuadrado", "Triángulo", "Rectángulo"],
-                "answer": "Círculo"
-              },
-              {
-                "question": "Una ventana con 3 lados iguales es un...",
-                "options": ["Círculo", "Cuadrado", "Triángulo", "Rectángulo"],
-                "answer": "Triángulo"
-              }
+              {"question": "Un planeta es redondo, sin esquinas. Es un...", "options": ["Círculo", "Cuadrado", "Triángulo", "Rectángulo"], "answer": "Círculo"},
+              {"question": "Una ventana con 3 lados iguales es un...", "options": ["Círculo", "Cuadrado", "Triángulo", "Rectángulo"], "answer": "Triángulo"}
             ],
             "drawing": true,
             "drawingPrompt": "Dibuja tu nave espacial usando estas formas:"
@@ -203,20 +151,9 @@
             "title": "📖 La Astronauta Luna",
             "story": "Luna viaja en su cohete plateado. Tiene 8 años y observa 9 planetas por la mañana y 6 por la tarde. Sueña con pisar Marte.",
             "questions": [
-              {
-                "question": "¿De qué color es su cohete?",
-                "answer": "plateado",
-                "alternatives": ["plateado", "plata"]
-              },
-              {
-                "question": "¿Cuántos planetas observa al día? (9 + 6)",
-                "answer": 15
-              },
-              {
-                "question": "¿Qué planeta quiere visitar?",
-                "answer": "marte",
-                "alternatives": ["Marte", "pisar marte"]
-              }
+              {"question": "¿De qué color es su cohete?", "answer": "plateado", "alternatives": ["plateado", "plata"]},
+              {"question": "¿Cuántos planetas observa al día? (9 + 6)", "answer": 15},
+              {"question": "¿Qué planeta quiere visitar?", "answer": "marte", "alternatives": ["Marte", "pisar marte"]}
             ],
             "drawing": true,
             "drawingPrompt": "Dibuja a Luna en su cohete viajando al espacio:"
@@ -225,10 +162,7 @@
             "type": "math",
             "title": "🌙 Cráteres de la Luna",
             "questions": [
-              {
-                "question": "Zona norte: 12 cráteres. Zona sur: 11 cráteres. Total: 12 + 11 =",
-                "answer": 23
-              }
+              {"question": "Zona norte: 12 cráteres. Zona sur: 11 cráteres. Total: 12 + 11 =", "answer": 23}
             ],
             "drawing": true,
             "drawingPrompt": "Dibuja la Luna con sus cráteres:"
@@ -264,16 +198,8 @@
             "type": "shapes",
             "title": "🦴 Formas de Fósiles",
             "questions": [
-              {
-                "question": "Una huella con 3 dedos tiene forma de...",
-                "options": ["Círculo", "Cuadrado", "Triángulo", "Rectángulo"],
-                "answer": "Triángulo"
-              },
-              {
-                "question": "Un huevo fósil ovalado parece un...",
-                "options": ["Círculo", "Cuadrado", "Triángulo", "Óvalo"],
-                "answer": "Óvalo"
-              }
+              {"question": "Una huella con 3 dedos tiene forma de...", "options": ["Círculo", "Cuadrado", "Triángulo", "Rectángulo"], "answer": "Triángulo"},
+              {"question": "Un huevo fósil ovalado parece un...", "options": ["Círculo", "Cuadrado", "Triángulo", "Óvalo"], "answer": "Óvalo"}
             ],
             "drawing": true,
             "drawingPrompt": "Dibuja los fósiles que encontraste en la excavación:"
@@ -283,20 +209,9 @@
             "title": "📖 El Diplodocus",
             "story": "El Diplodocus era gigante y comía solo plantas. Cada día comía 7 árboles por la mañana y 8 por la tarde. Vivía cerca de lagos.",
             "questions": [
-              {
-                "question": "¿Qué comía el Diplodocus?",
-                "answer": "plantas",
-                "alternatives": ["plantas", "árboles", "vegetales"]
-              },
-              {
-                "question": "¿Cuántos árboles comía al día? (7 + 8)",
-                "answer": 15
-              },
-              {
-                "question": "¿Dónde vivía?",
-                "answer": "lagos",
-                "alternatives": ["cerca de lagos", "lagos", "junto a lagos"]
-              }
+              {"question": "¿Qué comía el Diplodocus?", "answer": "plantas", "alternatives": ["plantas", "árboles", "vegetales"]},
+              {"question": "¿Cuántos árboles comía al día? (7 + 8)", "answer": 15},
+              {"question": "¿Dónde vivía?", "answer": "lagos", "alternatives": ["cerca de lagos", "lagos", "junto a lagos"]}
             ],
             "drawing": true,
             "drawingPrompt": "Dibuja al Diplodocus comiendo árboles junto al lago:"
@@ -305,10 +220,7 @@
             "type": "math",
             "title": "🦷 Dientes del T-Rex",
             "questions": [
-              {
-                "question": "Mandíbula superior: 14 dientes. Inferior: 16 dientes. Total: 14 + 16 =",
-                "answer": 30
-              }
+              {"question": "Mandíbula superior: 14 dientes. Inferior: 16 dientes. Total: 14 + 16 =", "answer": 30}
             ],
             "drawing": true,
             "drawingPrompt": "Dibuja un T-Rex mostrando sus dientes:"
@@ -344,16 +256,8 @@
             "type": "shapes",
             "title": "⭐ Formas del Mar",
             "questions": [
-              {
-                "question": "Una estrella de mar tiene...",
-                "options": ["3 puntas", "4 puntas", "5 puntas", "6 puntas"],
-                "answer": "5 puntas"
-              },
-              {
-                "question": "Una medusa tiene forma...",
-                "options": ["Redonda", "Cuadrada", "Triangular", "Rectangular"],
-                "answer": "Redonda"
-              }
+              {"question": "Una estrella de mar tiene...", "options": ["3 puntas", "4 puntas", "5 puntas", "6 puntas"], "answer": "5 puntas"},
+              {"question": "Una medusa tiene forma...", "options": ["Redonda", "Cuadrada", "Triangular", "Rectangular"], "answer": "Redonda"}
             ],
             "drawing": true,
             "drawingPrompt": "Dibuja el fondo marino con estrellas de mar y medusas:"
@@ -363,20 +267,9 @@
             "title": "📖 El Delfín Azul",
             "story": "El delfín Azul vive en el Pacífico. Tiene 6 años. Cada día salta 8 veces por la mañana y 7 por la tarde. Come calamares.",
             "questions": [
-              {
-                "question": "¿En qué océano vive?",
-                "answer": "pacífico",
-                "alternatives": ["Pacífico", "océano pacífico", "pacifico"]
-              },
-              {
-                "question": "¿Cuántos saltos da al día? (8 + 7)",
-                "answer": 15
-              },
-              {
-                "question": "¿Qué come el delfín Azul?",
-                "answer": "calamares",
-                "alternatives": ["calamares", "come calamares"]
-              }
+              {"question": "¿En qué océano vive?", "answer": "pacífico", "alternatives": ["Pacífico", "océano pacífico", "pacifico"]},
+              {"question": "¿Cuántos saltos da al día? (8 + 7)", "answer": 15},
+              {"question": "¿Qué come el delfín Azul?", "answer": "calamares", "alternatives": ["calamares", "come calamares"]}
             ],
             "drawing": true,
             "drawingPrompt": "Dibuja al delfín Azul saltando en el océano:"
@@ -385,10 +278,7 @@
             "type": "math",
             "title": "🐙 Tentáculos del Pulpo",
             "questions": [
-              {
-                "question": "Pulpo grande: 8 tentáculos. Pulpo pequeño: 8 tentáculos. Total: 8 + 8 =",
-                "answer": 16
-              }
+              {"question": "Pulpo grande: 8 tentáculos. Pulpo pequeño: 8 tentáculos. Total: 8 + 8 =", "answer": 16}
             ],
             "drawing": true,
             "drawingPrompt": "Dibuja los dos pulpos con todos sus tentáculos:"
@@ -406,340 +296,5 @@
         ]
       }
     ]
-  },
-  "2": {
-    "name": "Semana 2",
-    "description": "Aventuras Matemáticas Avanzadas",
-    "level": "3º Primaria",
-    "difficulty": "Media-Alta",
-    "days": [
-      {
-        "title": "La Granja Mágica",
-        "icon": "🐮",
-        "badge": "Granjero Experto",
-        "exercises": [
-          {
-            "type": "math",
-            "title": "🥚 Multiplicando Huevos",
-            "info": "Multiplicar es sumar varias veces el mismo número. Por ejemplo: 3 × 4 significa '3 grupos de 4'",
-            "questions": [
-              {"question": "Paso 1: La gallina pone 4 huevos cada día. ¿Cuántos huevos en 3 días? (4 + 4 + 4 = ...)", "answer": 12},
-              {"question": "Paso 2: Ahora en forma de multiplicación: 3 × 4 =", "answer": 12},
-              {"question": "Paso 3: Si cada cesta tiene 5 huevos y tenemos 6 cestas: 6 × 5 =", "answer": 30}
-            ],
-            "hint": "💡 Para 6 × 5, puedes sumar: 5 + 5 + 5 + 5 + 5 + 5 = 30",
-            "drawing": true,
-            "drawingPrompt": "Dibuja las cestas con sus huevos:"
-          },
-          {
-            "type": "math",
-            "title": "🍎 Repartiendo Manzanas",
-            "info": "Dividir es repartir en partes iguales. Por ejemplo: 12 ÷ 3 significa 'repartir 12 entre 3 grupos'",
-            "questions": [
-              {"question": "Paso 1: Tenemos 12 manzanas para repartir entre 3 niños. ¿Cuántas le tocan a cada uno? 12 ÷ 3 =", "answer": 4},
-              {"question": "Paso 2: Verificación: Si cada niño tiene 4 manzanas y son 3 niños: 3 × 4 =", "answer": 12},
-              {"question": "Paso 3: Ahora reparte 20 zanahorias entre 4 conejos: 20 ÷ 4 =", "answer": 5}
-            ],
-            "hint": "💡 Para dividir, pregúntate: ¿cuántas veces cabe el número pequeño en el grande?",
-            "drawing": true,
-            "drawingPrompt": "Dibuja a los niños con sus manzanas y a los conejos con sus zanahorias:"
-          },
-          {
-            "type": "reading",
-            "title": "📖 El Granjero Pedro",
-            "story": "El granjero Pedro tiene 8 vacas. Cada vaca da 3 litros de leche al día. Pedro vende la leche en botellas de 2 litros. Esta mañana ordeñó todas sus vacas y llenó las botellas para vender en el mercado.",
-            "questions": [
-              {"question": "¿Cuántas vacas tiene Pedro?", "answer": "8", "alternatives": ["ocho", "8 vacas"]},
-              {"question": "Paso 1: ¿Cuántos litros en total? (8 vacas × 3 litros cada una)", "answer": 24},
-              {"question": "Paso 2: ¿Cuántas botellas llenó? (24 litros ÷ 2 litros por botella)", "answer": 12}
-            ],
-            "drawing": true,
-            "drawingPrompt": "Dibuja a Pedro con sus vacas y las botellas de leche:"
-          },
-          {
-            "type": "shapes",
-            "title": "🏠 Formas de la Granja",
-            "questions": [
-              {"question": "El techo del establo tiene forma de triángulo con 3 lados iguales. ¿Cómo se llama?", "options": ["Triángulo equilátero", "Triángulo rectángulo", "Cuadrado", "Rectángulo"], "answer": "Triángulo equilátero"},
-              {"question": "La puerta del establo mide 2 metros de alto y 1 metro de ancho (2 lados largos, 2 cortos). Es un...", "options": ["Cuadrado", "Rectángulo", "Triángulo", "Círculo"], "answer": "Rectángulo"}
-            ],
-            "drawing": true,
-            "drawingPrompt": "Dibuja la granja con el techo triangular y la puerta rectangular:"
-          },
-          {
-            "type": "creative",
-            "title": "🎨 Diseña Tu Granja",
-            "drawing": true,
-            "fields": [
-              {"label": "Nombre de tu granja:", "type": "text"},
-              {"label": "¿Cuántos animales tiene?", "type": "number"},
-              {"label": "Si vendes huevos en paquetes de 6, ¿cuántos paquetes haces con 24 huevos? (24 ÷ 6)", "type": "number"}
-            ]
-          }
-        ]
-      },
-      {
-        "title": "La Fábrica de Juguetes",
-        "icon": "🧸",
-        "badge": "Ingeniero de Juguetes",
-        "exercises": [
-          {
-            "type": "math",
-            "title": "🎯 Producción de Pelotas",
-            "info": "Las máquinas producen juguetes en grupos. Aprenderemos a multiplicar para saber cuántos hacen",
-            "questions": [
-              {"question": "Paso 1: Cada caja tiene 7 pelotas. Si hay 4 cajas: 4 × 7 =", "answer": 28},
-              {"question": "Paso 2: Cada robot tiene 8 ruedas. Si fabricamos 5 robots: 5 × 8 =", "answer": 40},
-              {"question": "Paso 3: Un tren de juguete tiene 9 vagones. Si hacemos 3 trenes: 3 × 9 =", "answer": 27}
-            ],
-            "hint": "💡 Recuerda: multiplicar es sumar el número repetidas veces",
-            "drawing": true,
-            "drawingPrompt": "Dibuja las cajas con pelotas o los robots con ruedas:"
-          },
-          {
-            "type": "math",
-            "title": "📦 Empaquetando Juguetes",
-            "info": "Para empaquetar necesitamos dividir en grupos iguales",
-            "questions": [
-              {"question": "Paso 1: Tenemos 18 muñecas para poner en 3 estantes. ¿Cuántas en cada estante? 18 ÷ 3 =", "answer": 6},
-              {"question": "Paso 2: Tenemos 35 coches y queremos 5 coches por caja. ¿Cuántas cajas? 35 ÷ 5 =", "answer": 7},
-              {"question": "Paso 3: Hay 42 bloques para repartir en 6 bolsas: 42 ÷ 6 =", "answer": 7}
-            ],
-            "hint": "💡 Divide pensando: ¿cuántas veces cabe el divisor en el dividendo?",
-            "drawing": true,
-            "drawingPrompt": "Dibuja los estantes con las muñecas o las cajas con coches:"
-          },
-          {
-            "type": "reading",
-            "title": "📖 María la Inventora",
-            "story": "María trabaja en la fábrica creando juguetes. Hoy fabricó 7 sets de construcción. Cada set tiene 6 piezas diferentes. Luego, empaquetó todas las piezas en bolsas de 3 piezas cada una para venderlas por separado.",
-            "questions": [
-              {"question": "¿Cuántos sets hizo María?", "answer": "7", "alternatives": ["siete", "7 sets"]},
-              {"question": "Paso 1: ¿Cuántas piezas en total? (7 sets × 6 piezas)", "answer": 42},
-              {"question": "Paso 2: ¿Cuántas bolsas llenó? (42 piezas ÷ 3 por bolsa)", "answer": 14}
-            ],
-            "drawing": true,
-            "drawingPrompt": "Dibuja a María con sus sets de construcción y las bolsas:"
-          },
-          {
-            "type": "shapes",
-            "title": "🎲 Formas de Juguetes",
-            "questions": [
-              {"question": "Un dado tiene 6 caras cuadradas. Cada cara es un...", "options": ["Cuadrado", "Rectángulo", "Triángulo", "Círculo"], "answer": "Cuadrado"},
-              {"question": "Una pelota de fútbol tiene forma de...", "options": ["Cubo", "Esfera", "Cilindro", "Pirámide"], "answer": "Esfera"}
-            ],
-            "drawing": true,
-            "drawingPrompt": "Dibuja un dado y una pelota mostrando sus formas:"
-          },
-          {
-            "type": "creative",
-            "title": "🎨 Inventa Tu Juguete",
-            "drawing": true,
-            "fields": [
-              {"label": "Nombre del juguete:", "type": "text"},
-              {"label": "Si produces 8 juguetes al día durante 5 días, ¿cuántos tienes? (8 × 5)", "type": "number"},
-              {"label": "Si los vendes en packs de 4, ¿cuántos packs haces con 40 juguetes? (40 ÷ 4)", "type": "number"}
-            ]
-          }
-        ]
-      },
-      {
-        "title": "El Circo Matemático",
-        "icon": "🎪",
-        "badge": "Artista Circense",
-        "exercises": [
-          {
-            "type": "math",
-            "title": "🎭 Acróbatas en Formación",
-            "info": "Los acróbatas hacen pirámides humanas usando multiplicaciones",
-            "questions": [
-              {"question": "Paso 1: En cada fila hay 6 acróbatas. Si hay 4 filas: 4 × 6 =", "answer": 24},
-              {"question": "Paso 2: Cada malabarista lanza 9 pelotas. Si hay 3 malabaristas: 3 × 9 =", "answer": 27},
-              {"question": "Paso 3: Cada trapecista da 7 vueltas. Si actúan 5 trapecistas: 5 × 7 =", "answer": 35}
-            ],
-            "hint": "💡 Imagina grupos de acróbatas y cuenta cuántos hay en total",
-            "drawing": true,
-            "drawingPrompt": "Dibuja la pirámide de acróbatas o a los malabaristas:"
-          },
-          {
-            "type": "math",
-            "title": "🍿 Repartiendo Palomitas",
-            "info": "En el circo reparten palomitas en bolsas iguales usando divisiones",
-            "questions": [
-              {"question": "Paso 1: Hay 32 palomitas para repartir en 4 bolsas: 32 ÷ 4 =", "answer": 8},
-              {"question": "Paso 2: Tenemos 45 refrescos para 5 filas de asientos: 45 ÷ 5 =", "answer": 9},
-              {"question": "Paso 3: Hay 56 entradas para repartir en 7 grupos: 56 ÷ 7 =", "answer": 8}
-            ],
-            "hint": "💡 Reparte de uno en uno hasta que se acaben",
-            "drawing": true,
-            "drawingPrompt": "Dibuja las bolsas de palomitas o los grupos de asientos:"
-          },
-          {
-            "type": "reading",
-            "title": "📖 El Payaso Colorín",
-            "story": "El payaso Colorín hace 4 funciones cada día del circo. En cada función hace reír a 8 niños con sus trucos. Al final del día, reparte globos a todos los niños que vinieron, dando 2 globos a cada uno.",
-            "questions": [
-              {"question": "¿Cuántas funciones hace Colorín al día?", "answer": "4", "alternatives": ["cuatro", "4 funciones"]},
-              {"question": "Paso 1: ¿A cuántos niños hizo reír en total? (4 funciones × 8 niños)", "answer": 32},
-              {"question": "Paso 2: ¿Cuántos globos repartió? (32 niños × 2 globos cada uno)", "answer": 64}
-            ],
-            "drawing": true,
-            "drawingPrompt": "Dibuja a Colorín con los niños y los globos:"
-          },
-          {
-            "type": "shapes",
-            "title": "🎪 Formas en el Circo",
-            "questions": [
-              {"question": "La carpa del circo vista desde arriba tiene forma de...", "options": ["Círculo", "Cuadrado", "Triángulo", "Rectángulo"], "answer": "Círculo"},
-              {"question": "La banderola del circo (triángulo con tres lados iguales) es un...", "options": ["Triángulo equilátero", "Cuadrado", "Rectángulo", "Círculo"], "answer": "
-{"question": "La banderola del circo (triángulo con tres lados iguales) es un...", "options": ["Triángulo equilátero", "Cuadrado", "Rectángulo", "Círculo"], "answer": "Triángulo equilátero"}
-            ],
-            "drawing": true,
-            "drawingPrompt": "Dibuja la carpa circular con banderolas triangulares:"
-          },
-          {
-            "type": "creative",
-            "title": "🎨 Tu Número de Circo",
-            "drawing": true,
-            "fields": [
-              {"label": "Nombre de tu acto:", "type": "text"},
-              {"label": "Si haces 6 trucos por función y das 7 funciones, ¿cuántos trucos? (6 × 7)", "type": "number"},
-              {"label": "Describe tu truco más impresionante:", "type": "text"}
-            ]
-          }
-        ]
-      },
-      {
-        "title": "La Biblioteca Encantada",
-        "icon": "📚",
-        "badge": "Bibliotecario Mágico",
-        "exercises": [
-          {
-            "type": "math",
-            "title": "📖 Organizando Libros",
-            "info": "En la biblioteca ordenamos libros en estantes usando multiplicaciones y divisiones",
-            "questions": [
-              {"question": "Paso 1: Cada estante tiene 8 libros. Si hay 6 estantes: 6 × 8 =", "answer": 48},
-              {"question": "Paso 2: Tenemos 36 cuentos para poner en 4 cajas: 36 ÷ 4 =", "answer": 9},
-              {"question": "Paso 3: Si cada niño lee 5 páginas y hay 7 niños leyendo: 7 × 5 =", "answer": 35}
-            ],
-            "hint": "💡 Usa los dedos para contar grupos si lo necesitas",
-            "drawing": true,
-            "drawingPrompt": "Dibuja los estantes con libros organizados:"
-          },
-          {
-            "type": "math",
-            "title": "✏️ Préstamo de Libros",
-            "info": "La bibliotecaria presta libros en grupos iguales",
-            "questions": [
-              {"question": "Paso 1: Hay 28 libros prestados en 4 semanas. ¿Cuántos por semana? 28 ÷ 4 =", "answer": 7},
-              {"question": "Paso 2: Si cada clase pide 9 libros y hay 5 clases: 5 × 9 =", "answer": 45},
-              {"question": "Paso 3: Devolvieron 54 libros para poner en 6 estantes: 54 ÷ 6 =", "answer": 9}
-            ],
-            "hint": "💡 Dibuja rayitas para representar los libros y agrúpalos",
-            "drawing": true,
-            "drawingPrompt": "Dibuja a la bibliotecaria organizando los libros devueltos:"
-          },
-          {
-            "type": "reading",
-            "title": "📖 El Libro Mágico",
-            "story": "Ana encontró un libro mágico con 8 capítulos. Cada capítulo tiene exactamente 6 páginas ilustradas. Ana decide leer el libro completo en 4 días, leyendo la misma cantidad de páginas cada día.",
-            "questions": [
-              {"question": "¿Cuántos capítulos tiene el libro?", "answer": "8", "alternatives": ["ocho", "8 capítulos"]},
-              {"question": "Paso 1: ¿Cuántas páginas en total? (8 capítulos × 6 páginas)", "answer": 48},
-              {"question": "Paso 2: ¿Cuántas páginas lee cada día? (48 páginas ÷ 4 días)", "answer": 12}
-            ],
-            "drawing": true,
-            "drawingPrompt": "Dibuja a Ana con el libro mágico:"
-          },
-          {
-            "type": "shapes",
-            "title": "📐 Formas en los Libros",
-            "questions": [
-              {"question": "La portada de un libro cerrado tiene forma de...", "options": ["Rectángulo", "Cuadrado", "Triángulo", "Círculo"], "answer": "Rectángulo"},
-              {"question": "Un marcapáginas con 3 lados puntiagudos es un...", "options": ["Triángulo", "Cuadrado", "Círculo", "Rectángulo"], "answer": "Triángulo"}
-            ],
-            "drawing": true,
-            "drawingPrompt": "Dibuja libros y marcapáginas con sus formas:"
-          },
-          {
-            "type": "creative",
-            "title": "🎨 Tu Libro de Aventuras",
-            "drawing": true,
-            "fields": [
-              {"label": "Título de tu libro:", "type": "text"},
-              {"label": "Si tiene 9 capítulos con 7 páginas cada uno, ¿cuántas páginas? (9 × 7)", "type": "number"},
-              {"label": "Tema principal del libro:", "type": "text"}
-            ]
-          }
-        ]
-      },
-      {
-        "title": "El Restaurante Delicioso",
-        "icon": "🍕",
-        "badge": "Chef Maestro",
-        "exercises": [
-          {
-            "type": "math",
-            "title": "🍕 Preparando Pizzas",
-            "info": "En el restaurante calculamos ingredientes con multiplicaciones",
-            "questions": [
-              {"question": "Paso 1: Cada pizza tiene 8 trozos de pepperoni. Si hacemos 7 pizzas: 7 × 8 =", "answer": 56},
-              {"question": "Paso 2: Cada hamburguesa lleva 3 tomates. Si preparamos 9 hamburguesas: 9 × 3 =", "answer": 27},
-              {"question": "Paso 3: Cada mesa tiene 4 sillas. Si hay 8 mesas: 8 × 4 =", "answer": 32}
-            ],
-            "hint": "💡 Suma grupo por grupo para verificar tu multiplicación",
-            "drawing": true,
-            "drawingPrompt": "Dibuja las pizzas con sus ingredientes:"
-          },
-          {
-            "type": "math",
-            "title": "🥤 Sirviendo Bebidas",
-            "info": "Repartimos bebidas en grupos iguales usando divisiones",
-            "questions": [
-              {"question": "Paso 1: Tenemos 48 vasos para poner en 6 bandejas: 48 ÷ 6 =", "answer": 8},
-              {"question": "Paso 2: Hay 35 galletas para repartir en 7 platos: 35 ÷ 7 =", "answer": 5},
-              {"question": "Paso 3: El chef hizo 63 croquetas para 9 comensales: 63 ÷ 9 =", "answer": 7}
-            ],
-            "hint": "💡 Imagina que repartes de uno en uno hasta terminar",
-            "drawing": true,
-            "drawingPrompt": "Dibuja las bandejas con vasos o los platos con galletas:"
-          },
-          {
-            "type": "reading",
-            "title": "📖 El Chef Roberto",
-            "story": "El chef Roberto preparó un gran banquete. Cocinó 6 fuentes de pasta, cada una con 9 porciones. Luego preparó postres repartiendo 72 fresas en partes iguales entre 8 tartas que había horneado.",
-            "questions": [
-              {"question": "¿Cuántas fuentes de pasta preparó?", "answer": "6", "alternatives": ["seis", "6 fuentes"]},
-              {"question": "Paso 1: ¿Cuántas porciones de pasta en total? (6 fuentes × 9 porciones)", "answer": 54},
-              {"question": "Paso 2: ¿Cuántas fresas por tarta? (72 fresas ÷ 8 tartas)", "answer": 9}
-            ],
-            "drawing": true,
-            "drawingPrompt": "Dibuja a Roberto con sus platos y tartas:"
-          },
-          {
-            "type": "shapes",
-            "title": "🍽️ Formas en la Cocina",
-            "questions": [
-              {"question": "Un plato visto desde arriba tiene forma de...", "options": ["Círculo", "Cuadrado", "Triángulo", "Rectángulo"], "answer": "Círculo"},
-              {"question": "Una servilleta doblada en forma de triángulo es un...", "options": ["Triángulo", "Cuadrado", "Círculo", "Rectángulo"], "answer": "Triángulo"}
-            ],
-            "drawing": true,
-            "drawingPrompt": "Dibuja la mesa del restaurante con platos y servilletas:"
-          },
-          {
-            "type": "creative",
-            "title": "🎨 Tu Restaurante Especial",
-            "drawing": true,
-            "fields": [
-              {"label": "Nombre de tu restaurante:", "type": "text"},
-              {"label": "Si sirves 8 mesas con 6 personas cada una, ¿cuántos clientes? (8 × 6)", "type": "number"},
-              {"label": "Tu plato especial:", "type": "text"}
-            ]
-          }
-        ]
-      }
-    ]
   }
 }
-
