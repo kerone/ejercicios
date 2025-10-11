@@ -406,8 +406,7 @@
         ]
       }
     ]
-  }
-},
+  },
   "2": {
     "name": "Semana 2",
     "description": "Aventuras Matemáticas Avanzadas",
@@ -450,19 +449,9 @@
             "title": "📖 El Granjero Pedro",
             "story": "El granjero Pedro tiene 8 vacas. Cada vaca da 3 litros de leche al día. Pedro vende la leche en botellas de 2 litros. Esta mañana ordeñó todas sus vacas y llenó las botellas para vender en el mercado.",
             "questions": [
-              {
-                "question": "¿Cuántas vacas tiene Pedro?",
-                "answer": "8",
-                "alternatives": ["ocho", "8 vacas"]
-              },
-              {
-                "question": "Paso 1: ¿Cuántos litros en total? (8 vacas × 3 litros cada una)",
-                "answer": 24
-              },
-              {
-                "question": "Paso 2: ¿Cuántas botellas llenó? (24 litros ÷ 2 litros por botella)",
-                "answer": 12
-              }
+              {"question": "¿Cuántas vacas tiene Pedro?", "answer": "8", "alternatives": ["ocho", "8 vacas"]},
+              {"question": "Paso 1: ¿Cuántos litros en total? (8 vacas × 3 litros cada una)", "answer": 24},
+              {"question": "Paso 2: ¿Cuántas botellas llenó? (24 litros ÷ 2 litros por botella)", "answer": 12}
             ],
             "drawing": true,
             "drawingPrompt": "Dibuja a Pedro con sus vacas y las botellas de leche:"
@@ -471,16 +460,8 @@
             "type": "shapes",
             "title": "🏠 Formas de la Granja",
             "questions": [
-              {
-                "question": "El techo del establo tiene forma de triángulo con 3 lados iguales. ¿Cómo se llama?",
-                "options": ["Triángulo equilátero", "Triángulo rectángulo", "Cuadrado", "Rectángulo"],
-                "answer": "Triángulo equilátero"
-              },
-              {
-                "question": "La puerta del establo mide 2 metros de alto y 1 metro de ancho (2 lados largos, 2 cortos). Es un...",
-                "options": ["Cuadrado", "Rectángulo", "Triángulo", "Círculo"],
-                "answer": "Rectángulo"
-              }
+              {"question": "El techo del establo tiene forma de triángulo con 3 lados iguales. ¿Cómo se llama?", "options": ["Triángulo equilátero", "Triángulo rectángulo", "Cuadrado", "Rectángulo"], "answer": "Triángulo equilátero"},
+              {"question": "La puerta del establo mide 2 metros de alto y 1 metro de ancho (2 lados largos, 2 cortos). Es un...", "options": ["Cuadrado", "Rectángulo", "Triángulo", "Círculo"], "answer": "Rectángulo"}
             ],
             "drawing": true,
             "drawingPrompt": "Dibuja la granja con el techo triangular y la puerta rectangular:"
@@ -491,7 +472,7 @@
             "drawing": true,
             "fields": [
               {"label": "Nombre de tu granja:", "type": "text"},
-              {"label": "¿Cuántos animales tiene? (usa multiplicación para calcularlo)", "type": "number"},
+              {"label": "¿Cuántos animales tiene?", "type": "number"},
               {"label": "Si vendes huevos en paquetes de 6, ¿cuántos paquetes haces con 24 huevos? (24 ÷ 6)", "type": "number"}
             ]
           }
@@ -521,7 +502,7 @@
             "info": "Para empaquetar necesitamos dividir en grupos iguales",
             "questions": [
               {"question": "Paso 1: Tenemos 18 muñecas para poner en 3 estantes. ¿Cuántas en cada estante? 18 ÷ 3 =", "answer": 6},
-              {"question": "Paso 2: Tenemos 35 coches y queremos 5 coches por caja. ¿Cuántas cajas necesitamos? 35 ÷ 5 =", "answer": 7},
+              {"question": "Paso 2: Tenemos 35 coches y queremos 5 coches por caja. ¿Cuántas cajas? 35 ÷ 5 =", "answer": 7},
               {"question": "Paso 3: Hay 42 bloques para repartir en 6 bolsas: 42 ÷ 6 =", "answer": 7}
             ],
             "hint": "💡 Divide pensando: ¿cuántas veces cabe el divisor en el dividendo?",
@@ -533,19 +514,9 @@
             "title": "📖 María la Inventora",
             "story": "María trabaja en la fábrica creando juguetes. Hoy fabricó 7 sets de construcción. Cada set tiene 6 piezas diferentes. Luego, empaquetó todas las piezas en bolsas de 3 piezas cada una para venderlas por separado.",
             "questions": [
-              {
-                "question": "¿Cuántos sets hizo María?",
-                "answer": "7",
-                "alternatives": ["siete", "7 sets"]
-              },
-              {
-                "question": "Paso 1: ¿Cuántas piezas en total? (7 sets × 6 piezas)",
-                "answer": 42
-              },
-              {
-                "question": "Paso 2: ¿Cuántas bolsas llenó? (42 piezas ÷ 3 por bolsa)",
-                "answer": 14
-              }
+              {"question": "¿Cuántos sets hizo María?", "answer": "7", "alternatives": ["siete", "7 sets"]},
+              {"question": "Paso 1: ¿Cuántas piezas en total? (7 sets × 6 piezas)", "answer": 42},
+              {"question": "Paso 2: ¿Cuántas bolsas llenó? (42 piezas ÷ 3 por bolsa)", "answer": 14}
             ],
             "drawing": true,
             "drawingPrompt": "Dibuja a María con sus sets de construcción y las bolsas:"
@@ -554,16 +525,8 @@
             "type": "shapes",
             "title": "🎲 Formas de Juguetes",
             "questions": [
-              {
-                "question": "Un dado tiene 6 caras cuadradas. Cada cara es un...",
-                "options": ["Cuadrado", "Rectángulo", "Triángulo", "Círculo"],
-                "answer": "Cuadrado"
-              },
-              {
-                "question": "Una pelota de fútbol tiene forma de...",
-                "options": ["Cubo", "Esfera", "Cilindro", "Pirámide"],
-                "answer": "Esfera"
-              }
+              {"question": "Un dado tiene 6 caras cuadradas. Cada cara es un...", "options": ["Cuadrado", "Rectángulo", "Triángulo", "Círculo"], "answer": "Cuadrado"},
+              {"question": "Una pelota de fútbol tiene forma de...", "options": ["Cubo", "Esfera", "Cilindro", "Pirámide"], "answer": "Esfera"}
             ],
             "drawing": true,
             "drawingPrompt": "Dibuja un dado y una pelota mostrando sus formas:"
@@ -616,19 +579,9 @@
             "title": "📖 El Payaso Colorín",
             "story": "El payaso Colorín hace 4 funciones cada día del circo. En cada función hace reír a 8 niños con sus trucos. Al final del día, reparte globos a todos los niños que vinieron, dando 2 globos a cada uno.",
             "questions": [
-              {
-                "question": "¿Cuántas funciones hace Colorín al día?",
-                "answer": "4",
-                "alternatives": ["cuatro", "4 funciones"]
-              },
-              {
-                "question": "Paso 1: ¿A cuántos niños hizo reír en total? (4 funciones × 8 niños)",
-                "answer": 32
-              },
-              {
-                "question": "Paso 2: ¿Cuántos globos repartió? (32 niños × 2 globos cada uno)",
-                "answer": 64
-              }
+              {"question": "¿Cuántas funciones hace Colorín al día?", "answer": "4", "alternatives": ["cuatro", "4 funciones"]},
+              {"question": "Paso 1: ¿A cuántos niños hizo reír en total? (4 funciones × 8 niños)", "answer": 32},
+              {"question": "Paso 2: ¿Cuántos globos repartió? (32 niños × 2 globos cada uno)", "answer": 64}
             ],
             "drawing": true,
             "drawingPrompt": "Dibuja a Colorín con los niños y los globos:"
@@ -637,16 +590,9 @@
             "type": "shapes",
             "title": "🎪 Formas en el Circo",
             "questions": [
-              {
-                "question": "La carpa del circo vista desde arriba tiene forma de...",
-                "options": ["Círculo", "Cuadrado", "Triángulo", "Rectángulo"],
-                "answer": "Círculo"
-              },
-              {
-                "question": "La banderola del circo (triángulo con tres lados iguales) es un...",
-                "options": ["Triángulo equilátero", "Cuadrado", "Rectángulo", "Círculo"],
-                "answer": "Triángulo equilátero"
-              }
+              {"question": "La carpa del circo vista desde arriba tiene forma de...", "options": ["Círculo", "Cuadrado", "Triángulo", "Rectángulo"], "answer": "Círculo"},
+              {"question": "La banderola del circo (triángulo con tres lados iguales) es un...", "options": ["Triángulo equilátero", "Cuadrado", "Rectángulo", "Círculo"], "answer": "
+{"question": "La banderola del circo (triángulo con tres lados iguales) es un...", "options": ["Triángulo equilátero", "Cuadrado", "Rectángulo", "Círculo"], "answer": "Triángulo equilátero"}
             ],
             "drawing": true,
             "drawingPrompt": "Dibuja la carpa circular con banderolas triangulares:"
@@ -699,19 +645,9 @@
             "title": "📖 El Libro Mágico",
             "story": "Ana encontró un libro mágico con 8 capítulos. Cada capítulo tiene exactamente 6 páginas ilustradas. Ana decide leer el libro completo en 4 días, leyendo la misma cantidad de páginas cada día.",
             "questions": [
-              {
-                "question": "¿Cuántos capítulos tiene el libro?",
-                "answer": "8",
-                "alternatives": ["ocho", "8 capítulos"]
-              },
-              {
-                "question": "Paso 1: ¿Cuántas páginas en total? (8 capítulos × 6 páginas)",
-                "answer": 48
-              },
-              {
-                "question": "Paso 2: ¿Cuántas páginas lee cada día? (48 páginas ÷ 4 días)",
-                "answer": 12
-              }
+              {"question": "¿Cuántos capítulos tiene el libro?", "answer": "8", "alternatives": ["ocho", "8 capítulos"]},
+              {"question": "Paso 1: ¿Cuántas páginas en total? (8 capítulos × 6 páginas)", "answer": 48},
+              {"question": "Paso 2: ¿Cuántas páginas lee cada día? (48 páginas ÷ 4 días)", "answer": 12}
             ],
             "drawing": true,
             "drawingPrompt": "Dibuja a Ana con el libro mágico:"
@@ -720,16 +656,8 @@
             "type": "shapes",
             "title": "📐 Formas en los Libros",
             "questions": [
-              {
-                "question": "La portada de un libro cerrado tiene forma de...",
-                "options": ["Rectángulo", "Cuadrado", "Triángulo", "Círculo"],
-                "answer": "Rectángulo"
-              },
-              {
-                "question": "Un marcapáginas con 3 lados puntiagudos es un...",
-                "options": ["Triángulo", "Cuadrado", "Círculo", "Rectángulo"],
-                "answer": "Triángulo"
-              }
+              {"question": "La portada de un libro cerrado tiene forma de...", "options": ["Rectángulo", "Cuadrado", "Triángulo", "Círculo"], "answer": "Rectángulo"},
+              {"question": "Un marcapáginas con 3 lados puntiagudos es un...", "options": ["Triángulo", "Cuadrado", "Círculo", "Rectángulo"], "answer": "Triángulo"}
             ],
             "drawing": true,
             "drawingPrompt": "Dibuja libros y marcapáginas con sus formas:"
@@ -782,19 +710,9 @@
             "title": "📖 El Chef Roberto",
             "story": "El chef Roberto preparó un gran banquete. Cocinó 6 fuentes de pasta, cada una con 9 porciones. Luego preparó postres repartiendo 72 fresas en partes iguales entre 8 tartas que había horneado.",
             "questions": [
-              {
-                "question": "¿Cuántas fuentes de pasta preparó?",
-                "answer": "6",
-                "alternatives": ["seis", "6 fuentes"]
-              },
-              {
-                "question": "Paso 1: ¿Cuántas porciones de pasta en total? (6 fuentes × 9 porciones)",
-                "answer": 54
-              },
-              {
-                "question": "Paso 2: ¿Cuántas fresas por tarta? (72 fresas ÷ 8 tartas)",
-                "answer": 9
-              }
+              {"question": "¿Cuántas fuentes de pasta preparó?", "answer": "6", "alternatives": ["seis", "6 fuentes"]},
+              {"question": "Paso 1: ¿Cuántas porciones de pasta en total? (6 fuentes × 9 porciones)", "answer": 54},
+              {"question": "Paso 2: ¿Cuántas fresas por tarta? (72 fresas ÷ 8 tartas)", "answer": 9}
             ],
             "drawing": true,
             "drawingPrompt": "Dibuja a Roberto con sus platos y tartas:"
@@ -803,16 +721,8 @@
             "type": "shapes",
             "title": "🍽️ Formas en la Cocina",
             "questions": [
-              {
-                "question": "Un plato visto desde arriba tiene forma de...",
-                "options": ["Círculo", "Cuadrado", "Triángulo", "Rectángulo"],
-                "answer": "Círculo"
-              },
-              {
-                "question": "Una servilleta doblada en forma de triángulo es un...",
-                "options": ["Triángulo", "Cuadrado", "Círculo", "Rectángulo"],
-                "answer": "Triángulo"
-              }
+              {"question": "Un plato visto desde arriba tiene forma de...", "options": ["Círculo", "Cuadrado", "Triángulo", "Rectángulo"], "answer": "Círculo"},
+              {"question": "Una servilleta doblada en forma de triángulo es un...", "options": ["Triángulo", "Cuadrado", "Círculo", "Rectángulo"], "answer": "Triángulo"}
             ],
             "drawing": true,
             "drawingPrompt": "Dibuja la mesa del restaurante con platos y servilletas:"
@@ -831,3 +741,5 @@
       }
     ]
   }
+}
+
