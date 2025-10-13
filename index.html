@@ -1557,12 +1557,15 @@
             loadWeek(state.currentWeek);
         }
 
-        // Crear pestañas de semanas
+       // Crear pestañas de semanas
         function createWeekTabs() {
             const weekSelector = document.getElementById('weekSelector');
             weekSelector.innerHTML = '';
             
-            Object.keys(weeksData).forEach(weekNum => {
+            // Ordenar las claves numéricamente
+            const sortedWeeks = Object.keys(weeksData).sort((a, b) => parseInt(a) - parseInt(b));
+            
+            sortedWeeks.forEach(weekNum => {
                 const week = weeksData[weekNum];
                 const tab = document.createElement('div');
                 tab.className = 'week-tab';
@@ -1584,10 +1587,15 @@
             // Actualizar tabs
             document.querySelectorAll('.week-tab').forEach((tab, i) => {
                 tab.classList.remove('active');
-                if (i === weekNum - 1) {
-                    tab.classList.add('active');
-                }
             });
+            
+            // Buscar y activar la pestaña correcta
+            const tabs = document.querySelectorAll('.week-tab');
+            const sortedWeeks = Object.keys(weeksData).sort((a, b) => parseInt(a) - parseInt(b));
+            const tabIndex = sortedWeeks.indexOf(weekNum.toString());
+            if (tabIndex >= 0 && tabs[tabIndex]) {
+                tabs[tabIndex].classList.add('active');
+            }
         }
 
         // Cargar semana
