@@ -1888,19 +1888,29 @@
                         updateStats();
                         saveState();
                         
+                       if (dragValue === zoneAnswer) {
+                        zone.classList.add('correct');
+                        zone.appendChild(dragging);
+                        dragging.draggable = false;
+                        state.correctAnswers++;
+                        state.stars++;
+                        updateStats();
+                        saveState();
+                        
                         // Verificar si todas las zonas están completas
                         const allCorrect = Array.from(dropZones).every(z => z.classList.contains('correct'));
                         if (allCorrect) {
-                            setTimeout(() => {
-                                const week = weeksData[state.currentWeek];
-                                const day = week.days[state.currentDay - 1];
-                                if (state.currentExercise < day.exercises.length - 1) {
-                                    state.currentExercise++;
-                                    loadExercise();
-                                } else {
-                                    finishDay();
-                                }
-                            }, 1500);
+                            // Añadir un botón para continuar
+                            const exerciseContent = document.getElementById('exerciseContent');
+                            let continueBtn = document.getElementById('continueBtn');
+                            
+                            if (!continueBtn) {
+                                continueBtn = document.createElement('div');
+                                continueBtn.id = 'continueBtn';
+                                continueBtn.className = 'btn-container';
+                                continueBtn.innerHTML = '<button class="btn btn-success" onclick="nextExercise()">➡️ Continuar</button>';
+                                exerciseContent.appendChild(continueBtn);
+                            }
                         }
                     } else {
                         zone.classList.add('incorrect');
@@ -2114,7 +2124,7 @@
             }
         }
 
-        // Comprobar opción múltiple
+       // Comprobar opción múltiple
         function checkChoice(button, choice, correctAnswer) {
             const buttons = button.parentElement.querySelectorAll('.choice-btn');
             buttons.forEach(btn => {
@@ -2142,16 +2152,17 @@
                 
                 // Solo avanzar si TODAS las preguntas de opción múltiple han sido respondidas
                 if (allAnswered) {
-                    setTimeout(() => {
-                        const week = weeksData[state.currentWeek];
-                        const day = week.days[state.currentDay - 1];
-                        if (state.currentExercise < day.exercises.length - 1) {
-                            state.currentExercise++;
-                            loadExercise();
-                        } else {
-                            finishDay();
-                        }
-                    }, 1500);
+                    // Añadir un botón para continuar en lugar de avanzar automáticamente
+                    const exerciseContent = document.getElementById('exerciseContent');
+                    let continueBtn = document.getElementById('continueBtn');
+                    
+                    if (!continueBtn) {
+                        continueBtn = document.createElement('div');
+                        continueBtn.id = 'continueBtn';
+                        continueBtn.className = 'btn-container';
+                        continueBtn.innerHTML = '<button class="btn btn-success" onclick="nextExercise()">➡️ Continuar</button>';
+                        exerciseContent.appendChild(continueBtn);
+                    }
                 }
             } else {
                 button.classList.add('incorrect');
@@ -2251,6 +2262,16 @@
             stopTimer();
             showScreen('homeScreen');
             loadWeek(state.currentWeek);
+        }
+        function nextExercise() {
+            const week = weeksData[state.currentWeek];
+            const day = week.days[state.currentDay - 1];
+            if (state.currentExercise < day.exercises.length - 1) {
+                state.currentExercise++;
+                loadExercise();
+            } else {
+                finishDay();
+            }
         }
 
         function nextDay() {
