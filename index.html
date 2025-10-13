@@ -1172,7 +1172,7 @@
             background: white;
             border-radius: 20px;
             padding: 30px;
-            max-width: 600px;
+            max-width: 800px;
             width: 100%;
             max-height: 90vh;
             overflow-y: auto;
@@ -1261,7 +1261,7 @@
         
         .stats-grid {
             display: grid;
-            grid-template-columns: 1fr 1fr;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
             gap: 15px;
             margin-top: 15px;
         }
@@ -1284,6 +1284,33 @@
             font-size: 0.9em;
             color: #666;
             margin-top: 5px;
+        }
+        
+        .failure-group {
+            background: white;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 10px;
+            border: 2px solid #ef4444;
+            animation: slideInFromLeft 0.3s ease;
+        }
+        
+        @keyframes slideInFromLeft {
+            from { transform: translateX(-20px); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+        
+        .exercise-failure {
+            margin: 5px 0;
+            padding: 8px;
+            background: #fee2e2;
+            border-radius: 5px;
+        }
+        
+        /* Feedback styles */
+        @keyframes feedbackPop {
+            0% { transform: translate(-50%, -50%) scale(0.5); opacity: 0; }
+            100% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
         }
     </style>
 </head>
@@ -1372,7 +1399,7 @@
         <div class="admin-content" id="adminContent" style="display: none;">
             <div class="admin-header">
                 <h2>🔧 Panel de Administración</h2>
-                <p style="color: #666; font-size: 0.9em;">Gestiona el progreso y las semanas completadas</p>
+                <p style="color: #666; font-size: 0.9em;">Gestiona el progreso y las estadísticas detalladas</p>
             </div>
             
             <div class="admin-section">
@@ -1391,10 +1418,23 @@
                         <div class="label">✅ Respuestas correctas</div>
                     </div>
                     <div class="stat-card">
+                        <div class="number" id="adminFailures">0</div>
+                        <div class="label">❌ Fallos totales</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="number" id="adminAccuracy">0%</div>
+                        <div class="label">🎯 Precisión</div>
+                    </div>
+                    <div class="stat-card">
                         <div class="number" id="adminWeeks">0</div>
                         <div class="label">📚 Semanas con progreso</div>
                     </div>
                 </div>
+            </div>
+            
+            <div class="admin-section">
+                <h3>❌ Detalles de Fallos por Ejercicio</h3>
+                <div id="failureDetails"></div>
             </div>
             
             <div class="admin-section">
@@ -1421,6 +1461,7 @@
     </div>
 
     <script>
+        // ESTADO MEJORADO CON TRACKING DE FALLOS
         let state = {
             currentWeek: 1,
             currentDay: 0,
@@ -1430,7 +1471,12 @@
             daysCompleted: 0,
             completedDays: {},
             startTime: null,
-            currentColor: '#000000'
+            currentColor: '#000000',
+            // NUEVOS CAMPOS PARA FALLOS
+            totalFailures: 0,
+            currentExerciseFailures: 0,
+            failuresByExercise: {}, // Guarda fallos por ejercicio específico
+            exerciseAttempts: {} // Guarda intentos por ejercicio
         };
 
         let weeksData = null;
@@ -1559,10 +1605,71 @@
         function startDay(dayNumber) {
             state.currentDay = dayNumber;
             state.currentExercise = 0;
+            state.currentExerciseFailures = 0;
             state.startTime = Date.now();
             showScreen('exerciseScreen');
             startTimer();
             loadExercise();
+        }
+
+        // NUEVA FUNCIÓN PARA CALCULAR ESTRELLAS GANADAS
+        function calculateStarsEarned(exerciseId, totalQuestions) {
+            const attempts = state.exerciseAttempts[exerciseId] || 1;
+            
+            // Sistema de estrellas basado en rendimiento:
+            // - 5 estrellas: Primer intento correcto
+            // - 4 estrellas: Segundo intento correcto
+            // - 3 estrellas: Tercer intento correcto
+            // - 2 estrellas: Cuarto intento correcto
+            // - 1 estrella: Quinto intento o más
+            
+            if (attempts === 1) return 5;
+            if (attempts === 2) return 4;
+            if (attempts === 3) return 3;
+            if (attempts === 4) return 2;
+            return 1; // Mínimo 1 estrella por completar
+        }
+
+        // FUNCIÓN PARA MOSTRAR FEEDBACK VISUAL
+        function showFeedback(message, type) {
+            // Remover feedback anterior si existe
+            const existingFeedback = document.getElementById('exerciseFeedback');
+            if (existingFeedback) {
+                existingFeedback.remove();
+            }
+            
+            const feedback = document.createElement('div');
+            feedback.id = 'exerciseFeedback';
+            feedback.style.cssText = `
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                z-index: 10000;
+                padding: 20px 40px;
+                border-radius: 20px;
+                font-weight: bold;
+                font-size: 1.3em;
+                box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+                animation: feedbackPop 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            `;
+            
+            if (type === 'success') {
+                feedback.style.background = 'linear-gradient(135deg, #10b981 0%, #34d399 100%)';
+                feedback.style.color = 'white';
+            } else {
+                feedback.style.background = 'linear-gradient(135deg, #ef4444 0%, #f87171 100%)';
+                feedback.style.color = 'white';
+            }
+            
+            feedback.textContent = message;
+            document.body.appendChild(feedback);
+            
+            setTimeout(() => {
+                if (feedback.parentNode) {
+                    feedback.remove();
+                }
+            }, 2000);
         }
 
         function loadExercise() {
@@ -1634,6 +1741,42 @@
                 }
             }
             
+            if (exercise.type === 'english') {
+                if (exercise.vocabulary) {
+                    html += `<div style="background: #f0f9ff; padding: 20px; border-radius: 15px; margin: 20px 0;">
+                        <h4 style="color: #0369a1; margin-bottom: 15px;">📚 Vocabulario:</h4>
+                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 10px;">`;
+                    exercise.vocabulary.forEach(item => {
+                        html += `<div style="background: white; padding: 10px; border-radius: 8px; text-align: center; border: 2px solid #0369a1;">
+                            <div style="font-size: 2em; margin-bottom: 5px;">${item.image}</div>
+                            <div style="font-weight: bold; color: #0369a1;">${item.word}</div>
+                            <div style="color: #666; font-size: 0.9em;">${item.translation}</div>
+                        </div>`;
+                    });
+                    html += `</div></div>`;
+                }
+                
+                exercise.questions.forEach((q, i) => {
+                    if (q.options) {
+                        html += `<div class="question">
+                            <strong>${q.question}</strong>
+                            <div class="multiple-choice">`;
+                        q.options.forEach(option => {
+                            html += `<button class="choice-btn" onclick="checkChoice(this, '${option}', '${q.answer}')">${option}</button>`;
+                        });
+                        html += `</div></div>`;
+                    } else {
+                        html += `<div class="question">
+                            <strong>${q.question}</strong>
+                            <input type="text" class="answer-input" id="answer_${i}" 
+                                data-answer="${q.answer}" 
+                                style="width: 200px;">
+                            ${q.translation ? `<div style="font-size: 0.9em; color: #666; margin-top: 5px;">${q.translation}</div>` : ''}
+                        </div>`;
+                    }
+                });
+            }
+            
             if (exercise.type === 'drag') {
                 html += `<div class="drag-drop-container">
                     <div class="draggable-items">
@@ -1681,30 +1824,6 @@
                 html += `</div>`;
             }
             
-            if (exercise.drawing && (exercise.drawingPrompt || exercise.type === 'creative')) {
-                if (exercise.drawingPrompt) {
-                    html += `<div class="question"><strong>${exercise.drawingPrompt}</strong></div>`;
-                }
-                html += `<div style="text-align: center; margin: 20px 0;">
-                    <div class="color-picker">
-                        <div class="color-btn active" style="background: black;" onclick="selectColor('#000000')"></div>
-                        <div class="color-btn" style="background: red;" onclick="selectColor('#ff0000')"></div>
-                        <div class="color-btn" style="background: blue;" onclick="selectColor('#0000ff')"></div>
-                        <div class="color-btn" style="background: green;" onclick="selectColor('#00ff00')"></div>
-                        <div class="color-btn" style="background: yellow;" onclick="selectColor('#ffff00')"></div>
-                        <div class="color-btn" style="background: orange;" onclick="selectColor('#ff8800')"></div>
-                        <div class="color-btn" style="background: purple;" onclick="selectColor('#8800ff')"></div>
-                    </div>
-                    <canvas class="drawing-canvas" id="canvas" width="600" height="300"></canvas>
-                    <div class="tools">
-                        <button class="tool-btn" onclick="clearCanvas()">🗑️ Borrar</button>
-                        <button class="tool-btn" onclick="changeLineWidth(2)">✏️ Fino</button>
-                        <button class="tool-btn" onclick="changeLineWidth(5)">🖊️ Medio</button>
-                        <button class="tool-btn" onclick="changeLineWidth(10)">🖍️ Grueso</button>
-                    </div>
-                </div>`;
-            }
-            
             if (exercise.hint) {
                 html += `<button class="btn btn-primary" onclick="showHint()" style="margin: 10px 0;">💡 Ver Pista</button>
                          <div class="hint" id="hint">${exercise.hint}</div>`;
@@ -1722,18 +1841,202 @@
             
             document.getElementById('exerciseContent').innerHTML = html;
             
-            if (exercise.drawing && (exercise.drawingPrompt || exercise.type === 'creative')) {
-                initCanvas();
-            }
-            
             if (exercise.type === 'drag') {
                 initDragAndDrop();
             }
         }
         
+        // FUNCIÓN MEJORADA DE VERIFICACIÓN DE RESPUESTAS
+        function checkAnswers() {
+            const week = weeksData[state.currentWeek];
+            const day = week.days[state.currentDay - 1];
+            const exercise = day.exercises[state.currentExercise];
+            
+            // Identificador único del ejercicio
+            const exerciseId = `${state.currentWeek}_${state.currentDay}_${state.currentExercise}`;
+            
+            // Inicializar tracking si no existe
+            if (!state.failuresByExercise[exerciseId]) {
+                state.failuresByExercise[exerciseId] = 0;
+            }
+            if (!state.exerciseAttempts[exerciseId]) {
+                state.exerciseAttempts[exerciseId] = 0;
+            }
+            
+            let allCorrect = true;
+            let correctCount = 0;
+            let totalQuestions = 0;
+            
+            if (exercise.type === 'math' || exercise.type === 'reading' || exercise.type === 'english') {
+                const inputs = document.querySelectorAll('.answer-input');
+                totalQuestions = inputs.length;
+                
+                inputs.forEach((input, i) => {
+                    const userAnswer = input.value.trim().toLowerCase();
+                    const correctAnswer = input.dataset.answer.toLowerCase();
+                    const alternatives = input.dataset.alternatives ? input.dataset.alternatives.split('|') : [];
+                    
+                    const isCorrect = userAnswer === correctAnswer || 
+                                     alternatives.some(alt => userAnswer === alt.toLowerCase());
+                    
+                    if (isCorrect) {
+                        input.classList.add('correct');
+                        input.classList.remove('incorrect');
+                        correctCount++;
+                    } else {
+                        input.classList.add('incorrect');
+                        input.classList.remove('correct');
+                        allCorrect = false;
+                    }
+                });
+            } else if (exercise.type === 'creative') {
+                const inputs = document.querySelectorAll('.answer-input');
+                totalQuestions = inputs.length;
+                
+                inputs.forEach(input => {
+                    if (input.value.trim()) {
+                        input.classList.add('correct');
+                        correctCount++;
+                    } else {
+                        allCorrect = false;
+                    }
+                });
+            } else if (exercise.type === 'fillblanks') {
+                const inputs = document.querySelectorAll('.blank-input');
+                totalQuestions = inputs.length;
+                
+                inputs.forEach(input => {
+                    const userAnswer = input.value.trim().toLowerCase();
+                    const correctAnswer = input.dataset.answer.toLowerCase();
+                    
+                    if (userAnswer === correctAnswer) {
+                        input.classList.add('correct');
+                        input.classList.remove('incorrect');
+                        correctCount++;
+                    } else {
+                        input.classList.add('incorrect');
+                        input.classList.remove('correct');
+                        allCorrect = false;
+                    }
+                });
+            }
+            
+            // Incrementar intentos
+            state.exerciseAttempts[exerciseId]++;
+            
+            if (allCorrect) {
+                // NUEVO SISTEMA DE ESTRELLAS BASADO EN RENDIMIENTO
+                const starsEarned = calculateStarsEarned(exerciseId, totalQuestions);
+                
+                state.correctAnswers += correctCount;
+                state.stars += starsEarned;
+                
+                // Mostrar feedback positivo
+                showFeedback(`¡Excelente! +${starsEarned} ⭐`, 'success');
+                
+                updateStats();
+                saveState();
+                
+                setTimeout(() => {
+                    if (state.currentExercise < day.exercises.length - 1) {
+                        state.currentExercise++;
+                        state.currentExerciseFailures = 0; // Reset para próximo ejercicio
+                        loadExercise();
+                    } else {
+                        finishDay();
+                    }
+                }, 1500);
+            } else {
+                // REGISTRAR FALLO
+                state.currentExerciseFailures++;
+                state.failuresByExercise[exerciseId]++;
+                state.totalFailures++;
+                
+                // Mostrar feedback de error con estadísticas
+                const failureCount = state.failuresByExercise[exerciseId];
+                showFeedback(`❌ Respuesta incorrecta (Intento ${state.exerciseAttempts[exerciseId]})`, 'error');
+                
+                saveState();
+                updateStats();
+            }
+        }
+
+        // ACTUALIZAR checkChoice PARA DRAG & DROP Y MULTIPLE CHOICE
+        function checkChoice(button, choice, correctAnswer) {
+            const exerciseId = `${state.currentWeek}_${state.currentDay}_${state.currentExercise}`;
+            
+            if (!state.failuresByExercise[exerciseId]) {
+                state.failuresByExercise[exerciseId] = 0;
+            }
+            if (!state.exerciseAttempts[exerciseId]) {
+                state.exerciseAttempts[exerciseId] = 0;
+            }
+            
+            const buttons = button.parentElement.querySelectorAll('.choice-btn');
+            buttons.forEach(btn => {
+                btn.disabled = true;
+            });
+            
+            if (choice === correctAnswer) {
+                button.classList.add('correct');
+                state.exerciseAttempts[exerciseId]++;
+                
+                const starsEarned = calculateStarsEarned(exerciseId, 1);
+                state.correctAnswers++;
+                state.stars += starsEarned;
+                
+                showFeedback(`¡Correcto! +${starsEarned} ⭐`, 'success');
+                updateStats();
+                saveState();
+                
+                // Verificar si todas las preguntas están respondidas
+                const allChoiceContainers = document.querySelectorAll('.multiple-choice');
+                let allAnswered = true;
+                
+                allChoiceContainers.forEach(container => {
+                    const containerButtons = container.querySelectorAll('.choice-btn');
+                    const hasCorrect = Array.from(containerButtons).some(btn => btn.classList.contains('correct'));
+                    if (!hasCorrect) {
+                        allAnswered = false;
+                    }
+                });
+                
+                if (allAnswered) {
+                    setTimeout(() => nextExercise(), 1500);
+                }
+            } else {
+                button.classList.add('incorrect');
+                state.currentExerciseFailures++;
+                state.failuresByExercise[exerciseId]++;
+                state.totalFailures++;
+                state.exerciseAttempts[exerciseId]++;
+                
+                showFeedback(`❌ Incorrecto (Intento ${state.exerciseAttempts[exerciseId]})`, 'error');
+                saveState();
+                updateStats();
+                
+                setTimeout(() => {
+                    buttons.forEach(btn => {
+                        btn.disabled = false;
+                        btn.classList.remove('incorrect');
+                    });
+                }, 1500);
+            }
+        }
+
+        // MEJORAR DRAG AND DROP
         function initDragAndDrop() {
             const draggables = document.querySelectorAll('.draggable-item');
             const dropZones = document.querySelectorAll('.drop-zone');
+            
+            const exerciseId = `${state.currentWeek}_${state.currentDay}_${state.currentExercise}`;
+            
+            if (!state.failuresByExercise[exerciseId]) {
+                state.failuresByExercise[exerciseId] = 0;
+            }
+            if (!state.exerciseAttempts[exerciseId]) {
+                state.exerciseAttempts[exerciseId] = 0;
+            }
             
             draggables.forEach(draggable => {
                 draggable.addEventListener('dragstart', () => {
@@ -1763,33 +2066,38 @@
                     const dragValue = dragging.dataset.value;
                     const zoneAnswer = zone.dataset.answer;
                     
+                    state.exerciseAttempts[exerciseId]++;
+                    
                     if (dragValue === zoneAnswer) {
                         zone.classList.add('correct');
                         zone.appendChild(dragging);
                         dragging.draggable = false;
+                        
+                        const starsEarned = calculateStarsEarned(exerciseId, dropZones.length);
                         state.correctAnswers++;
-                        state.stars++;
+                        state.stars += starsEarned;
+                        
+                        showFeedback(`¡Correcto! +${starsEarned} ⭐`, 'success');
                         updateStats();
                         saveState();
                         
                         const allCorrect = Array.from(dropZones).every(z => z.classList.contains('correct'));
                         if (allCorrect) {
-                            const exerciseContent = document.getElementById('exerciseContent');
-                            let continueBtn = document.getElementById('continueBtn');
-                            
-                            if (!continueBtn) {
-                                continueBtn = document.createElement('div');
-                                continueBtn.id = 'continueBtn';
-                                continueBtn.className = 'btn-container';
-                                continueBtn.innerHTML = '<button class="btn btn-success" onclick="nextExercise()">➡️ Continuar</button>';
-                                exerciseContent.appendChild(continueBtn);
-                            }
+                            setTimeout(() => nextExercise(), 1500);
                         }
                     } else {
                         zone.classList.add('incorrect');
+                        state.currentExerciseFailures++;
+                        state.failuresByExercise[exerciseId]++;
+                        state.totalFailures++;
+                        
+                        showFeedback(`❌ Zona incorrecta (Intento ${state.exerciseAttempts[exerciseId]})`, 'error');
+                        saveState();
+                        updateStats();
+                        
                         setTimeout(() => {
                             zone.classList.remove('incorrect');
-                        }, 1000);
+                        }, 1500);
                     }
                 });
             });
@@ -1814,12 +2122,28 @@
         }
         
         function checkSequence(correctSequence) {
+            const exerciseId = `${state.currentWeek}_${state.currentDay}_${state.currentExercise}`;
+            
+            if (!state.failuresByExercise[exerciseId]) {
+                state.failuresByExercise[exerciseId] = 0;
+            }
+            if (!state.exerciseAttempts[exerciseId]) {
+                state.exerciseAttempts[exerciseId] = 0;
+            }
+            
             const result = document.getElementById('sequenceResult');
             const userSequence = selectedSequence.map(item => item.textContent);
+            
+            state.exerciseAttempts[exerciseId]++;
             
             if (userSequence.length !== correctSequence.length) {
                 result.textContent = '❌ Selecciona todos los elementos en el orden correcto';
                 result.className = 'sequence-result show incorrect';
+                
+                state.failuresByExercise[exerciseId]++;
+                state.totalFailures++;
+                showFeedback(`❌ Selecciona todos los elementos (Intento ${state.exerciseAttempts[exerciseId]})`, 'error');
+                saveState();
                 return;
             }
             
@@ -1828,8 +2152,12 @@
             if (isCorrect) {
                 result.textContent = '✅ ¡Correcto! Orden perfecto';
                 result.className = 'sequence-result show correct';
+                
+                const starsEarned = calculateStarsEarned(exerciseId, correctSequence.length);
                 state.correctAnswers++;
-                state.stars++;
+                state.stars += starsEarned;
+                
+                showFeedback(`¡Excelente! +${starsEarned} ⭐`, 'success');
                 updateStats();
                 saveState();
                 
@@ -1846,6 +2174,13 @@
             } else {
                 result.textContent = '❌ Incorrecto. Revisa el orden y vuelve a intentarlo';
                 result.className = 'sequence-result show incorrect';
+                
+                state.failuresByExercise[exerciseId]++;
+                state.totalFailures++;
+                showFeedback(`❌ Orden incorrecto (Intento ${state.exerciseAttempts[exerciseId]})`, 'error');
+                saveState();
+                updateStats();
+                
                 setTimeout(() => {
                     selectedSequence.forEach(item => {
                         item.classList.remove('selected');
@@ -1922,124 +2257,6 @@
             if (ctx) ctx.lineWidth = width;
         }
 
-        function checkAnswers() {
-            const week = weeksData[state.currentWeek];
-            const day = week.days[state.currentDay - 1];
-            const exercise = day.exercises[state.currentExercise];
-            let allCorrect = true;
-            let correctCount = 0;
-            
-            if (exercise.type === 'math' || exercise.type === 'reading') {
-                const inputs = document.querySelectorAll('.answer-input');
-                inputs.forEach((input, i) => {
-                    const userAnswer = input.value.trim().toLowerCase();
-                    const correctAnswer = input.dataset.answer.toLowerCase();
-                    const alternatives = input.dataset.alternatives ? input.dataset.alternatives.split('|') : [];
-                    
-                    const isCorrect = userAnswer === correctAnswer || 
-                                     alternatives.some(alt => userAnswer === alt.toLowerCase());
-                    
-                    if (isCorrect) {
-                        input.classList.add('correct');
-                        input.classList.remove('incorrect');
-                        correctCount++;
-                    } else {
-                        input.classList.add('incorrect');
-                        input.classList.remove('correct');
-                        allCorrect = false;
-                    }
-                });
-            } else if (exercise.type === 'creative') {
-                const inputs = document.querySelectorAll('.answer-input');
-                inputs.forEach(input => {
-                    if (input.value.trim()) {
-                        input.classList.add('correct');
-                        correctCount++;
-                    }
-                });
-                allCorrect = true;
-            } else if (exercise.type === 'fillblanks') {
-                const inputs = document.querySelectorAll('.blank-input');
-                inputs.forEach(input => {
-                    const userAnswer = input.value.trim().toLowerCase();
-                    const correctAnswer = input.dataset.answer.toLowerCase();
-                    
-                    if (userAnswer === correctAnswer) {
-                        input.classList.add('correct');
-                        input.classList.remove('incorrect');
-                        correctCount++;
-                    } else {
-                        input.classList.add('incorrect');
-                        input.classList.remove('correct');
-                        allCorrect = false;
-                    }
-                });
-            }
-            
-            if (allCorrect) {
-                state.correctAnswers += correctCount;
-                state.stars += 1;
-                updateStats();
-                saveState();
-                
-                setTimeout(() => {
-                    if (state.currentExercise < day.exercises.length - 1) {
-                        state.currentExercise++;
-                        loadExercise();
-                    } else {
-                        finishDay();
-                    }
-                }, 1000);
-            }
-        }
-
-        function checkChoice(button, choice, correctAnswer) {
-            const buttons = button.parentElement.querySelectorAll('.choice-btn');
-            buttons.forEach(btn => {
-                btn.disabled = true;
-            });
-            
-            if (choice === correctAnswer) {
-                button.classList.add('correct');
-                state.correctAnswers++;
-                state.stars++;
-                updateStats();
-                saveState();
-                
-                const allChoiceContainers = document.querySelectorAll('.multiple-choice');
-                let allAnswered = true;
-                
-                allChoiceContainers.forEach(container => {
-                    const containerButtons = container.querySelectorAll('.choice-btn');
-                    const hasCorrect = Array.from(containerButtons).some(btn => btn.classList.contains('correct'));
-                    if (!hasCorrect) {
-                        allAnswered = false;
-                    }
-                });
-                
-                if (allAnswered) {
-                    const exerciseContent = document.getElementById('exerciseContent');
-                    let continueBtn = document.getElementById('continueBtn');
-                    
-                    if (!continueBtn) {
-                        continueBtn = document.createElement('div');
-                        continueBtn.id = 'continueBtn';
-                        continueBtn.className = 'btn-container';
-                        continueBtn.innerHTML = '<button class="btn btn-success" onclick="nextExercise()">➡️ Continuar</button>';
-                        exerciseContent.appendChild(continueBtn);
-                    }
-                }
-            } else {
-                button.classList.add('incorrect');
-                setTimeout(() => {
-                    buttons.forEach(btn => {
-                        btn.disabled = false;
-                        btn.classList.remove('incorrect');
-                    });
-                }, 1000);
-            }
-        }
-
         function showHint() {
             document.getElementById('hint').classList.add('show');
         }
@@ -2048,18 +2265,21 @@
             stopTimer();
             const dayKey = `${state.currentWeek}_${state.currentDay}`;
             
+            let dayStars = 0;
             if (!state.completedDays[dayKey]) {
                 state.completedDays[dayKey] = true;
                 state.daysCompleted++;
+                dayStars = 4; // Bonus por completar el día
             }
-            state.stars += 4;
+            
+            state.stars += dayStars;
             updateStats();
             saveState();
             
             const week = weeksData[state.currentWeek];
             const day = week.days[state.currentDay - 1];
             document.getElementById('rewardBadge').textContent = day.badge;
-            document.getElementById('earnedStars').textContent = '5';
+            document.getElementById('earnedStars').textContent = dayStars + 4;
             
             const nextDayBtn = document.getElementById('nextDayBtn');
             if (state.currentDay < week.days.length) {
@@ -2128,6 +2348,7 @@
             const day = week.days[state.currentDay - 1];
             if (state.currentExercise < day.exercises.length - 1) {
                 state.currentExercise++;
+                state.currentExerciseFailures = 0;
                 loadExercise();
             } else {
                 finishDay();
@@ -2282,12 +2503,6 @@
                         });
                     }
 
-                    if (exercise.drawingPrompt) {
-                        pdfContent += `<p><strong>${exercise.drawingPrompt}</strong></p><div class="draw-box"></div>`;
-                    } else if (exercise.drawing && exercise.type === 'creative') {
-                        pdfContent += `<p><strong>Dibuja aquí tu creación:</strong></p><div class="draw-box"></div>`;
-                    }
-
                     if (exercise.fields) {
                         exercise.fields.forEach(field => {
                             pdfContent += `<div class="question"><strong>${field.label}</strong> <span class="answer-space" style="min-width: 200px;"></span></div>`;
@@ -2352,10 +2567,17 @@
             }
         });
         
+        // ACTUALIZAR ESTADÍSTICAS DEL ADMIN CON FALLOS
         function updateAdminStats() {
             document.getElementById('adminStars').textContent = state.stars;
             document.getElementById('adminDays').textContent = state.daysCompleted;
             document.getElementById('adminCorrect').textContent = state.correctAnswers;
+            document.getElementById('adminFailures').textContent = state.totalFailures;
+            
+            // Calcular precisión
+            const totalAttempts = state.correctAnswers + state.totalFailures;
+            const accuracy = totalAttempts > 0 ? Math.round((state.correctAnswers / totalAttempts) * 100) : 0;
+            document.getElementById('adminAccuracy').textContent = accuracy + '%';
             
             const weeksWithProgress = new Set();
             Object.keys(state.completedDays).forEach(key => {
@@ -2365,6 +2587,69 @@
             document.getElementById('adminWeeks').textContent = weeksWithProgress.size;
             
             generateWeeksList();
+            generateFailureDetails();
+        }
+        
+        // NUEVA FUNCIÓN PARA MOSTRAR DETALLES DE FALLOS
+        function generateFailureDetails() {
+            const failureDetails = document.getElementById('failureDetails');
+            if (!failureDetails) return;
+            
+            failureDetails.innerHTML = '';
+            
+            if (Object.keys(state.failuresByExercise).length === 0) {
+                failureDetails.innerHTML = '<p style="text-align: center; color: #999;">No hay fallos registrados</p>';
+                return;
+            }
+            
+            // Agrupar por semana y día
+            const groupedFailures = {};
+            
+            Object.entries(state.failuresByExercise).forEach(([exerciseId, failures]) => {
+                if (failures === 0) return;
+                
+                const [week, day, exercise] = exerciseId.split('_');
+                const weekDay = `${week}_${day}`;
+                
+                if (!groupedFailures[weekDay]) {
+                    groupedFailures[weekDay] = [];
+                }
+                
+                const attempts = state.exerciseAttempts[exerciseId] || 0;
+                const weekData = weeksData[week];
+                const dayData = weekData?.days[parseInt(day) - 1];
+                const exerciseData = dayData?.exercises[parseInt(exercise)];
+                
+                groupedFailures[weekDay].push({
+                    exerciseNum: parseInt(exercise) + 1,
+                    exerciseTitle: exerciseData?.title || 'Ejercicio desconocido',
+                    failures,
+                    attempts
+                });
+            });
+            
+            Object.entries(groupedFailures).forEach(([weekDay, exercises]) => {
+                const [week, day] = weekDay.split('_');
+                const weekData = weeksData[week];
+                const dayData = weekData?.days[parseInt(day) - 1];
+                
+                const failureGroup = document.createElement('div');
+                failureGroup.className = 'failure-group';
+                
+                failureGroup.innerHTML = `
+                    <div style="font-weight: bold; color: #ef4444; margin-bottom: 10px;">
+                        ${weekData?.name || 'Semana ' + week} - Día ${day}: ${dayData?.title || 'Día desconocido'}
+                    </div>
+                    ${exercises.map(ex => `
+                        <div class="exercise-failure">
+                            <strong>Ejercicio ${ex.exerciseNum}:</strong> ${ex.exerciseTitle}<br>
+                            <small>❌ ${ex.failures} fallos en ${ex.attempts} intentos</small>
+                        </div>
+                    `).join('')}
+                `;
+                
+                failureDetails.appendChild(failureGroup);
+            });
         }
         
         function generateWeeksList() {
@@ -2430,7 +2715,7 @@
         }
         
         function resetAllProgress() {
-            const confirmation = confirm('⚠️ ¿ESTÁS SEGURO?\n\nEsto borrará:\n- Todas las estrellas\n- Todos los días completados\n- Todas las estadísticas\n\nEsta acción NO se puede deshacer.');
+            const confirmation = confirm('⚠️ ¿ESTÁS SEGURO?\n\nEsto borrará:\n- Todas las estrellas\n- Todos los días completados\n- Todas las estadísticas\n- Todos los registros de fallos\n\nEsta acción NO se puede deshacer.');
             
             if (!confirmation) return;
             
@@ -2447,7 +2732,11 @@
                 daysCompleted: 0,
                 completedDays: {},
                 startTime: null,
-                currentColor: '#000000'
+                currentColor: '#000000',
+                totalFailures: 0,
+                currentExerciseFailures: 0,
+                failuresByExercise: {},
+                exerciseAttempts: {}
             };
             
             saveState();
