@@ -1,601 +1,487 @@
 {
-  "1": {
-    "name": "Semana 1",
-    "description": "Aventuras Fantásticas",
-    "days": [
-      {
-        "title": "Reino de los Dragones",
-        "icon": "🐉",
-        "badge": "Maestro de Dragones",
-        "exercises": [
-          {
-            "type": "math",
-            "title": "🥚 El Nido de Huevos de Dragón",
-            "questions": [
-              {"question": "12 + 8 =", "answer": 20},
-              {"question": "25 + 15 =", "answer": 40},
-              {"question": "34 - 9 =", "answer": 25}
-            ],
-            "hint": "💡 Suma las unidades primero, luego las decenas",
-            "drawing": true,
-            "drawingPrompt": "Dibuja los nidos con los huevos que calculaste:"
-          },
-          {
-            "type": "shapes",
-            "title": "🔺 Las Torres del Castillo",
-            "questions": [
-              {"question": "Una figura con 3 lados es un...", "options": ["Triángulo", "Cuadrado", "Círculo", "Rectángulo"], "answer": "Triángulo"},
-              {"question": "Una figura con 4 lados iguales es un...", "options": ["Triángulo", "Cuadrado", "Círculo", "Rectángulo"], "answer": "Cuadrado"}
-            ],
-            "drawing": true,
-            "drawingPrompt": "Dibuja un castillo usando triángulos y cuadrados:"
-          },
-          {
-            "type": "reading",
-            "title": "📖 El Dragón Llamarroja",
-            "story": "El dragón Llamarroja vive en una cueva cerca del volcán. Tiene 3 años y come pescado. Cada día come 6 peces por la mañana y 4 por la tarde. Su color favorito es el azul.",
-            "questions": [
-              {"question": "¿Dónde vive Llamarroja?", "answer": "cueva", "alternatives": ["en una cueva", "cueva volcán", "cerca del volcán"]},
-              {"question": "¿Cuántos peces come al día? (6 + 4)", "answer": 10},
-              {"question": "¿Por qué le gusta el color azul?", "answer": "mar", "alternatives": ["por el mar", "le recuerda al mar", "porque le recuerda al mar"]}
-            ],
-            "drawing": true,
-            "drawingPrompt": "Dibuja a Llamarroja comiendo pescado:"
-          },
-          {
-            "type": "math",
-            "title": "🔥 Bolas de Fuego",
-            "info": "¿Sabías que el fuego necesita combustible, oxígeno y calor?",
-            "questions": [
-              {"question": "Un dragón lanza 7 bolas en la 1ª ronda y 9 en la 2ª. Total: 7 + 9 =", "answer": 16}
-            ],
-            "drawing": true,
-            "drawingPrompt": "Dibuja un dragón lanzando bolas de fuego:"
-          },
-          {
-            "type": "creative",
-            "title": "🎨 ¡Diseña Tu Dragón!",
-            "drawing": true,
-            "fields": [
-              {"label": "¿Cómo se llama tu dragón?", "type": "text"},
-              {"label": "¿Cuántas patas tiene?", "type": "number"}
-            ]
-          }
-        ]
-      },
-      {
-        "title": "Tesoro en la Isla Misteriosa",
-        "icon": "🏴‍☠️",
-        "badge": "Capitán Pirata",
-        "exercises": [
-          {
-            "type": "math",
-            "title": "💰 Contando Monedas",
-            "questions": [
-              {"question": "18 + 12 =", "answer": 30},
-              {"question": "25 + 17 =", "answer": 42},
-              {"question": "30 - 8 =", "answer": 22}
-            ],
-            "drawing": true,
-            "drawingPrompt": "Dibuja las bolsas de monedas que calculaste:"
-          },
-          {
-            "type": "shapes",
-            "title": "🗺️ El Mapa del Tesoro",
-            "questions": [
-              {"question": "Una figura sin esquinas, redonda, es un...", "options": ["Círculo", "Cuadrado", "Triángulo", "Rectángulo"], "answer": "Círculo"},
-              {"question": "Una figura con 4 lados (2 largos, 2 cortos) es un...", "options": ["Círculo", "Cuadrado", "Triángulo", "Rectángulo"], "answer": "Rectángulo"}
-            ],
-            "drawing": true,
-            "drawingPrompt": "Dibuja un mapa del tesoro usando estas formas:"
-          },
-          {
-            "type": "reading",
-            "title": "📖 El Loro Pico",
-            "story": "El loro Pico tiene 5 años y repite todo. Cada mañana come 4 galletas y por la tarde come 5 más. Duerme en lo alto del mástil del barco.",
-            "questions": [
-              {"question": "¿Cómo se llama el loro?", "answer": "pico", "alternatives": ["Pico", "el loro pico"]},
-              {"question": "¿Cuántas galletas come al día? (4 + 5)", "answer": 9},
-              {"question": "¿Dónde duerme Pico?", "answer": "mástil", "alternatives": ["en el mástil", "mástil del barco", "alto del mástil"]}
-            ],
-            "drawing": true,
-            "drawingPrompt": "Dibuja al loro Pico en el mástil del barco:"
-          },
-          {
-            "type": "math",
-            "title": "⚓ Cañones del Barco",
-            "questions": [
-              {"question": "Lado izquierdo: 8 cañones. Lado derecho: 8 cañones. Total: 8 + 8 =", "answer": 16}
-            ],
-            "drawing": true,
-            "drawingPrompt": "Dibuja el barco pirata con sus cañones en ambos lados:"
-          },
-          {
-            "type": "creative",
-            "title": "🎨 Tu Bandera Pirata",
-            "drawing": true,
-            "fields": [
-              {"label": "Tu nombre pirata:", "type": "text"}
-            ]
-          }
-        ]
-      },
-      {
-        "title": "Misión Espacial",
-        "icon": "🚀",
-        "badge": "Explorador del Universo",
-        "exercises": [
-          {
-            "type": "math",
-            "title": "🌟 Contando Estrellas",
-            "questions": [
-              {"question": "15 + 14 =", "answer": 29},
-              {"question": "28 + 13 =", "answer": 41},
-              {"question": "50 - 12 =", "answer": 38}
-            ],
-            "drawing": true,
-            "drawingPrompt": "Dibuja las galaxias con sus estrellas:"
-          },
-          {
-            "type": "shapes",
-            "title": "🛸 Formas del Espacio",
-            "questions": [
-              {"question": "Un planeta es redondo, sin esquinas. Es un...", "options": ["Círculo", "Cuadrado", "Triángulo", "Rectángulo"], "answer": "Círculo"},
-              {"question": "Una ventana con 3 lados iguales es un...", "options": ["Círculo", "Cuadrado", "Triángulo", "Rectángulo"], "answer": "Triángulo"}
-            ],
-            "drawing": true,
-            "drawingPrompt": "Dibuja tu nave espacial usando estas formas:"
-          },
-          {
-            "type": "reading",
-            "title": "📖 La Astronauta Luna",
-            "story": "Luna viaja en su cohete plateado. Tiene 8 años y observa 9 planetas por la mañana y 6 por la tarde. Sueña con pisar Marte.",
-            "questions": [
-              {"question": "¿De qué color es su cohete?", "answer": "plateado", "alternatives": ["plateado", "plata"]},
-              {"question": "¿Cuántos planetas observa al día? (9 + 6)", "answer": 15},
-              {"question": "¿Qué planeta quiere visitar?", "answer": "marte", "alternatives": ["Marte", "pisar marte"]}
-            ],
-            "drawing": true,
-            "drawingPrompt": "Dibuja a Luna en su cohete viajando al espacio:"
-          },
-          {
-            "type": "math",
-            "title": "🌙 Cráteres de la Luna",
-            "questions": [
-              {"question": "Zona norte: 12 cráteres. Zona sur: 11 cráteres. Total: 12 + 11 =", "answer": 23}
-            ],
-            "drawing": true,
-            "drawingPrompt": "Dibuja la Luna con sus cráteres:"
-          },
-          {
-            "type": "creative",
-            "title": "🎨 Tu Planeta",
-            "drawing": true,
-            "fields": [
-              {"label": "Nombre del planeta:", "type": "text"},
-              {"label": "Número de lunas:", "type": "number"}
-            ]
-          }
-        ]
-      },
-      {
-        "title": "Mundo Jurásico",
-        "icon": "🦖",
-        "badge": "Paleontólogo Experto",
-        "exercises": [
-          {
-            "type": "math",
-            "title": "🥚 Nidos de Dinosaurios",
-            "questions": [
-              {"question": "16 + 15 =", "answer": 31},
-              {"question": "22 + 19 =", "answer": 41},
-              {"question": "45 - 13 =", "answer": 32}
-            ],
-            "drawing": true,
-            "drawingPrompt": "Dibuja los nidos de dinosaurios con sus huevos:"
-          },
-          {
-            "type": "shapes",
-            "title": "🦴 Formas de Fósiles",
-            "questions": [
-              {"question": "Una huella con 3 dedos tiene forma de...", "options": ["Círculo", "Cuadrado", "Triángulo", "Rectángulo"], "answer": "Triángulo"},
-              {"question": "Un huevo fósil ovalado parece un...", "options": ["Círculo", "Cuadrado", "Triángulo", "Óvalo"], "answer": "Óvalo"}
-            ],
-            "drawing": true,
-            "drawingPrompt": "Dibuja los fósiles que encontraste en la excavación:"
-          },
-          {
-            "type": "reading",
-            "title": "📖 El Diplodocus",
-            "story": "El Diplodocus era gigante y comía solo plantas. Cada día comía 7 árboles por la mañana y 8 por la tarde. Vivía cerca de lagos.",
-            "questions": [
-              {"question": "¿Qué comía el Diplodocus?", "answer": "plantas", "alternatives": ["plantas", "árboles", "vegetales"]},
-              {"question": "¿Cuántos árboles comía al día? (7 + 8)", "answer": 15},
-              {"question": "¿Dónde vivía?", "answer": "lagos", "alternatives": ["cerca de lagos", "lagos", "junto a lagos"]}
-            ],
-            "drawing": true,
-            "drawingPrompt": "Dibuja al Diplodocus comiendo árboles junto al lago:"
-          },
-          {
-            "type": "math",
-            "title": "🦷 Dientes del T-Rex",
-            "questions": [
-              {"question": "Mandíbula superior: 14 dientes. Inferior: 16 dientes. Total: 14 + 16 =", "answer": 30}
-            ],
-            "drawing": true,
-            "drawingPrompt": "Dibuja un T-Rex mostrando sus dientes:"
-          },
-          {
-            "type": "creative",
-            "title": "🎨 Tu Dinosaurio",
-            "drawing": true,
-            "fields": [
-              {"label": "Nombre:", "type": "text"},
-              {"label": "¿Qué come?", "type": "text"}
-            ]
-          }
-        ]
-      },
-      {
-        "title": "Océano Profundo",
-        "icon": "🐠",
-        "badge": "Explorador Marino",
-        "exercises": [
-          {
-            "type": "math",
-            "title": "🐟 Banco de Peces",
-            "questions": [
-              {"question": "17 + 14 =", "answer": 31},
-              {"question": "23 + 18 =", "answer": 41},
-              {"question": "40 - 11 =", "answer": 29}
-            ],
-            "drawing": true,
-            "drawingPrompt": "Dibuja los grupos de peces de colores en el arrecife:"
-          },
-          {
-            "type": "shapes",
-            "title": "⭐ Formas del Mar",
-            "questions": [
-              {"question": "Una estrella de mar tiene...", "options": ["3 puntas", "4 puntas", "5 puntas", "6 puntas"], "answer": "5 puntas"},
-              {"question": "Una medusa tiene forma...", "options": ["Redonda", "Cuadrada", "Triangular", "Rectangular"], "answer": "Redonda"}
-            ],
-            "drawing": true,
-            "drawingPrompt": "Dibuja el fondo marino con estrellas de mar y medusas:"
-          },
-          {
-            "type": "reading",
-            "title": "📖 El Delfín Azul",
-            "story": "El delfín Azul vive en el Pacífico. Tiene 6 años. Cada día salta 8 veces por la mañana y 7 por la tarde. Come calamares.",
-            "questions": [
-              {"question": "¿En qué océano vive?", "answer": "pacífico", "alternatives": ["Pacífico", "océano pacífico", "pacifico"]},
-              {"question": "¿Cuántos saltos da al día? (8 + 7)", "answer": 15},
-              {"question": "¿Qué come el delfín Azul?", "answer": "calamares", "alternatives": ["calamares", "come calamares"]}
-            ],
-            "drawing": true,
-            "drawingPrompt": "Dibuja al delfín Azul saltando en el océano:"
-          },
-          {
-            "type": "math",
-            "title": "🐙 Tentáculos del Pulpo",
-            "questions": [
-              {"question": "Pulpo grande: 8 tentáculos. Pulpo pequeño: 8 tentáculos. Total: 8 + 8 =", "answer": 16}
-            ],
-            "drawing": true,
-            "drawingPrompt": "Dibuja los dos pulpos con todos sus tentáculos:"
-          },
-          {
-            "type": "creative",
-            "title": "🎨 Tu Criatura Marina",
-            "drawing": true,
-            "fields": [
-              {"label": "Nombre:", "type": "text"},
-              {"label": "Número de aletas:", "type": "number"},
-              {"label": "Superpoder:", "type": "text"}
-            ]
-          }
-        ]
-      }
-    ]
-  },
   "2": {
     "name": "Semana 2",
-    "description": "Aventuras Matemáticas Avanzadas",
+    "description": "Aventuras Épicas: Titanes, Tralalalá y Tenis",
     "level": "3º Primaria",
     "difficulty": "Media-Alta",
     "days": [
       {
-        "title": "La Granja de Multiplicaciones",
-        "icon": "🐄",
-        "badge": "Experto en Multiplicaciones",
+        "title": "La Batalla de los Titanes",
+        "icon": "⚔️",
+        "badge": "Explorador de Muros",
         "exercises": [
           {
             "type": "math",
-            "title": "🥚 Multiplicación: Huevos en Cajas",
+            "title": "⚔️ Multiplicación: Soldados en Formación",
             "info": "Para multiplicar, suma el mismo número varias veces. Ejemplo: 3 × 4 significa '3 grupos de 4'",
             "questions": [
-              {"question": "La gallina pone 4 huevos cada día. ¿Cuántos huevos en 3 días? | Paso 1: 4 + 4 + 4 = ", "answer": 12},
-              {"question": "Paso 2: Escribe la multiplicación: 4 × 3 = ", "answer": 12},
-              {"question": "Si pone 5 huevos en 4 días: 5 × 4 = ", "answer": 20}
+              {"question": "Cada escuadrón tiene 8 soldados. ¿Cuántos soldados en 4 escuadrones? | Paso 1: 8 + 8 + 8 + 8 = ", "answer": 32},
+              {"question": "Paso 2: Escribe la multiplicación: 8 × 4 = ", "answer": 32},
+              {"question": "Si hay 6 torres con 7 guardianes cada una: 6 × 7 = ", "answer": 42}
             ],
-            "hint": "💡 Multiplica contando grupos: 5 × 4 = 5+5+5+5"
+            "hint": "💡 Multiplica contando grupos: 6 × 7 = 6+6+6+6+6+6+6"
           },
           {
             "type": "drag",
-            "title": "🐮 Arrastra los Animales",
-            "instruction": "Arrastra cada animal a su corral según la cantidad",
+            "title": "🏰 Clasifica las Defensas",
+            "instruction": "Arrastra cada elemento defensivo según su altura",
             "items": [
-              {"text": "🐄 Vacas (8)", "value": "pares"},
-              {"text": "🐔 Gallinas (15)", "value": "impares"},
-              {"text": "🐷 Cerdos (12)", "value": "pares"},
-              {"text": "🐑 Ovejas (7)", "value": "impares"}
+              {"text": "🏰 Muro María (50m)", "value": "alto"},
+              {"text": "⛪ Torre de Guardia (15m)", "value": "bajo"},
+              {"text": "🏛️ Muro Rose (60m)", "value": "alto"},
+              {"text": "🏕️ Barricada (8m)", "value": "bajo"},
+              {"text": "🏰 Muro Sina (55m)", "value": "alto"}
             ],
             "zones": [
-              {"label": "Números PARES", "answer": "pares"},
-              {"label": "Números IMPARES", "answer": "impares"}
+              {"label": "DEFENSAS ALTAS (más de 40m)", "answer": "alto"},
+              {"label": "DEFENSAS BAJAS (menos de 40m)", "answer": "bajo"}
             ]
           },
           {
             "type": "reading",
-            "title": "📖 El Granjero y sus Animales",
-            "story": "El granjero Pedro tiene una granja grande. Cada mañana ordena 6 vacas. Cada vaca da 3 litros de leche. Por la tarde recoge huevos: 4 gallinas ponen 2 huevos cada una.",
+            "title": "📖 El Explorador Eren",
+            "story": "Eren es un joven explorador que sueña con ver el mundo más allá de los muros. Cada día entrena 3 horas por la mañana y 2 horas por la tarde. Su equipo de maniobras tridimensional pesa 15 kilos. Junto a sus amigos Mikasa y Armin, planea unirse a la Legión de Reconocimiento.",
             "questions": [
-              {"question": "¿Cuántos litros de leche en total? (6 vacas × 3 litros)", "answer": 18},
-              {"question": "¿Cuántos huevos recoge? (4 gallinas × 2 huevos)", "answer": 8}
+              {"question": "¿Cuántas horas entrena Eren al día? (3 + 2)", "answer": 5},
+              {"question": "¿Cuánto pesa su equipo de maniobras?", "answer": 15, "alternatives": ["15 kilos", "quince"]},
+              {"question": "¿Cómo se llaman sus dos mejores amigos?", "answer": "Mikasa y Armin", "alternatives": ["mikasa y armin", "Mikasa, Armin"]}
             ]
           },
           {
             "type": "sequence",
-            "title": "🌾 Ordena el Proceso",
-            "instruction": "Ordena los pasos para hacer pan desde el inicio hasta el final:",
-            "sequence": ["Sembrar trigo", "Cosechar trigo", "Moler en harina", "Amasar el pan", "Hornear el pan"]
+            "title": "⚔️ Secuencia de Combate",
+            "instruction": "Ordena los pasos para usar el equipo de maniobras:",
+            "sequence": ["Ponerse el arnés", "Cargar los tanques de gas", "Apuntar los ganchos", "Disparar hacia el objetivo", "Balancearse y atacar"]
           },
           {
             "type": "fillblanks",
-            "title": "✏️ Completa las Tablas",
-            "instruction": "Completa las multiplicaciones de la tabla del 2 y 3:",
+            "title": "✏️ Operaciones de Defensa",
+            "instruction": "Completa los cálculos de la Legión:",
             "sentences": [
-              {"text": "2 × 5 = ___", "answers": ["10"]},
-              {"text": "3 × 4 = ___", "answers": ["12"]},
-              {"text": "2 × 7 = ___", "answers": ["14"]},
-              {"text": "3 × 6 = ___", "answers": ["18"]}
+              {"text": "5 × 6 = ___ soldados por batallón", "answers": ["30"]},
+              {"text": "7 × 4 = ___ espadas en el arsenal", "answers": ["28"]},
+              {"text": "9 × 3 = ___ caballos en los establos", "answers": ["27"]},
+              {"text": "8 × 5 = ___ raciones de comida", "answers": ["40"]}
+            ]
+          },
+          {
+            "type": "reading",
+            "title": "📚 Comprensión: La Historia de los Muros",
+            "story": "Hace 100 años, la humanidad se refugió detrás de tres enormes muros concéntricos para protegerse de los Titanes. El Muro María, el más exterior, tiene 50 metros de altura y protege las tierras de cultivo. El Muro Rose, en el medio, mide 60 metros y rodea las ciudades principales. El Muro Sina, el más interior, tiene 55 metros y protege la capital y el palacio real. Cada muro está dividido en distritos, y hay un total de 12 distritos habitados. La Legión de Reconocimiento es el cuerpo militar más valiente, con solo 300 soldados que se atreven a salir más allá de los muros para explorar y luchar contra los Titanes. Su tasa de supervivencia es muy baja: solo 3 de cada 10 soldados regresan vivos de las expediciones.",
+            "questions": [
+              {"question": "¿Cuántos años hace que se construyeron los muros?", "answer": "100", "alternatives": ["cien", "100 años"]},
+              {"question": "¿Cuál es el muro más alto?", "answer": "Rose", "alternatives": ["Muro Rose", "muro rose"]},
+              {"question": "¿Cuántos metros mide el Muro María?", "answer": "50", "alternatives": ["cincuenta", "50 metros"]},
+              {"question": "¿Cuántos distritos hay en total?", "answer": "12", "alternatives": ["doce", "12 distritos"]},
+              {"question": "¿Cuántos soldados tiene la Legión de Reconocimiento?", "answer": "300", "alternatives": ["trescientos", "300 soldados"]},
+              {"question": "¿Cuántos de cada 10 soldados sobreviven?", "answer": "3", "alternatives": ["tres", "3 soldados"]}
+            ]
+          },
+          {
+            "type": "english",
+            "title": "🇬🇧 Titans and Warriors (Titanes y Guerreros)",
+            "vocabulary": [
+              {"word": "wall", "translation": "muro", "image": "🏰"},
+              {"word": "soldier", "translation": "soldado", "image": "⚔️"},
+              {"word": "fight", "translation": "luchar", "image": "👊"},
+              {"word": "brave", "translation": "valiente", "image": "🦸"},
+              {"word": "protect", "translation": "proteger", "image": "🛡️"}
+            ],
+            "questions": [
+              {"question": "¿Cómo se dice 'muro' en inglés?", "options": ["wall", "soldier", "fight", "protect"], "answer": "wall"},
+              {"question": "¿Qué significa 'The soldier is brave'?", "options": ["El soldado es alto", "El soldado es valiente", "El soldado es fuerte", "El soldado es rápido"], "answer": "El soldado es valiente"},
+              {"question": "Completa: 'We ___ the city'", "answer": "protect", "translation": "Protegemos la ciudad"}
             ]
           }
         ]
       },
       {
-        "title": "El Mercado de las Divisiones",
-        "icon": "🛒",
-        "badge": "Maestro de Divisiones",
+        "title": "El Tiburón TRARÃ RARA RA",
+        "icon": "🦈",
+        "badge": "Rey del Brainrot",
         "exercises": [
           {
             "type": "math",
-            "title": "🍎 División: Repartir Manzanas",
+            "title": "👟 División: Repartir Zapatillas Virales",
             "info": "Dividir es REPARTIR en partes iguales. Ejemplo: 12 ÷ 3 significa 'reparte 12 entre 3 personas'",
             "questions": [
-              {"question": "Tienes 12 manzanas para 3 amigos. ¿Cuántas para cada uno? | Paso 1: Cuenta de 3 en 3: 3, 6, 9, 12 = ", "answer": 4},
-              {"question": "Paso 2: Escribe la división: 12 ÷ 3 = ", "answer": 4},
-              {"question": "Ahora: 15 naranjas entre 5 amigos: 15 ÷ 5 = ", "answer": 3}
+              {"question": "El tiburón tiene 28 zapatillas para 4 aletas. ¿Cuántas para cada aleta? | 28 ÷ 4 = ", "answer": 7},
+              {"question": "Hay 36 videos virales para 6 plataformas. ¿Videos por plataforma? | 36 ÷ 6 = ", "answer": 6},
+              {"question": "42 TikToks se reparten entre 7 influencers. ¿TikToks cada uno? | 42 ÷ 7 = ", "answer": 6}
             ],
-            "hint": "💡 Para dividir 15 ÷ 5, pregunta: ¿cuántas veces cabe el 5 en el 15?"
+            "hint": "💡 TRARÃ RARA RA: divide como el tiburón con sus zapatillas!"
           },
           {
             "type": "drag",
-            "title": "🛍️ Organiza la Compra",
-            "instruction": "Arrastra cada producto a su categoría",
+            "title": "📱 Clasifica el Contenido Viral",
+            "instruction": "Arrastra cada tipo de contenido según su plataforma",
             "items": [
-              {"text": "🍎 Manzana", "value": "frutas"},
-              {"text": "🥕 Zanahoria", "value": "verduras"},
-              {"text": "🍌 Plátano", "value": "frutas"},
-              {"text": "🥦 Brócoli", "value": "verduras"},
-              {"text": "🍊 Naranja", "value": "frutas"},
-              {"text": "🥬 Lechuga", "value": "verduras"}
+              {"text": "🦈 TikTok del tiburón", "value": "tiktok"},
+              {"text": "📸 Story de Instagram", "value": "instagram"},
+              {"text": "🎬 YouTube Short", "value": "youtube"},
+              {"text": "🦈 Reels del tiburón", "value": "instagram"},
+              {"text": "🎵 TikTok viral", "value": "tiktok"},
+              {"text": "📺 Video de YouTube", "value": "youtube"}
             ],
             "zones": [
-              {"label": "FRUTAS", "answer": "frutas"},
-              {"label": "VERDURAS", "answer": "verduras"}
+              {"label": "TIKTOK", "answer": "tiktok"},
+              {"label": "INSTAGRAM", "answer": "instagram"},
+              {"label": "YOUTUBE", "answer": "youtube"}
             ]
           },
           {
             "type": "reading",
-            "title": "📖 María va al Mercado",
-            "story": "María compra en el mercado. Gasta 18 euros en 3 bolsas de fruta (todas al mismo precio). Luego compra 20 caramelos y los reparte entre sus 4 hermanos.",
+            "title": "📖 El Tiburón Influencer",
+            "story": "El tiburón más famoso de internet se llama Sharky y vive en TikTok. Cada día sube 8 videos por la mañana y 4 por la tarde. Sus zapatillas favoritas son unas Nike rojas que brillan. Sus seguidores gritan 'TRARÃ RARA RA RA RA' cada vez que aparece.",
             "questions": [
-              {"question": "¿Cuánto cuesta cada bolsa de fruta? (18 ÷ 3)", "answer": 6},
-              {"question": "¿Cuántos caramelos para cada hermano? (20 ÷ 4)", "answer": 5}
+              {"question": "¿Cuántos videos sube Sharky al día? (8 + 4)", "answer": 12},
+              {"question": "¿De qué color son sus zapatillas favoritas?", "answer": "rojas", "alternatives": ["roja", "rojas"]},
+              {"question": "¿Qué gritan sus seguidores?", "answer": "TRARÃ RARA RA RA RA", "alternatives": ["trarã rara ra ra ra", "trara rara ra"]}
             ]
           },
           {
             "type": "math",
-            "title": "💰 Problemas de Reparto",
+            "title": "🔥 Problemas Virales",
             "questions": [
-              {"question": "24 lápices en 6 cajas iguales. ¿Lápices por caja? 24 ÷ 6 = ", "answer": 4},
-              {"question": "30 galletas entre 5 niños. ¿Galletas cada uno? 30 ÷ 5 = ", "answer": 6},
-              {"question": "28 flores en 4 jarrones iguales. ¿Flores por jarrón? 28 ÷ 4 = ", "answer": 7}
+              {"question": "48 memes en 8 grupos de WhatsApp. ¿Memes por grupo? 48 ÷ 8 = ", "answer": 6},
+              {"question": "63 emojis de tiburón entre 9 chats. ¿Emojis por chat? 63 ÷ 9 = ", "answer": 7},
+              {"question": "35 zapatillas en 5 armarios. ¿Zapatillas por armario? 35 ÷ 5 = ", "answer": 7}
             ]
           },
           {
             "type": "fillblanks",
-            "title": "✏️ Practica las Divisiones",
-            "instruction": "Completa estas divisiones básicas:",
+            "title": "✏️ Matemáticas Brainrot",
+            "instruction": "Completa estos cálculos virales:",
             "sentences": [
-              {"text": "16 ÷ 2 = ___", "answers": ["8"]},
-              {"text": "21 ÷ 3 = ___", "answers": ["7"]},
-              {"text": "25 ÷ 5 = ___", "answers": ["5"]},
-              {"text": "18 ÷ 6 = ___", "answers": ["3"]}
+              {"text": "24 ÷ 4 = ___ tiburones", "answers": ["6"]},
+              {"text": "45 ÷ 5 = ___ zapatillas", "answers": ["9"]},
+              {"text": "56 ÷ 8 = ___ TikToks", "answers": ["7"]},
+              {"text": "72 ÷ 9 = ___ memes", "answers": ["8"]}
+            ]
+          },
+          {
+            "type": "reading",
+            "title": "📚 Comprensión: La Invasión del Tiburón Viral",
+            "story": "Todo comenzó hace 6 meses cuando un tiburón italiano apareció en TikTok cantando 'TRARÃ RARA RA RA RA' con unas zapatillas Nike brillantes. El video se volvió viral en solo 3 horas y alcanzó 50 millones de visualizaciones en la primera semana. Pronto, miles de personas empezaron a imitar al tiburón: 15,000 usuarios subieron sus propias versiones, 8,000 marcas intentaron hacer colaboraciones, y 25,000 memes se crearon en las primeras 48 horas. El fenómeno se extendió a todas las redes sociales: TikTok, Instagram, YouTube, Twitter y hasta LinkedIn. Los expertos en marketing digital no podían explicar por qué un tiburón con zapatillas se había vuelto tan popular. Las tiendas de zapatillas reportaron un aumento del 300% en las ventas de Nike rojas. Incluso los científicos marinos empezaron a usar el meme para enseñar sobre tiburones reales. El tiburón ahora tiene 45 millones de seguidores, ha firmado contratos con 12 marcas famosas, y sus videos suman más de 2 mil millones de visualizaciones. Cada día recibe 500,000 comentarios de fans gritando 'TRARÃ RARA RA RA RA' en 30 idiomas diferentes.",
+            "questions": [
+              {"question": "¿Hace cuántos meses empezó todo?", "answer": "6", "alternatives": ["seis", "6 meses"]},
+              {"question": "¿En cuántas horas se volvió viral?", "answer": "3", "alternatives": ["tres", "3 horas"]},
+              {"question": "¿Cuántas visualizaciones tuvo la primera semana?", "answer": "50 millones", "alternatives": ["50000000", "cincuenta millones"]},
+              {"question": "¿Cuántos usuarios subieron versiones propias?", "answer": "15000", "alternatives": ["15,000", "quince mil"]},
+              {"question": "¿Cuántas marcas intentaron colaboraciones?", "answer": "8000", "alternatives": ["8,000", "ocho mil"]},
+              {"question": "¿Cuántos memes se crearon en 48 horas?", "answer": "25000", "alternatives": ["25,000", "veinticinco mil"]},
+              {"question": "¿Cuánto aumentaron las ventas de Nike rojas?", "answer": "300%", "alternatives": ["300", "trescientos por ciento"]},
+              {"question": "¿Cuántos seguidores tiene ahora?", "answer": "45 millones", "alternatives": ["45000000", "cuarenta y cinco millones"]},
+              {"question": "¿Con cuántas marcas ha firmado contratos?", "answer": "12", "alternatives": ["doce", "12 marcas"]},
+              {"question": "¿Cuántos comentarios recibe cada día?", "answer": "500000", "alternatives": ["500,000", "quinientos mil"]},
+              {"question": "¿En cuántos idiomas gritan su frase?", "answer": "30", "alternatives": ["treinta", "30 idiomas"]}
+            ]
+          },
+          {
+            "type": "english",
+            "title": "🇬🇧 Viral Memes and Internet (Memes Virales e Internet)",
+            "vocabulary": [
+              {"word": "viral", "translation": "viral", "image": "🔥"},
+              {"word": "meme", "translation": "meme", "image": "😂"},
+              {"word": "internet", "translation": "internet", "image": "🌐"},
+              {"word": "video", "translation": "video", "image": "📹"},
+              {"word": "funny", "translation": "divertido", "image": "🤣"}
+            ],
+            "questions": [
+              {"question": "¿Cómo se dice 'viral' en inglés?", "options": ["viral", "meme", "internet", "video"], "answer": "viral"},
+              {"question": "¿Qué significa 'This meme is very funny'?", "options": ["Este meme es muy caro", "Este meme es muy divertido", "Este meme es muy largo", "Este meme es muy viejo"], "answer": "Este meme es muy divertido"},
+              {"question": "Completa: 'The shark video went ___'", "answer": "viral", "translation": "El video del tiburón se volvió viral"}
             ]
           }
         ]
       },
       {
-        "title": "La Tienda de Juguetes",
-        "icon": "🧸",
-        "badge": "Comerciante Experto",
+        "title": "El Torneo de Tenis",
+        "icon": "🎾",
+        "badge": "Campeón de la Raqueta",
         "exercises": [
           {
             "type": "math",
-            "title": "🎮 Precios y Multiplicaciones",
+            "title": "🎾 Multiplicación: Pelotas y Partidos",
             "questions": [
-              {"question": "Un juguete cuesta 7€. ¿Cuánto cuestan 4 juguetes? | 7 × 4 = ", "answer": 28},
-              {"question": "Una muñeca cuesta 9€. ¿Cuánto cuestan 3 muñecas? | 9 × 3 = ", "answer": 27},
-              {"question": "Tienes 35€ y compras 5 pelotas iguales. ¿Precio de cada pelota? | 35 ÷ 5 = ", "answer": 7}
+              {"question": "Cada partido usa 6 pelotas. ¿Cuántas pelotas en 8 partidos? | 6 × 8 = ", "answer": 48},
+              {"question": "Hay 9 pistas y en cada una juegan 2 personas. Total de jugadores: | 9 × 2 = ", "answer": 18},
+              {"question": "Tienes 56 raquetas y las organizas en grupos de 7. ¿Cuántos grupos? | 56 ÷ 7 = ", "answer": 8}
             ],
-            "hint": "💡 Para el último: divide el total entre la cantidad"
+            "hint": "💡 Para el último: divide el total entre el tamaño del grupo"
           },
           {
             "type": "sequence",
-            "title": "💳 Pasos para Comprar",
-            "instruction": "Ordena los pasos para comprar en una tienda:",
-            "sequence": ["Entrar en la tienda", "Elegir el producto", "Ir a la caja", "Pagar", "Salir con la compra"]
+            "title": "🏆 Secuencia de un Partido",
+            "instruction": "Ordena lo que pasa en un partido de tenis:",
+            "sequence": ["Calentamiento previo", "Sorteo para sacar", "Primer saque", "Intercambio de golpes", "Punto ganado"]
           },
           {
             "type": "drag",
-            "title": "🎯 Clasifica los Juguetes",
-            "instruction": "Arrastra cada juguete según su precio",
+            "title": "🎾 Clasifica el Equipamiento",
+            "instruction": "Arrastra cada elemento según su uso",
             "items": [
-              {"text": "Pelota (5€)", "value": "barato"},
-              {"text": "Bici (45€)", "value": "caro"},
-              {"text": "Muñeca (8€)", "value": "barato"},
-              {"text": "Videojuego (50€)", "value": "caro"},
-              {"text": "Puzzle (6€)", "value": "barato"}
+              {"text": "🎾 Pelota", "value": "juego"},
+              {"text": "👕 Camiseta", "value": "ropa"},
+              {"text": "🏓 Raqueta", "value": "juego"},
+              {"text": "👟 Zapatillas", "value": "ropa"},
+              {"text": "🥅 Red", "value": "juego"},
+              {"text": "🧢 Gorra", "value": "ropa"}
             ],
             "zones": [
-              {"label": "BARATO (menos de 10€)", "answer": "barato"},
-              {"label": "CARO (más de 10€)", "answer": "caro"}
+              {"label": "EQUIPAMIENTO DE JUEGO", "answer": "juego"},
+              {"label": "ROPA DEPORTIVA", "answer": "ropa"}
             ]
           },
           {
             "type": "reading",
-            "title": "📖 La Oferta Especial",
-            "story": "En la tienda hay una oferta: 3 coches de juguete por 18€. Ana compra 2 paquetes de esta oferta. Su hermano compra 24€ en pegatinas que vienen en packs de 6€.",
+            "title": "📖 El Torneo Escolar",
+            "story": "En el torneo escolar de tenis participan 32 estudiantes divididos en 4 categorías. Cada partido dura 45 minutos. María ha ganado 5 partidos y ha perdido 2. Su rival en la final, Carlos, ha ganado 6 partidos sin perder ninguno.",
             "questions": [
-              {"question": "¿Cuánto paga Ana en total? (2 paquetes × 18€)", "answer": 36},
-              {"question": "¿Cuántos packs de pegatinas compra el hermano? (24 ÷ 6)", "answer": 4}
+              {"question": "¿Cuántos estudiantes hay por categoría? (32 ÷ 4)", "answer": 8},
+              {"question": "¿Cuántos partidos ha jugado María en total? (5 + 2)", "answer": 7},
+              {"question": "¿Cuántos partidos ha perdido Carlos?", "answer": 0, "alternatives": ["cero", "ninguno"]}
             ]
           },
           {
             "type": "fillblanks",
-            "title": "✏️ Cálculo de Cambio",
-            "instruction": "Completa cuánto dinero te devuelven:",
+            "title": "✏️ Estadísticas del Torneo",
+            "instruction": "Completa estos cálculos deportivos:",
             "sentences": [
-              {"text": "Pagas con 20€ algo de 12€. Te devuelven: ___ €", "answers": ["8"]},
-              {"text": "Pagas con 50€ algo de 35€. Te devuelven: ___ €", "answers": ["15"]},
-              {"text": "Pagas con 10€ algo de 7€. Te devuelven: ___ €", "answers": ["3"]}
+              {"text": "8 jugadores por grupo. 6 grupos = ___ jugadores", "answers": ["48"]},
+              {"text": "42 partidos entre 7 días = ___ partidos por día", "answers": ["6"]},
+              {"text": "5 sets de 6 juegos cada uno = ___ juegos", "answers": ["30"]},
+              {"text": "72 puntos repartidos en 9 sets = ___ puntos por set", "answers": ["8"]}
+            ]
+          },
+          {
+            "type": "reading",
+            "title": "📚 Comprensión: El Campeonato Nacional Junior",
+            "story": "El Campeonato Nacional Junior de Tenis es el torneo más importante para jóvenes tenistas del país. Este año se celebra en el Club de Tenis 'Rafa Nadal', que tiene 16 pistas de diferentes superficies: 8 de tierra batida, 6 de césped artificial y 2 de superficie dura. El torneo dura 10 días y participan 128 jugadores de entre 12 y 16 años. Cada día se juegan aproximadamente 20 partidos, y cada partido puede durar entre 1 y 3 horas dependiendo del nivel de los jugadores. Los árbitros son 24 profesionales que vienen de 8 países diferentes. El premio para el campeón es una raqueta profesional valorada en 500 euros, más una beca de entrenamiento de 3 meses en la Academia de Tenis de Barcelona. La final se retransmite por televisión y la ven más de 50,000 espectadores. La tenista más joven que ha participado tenía exactamente 12 años y 3 meses, mientras que el favorito para ganar es Alejandro, de 15 años, que ya ha ganado 45 torneos junior.",
+            "questions": [
+              {"question": "¿Cómo se llama el club donde se celebra?", "answer": "Rafa Nadal", "alternatives": ["rafa nadal", "Club Rafa Nadal"]},
+              {"question": "¿Cuántas pistas tiene el club en total?", "answer": "16", "alternatives": ["dieciséis", "16 pistas"]},
+              {"question": "¿Cuántas pistas son de tierra batida?", "answer": "8", "alternatives": ["ocho", "8 pistas"]},
+              {"question": "¿Cuántos días dura el torneo?", "answer": "10", "alternatives": ["diez", "10 días"]},
+              {"question": "¿Cuántos jugadores participan?", "answer": "128", "alternatives": ["ciento veintiocho", "128 jugadores"]},
+              {"question": "¿Cuántos partidos se juegan cada día?", "answer": "20", "alternatives": ["veinte", "20 partidos"]},
+              {"question": "¿Cuántos árbitros hay?", "answer": "24", "alternatives": ["veinticuatro", "24 árbitros"]},
+              {"question": "¿De cuántos países vienen los árbitros?", "answer": "8", "alternatives": ["ocho", "8 países"]},
+              {"question": "¿Cuánto vale la raqueta del premio?", "answer": "500", "alternatives": ["500 euros", "quinientos euros"]},
+              {"question": "¿Cuántos meses dura la beca de entrenamiento?", "answer": "3", "alternatives": ["tres", "3 meses"]},
+              {"question": "¿Cuántos espectadores ven la final por TV?", "answer": "50000", "alternatives": ["50,000", "cincuenta mil"]},
+              {"question": "¿Cuántos torneos ha ganado Alejandro?", "answer": "45", "alternatives": ["cuarenta y cinco", "45 torneos"]}
+            ]
+          },
+          {
+            "type": "english",
+            "title": "🇬🇧 Tennis and Sports (Tenis y Deportes)",
+            "vocabulary": [
+              {"word": "tennis", "translation": "tenis", "image": "🎾"},
+              {"word": "racket", "translation": "raqueta", "image": "🏓"},
+              {"word": "court", "translation": "pista", "image": "🏟️"},
+              {"word": "serve", "translation": "sacar", "image": "💪"},
+              {"word": "win", "translation": "ganar", "image": "🏆"}
+            ],
+            "questions": [
+              {"question": "¿Cómo se dice 'tenis' en inglés?", "options": ["tennis", "racket", "court", "serve"], "answer": "tennis"},
+              {"question": "¿Qué significa 'I serve the ball'?", "options": ["Recojo la pelota", "Saco la pelota", "Tiro la pelota", "Busco la pelota"], "answer": "Saco la pelota"},
+              {"question": "Completa: 'I want to ___ the match'", "answer": "win", "translation": "Quiero ganar el partido"},
+              {"question": "¿Cómo se dice 'Juego al tenis en la pista' en inglés?", "options": ["I play tennis on the court", "I see tennis in the court", "I like tennis with the court", "I go tennis at the court"], "answer": "I play tennis on the court"}
             ]
           }
         ]
       },
       {
-        "title": "El Parque de Atracciones",
-        "icon": "🎢",
-        "badge": "Ingeniero de Diversión",
+        "title": "La Academia de Élite",
+        "icon": "🏫",
+        "badge": "Estudiante de Honor",
         "exercises": [
           {
             "type": "math",
-            "title": "🎡 Multiplicaciones en la Feria",
+            "title": "📊 Multiplicaciones Avanzadas",
             "questions": [
-              {"question": "Cada vuelta en la noria cuesta 3€. Das 6 vueltas. Total: | 3 × 6 = ", "answer": 18},
-              {"question": "Hay 8 coches de choque y cada uno lleva 2 personas. Total de personas: | 8 × 2 = ", "answer": 16},
-              {"question": "Compraste 32 tickets y los repartes entre 4 amigos. Tickets cada uno: | 32 ÷ 4 = ", "answer": 8}
+              {"question": "Cada aula tiene 7 filas con 6 pupitres cada una. Total de pupitres: | 7 × 6 = ", "answer": 42},
+              {"question": "Hay 9 profesores y cada uno enseña a 8 grupos. Total de clases: | 9 × 8 = ", "answer": 72},
+              {"question": "63 estudiantes se organizan en equipos de 9. ¿Cuántos equipos? | 63 ÷ 9 = ", "answer": 7}
             ]
           },
           {
             "type": "sequence",
-            "title": "🎢 Orden en la Montaña Rusa",
-            "instruction": "Ordena lo que pasa cuando subes a una atracción:",
-            "sequence": ["Hacer cola", "Sentarse", "Abrocharse el cinturón", "La atracción empieza", "Bajar al terminar"]
+            "title": "📚 Horario Escolar",
+            "instruction": "Ordena las actividades de un día escolar:",
+            "sequence": ["Llegada al colegio", "Primera clase", "Recreo", "Clases de la tarde", "Actividades extraescolares"]
           },
           {
             "type": "drag",
-            "title": "🎪 Clasifica las Atracciones",
-            "instruction": "Arrastra cada atracción según la velocidad",
+            "title": "🎓 Clasifica las Asignaturas",
+            "instruction": "Arrastra cada asignatura a su área de conocimiento",
             "items": [
-              {"text": "🎠 Carrusel", "value": "lenta"},
-              {"text": "🎢 Montaña rusa", "value": "rapida"},
-              {"text": "☕ Tazas giratorias", "value": "lenta"},
-              {"text": "🎪 Caída libre", "value": "rapida"},
-              {"text": "🚂 Tren infantil", "value": "lenta"}
+              {"text": "📐 Matemáticas", "value": "ciencias"},
+              {"text": "🎨 Arte", "value": "humanidades"},
+              {"text": "🔬 Biología", "value": "ciencias"},
+              {"text": "📖 Literatura", "value": "humanidades"},
+              {"text": "⚗️ Química", "value": "ciencias"},
+              {"text": "🏛️ Historia", "value": "humanidades"}
             ],
             "zones": [
-              {"label": "ATRACCIONES LENTAS", "answer": "lenta"},
-              {"label": "ATRACCIONES RÁPIDAS", "answer": "rapida"}
+              {"label": "CIENCIAS", "answer": "ciencias"},
+              {"label": "HUMANIDADES", "answer": "humanidades"}
             ]
           },
           {
             "type": "reading",
-            "title": "📖 Un Día en el Parque",
-            "story": "Lucas fue al parque con 40€. Gastó 5€ en cada atracción y montó en 6 atracciones. Luego compró algodón de azúcar por 4€.",
+            "title": "📖 Los Exámenes Finales",
+            "story": "En la Academia de Élite hay 81 estudiantes divididos en 9 aulas. Cada estudiante debe presentar 6 exámenes. Los profesores han preparado un total de 54 preguntas para repartir entre 6 exámenes diferentes.",
             "questions": [
-              {"question": "¿Cuánto gastó en atracciones? (5 × 6)", "answer": 30},
-              {"question": "¿Cuánto gastó en total? (30 + 4)", "answer": 34},
-              {"question": "¿Cuánto dinero le sobró? (40 - 34)", "answer": 6}
+              {"question": "¿Cuántos estudiantes hay por aula? (81 ÷ 9)", "answer": 9},
+              {"question": "¿Cuántos exámenes en total se presentarán? (81 × 6)", "answer": 486},
+              {"question": "¿Cuántas preguntas por examen? (54 ÷ 6)", "answer": 9}
             ]
           },
           {
             "type": "fillblanks",
-            "title": "✏️ Problemas del Parque",
-            "instruction": "Resuelve estos problemas:",
-            "sentences": [
-              {"text": "Hay 7 filas con 5 personas cada una. Total: ___ personas", "answers": ["35"]},
-              {"text": "36 niños forman equipos de 6. Total: ___ equipos", "answers": ["6"]},
-              {"text": "Cada juego dura 4 minutos. En 20 minutos hay ___ juegos", "answers": ["5"]}
-            ]
-          }
-        ]
-      },
-      {
-        "title": "La Biblioteca Mágica",
-        "icon": "📚",
-        "badge": "Bibliotecario Sabio",
-        "exercises": [
-          {
-            "type": "math",
-            "title": "📖 Organizando Libros",
-            "questions": [
-              {"question": "Hay 9 estantes con 7 libros cada uno. Total de libros: | 9 × 7 = ", "answer": 63},
-              {"question": "42 libros se reparten en 7 cajas iguales. Libros por caja: | 42 ÷ 7 = ", "answer": 6},
-              {"question": "Cada libro tiene 8 capítulos. Si lees 4 libros: | 8 × 4 = ___ capítulos", "answer": 32}
-            ]
-          },
-          {
-            "type": "sequence",
-            "title": "📚 Proceso de Préstamo",
-            "instruction": "Ordena los pasos para sacar un libro de la biblioteca:",
-            "sequence": ["Buscar el libro", "Llevarlo al mostrador", "Mostrar el carné", "Registrar el préstamo", "Llevarte el libro"]
-          },
-          {
-            "type": "drag",
-            "title": "📑 Clasifica los Libros",
-            "instruction": "Arrastra cada libro a su sección",
-            "items": [
-              {"text": "Dinosaurios 🦖", "value": "ciencia"},
-              {"text": "Caperucita Roja 🧺", "value": "cuentos"},
-              {"text": "El Sistema Solar 🌍", "value": "ciencia"},
-              {"text": "Los Tres Cerditos 🐷", "value": "cuentos"},
-              {"text": "Volcanes 🌋", "value": "ciencia"}
-            ],
-            "zones": [
-              {"label": "CUENTOS", "answer": "cuentos"},
-              {"label": "CIENCIA", "answer": "ciencia"}
-            ]
-          },
-          {
-            "type": "reading",
-            "title": "📖 La Bibliotecaria Sara",
-            "story": "Sara trabaja en la biblioteca. Hoy tiene 48 libros nuevos para colocar en 6 estanterías iguales. Ayer prestó 5 libros a cada uno de sus 8 clientes favoritos.",
-            "questions": [
-              {"question": "¿Cuántos libros en cada estantería hoy? (48 ÷ 6)", "answer": 8},
-              {"question": "¿Cuántos libros prestó ayer en total? (5 × 8)", "answer": 40}
-            ]
-          },
-          {
-            "type": "fillblanks",
-            "title": "✏️ Repaso Final",
+            "title": "✏️ Repaso Final de Matemáticas",
             "instruction": "Completa estas operaciones mixtas:",
             "sentences": [
-              {"text": "6 × 8 = ___", "answers": ["48"]},
-              {"text": "45 ÷ 9 = ___", "answers": ["5"]},
-              {"text": "7 × 9 = ___", "answers": ["63"]},
-              {"text": "56 ÷ 8 = ___", "answers": ["7"]}
+              {"text": "8 × 9 = ___", "answers": ["72"]},
+              {"text": "56 ÷ 7 = ___", "answers": ["8"]},
+              {"text": "6 × 12 = ___", "answers": ["72"]},
+              {"text": "81 ÷ 9 = ___", "answers": ["9"]}
+            ]
+          },
+          {
+            "type": "reading",
+            "title": "📚 Comprensión: La Escuela del Futuro",
+            "story": "La Academia de Élite es una escuela muy especial que combina métodos tradicionales con tecnología avanzada. Fue fundada hace 25 años por la profesora Elena Martínez, quien quería crear un lugar donde los estudiantes pudieran desarrollar tanto su inteligencia como su creatividad. El edificio tiene 4 plantas: en la planta baja están los laboratorios de ciencias, en la primera planta las aulas de matemáticas y lengua, en la segunda planta las aulas de idiomas y arte, y en la tercera planta está la biblioteca con más de 15,000 libros. Cada aula está equipada con tabletas digitales, pizarras interactivas y proyectores 3D. Los estudiantes estudian 6 asignaturas obligatorias y pueden elegir 3 asignaturas optativas de una lista de 12 opciones. El horario escolar es de 8:00 a 15:30, con descansos de 15 minutos entre clases y un recreo de 45 minutos para almorzar. La escuela tiene también un huerto donde los estudiantes cultivan 8 tipos diferentes de verduras y un observatorio astronómico con un telescopio que puede ver planetas que están a millones de kilómetros de distancia.",
+            "questions": [
+              {"question": "¿Hace cuántos años se fundó la escuela?", "answer": "25", "alternatives": ["veinticinco", "25 años"]},
+              {"question": "¿Cómo se llama la fundadora?", "answer": "Elena Martínez", "alternatives": ["elena martínez", "Elena Martinez"]},
+              {"question": "¿Cuántas plantas tiene el edificio?", "answer": "4", "alternatives": ["cuatro", "4 plantas"]},
+              {"question": "¿Dónde están los laboratorios?", "answer": "planta baja", "alternatives": ["planta baja", "abajo"]},
+              {"question": "¿Cuántos libros hay en la biblioteca?", "answer": "15000", "alternatives": ["15,000", "quince mil"]},
+              {"question": "¿Cuántas asignaturas obligatorias estudian?", "answer": "6", "alternatives": ["seis", "6 asignaturas"]},
+              {"question": "¿Cuántas asignaturas optativas pueden elegir?", "answer": "3", "alternatives": ["tres", "3 asignaturas"]},
+              {"question": "¿De cuántas opciones pueden elegir las optativas?", "answer": "12", "alternatives": ["doce", "12 opciones"]},
+              {"question": "¿A qué hora empieza el horario escolar?", "answer": "8:00", "alternatives": ["8", "ocho", "las ocho"]},
+              {"question": "¿A qué hora termina?", "answer": "15:30", "alternatives": ["15:30", "tres y media"]},
+              {"question": "¿Cuántos minutos dura el recreo?", "answer": "45", "alternatives": ["cuarenta y cinco", "45 minutos"]},
+              {"question": "¿Cuántos tipos de verduras cultivan?", "answer": "8", "alternatives": ["ocho", "8 tipos"]}
+            ]
+          },
+          {
+            "type": "english",
+            "title": "🇬🇧 School and Learning (Escuela y Aprendizaje)",
+            "vocabulary": [
+              {"word": "school", "translation": "escuela", "image": "🏫"},
+              {"word": "student", "translation": "estudiante", "image": "👨‍🎓"},
+              {"word": "teacher", "translation": "profesor/a", "image": "👩‍🏫"},
+              {"word": "learn", "translation": "aprender", "image": "📚"},
+              {"word": "study", "translation": "estudiar", "image": "✏️"}
+            ],
+            "questions": [
+              {"question": "¿Cómo se dice 'escuela' en inglés?", "options": ["school", "student", "teacher", "learn"], "answer": "school"},
+              {"question": "¿Qué significa 'I study with my teacher'?", "options": ["Juego con mi profesor", "Estudio con mi profesor", "Hablo con mi profesor", "Camino con mi profesor"], "answer": "Estudio con mi profesor"},
+              {"question": "Completa: 'I ___ new things every day'", "answer": "learn", "translation": "Aprendo cosas nuevas cada día"},
+              {"question": "¿Cómo se dice 'Los estudiantes estudian en la escuela' en inglés?", "options": ["Students study at school", "Students play at school", "Students eat at school", "Students sleep at school"], "answer": "Students study at school"}
+            ]
+          }
+        ]
+      },
+      {
+        "title": "El Torneo de los Campeones",
+        "icon": "🏆",
+        "badge": "Campeón Supremo",
+        "exercises": [
+          {
+            "type": "math",
+            "title": "🏆 Desafío Final: Operaciones Mixtas",
+            "questions": [
+              {"question": "Un torneo épico: 12 equipos con 9 miembros cada uno. Total de participantes: | 12 × 9 = ", "answer": 108},
+              {"question": "96 premios se reparten entre 8 categorías iguales. Premios por categoría: | 96 ÷ 8 = ", "answer": 12},
+              {"question": "Cada batalla dura 7 minutos. ¿Cuánto duran 11 batallas? | 7 × 11 = ", "answer": 77}
+            ]
+          },
+          {
+            "type": "sequence",
+            "title": "🎯 Pasos para la Victoria",
+            "instruction": "Ordena las etapas del torneo:",
+            "sequence": ["Inscripción de equipos", "Clasificatorias", "Cuartos de final", "Semifinales", "Gran Final"]
+          },
+          {
+            "type": "drag",
+            "title": "🏅 Clasifica los Logros",
+            "instruction": "Arrastra cada logro según su dificultad",
+            "items": [
+              {"text": "🥉 Medalla de Bronce", "value": "facil"},
+              {"text": "🏆 Copa de Oro", "value": "dificil"},
+              {"text": "🥈 Medalla de Plata", "value": "facil"},
+              {"text": "👑 Corona Imperial", "value": "dificil"},
+              {"text": "🎖️ Insignia de Honor", "value": "facil"},
+              {"text": "💎 Trofeo de Diamante", "value": "dificil"}
+            ],
+            "zones": [
+              {"label": "LOGROS BÁSICOS", "answer": "facil"},
+              {"label": "LOGROS LEGENDARIOS", "answer": "dificil"}
+            ]
+          },
+          {
+            "type": "reading",
+            "title": "📖 La Gran Final",
+            "story": "En la Gran Final del Torneo de los Campeones se enfrentan los dos mejores equipos. El Equipo Titán tiene 72 puntos y el Equipo Estrella tiene 64 puntos. Faltan 3 rondas y cada ronda puede dar hasta 8 puntos. ¿Quién ganará?",
+            "questions": [
+              {"question": "¿Cuántos puntos de diferencia hay? (72 - 64)", "answer": 8},
+              {"question": "¿Cuántos puntos máximo se pueden ganar? (3 × 8)", "answer": 24},
+              {"question": "Si Estrella gana las 3 rondas, ¿cuántos puntos tendrá? (64 + 24)", "answer": 88}
+            ]
+          },
+          {
+            "type": "fillblanks",
+            "title": "✏️ Campeonato de Matemáticas",
+            "instruction": "¡Demuestra que eres el campeón resolviendo estas operaciones!",
+            "sentences": [
+              {"text": "9 × 11 = ___", "answers": ["99"]},
+              {"text": "84 ÷ 12 = ___", "answers": ["7"]},
+              {"text": "8 × 13 = ___", "answers": ["104"]},
+              {"text": "132 ÷ 11 = ___", "answers": ["12"]}
+            ]
+          },
+          {
+            "type": "reading",
+            "title": "📚 Comprensión: La Leyenda del Torneo de los Campeones",
+            "story": "El Torneo de los Campeones es una competición legendaria que se celebra cada 4 años en la Ciudad de Cristal. Este torneo único combina habilidades de diferentes mundos: la estrategia militar de los exploradores de muros, la creatividad musical del país de Tralalalá, la destreza deportiva de los tenistas, y la sabiduría académica de las mejores escuelas. Participan exactamente 64 equipos de 16 regiones diferentes, y cada equipo está formado por 4 especialistas: un estratega, un artista, un atleta y un académico. El torneo dura 16 días intensos, con 8 fases eliminatorias. Cada día se celebran múltiples competencias: 12 batallas estratégicas por la mañana, 8 concursos creativos al mediodía, 6 pruebas deportivas por la tarde, y 4 desafíos académicos por la noche. Los jueces son 20 maestros legendarios que han ganado el torneo en ediciones anteriores. El premio final es el Cristal de la Sabiduría Eterna, una reliquia mágica que otorga a su portador conocimientos ilimitados. Solo 12 equipos han logrado ganar este cristal en los últimos 100 años. La final de este año promete ser épica: el Equipo de los Titanes Valientes se enfrenta al Equipo de las Estrellas Musicales en un duelo que determinará el destino de ambos mundos.",
+            "questions": [
+              {"question": "¿Cada cuántos años se celebra el torneo?", "answer": "4", "alternatives": ["cuatro", "4 años"]},
+              {"question": "¿Dónde se celebra?", "answer": "Ciudad de Cristal", "alternatives": ["ciudad de cristal", "Ciudad de cristal"]},
+              {"question": "¿Cuántos equipos participan?", "answer": "64", "alternatives": ["sesenta y cuatro", "64 equipos"]},
+              {"question": "¿De cuántas regiones vienen?", "answer": "16", "alternatives": ["dieciséis", "16 regiones"]},
+              {"question": "¿Cuántos especialistas tiene cada equipo?", "answer": "4", "alternatives": ["cuatro", "4 especialistas"]},
+              {"question": "¿Cuántos días dura el torneo?", "answer": "16", "alternatives": ["dieciséis", "16 días"]},
+              {"question": "¿Cuántas fases eliminatorias hay?", "answer": "8", "alternatives": ["ocho", "8 fases"]},
+              {"question": "¿Cuántas batallas estratégicas hay por la mañana?", "answer": "12", "alternatives": ["doce", "12 batallas"]},
+              {"question": "¿Cuántos concursos creativos hay al mediodía?", "answer": "8", "alternatives": ["ocho", "8 concursos"]},
+              {"question": "¿Cuántas pruebas deportivas hay por la tarde?", "answer": "6", "alternatives": ["seis", "6 pruebas"]},
+              {"question": "¿Cuántos desafíos académicos hay por la noche?", "answer": "4", "alternatives": ["cuatro", "4 desafíos"]},
+              {"question": "¿Cuántos jueces hay?", "answer": "20", "alternatives": ["veinte", "20 maestros"]},
+              {"question": "¿Cómo se llama el premio final?", "answer": "Cristal de la Sabiduría Eterna", "alternatives": ["cristal de la sabiduría eterna"]},
+              {"question": "¿Cuántos equipos han ganado en 100 años?", "answer": "12", "alternatives": ["doce", "12 equipos"]}
+            ]
+          },
+          {
+            "type": "english",
+            "title": "🇬🇧 Champions and Victory (Campeones y Victoria)",
+            "vocabulary": [
+              {"word": "champion", "translation": "campeón", "image": "🏆"},
+              {"word": "victory", "translation": "victoria", "image": "🎉"},
+              {"word": "team", "translation": "equipo", "image": "👥"},
+              {"word": "competition", "translation": "competición", "image": "🏅"},
+              {"word": "strong", "translation": "fuerte", "image": "💪"}
+            ],
+            "questions": [
+              {"question": "¿Cómo se dice 'campeón' en inglés?", "options": ["champion", "victory", "team", "strong"], "answer": "champion"},
+              {"question": "¿Qué significa 'Our team is strong'?", "options": ["Nuestro equipo es grande", "Nuestro equipo es fuerte", "Nuestro equipo es rápido", "Nuestro equipo es nuevo"], "answer": "Nuestro equipo es fuerte"},
+              {"question": "Completa: 'We won the ___!'", "answer": "competition", "translation": "¡Ganamos la competición!"},
+              {"question": "¿Cómo se dice 'El campeón del equipo es fuerte' en inglés?", "options": ["The team champion is strong", "The strong champion is team", "The champion team is strong", "The team is strong champion"], "answer": "The team champion is strong"}
             ]
           }
         ]
