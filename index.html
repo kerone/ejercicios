@@ -2081,8 +2081,11 @@
                         updateStats();
                         saveState();
                         
-                        const allCorrect = Array.from(dropZones).every(z => z.classList.contains('correct'));
-                        if (allCorrect) {
+                        // Verificar que TODAS las zonas tengan elementos Y que NO queden elementos sin arrastrar
+                        const allZonesHaveItems = Array.from(dropZones).every(z => z.classList.contains('correct') && z.children.length > 1);
+                        const remainingItems = document.querySelectorAll('.draggable-item[draggable="true"]');
+                        
+                        if (allZonesHaveItems && remainingItems.length === 0) {
                             setTimeout(() => nextExercise(), 1500);
                         }
                     } else {
