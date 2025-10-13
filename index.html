@@ -1734,6 +1734,56 @@
                 }
             }
             
+            // NUEVO: Ejercicio interactivo de arrastrar y soltar
+            if (exercise.type === 'drag') {
+                html += `<div class="drag-drop-container">
+                    <div class="draggable-items">
+                        <p><strong>${exercise.instruction}</strong></p>`;
+                exercise.items.forEach((item, i) => {
+                    html += `<div class="draggable-item" draggable="true" data-value="${item.value}" id="drag_${i}">${item.text}</div>`;
+                });
+                html += `</div><div class="drop-zones">`;
+                exercise.zones.forEach((zone, i) => {
+                    html += `<div class="drop-zone" data-answer="${zone.answer}" id="zone_${i}">
+                        <div class="zone-label">${zone.label}</div>
+                    </div>`;
+                });
+                html += `</div></div>`;
+            }
+            
+            // NUEVO: Ejercicio de ordenar secuencia
+            if (exercise.type === 'sequence') {
+                html += `<div class="sequence-container">
+                    <p><strong>${exercise.instruction}</strong></p>
+                    <div class="sequence-items" id="sequenceItems">`;
+                const shuffled = [...exercise.sequence].sort(() => Math.random() - 0.5);
+                shuffled.forEach((item, i) => {
+                    html += `<div class="sequence-item" data-order="${exercise.sequence.indexOf(item)}" onclick="selectSequenceItem(this)">${item}</div>`;
+                });
+                html += `</div>
+                    <div class="sequence-result" id="sequenceResult"></div>
+                    <button class="btn btn-primary" onclick="checkSequence(${JSON.stringify(exercise.sequence).replace(/"/g, '&quot;')})">Verificar Orden</button>
+                </div>`;
+            }
+            
+            // NUEVO: Ejercicio de rellenar huecos
+            if (exercise.type === 'fillblanks') {
+                html += `<div class="fillblanks-container">
+                    <p><strong>${exercise.instruction}</strong></p>`;
+                exercise.sentences.forEach((sentence, i) => {
+                    const parts = sentence.text.split('___');
+                    html += `<div class="sentence">`;
+                    parts.forEach((part, j) => {
+                        html += `<span>${part}</span>`;
+                        if (j < parts.length - 1) {
+                            html += `<input type="text" class="blank-input" id="blank_${i}_${j}" data-answer="${sentence.answers[j]}" />`;
+                        }
+                    });
+                    html += `</div>`;
+                });
+                html += `</div>`;
+            }
+            
             // SOLO mostrar canvas si el ejercicio tiene drawing: true Y tiene instrucciones explícitas
             if (exercise.drawing && (exercise.drawingPrompt || exercise.type === 'creative')) {
                 if (exercise.drawingPrompt) {
@@ -1778,6 +1828,143 @@
             
             if (exercise.drawing && (exercise.drawingPrompt || exercise.type === 'creative')) {
                 initCanvas();
+            }
+            
+            // Inicializar drag and drop si existe
+            if (exercise.type === 'drag') {
+                initDragAndDrop();
+            }
+        }
+        
+        // ===== EJERCICIOS INTERACTIVOS =====
+        
+        // Drag and Drop
+        function initDragAndDrop() {
+            const draggables = document.querySelectorAll('.draggable-item');
+            const dropZones = document.querySelectorAll('.drop-zone');
+            
+            draggables.forEach(draggable => {
+                draggable.addEventListener('dragstart', () => {
+                    draggable.classList.add('dragging');
+                });
+                
+                draggable.addEventListener('dragend', () => {
+                    draggable.classList.remove('dragging');
+                });
+            });
+            
+            dropZones.forEach(zone => {
+                zone.addEventListener('dragover', e => {
+                    e.preventDefault();
+                    zone.classList.add('drag-over');
+                });
+                
+                zone.addEventListener('dragleave', () => {
+                    zone.classList.remove('drag-over');
+                });
+                
+                zone.addEventListener('drop', e => {
+                    e.preventDefault();
+                    zone.classList.remove('drag-over');
+                    
+                    const dragging = document.querySelector('.dragging');
+                    const dragValue = dragging.dataset.value;
+                    const zoneAnswer = zone.dataset.answer;
+                    
+                    if (dragValue === zoneAnswer) {
+                        zone.classList.add('correct');
+                        zone.appendChild(dragging);
+                        dragging.draggable = false;
+                        state.correctAnswers++;
+                        state.stars++;
+                        updateStats();
+                        saveState();
+                        
+                        // Verificar si todas las zonas están completas
+                        const allCorrect = Array.from(dropZones).every(z => z.classList.contains('correct'));
+                        if (allCorrect) {
+                            setTimeout(() => {
+                                const week = weeksData[state.currentWeek];
+                                const day = week.days[state.currentDay - 1];
+                                if (state.currentExercise < day.exercises.length - 1) {
+                                    state.currentExercise++;
+                                    loadExercise();
+                                } else {
+                                    finishDay();
+                                }
+                            }, 1500);
+                        }
+                    } else {
+                        zone.classList.add('incorrect');
+                        setTimeout(() => {
+                            zone.classList.remove('incorrect');
+                        }, 1000);
+                    }
+                });
+            });
+        }
+        
+        // Secuencia
+        let selectedSequence = [];
+        
+        function selectSequenceItem(item) {
+            if (item.classList.contains('selected')) {
+                item.classList.remove('selected');
+                item.removeAttribute('data-selected-order');
+                const index = selectedSequence.indexOf(item);
+                selectedSequence.splice(index, 1);
+                // Reordenar los números
+                selectedSequence.forEach((el, i) => {
+                    el.setAttribute('data-selected-order', i + 1);
+                });
+            } else {
+                item.classList.add('selected');
+                selectedSequence.push(item);
+                item.setAttribute('data-selected-order', selectedSequence.length);
+            }
+        }
+        
+        function checkSequence(correctSequence) {
+            const result = document.getElementById('sequenceResult');
+            const userSequence = selectedSequence.map(item => item.textContent);
+            
+            if (userSequence.length !== correctSequence.length) {
+                result.textContent = '❌ Selecciona todos los elementos en el orden correcto';
+                result.className = 'sequence-result show incorrect';
+                return;
+            }
+            
+            const isCorrect = userSequence.every((item, i) => item === correctSequence[i]);
+            
+            if (isCorrect) {
+                result.textContent = '✅ ¡Correcto! Orden perfecto';
+                result.className = 'sequence-result show correct';
+                state.correctAnswers++;
+                state.stars++;
+                updateStats();
+                saveState();
+                
+                setTimeout(() => {
+                    const week = weeksData[state.currentWeek];
+                    const day = week.days[state.currentDay - 1];
+                    if (state.currentExercise < day.exercises.length - 1) {
+                        state.currentExercise++;
+                        loadExercise();
+                    } else {
+                        finishDay();
+                    }
+                }, 1500);
+            } else {
+                result.textContent = '❌ Incorrecto. Revisa el orden y vuelve a intentarlo';
+                result.className = 'sequence-result show incorrect';
+                setTimeout(() => {
+                    selectedSequence.forEach(item => {
+                        item.classList.remove('selected');
+                        item.removeAttribute('data-selected-order');
+                    });
+                    selectedSequence = [];
+                    result.classList.remove('show');
+                }, 2000);
             }
         }
 
@@ -1884,6 +2071,22 @@
                     }
                 });
                 allCorrect = true;
+            } else if (exercise.type === 'fillblanks') {
+                const inputs = document.querySelectorAll('.blank-input');
+                inputs.forEach(input => {
+                    const userAnswer = input.value.trim().toLowerCase();
+                    const correctAnswer = input.dataset.answer.toLowerCase();
+                    
+                    if (userAnswer === correctAnswer) {
+                        input.classList.add('correct');
+                        input.classList.remove('incorrect');
+                        correctCount++;
+                    } else {
+                        input.classList.add('incorrect');
+                        input.classList.remove('correct');
+                        allCorrect = false;
+                    }
+                });
             }
             
             if (allCorrect) {
@@ -1906,7 +2109,9 @@
         // Comprobar opción múltiple
         function checkChoice(button, choice, correctAnswer) {
             const buttons = button.parentElement.querySelectorAll('.choice-btn');
-            buttons.forEach(btn => btn.disabled = true);
+            buttons.forEach(btn => {
+                btn.disabled = true;
+            });
             
             if (choice === correctAnswer) {
                 button.classList.add('correct');
@@ -1915,16 +2120,31 @@
                 updateStats();
                 saveState();
                 
-                setTimeout(() => {
-                    const week = weeksData[state.currentWeek];
-                    const day = week.days[state.currentDay - 1];
-                    if (state.currentExercise < day.exercises.length - 1) {
-                        state.currentExercise++;
-                        loadExercise();
-                    } else {
-                        finishDay();
+                // Verificar si hay más preguntas de opción múltiple en este ejercicio
+                const allChoiceContainers = document.querySelectorAll('.multiple-choice');
+                let allAnswered = true;
+                
+                allChoiceContainers.forEach(container => {
+                    const containerButtons = container.querySelectorAll('.choice-btn');
+                    const hasCorrect = Array.from(containerButtons).some(btn => btn.classList.contains('correct'));
+                    if (!hasCorrect) {
+                        allAnswered = false;
                     }
-                }, 1500);
+                });
+                
+                // Solo avanzar si TODAS las preguntas de opción múltiple han sido respondidas
+                if (allAnswered) {
+                    setTimeout(() => {
+                        const week = weeksData[state.currentWeek];
+                        const day = week.days[state.currentDay - 1];
+                        if (state.currentExercise < day.exercises.length - 1) {
+                            state.currentExercise++;
+                            loadExercise();
+                        } else {
+                            finishDay();
+                        }
+                    }, 1500);
+                }
             } else {
                 button.classList.add('incorrect');
                 setTimeout(() => {
