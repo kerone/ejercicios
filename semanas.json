@@ -96,100 +96,101 @@
         ]
       },
       {
-        "title": "El Mundo de Tralalalá",
-        "icon": "🎵",
-        "badge": "Maestro de la Alegría",
+        "title": "El Tiburón TRARÃ RARA RA",
+        "icon": "🦈",
+        "badge": "Rey del Brainrot",
         "exercises": [
           {
             "type": "math",
-            "title": "🎵 División: Repartir Instrumentos",
+            "title": "👟 División: Repartir Zapatillas Virales",
             "info": "Dividir es REPARTIR en partes iguales. Ejemplo: 12 ÷ 3 significa 'reparte 12 entre 3 personas'",
             "questions": [
-              {"question": "Hay 24 maracas para 6 músicos. ¿Cuántas para cada uno? | Paso 1: 24 ÷ 6 = ", "answer": 4},
-              {"question": "30 campanitas entre 5 niños cantores: 30 ÷ 5 = ", "answer": 6},
-              {"question": "18 flautas repartidas en 3 grupos iguales: 18 ÷ 3 = ", "answer": 6}
+              {"question": "El tiburón tiene 28 zapatillas para 4 aletas. ¿Cuántas para cada aleta? | 28 ÷ 4 = ", "answer": 7},
+              {"question": "Hay 36 videos virales para 6 plataformas. ¿Videos por plataforma? | 36 ÷ 6 = ", "answer": 6},
+              {"question": "42 TikToks se reparten entre 7 influencers. ¿TikToks cada uno? | 42 ÷ 7 = ", "answer": 6}
             ],
-            "hint": "💡 Para dividir, pregunta: ¿cuántas veces cabe el divisor en el dividendo?"
+            "hint": "💡 TRARÃ RARA RA: divide como el tiburón con sus zapatillas!"
           },
           {
             "type": "drag",
-            "title": "🎪 Organiza la Orquesta",
-            "instruction": "Arrastra cada instrumento a su familia musical",
+            "title": "📱 Clasifica el Contenido Viral",
+            "instruction": "Arrastra cada tipo de contenido según su plataforma",
             "items": [
-              {"text": "🎺 Trompeta", "value": "viento"},
-              {"text": "🥁 Tambor", "value": "percusion"},
-              {"text": "🎻 Violín", "value": "cuerda"},
-              {"text": "🎷 Saxofón", "value": "viento"},
-              {"text": "🎸 Guitarra", "value": "cuerda"},
-              {"text": "🥁 Platillos", "value": "percusion"}
+              {"text": "🦈 TikTok del tiburón", "value": "tiktok"},
+              {"text": "📸 Story de Instagram", "value": "instagram"},
+              {"text": "🎬 YouTube Short", "value": "youtube"},
+              {"text": "🦈 Reels del tiburón", "value": "instagram"},
+              {"text": "🎵 TikTok viral", "value": "tiktok"},
+              {"text": "📺 Video de YouTube", "value": "youtube"}
             ],
             "zones": [
-              {"label": "VIENTO", "answer": "viento"},
-              {"label": "CUERDA", "answer": "cuerda"},
-              {"label": "PERCUSIÓN", "answer": "percusion"}
+              {"label": "TIKTOK", "answer": "tiktok"},
+              {"label": "INSTAGRAM", "answer": "instagram"},
+              {"label": "YOUTUBE", "answer": "youtube"}
             ]
           },
           {
             "type": "reading",
-            "title": "📖 La Banda de Tralalalá",
-            "story": "En el país de Tralalalá, todos los habitantes aman la música. La banda principal tiene 35 músicos que tocan en 5 grupos iguales. Cada grupo practica 4 horas al día. El director, Maestro Dolce, dirige con una batuta mágica que brilla cuando la música suena perfecta.",
+            "title": "📖 El Tiburón Influencer",
+            "story": "El tiburón más famoso de internet se llama Sharky y vive en TikTok. Cada día sube 8 videos por la mañana y 4 por la tarde. Sus zapatillas favoritas son unas Nike rojas que brillan. Sus seguidores gritan 'TRARÃ RARA RA RA RA' cada vez que aparece.",
             "questions": [
-              {"question": "¿Cuántos músicos hay por grupo? (35 ÷ 5)", "answer": 7},
-              {"question": "¿Cuántas horas practica cada grupo?", "answer": 4, "alternatives": ["cuatro", "4 horas"]},
-              {"question": "¿Cómo se llama el director?", "answer": "Maestro Dolce", "alternatives": ["maestro dolce", "Dolce"]}
+              {"question": "¿Cuántos videos sube Sharky al día? (8 + 4)", "answer": 12},
+              {"question": "¿De qué color son sus zapatillas favoritas?", "answer": "rojas", "alternatives": ["roja", "rojas"]},
+              {"question": "¿Qué gritan sus seguidores?", "answer": "TRARÃ RARA RA RA RA", "alternatives": ["trarã rara ra ra ra", "trara rara ra"]}
             ]
           },
           {
             "type": "math",
-            "title": "🎶 Problemas Musicales",
+            "title": "🔥 Problemas Virales",
             "questions": [
-              {"question": "32 notas musicales en 8 compases. ¿Notas por compás? 32 ÷ 8 = ", "answer": 4},
-              {"question": "45 partituras entre 9 músicos. ¿Partituras cada uno? 45 ÷ 9 = ", "answer": 5},
-              {"question": "28 instrumentos en 4 cajas iguales. ¿Instrumentos por caja? 28 ÷ 4 = ", "answer": 7}
+              {"question": "48 memes en 8 grupos de WhatsApp. ¿Memes por grupo? 48 ÷ 8 = ", "answer": 6},
+              {"question": "63 emojis de tiburón entre 9 chats. ¿Emojis por chat? 63 ÷ 9 = ", "answer": 7},
+              {"question": "35 zapatillas en 5 armarios. ¿Zapatillas por armario? 35 ÷ 5 = ", "answer": 7}
             ]
           },
           {
             "type": "fillblanks",
-            "title": "✏️ Canciones y Números",
-            "instruction": "Completa estos cálculos musicales:",
+            "title": "✏️ Matemáticas Brainrot",
+            "instruction": "Completa estos cálculos virales:",
             "sentences": [
-              {"text": "21 ÷ 3 = ___ violinistas", "answers": ["7"]},
-              {"text": "36 ÷ 6 = ___ flautistas", "answers": ["6"]},
-              {"text": "40 ÷ 8 = ___ trompetistas", "answers": ["5"]},
-              {"text": "54 ÷ 9 = ___ percusionistas", "answers": ["6"]}
+              {"text": "24 ÷ 4 = ___ tiburones", "answers": ["6"]},
+              {"text": "45 ÷ 5 = ___ zapatillas", "answers": ["9"]},
+              {"text": "56 ÷ 8 = ___ TikToks", "answers": ["7"]},
+              {"text": "72 ÷ 9 = ___ memes", "answers": ["8"]}
             ]
           },
           {
             "type": "reading",
-            "title": "📚 Comprensión: El Festival de Tralalalá",
-            "story": "Una vez al año, el país de Tralalalá celebra el Gran Festival de la Música, que dura exactamente 7 días. Este año participaron 84 bandas de música de diferentes regiones, y cada banda tiene entre 10 y 15 músicos. El festival se celebra en la Plaza de la Armonía, que puede albergar hasta 10,000 espectadores. Cada día del festival hay 6 conciertos: 3 por la mañana y 3 por la tarde. Los músicos vienen vestidos con trajes de colores brillantes: rojo, azul, amarillo, verde, morado, naranja y rosa. El premio principal es una trompeta dorada que pesa 2 kilos y está decorada con 50 diamantes pequeños. El jurado está formado por 12 expertos en música de todo el mundo. La canción ganadora de este año se llama 'Tralalalá de la Felicidad' y dura exactamente 4 minutos y 30 segundos.",
+            "title": "📚 Comprensión: La Invasión del Tiburón Viral",
+            "story": "Todo comenzó hace 6 meses cuando un tiburón italiano apareció en TikTok cantando 'TRARÃ RARA RA RA RA' con unas zapatillas Nike brillantes. El video se volvió viral en solo 3 horas y alcanzó 50 millones de visualizaciones en la primera semana. Pronto, miles de personas empezaron a imitar al tiburón: 15,000 usuarios subieron sus propias versiones, 8,000 marcas intentaron hacer colaboraciones, y 25,000 memes se crearon en las primeras 48 horas. El fenómeno se extendió a todas las redes sociales: TikTok, Instagram, YouTube, Twitter y hasta LinkedIn. Los expertos en marketing digital no podían explicar por qué un tiburón con zapatillas se había vuelto tan popular. Las tiendas de zapatillas reportaron un aumento del 300% en las ventas de Nike rojas. Incluso los científicos marinos empezaron a usar el meme para enseñar sobre tiburones reales. El tiburón ahora tiene 45 millones de seguidores, ha firmado contratos con 12 marcas famosas, y sus videos suman más de 2 mil millones de visualizaciones. Cada día recibe 500,000 comentarios de fans gritando 'TRARÃ RARA RA RA RA' en 30 idiomas diferentes.",
             "questions": [
-              {"question": "¿Cuántos días dura el festival?", "answer": "7", "alternatives": ["siete", "7 días"]},
-              {"question": "¿Cuántas bandas participaron este año?", "answer": "84", "alternatives": ["ochenta y cuatro", "84 bandas"]},
-              {"question": "¿Cuántos espectadores caben en la plaza?", "answer": "10000", "alternatives": ["10,000", "diez mil"]},
-              {"question": "¿Cuántos conciertos hay cada día?", "answer": "6", "alternatives": ["seis", "6 conciertos"]},
-              {"question": "¿Cuántos conciertos hay por la mañana?", "answer": "3", "alternatives": ["tres", "3 conciertos"]},
-              {"question": "¿Cuánto pesa la trompeta dorada?", "answer": "2", "alternatives": ["2 kilos", "dos kilos"]},
-              {"question": "¿Con cuántos diamantes está decorada?", "answer": "50", "alternatives": ["cincuenta", "50 diamantes"]},
-              {"question": "¿Cuántos expertos forman el jurado?", "answer": "12", "alternatives": ["doce", "12 expertos"]},
-              {"question": "¿Cómo se llama la canción ganadora?", "answer": "Tralalalá de la Felicidad", "alternatives": ["tralalalá de la felicidad"]},
-              {"question": "¿Cuánto dura la canción ganadora?", "answer": "4 minutos 30 segundos", "alternatives": ["4:30", "cuatro minutos y medio"]}
+              {"question": "¿Hace cuántos meses empezó todo?", "answer": "6", "alternatives": ["seis", "6 meses"]},
+              {"question": "¿En cuántas horas se volvió viral?", "answer": "3", "alternatives": ["tres", "3 horas"]},
+              {"question": "¿Cuántas visualizaciones tuvo la primera semana?", "answer": "50 millones", "alternatives": ["50000000", "cincuenta millones"]},
+              {"question": "¿Cuántos usuarios subieron versiones propias?", "answer": "15000", "alternatives": ["15,000", "quince mil"]},
+              {"question": "¿Cuántas marcas intentaron colaboraciones?", "answer": "8000", "alternatives": ["8,000", "ocho mil"]},
+              {"question": "¿Cuántos memes se crearon en 48 horas?", "answer": "25000", "alternatives": ["25,000", "veinticinco mil"]},
+              {"question": "¿Cuánto aumentaron las ventas de Nike rojas?", "answer": "300%", "alternatives": ["300", "trescientos por ciento"]},
+              {"question": "¿Cuántos seguidores tiene ahora?", "answer": "45 millones", "alternatives": ["45000000", "cuarenta y cinco millones"]},
+              {"question": "¿Con cuántas marcas ha firmado contratos?", "answer": "12", "alternatives": ["doce", "12 marcas"]},
+              {"question": "¿Cuántos comentarios recibe cada día?", "answer": "500000", "alternatives": ["500,000", "quinientos mil"]},
+              {"question": "¿En cuántos idiomas gritan su frase?", "answer": "30", "alternatives": ["treinta", "30 idiomas"]}
             ]
           },
           {
             "type": "english",
-            "title": "🇬🇧 Music and Songs (Música y Canciones)",
+            "title": "🇬🇧 Viral Memes and Internet (Memes Virales e Internet)",
             "vocabulary": [
-              {"word": "music", "translation": "música", "image": "🎵"},
-              {"word": "song", "translation": "canción", "image": "🎶"},
-              {"word": "sing", "translation": "cantar", "image": "🎤"},
-              {"word": "dance", "translation": "bailar", "image": "💃"},
-              {"word": "happy", "translation": "feliz", "image": "😊"}
+              {"word": "viral", "translation": "viral", "image": "🔥"},
+              {"word": "meme", "translation": "meme", "image": "😂"},
+              {"word": "internet", "translation": "internet", "image": "🌐"},
+              {"word": "video", "translation": "video", "image": "📹"},
+              {"word": "funny", "translation": "divertido", "image": "🤣"}
             ],
             "questions": [
-              {"question": "¿Cómo se dice 'música' en inglés?", "options": ["music", "song", "sing", "dance"], "answer": "music"},
-              {"question": "¿Qué significa 'I love to sing and dance'?", "options": ["Me gusta escuchar y correr", "Me encanta cantar y bailar", "Quiero tocar y saltar", "Puedo gritar y caminar"], "answer": "Me encanta cantar y bailar"},
-              {"question": "Completa: 'This song makes me ___'", "answer": "happy", "translation": "Esta canción me hace feliz"}
+              {"question": "¿Cómo se dice 'viral' en inglés?", "options": ["viral", "meme", "internet", "video"], "answer": "viral"},
+              {"question": "¿Qué significa 'This meme is very funny'?", "options": ["Este meme es muy caro", "Este meme es muy divertido", "Este meme es muy largo", "Este meme es muy viejo"], "answer": "Este meme es muy divertido"},
+              {"question": "Completa: 'The shark video went ___'", "answer": "viral", "translation": "El video del tiburón se volvió viral"}
             ]
           }
         ]
