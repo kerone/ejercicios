@@ -296,5 +296,310 @@
         ]
       }
     ]
+  },
+  "2": {
+    "name": "Semana 2",
+    "description": "Aventuras Matemáticas Avanzadas",
+    "level": "3º Primaria",
+    "difficulty": "Media-Alta",
+    "days": [
+      {
+        "title": "La Granja de Multiplicaciones",
+        "icon": "🐄",
+        "badge": "Experto en Multiplicaciones",
+        "exercises": [
+          {
+            "type": "math",
+            "title": "🥚 Multiplicación: Huevos en Cajas",
+            "info": "Para multiplicar, suma el mismo número varias veces. Ejemplo: 3 × 4 significa '3 grupos de 4'",
+            "questions": [
+              {"question": "La gallina pone 4 huevos cada día. ¿Cuántos huevos en 3 días? | Paso 1: 4 + 4 + 4 = ", "answer": 12},
+              {"question": "Paso 2: Escribe la multiplicación: 4 × 3 = ", "answer": 12},
+              {"question": "Si pone 5 huevos en 4 días: 5 × 4 = ", "answer": 20}
+            ],
+            "hint": "💡 Multiplica contando grupos: 5 × 4 = 5+5+5+5"
+          },
+          {
+            "type": "drag",
+            "title": "🐮 Arrastra los Animales",
+            "instruction": "Arrastra cada animal a su corral según la cantidad",
+            "items": [
+              {"text": "🐄 Vacas (8)", "value": "pares"},
+              {"text": "🐔 Gallinas (15)", "value": "impares"},
+              {"text": "🐷 Cerdos (12)", "value": "pares"},
+              {"text": "🐑 Ovejas (7)", "value": "impares"}
+            ],
+            "zones": [
+              {"label": "Números PARES", "answer": "pares"},
+              {"label": "Números IMPARES", "answer": "impares"}
+            ]
+          },
+          {
+            "type": "reading",
+            "title": "📖 El Granjero y sus Animales",
+            "story": "El granjero Pedro tiene una granja grande. Cada mañana ordena 6 vacas. Cada vaca da 3 litros de leche. Por la tarde recoge huevos: 4 gallinas ponen 2 huevos cada una.",
+            "questions": [
+              {"question": "¿Cuántos litros de leche en total? (6 vacas × 3 litros)", "answer": 18},
+              {"question": "¿Cuántos huevos recoge? (4 gallinas × 2 huevos)", "answer": 8}
+            ]
+          },
+          {
+            "type": "sequence",
+            "title": "🌾 Ordena el Proceso",
+            "instruction": "Ordena los pasos para hacer pan desde el inicio hasta el final:",
+            "sequence": ["Sembrar trigo", "Cosechar trigo", "Moler en harina", "Amasar el pan", "Hornear el pan"]
+          },
+          {
+            "type": "fillblanks",
+            "title": "✏️ Completa las Tablas",
+            "instruction": "Completa las multiplicaciones de la tabla del 2 y 3:",
+            "sentences": [
+              {"text": "2 × 5 = ___", "answers": ["10"]},
+              {"text": "3 × 4 = ___", "answers": ["12"]},
+              {"text": "2 × 7 = ___", "answers": ["14"]},
+              {"text": "3 × 6 = ___", "answers": ["18"]}
+            ]
+          }
+        ]
+      },
+      {
+        "title": "El Mercado de las Divisiones",
+        "icon": "🛒",
+        "badge": "Maestro de Divisiones",
+        "exercises": [
+          {
+            "type": "math",
+            "title": "🍎 División: Repartir Manzanas",
+            "info": "Dividir es REPARTIR en partes iguales. Ejemplo: 12 ÷ 3 significa 'reparte 12 entre 3 personas'",
+            "questions": [
+              {"question": "Tienes 12 manzanas para 3 amigos. ¿Cuántas para cada uno? | Paso 1: Cuenta de 3 en 3: 3, 6, 9, 12 = ", "answer": 4},
+              {"question": "Paso 2: Escribe la división: 12 ÷ 3 = ", "answer": 4},
+              {"question": "Ahora: 15 naranjas entre 5 amigos: 15 ÷ 5 = ", "answer": 3}
+            ],
+            "hint": "💡 Para dividir 15 ÷ 5, pregunta: ¿cuántas veces cabe el 5 en el 15?"
+          },
+          {
+            "type": "drag",
+            "title": "🛍️ Organiza la Compra",
+            "instruction": "Arrastra cada producto a su categoría",
+            "items": [
+              {"text": "🍎 Manzana", "value": "frutas"},
+              {"text": "🥕 Zanahoria", "value": "verduras"},
+              {"text": "🍌 Plátano", "value": "frutas"},
+              {"text": "🥦 Brócoli", "value": "verduras"},
+              {"text": "🍊 Naranja", "value": "frutas"},
+              {"text": "🥬 Lechuga", "value": "verduras"}
+            ],
+            "zones": [
+              {"label": "FRUTAS", "answer": "frutas"},
+              {"label": "VERDURAS", "answer": "verduras"}
+            ]
+          },
+          {
+            "type": "reading",
+            "title": "📖 María va al Mercado",
+            "story": "María compra en el mercado. Gasta 18 euros en 3 bolsas de fruta (todas al mismo precio). Luego compra 20 caramelos y los reparte entre sus 4 hermanos.",
+            "questions": [
+              {"question": "¿Cuánto cuesta cada bolsa de fruta? (18 ÷ 3)", "answer": 6},
+              {"question": "¿Cuántos caramelos para cada hermano? (20 ÷ 4)", "answer": 5}
+            ]
+          },
+          {
+            "type": "math",
+            "title": "💰 Problemas de Reparto",
+            "questions": [
+              {"question": "24 lápices en 6 cajas iguales. ¿Lápices por caja? 24 ÷ 6 = ", "answer": 4},
+              {"question": "30 galletas entre 5 niños. ¿Galletas cada uno? 30 ÷ 5 = ", "answer": 6},
+              {"question": "28 flores en 4 jarrones iguales. ¿Flores por jarrón? 28 ÷ 4 = ", "answer": 7}
+            ]
+          },
+          {
+            "type": "fillblanks",
+            "title": "✏️ Practica las Divisiones",
+            "instruction": "Completa estas divisiones básicas:",
+            "sentences": [
+              {"text": "16 ÷ 2 = ___", "answers": ["8"]},
+              {"text": "21 ÷ 3 = ___", "answers": ["7"]},
+              {"text": "25 ÷ 5 = ___", "answers": ["5"]},
+              {"text": "18 ÷ 6 = ___", "answers": ["3"]}
+            ]
+          }
+        ]
+      },
+      {
+        "title": "La Tienda de Juguetes",
+        "icon": "🧸",
+        "badge": "Comerciante Experto",
+        "exercises": [
+          {
+            "type": "math",
+            "title": "🎮 Precios y Multiplicaciones",
+            "questions": [
+              {"question": "Un juguete cuesta 7€. ¿Cuánto cuestan 4 juguetes? | 7 × 4 = ", "answer": 28},
+              {"question": "Una muñeca cuesta 9€. ¿Cuánto cuestan 3 muñecas? | 9 × 3 = ", "answer": 27},
+              {"question": "Tienes 35€ y compras 5 pelotas iguales. ¿Precio de cada pelota? | 35 ÷ 5 = ", "answer": 7}
+            ],
+            "hint": "💡 Para el último: divide el total entre la cantidad"
+          },
+          {
+            "type": "sequence",
+            "title": "💳 Pasos para Comprar",
+            "instruction": "Ordena los pasos para comprar en una tienda:",
+            "sequence": ["Entrar en la tienda", "Elegir el producto", "Ir a la caja", "Pagar", "Salir con la compra"]
+          },
+          {
+            "type": "drag",
+            "title": "🎯 Clasifica los Juguetes",
+            "instruction": "Arrastra cada juguete según su precio",
+            "items": [
+              {"text": "Pelota (5€)", "value": "barato"},
+              {"text": "Bici (45€)", "value": "caro"},
+              {"text": "Muñeca (8€)", "value": "barato"},
+              {"text": "Videojuego (50€)", "value": "caro"},
+              {"text": "Puzzle (6€)", "value": "barato"}
+            ],
+            "zones": [
+              {"label": "BARATO (menos de 10€)", "answer": "barato"},
+              {"label": "CARO (más de 10€)", "answer": "caro"}
+            ]
+          },
+          {
+            "type": "reading",
+            "title": "📖 La Oferta Especial",
+            "story": "En la tienda hay una oferta: 3 coches de juguete por 18€. Ana compra 2 paquetes de esta oferta. Su hermano compra 24€ en pegatinas que vienen en packs de 6€.",
+            "questions": [
+              {"question": "¿Cuánto paga Ana en total? (2 paquetes × 18€)", "answer": 36},
+              {"question": "¿Cuántos packs de pegatinas compra el hermano? (24 ÷ 6)", "answer": 4}
+            ]
+          },
+          {
+            "type": "fillblanks",
+            "title": "✏️ Cálculo de Cambio",
+            "instruction": "Completa cuánto dinero te devuelven:",
+            "sentences": [
+              {"text": "Pagas con 20€ algo de 12€. Te devuelven: ___ €", "answers": ["8"]},
+              {"text": "Pagas con 50€ algo de 35€. Te devuelven: ___ €", "answers": ["15"]},
+              {"text": "Pagas con 10€ algo de 7€. Te devuelven: ___ €", "answers": ["3"]}
+            ]
+          }
+        ]
+      },
+      {
+        "title": "El Parque de Atracciones",
+        "icon": "🎢",
+        "badge": "Ingeniero de Diversión",
+        "exercises": [
+          {
+            "type": "math",
+            "title": "🎡 Multiplicaciones en la Feria",
+            "questions": [
+              {"question": "Cada vuelta en la noria cuesta 3€. Das 6 vueltas. Total: | 3 × 6 = ", "answer": 18},
+              {"question": "Hay 8 coches de choque y cada uno lleva 2 personas. Total de personas: | 8 × 2 = ", "answer": 16},
+              {"question": "Compraste 32 tickets y los repartes entre 4 amigos. Tickets cada uno: | 32 ÷ 4 = ", "answer": 8}
+            ]
+          },
+          {
+            "type": "sequence",
+            "title": "🎢 Orden en la Montaña Rusa",
+            "instruction": "Ordena lo que pasa cuando subes a una atracción:",
+            "sequence": ["Hacer cola", "Sentarse", "Abrocharse el cinturón", "La atracción empieza", "Bajar al terminar"]
+          },
+          {
+            "type": "drag",
+            "title": "🎪 Clasifica las Atracciones",
+            "instruction": "Arrastra cada atracción según la velocidad",
+            "items": [
+              {"text": "🎠 Carrusel", "value": "lenta"},
+              {"text": "🎢 Montaña rusa", "value": "rapida"},
+              {"text": "☕ Tazas giratorias", "value": "lenta"},
+              {"text": "🎪 Caída libre", "value": "rapida"},
+              {"text": "🚂 Tren infantil", "value": "lenta"}
+            ],
+            "zones": [
+              {"label": "ATRACCIONES LENTAS", "answer": "lenta"},
+              {"label": "ATRACCIONES RÁPIDAS", "answer": "rapida"}
+            ]
+          },
+          {
+            "type": "reading",
+            "title": "📖 Un Día en el Parque",
+            "story": "Lucas fue al parque con 40€. Gastó 5€ en cada atracción y montó en 6 atracciones. Luego compró algodón de azúcar por 4€.",
+            "questions": [
+              {"question": "¿Cuánto gastó en atracciones? (5 × 6)", "answer": 30},
+              {"question": "¿Cuánto gastó en total? (30 + 4)", "answer": 34},
+              {"question": "¿Cuánto dinero le sobró? (40 - 34)", "answer": 6}
+            ]
+          },
+          {
+            "type": "fillblanks",
+            "title": "✏️ Problemas del Parque",
+            "instruction": "Resuelve estos problemas:",
+            "sentences": [
+              {"text": "Hay 7 filas con 5 personas cada una. Total: ___ personas", "answers": ["35"]},
+              {"text": "36 niños forman equipos de 6. Total: ___ equipos", "answers": ["6"]},
+              {"text": "Cada juego dura 4 minutos. En 20 minutos hay ___ juegos", "answers": ["5"]}
+            ]
+          }
+        ]
+      },
+      {
+        "title": "La Biblioteca Mágica",
+        "icon": "📚",
+        "badge": "Bibliotecario Sabio",
+        "exercises": [
+          {
+            "type": "math",
+            "title": "📖 Organizando Libros",
+            "questions": [
+              {"question": "Hay 9 estantes con 7 libros cada uno. Total de libros: | 9 × 7 = ", "answer": 63},
+              {"question": "42 libros se reparten en 7 cajas iguales. Libros por caja: | 42 ÷ 7 = ", "answer": 6},
+              {"question": "Cada libro tiene 8 capítulos. Si lees 4 libros: | 8 × 4 = ___ capítulos", "answer": 32}
+            ]
+          },
+          {
+            "type": "sequence",
+            "title": "📚 Proceso de Préstamo",
+            "instruction": "Ordena los pasos para sacar un libro de la biblioteca:",
+            "sequence": ["Buscar el libro", "Llevarlo al mostrador", "Mostrar el carné", "Registrar el préstamo", "Llevarte el libro"]
+          },
+          {
+            "type": "drag",
+            "title": "📑 Clasifica los Libros",
+            "instruction": "Arrastra cada libro a su sección",
+            "items": [
+              {"text": "Dinosaurios 🦖", "value": "ciencia"},
+              {"text": "Caperucita Roja 🧺", "value": "cuentos"},
+              {"text": "El Sistema Solar 🌍", "value": "ciencia"},
+              {"text": "Los Tres Cerditos 🐷", "value": "cuentos"},
+              {"text": "Volcanes 🌋", "value": "ciencia"}
+            ],
+            "zones": [
+              {"label": "CUENTOS", "answer": "cuentos"},
+              {"label": "CIENCIA", "answer": "ciencia"}
+            ]
+          },
+          {
+            "type": "reading",
+            "title": "📖 La Bibliotecaria Sara",
+            "story": "Sara trabaja en la biblioteca. Hoy tiene 48 libros nuevos para colocar en 6 estanterías iguales. Ayer prestó 5 libros a cada uno de sus 8 clientes favoritos.",
+            "questions": [
+              {"question": "¿Cuántos libros en cada estantería hoy? (48 ÷ 6)", "answer": 8},
+              {"question": "¿Cuántos libros prestó ayer en total? (5 × 8)", "answer": 40}
+            ]
+          },
+          {
+            "type": "fillblanks",
+            "title": "✏️ Repaso Final",
+            "instruction": "Completa estas operaciones mixtas:",
+            "sentences": [
+              {"text": "6 × 8 = ___", "answers": ["48"]},
+              {"text": "45 ÷ 9 = ___", "answers": ["5"]},
+              {"text": "7 × 9 = ___", "answers": ["63"]},
+              {"text": "56 ÷ 8 = ___", "answers": ["7"]}
+            ]
+          }
+        ]
+      }
+    ]
   }
 }
