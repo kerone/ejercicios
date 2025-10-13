@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Aventuras de Aprendizaje - Mejorado</title>
+    <title>Aventuras de Aprendizaje</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&family=Poppins:wght@400;600;700&display=swap');
         
@@ -263,7 +263,6 @@
             margin-top: 15px;
             position: relative;
             z-index: 1;
-            flex-wrap: wrap;
         }
         
         .stat-item {
@@ -272,37 +271,20 @@
             border-radius: 12px;
             background: rgba(255,255,255,0.1);
             backdrop-filter: blur(5px);
-            min-width: 70px;
-            margin: 2px;
+            min-width: 80px;
         }
         
         .stat-number {
-            font-size: 1.8em;
+            font-size: 2.2em;
             font-weight: 700;
             text-shadow: 0 2px 10px rgba(0,0,0,0.3);
             display: block;
         }
         
-        @media screen and (min-width: 768px) {
-            .stat-number {
-                font-size: 2.2em;
-            }
-            
-            .stat-item {
-                min-width: 80px;
-            }
-        }
-        
         .stat-item div:last-child {
-            font-size: 0.75em;
+            font-size: 0.85em;
             opacity: 0.95;
             font-weight: 500;
-        }
-        
-        @media screen and (min-width: 768px) {
-            .stat-item div:last-child {
-                font-size: 0.85em;
-            }
         }
         
         .content {
@@ -396,7 +378,7 @@
         }
         
         .day-card .title {
-            font-size: 1em;
+            font-size: 1.1em;
             font-weight: 900;
             margin-bottom: 2px;
             text-shadow: 0 3px 8px rgba(0,0,0,0.4);
@@ -404,13 +386,13 @@
         
         @media screen and (min-width: 768px) {
             .day-card .title {
-                font-size: 1.2em;
+                font-size: 1.4em;
                 margin-bottom: 4px;
             }
         }
         
         .day-card > div:last-child {
-            font-size: 0.6em;
+            font-size: 0.7em;
             opacity: 0.95;
             font-weight: 600;
             text-shadow: 0 2px 6px rgba(0,0,0,0.3);
@@ -418,7 +400,7 @@
         
         @media screen and (min-width: 768px) {
             .day-card > div:last-child {
-                font-size: 0.75em;
+                font-size: 0.85em;
             }
         }
         
@@ -589,46 +571,6 @@
             75% { transform: translateX(10px); }
         }
         
-        .performance-indicator {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            background: rgba(255,255,255,0.95);
-            padding: 15px;
-            border-radius: 15px;
-            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
-            z-index: 1000;
-            display: none;
-        }
-        
-        .performance-indicator.show {
-            display: block;
-            animation: slideIn 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-        }
-        
-        @keyframes slideIn {
-            from { transform: translateX(100%); opacity: 0; }
-            to { transform: translateX(0); opacity: 1; }
-        }
-        
-        .accuracy-bar {
-            background: #e5e7eb;
-            height: 8px;
-            border-radius: 4px;
-            overflow: hidden;
-            margin: 8px 0;
-        }
-        
-        .accuracy-fill {
-            height: 100%;
-            border-radius: 4px;
-            transition: all 0.5s;
-        }
-        
-        .accuracy-excellent { background: #10b981; }
-        .accuracy-good { background: #eab308; }
-        .accuracy-poor { background: #ef4444; }
-        
         .btn-container {
             display: flex;
             justify-content: center;
@@ -754,6 +696,101 @@
             border-color: #ef4444;
         }
         
+        .drawing-canvas {
+            border: 4px solid #e5e7eb;
+            border-radius: 20px;
+            cursor: crosshair;
+            display: block;
+            margin: 25px auto;
+            background: white;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            max-width: 100%;
+            height: auto;
+        }
+        
+        .color-picker {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            margin: 20px 0;
+            padding: 12px;
+            background: #f9fafb;
+            border-radius: 20px;
+            flex-wrap: wrap;
+        }
+        
+        @media screen and (min-width: 768px) {
+            .color-picker {
+                gap: 12px;
+                padding: 15px;
+            }
+        }
+        
+        .color-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: 4px solid #e5e7eb;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+        
+        @media screen and (min-width: 768px) {
+            .color-btn {
+                width: 50px;
+                height: 50px;
+            }
+        }
+        
+        .color-btn:hover {
+            transform: scale(1.15);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.25);
+        }
+        
+        .color-btn.active {
+            border-color: #1f2937;
+            transform: scale(1.2);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+        }
+        
+        .tools {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin: 20px 0;
+        }
+        
+        .tool-btn {
+            padding: 12px 24px;
+            border: 3px solid #e5e7eb;
+            background: white;
+            border-radius: 15px;
+            cursor: pointer;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            transition: all 0.3s;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+        
+        .tool-btn:hover {
+            background: #667eea;
+            color: white;
+            border-color: #667eea;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+        }
+        
+        .story-box {
+            background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%);
+            padding: 25px;
+            border-radius: 20px;
+            border-left: 6px solid #3b82f6;
+            margin: 25px 0;
+            line-height: 1.8;
+            box-shadow: 0 8px 20px rgba(59, 130, 246, 0.15);
+        }
+        
         .timer {
             font-size: 1.6em;
             color: #667eea;
@@ -848,7 +885,230 @@
                 inset 0 2px 0 rgba(255,255,255,0.5);
         }
         
-        /* Panel de Administración - ACTUALIZADO */
+        .celebration {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 9999;
+        }
+        
+        .confetti {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            animation: confetti-fall 3s linear;
+        }
+        
+        @keyframes confetti-fall {
+            to {
+                transform: translateY(100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+        
+        .loading {
+            text-align: center;
+            padding: 50px;
+            font-size: 1.5em;
+            color: #667eea;
+        }
+        
+        .error {
+            background: #f8d7da;
+            color: #721c24;
+            padding: 20px;
+            border-radius: 15px;
+            border-left: 5px solid #dc3545;
+            margin: 20px;
+        }
+        
+        /* Drag and Drop styles */
+        .drag-drop-container {
+            margin: 25px 0;
+        }
+        
+        .draggable-items {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+            margin: 20px 0;
+        }
+        
+        .draggable-item {
+            padding: 15px 25px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 15px;
+            cursor: move;
+            font-weight: 600;
+            transition: all 0.3s;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+        
+        .draggable-item:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.25);
+        }
+        
+        .draggable-item.dragging {
+            opacity: 0.5;
+            transform: scale(0.95);
+        }
+        
+        .drop-zones {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin: 25px 0;
+        }
+        
+        @media screen and (max-width: 600px) {
+            .drop-zones {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .drop-zone {
+            min-height: 150px;
+            border: 3px dashed #e5e7eb;
+            border-radius: 20px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            transition: all 0.3s;
+            background: #f9fafb;
+        }
+        
+        .drop-zone.drag-over {
+            border-color: #667eea;
+            background: #ede9fe;
+            transform: scale(1.02);
+        }
+        
+        .drop-zone.correct {
+            border-color: #10b981;
+            background: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%);
+            border-style: solid;
+        }
+        
+        .drop-zone.incorrect {
+            border-color: #ef4444;
+            background: linear-gradient(135deg, #fee2e2 0%, #fecaca 100%);
+            animation: shake 0.5s;
+        }
+        
+        .zone-label {
+            font-weight: 700;
+            color: #667eea;
+            font-size: 1.2em;
+            text-align: center;
+        }
+        
+        /* Sequence styles */
+        .sequence-container {
+            margin: 25px 0;
+        }
+        
+        .sequence-items {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            justify-content: center;
+            margin: 25px 0;
+        }
+        
+        .sequence-item {
+            padding: 18px 30px;
+            background: white;
+            border: 3px solid #e5e7eb;
+            border-radius: 15px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+            position: relative;
+        }
+        
+        .sequence-item:hover {
+            transform: translateY(-3px);
+            border-color: #667eea;
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.15);
+        }
+        
+        .sequence-item.selected {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-color: #667eea;
+        }
+        
+        .sequence-item.selected::after {
+            content: attr(data-selected-order);
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            background: #ffd700;
+            color: #1f2937;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 900;
+            font-size: 0.9em;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        }
+        
+        .sequence-result {
+            margin: 20px 0;
+            padding: 15px;
+            border-radius: 15px;
+            font-weight: 600;
+            text-align: center;
+            display: none;
+        }
+        
+        .sequence-result.show {
+            display: block;
+        }
+        
+        .sequence-result.correct {
+            background: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%);
+            color: #065f46;
+            border: 3px solid #10b981;
+        }
+        
+        .sequence-result.incorrect {
+            background: linear-gradient(135deg, #fee2e2 0%, #fecaca 100%);
+            color: #991b1b;
+            border: 3px solid #ef4444;
+        }
+        
+        /* Fill blanks styles */
+        .fillblanks-container {
+            margin: 25px 0;
+        }
+        
+        .sentence {
+            font-size: 1.2em;
+            line-height: 2.5;
+            margin: 20px 0;
+        }
+        
+        .blank-input {
+            width: 150px;
+            display: inline-block;
+            margin: 0 5px;
+        }
+        
+        /* Panel de Administración */
         .admin-panel {
             position: fixed;
             top: 0;
@@ -912,7 +1172,7 @@
             background: white;
             border-radius: 20px;
             padding: 30px;
-            max-width: 800px;
+            max-width: 600px;
             width: 100%;
             max-height: 90vh;
             overflow-y: auto;
@@ -1001,7 +1261,7 @@
         
         .stats-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            grid-template-columns: 1fr 1fr;
             gap: 15px;
             margin-top: 15px;
         }
@@ -1024,22 +1284,6 @@
             font-size: 0.9em;
             color: #666;
             margin-top: 5px;
-        }
-        
-        .loading {
-            text-align: center;
-            padding: 50px;
-            font-size: 1.5em;
-            color: #667eea;
-        }
-        
-        .error {
-            background: #f8d7da;
-            color: #721c24;
-            padding: 20px;
-            border-radius: 15px;
-            border-left: 5px solid #dc3545;
-            margin: 20px;
         }
     </style>
 </head>
@@ -1068,27 +1312,10 @@
                     <div class="stat-number" id="correctAnswers">0</div>
                     <div>✅ Correctas</div>
                 </div>
-                <div class="stat-item">
-                    <div class="stat-number" id="incorrectAnswers">0</div>
-                    <div>❌ Errores</div>
-                </div>
-                <div class="stat-item">
-                    <div class="stat-number" id="accuracyRate">100</div>
-                    <div>📊 Precisión %</div>
-                </div>
             </div>
         </div>
         
         <div class="content">
-            <!-- Indicador de rendimiento -->
-            <div class="performance-indicator" id="performanceIndicator">
-                <div style="font-weight: bold; margin-bottom: 8px;">Rendimiento actual</div>
-                <div class="accuracy-bar">
-                    <div class="accuracy-fill" id="accuracyFill" style="width: 100%;"></div>
-                </div>
-                <div style="font-size: 0.9em; color: #666;" id="accuracyText">100% Precisión</div>
-            </div>
-            
             <div class="screen active loading" id="loadingScreen">
                 <div>⏳ Cargando aventuras...</div>
             </div>
@@ -1108,13 +1335,9 @@
             <div class="screen reward-screen" id="rewardScreen">
                 <div class="reward-icon">🏆</div>
                 <div class="reward-title">¡MISIÓN COMPLETADA!</div>
-                <div class="stars" id="rewardStars">⭐⭐⭐⭐⭐</div>
+                <div class="stars">⭐⭐⭐⭐⭐</div>
                 <div class="badge" id="rewardBadge">¡Eres increíble!</div>
                 <p style="font-size: 1.3em; margin: 20px 0;">Has ganado <span id="earnedStars" style="color: #ffd700; font-weight: bold;">5</span> estrellas</p>
-                <div style="margin: 15px 0; padding: 15px; background: rgba(102, 126, 234, 0.1); border-radius: 15px;">
-                    <div style="font-size: 1.1em; color: #667eea; margin-bottom: 8px;">📊 Rendimiento del día:</div>
-                    <div id="dayPerformance" style="font-weight: bold;"></div>
-                </div>
                 <div class="btn-container">
                     <button class="btn btn-primary" onclick="goHome()">🏠 Volver al Inicio</button>
                     <button class="btn btn-success" onclick="nextDay()" id="nextDayBtn">➡️ Siguiente Día</button>
@@ -1122,6 +1345,8 @@
             </div>
         </div>
     </div>
+    
+    <div class="celebration" id="celebration"></div>
     
     <div class="admin-panel" id="adminPanel">
         <div class="admin-login" id="adminLogin">
@@ -1147,7 +1372,7 @@
         <div class="admin-content" id="adminContent" style="display: none;">
             <div class="admin-header">
                 <h2>🔧 Panel de Administración</h2>
-                <p style="color: #666; font-size: 0.9em;">Gestiona el progreso y las estadísticas detalladas</p>
+                <p style="color: #666; font-size: 0.9em;">Gestiona el progreso y las semanas completadas</p>
             </div>
             
             <div class="admin-section">
@@ -1166,16 +1391,8 @@
                         <div class="label">✅ Respuestas correctas</div>
                     </div>
                     <div class="stat-card">
-                        <div class="number" id="adminIncorrect">0</div>
-                        <div class="label">❌ Respuestas incorrectas</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="number" id="adminAccuracy">100</div>
-                        <div class="label">📊 Precisión (%)</div>
-                    </div>
-                    <div class="stat-card">
                         <div class="number" id="adminWeeks">0</div>
-                        <div class="label">📚 Semanas activas</div>
+                        <div class="label">📚 Semanas con progreso</div>
                     </div>
                 </div>
             </div>
@@ -1204,21 +1421,16 @@
     </div>
 
     <script>
-        // ESTADO MEJORADO con sistema de errores y precisión
         let state = {
             currentWeek: 1,
             currentDay: 0,
             currentExercise: 0,
             stars: 0,
             correctAnswers: 0,
-            incorrectAnswers: 0, // NUEVO: contador de errores
             daysCompleted: 0,
             completedDays: {},
             startTime: null,
-            currentColor: '#000000',
-            // NUEVO: estadísticas de rendimiento por ejercicio
-            exerciseAttempts: 0,
-            exerciseErrors: 0
+            currentColor: '#000000'
         };
 
         let weeksData = null;
@@ -1317,14 +1529,7 @@
             const saved = localStorage.getItem('appState');
             if (saved) {
                 const loaded = JSON.parse(saved);
-                // Asegurar compatibilidad con versiones anteriores
-                state = { 
-                    ...state, 
-                    ...loaded,
-                    incorrectAnswers: loaded.incorrectAnswers || 0,
-                    exerciseAttempts: loaded.exerciseAttempts || 0,
-                    exerciseErrors: loaded.exerciseErrors || 0
-                };
+                state = { ...state, ...loaded };
                 updateStats();
             }
         }
@@ -1333,18 +1538,10 @@
             localStorage.setItem('appState', JSON.stringify(state));
         }
 
-        // FUNCIÓN MEJORADA: actualiza todas las estadísticas incluyendo errores
         function updateStats() {
             document.getElementById('starsCount').textContent = state.stars;
             document.getElementById('daysCompleted').textContent = state.daysCompleted;
             document.getElementById('correctAnswers').textContent = state.correctAnswers;
-            document.getElementById('incorrectAnswers').textContent = state.incorrectAnswers;
-            
-            // Calcular y mostrar precisión
-            const total = state.correctAnswers + state.incorrectAnswers;
-            const accuracy = total > 0 ? Math.round((state.correctAnswers / total) * 100) : 100;
-            document.getElementById('accuracyRate').textContent = accuracy;
-            
             updateProgress();
         }
 
@@ -1359,49 +1556,13 @@
             document.getElementById('progressFill').style.width = progress + '%';
         }
 
-        // FUNCIÓN MEJORADA: inicia el día y resetea contadores del ejercicio
         function startDay(dayNumber) {
             state.currentDay = dayNumber;
             state.currentExercise = 0;
             state.startTime = Date.now();
-            
-            // Resetear contadores para este día
-            state.exerciseAttempts = 0;
-            state.exerciseErrors = 0;
-            
             showScreen('exerciseScreen');
             startTimer();
             loadExercise();
-            showPerformanceIndicator();
-        }
-
-        // NUEVA FUNCIÓN: mostrar indicador de rendimiento
-        function showPerformanceIndicator() {
-            const indicator = document.getElementById('performanceIndicator');
-            indicator.classList.add('show');
-            updatePerformanceIndicator();
-        }
-
-        // NUEVA FUNCIÓN: actualizar indicador de rendimiento
-        function updatePerformanceIndicator() {
-            const total = state.exerciseAttempts;
-            const accuracy = total > 0 ? Math.round(((total - state.exerciseErrors) / total) * 100) : 100;
-            
-            const accuracyFill = document.getElementById('accuracyFill');
-            const accuracyText = document.getElementById('accuracyText');
-            
-            accuracyFill.style.width = accuracy + '%';
-            accuracyText.textContent = accuracy + '% Precisión';
-            
-            // Cambiar color según rendimiento
-            accuracyFill.className = 'accuracy-fill';
-            if (accuracy >= 80) {
-                accuracyFill.classList.add('accuracy-excellent');
-            } else if (accuracy >= 60) {
-                accuracyFill.classList.add('accuracy-good');
-            } else {
-                accuracyFill.classList.add('accuracy-poor');
-            }
         }
 
         function loadExercise() {
@@ -1419,7 +1580,7 @@
             }
             
             if (exercise.story) {
-                html += `<div style="background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%); padding: 25px; border-radius: 20px; border-left: 6px solid #3b82f6; margin: 25px 0; line-height: 1.8; box-shadow: 0 8px 20px rgba(59, 130, 246, 0.15);">${exercise.story}</div>`;
+                html += `<div class="story-box">${exercise.story}</div>`;
             }
             
             if (exercise.type === 'math') {
@@ -1473,41 +1634,75 @@
                 }
             }
             
-            if (exercise.type === 'english') {
-                if (exercise.vocabulary) {
-                    html += `<div style="background: #f0f9ff; padding: 20px; border-radius: 15px; margin: 20px 0;">
-                        <h4 style="color: #0369a1; margin-bottom: 15px;">📚 Vocabulario:</h4>
-                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 10px;">`;
-                    
-                    exercise.vocabulary.forEach(item => {
-                        html += `<div style="background: white; padding: 10px; border-radius: 8px; text-align: center; border: 2px solid #e0f2fe;">
-                            <div style="font-size: 2em; margin-bottom: 5px;">${item.image}</div>
-                            <div style="font-weight: bold; color: #0369a1;">${item.word}</div>
-                            <div style="color: #666;">${item.translation}</div>
-                        </div>`;
-                    });
-                    html += `</div></div>`;
-                }
-                
-                exercise.questions.forEach((q, i) => {
-                    if (q.options) {
-                        html += `<div class="question">
-                            <strong>${q.question}</strong>
-                            <div class="multiple-choice">`;
-                        q.options.forEach(option => {
-                            html += `<button class="choice-btn" onclick="checkChoice(this, '${option}', '${q.answer}')">${option}</button>`;
-                        });
-                        html += `</div></div>`;
-                    } else if (q.answer) {
-                        html += `<div class="question">
-                            <strong>${q.question}</strong>
-                            <input type="text" class="answer-input" id="answer_${i}" 
-                                data-answer="${q.answer}" 
-                                style="width: 200px;">
-                            ${q.translation ? `<div style="color: #666; font-size: 0.9em; margin-top: 5px;"><em>${q.translation}</em></div>` : ''}
-                        </div>`;
-                    }
+            if (exercise.type === 'drag') {
+                html += `<div class="drag-drop-container">
+                    <div class="draggable-items">
+                        <p><strong>${exercise.instruction}</strong></p>`;
+                exercise.items.forEach((item, i) => {
+                    html += `<div class="draggable-item" draggable="true" data-value="${item.value}" id="drag_${i}">${item.text}</div>`;
                 });
+                html += `</div><div class="drop-zones">`;
+                exercise.zones.forEach((zone, i) => {
+                    html += `<div class="drop-zone" data-answer="${zone.answer}" id="zone_${i}">
+                        <div class="zone-label">${zone.label}</div>
+                    </div>`;
+                });
+                html += `</div></div>`;
+            }
+            
+            if (exercise.type === 'sequence') {
+                html += `<div class="sequence-container">
+                    <p><strong>${exercise.instruction}</strong></p>
+                    <div class="sequence-items" id="sequenceItems">`;
+                const shuffled = [...exercise.sequence].sort(() => Math.random() - 0.5);
+                shuffled.forEach((item, i) => {
+                    html += `<div class="sequence-item" data-order="${exercise.sequence.indexOf(item)}" onclick="selectSequenceItem(this)">${item}</div>`;
+                });
+                html += `</div>
+                    <div class="sequence-result" id="sequenceResult"></div>
+                    <button class="btn btn-primary" onclick="checkSequence(${JSON.stringify(exercise.sequence).replace(/"/g, '&quot;')})">Verificar Orden</button>
+                </div>`;
+            }
+            
+            if (exercise.type === 'fillblanks') {
+                html += `<div class="fillblanks-container">
+                    <p><strong>${exercise.instruction}</strong></p>`;
+                exercise.sentences.forEach((sentence, i) => {
+                    const parts = sentence.text.split('___');
+                    html += `<div class="sentence">`;
+                    parts.forEach((part, j) => {
+                        html += `<span>${part}</span>`;
+                        if (j < parts.length - 1) {
+                            html += `<input type="text" class="blank-input" id="blank_${i}_${j}" data-answer="${sentence.answers[j]}" />`;
+                        }
+                    });
+                    html += `</div>`;
+                });
+                html += `</div>`;
+            }
+            
+            if (exercise.drawing && (exercise.drawingPrompt || exercise.type === 'creative')) {
+                if (exercise.drawingPrompt) {
+                    html += `<div class="question"><strong>${exercise.drawingPrompt}</strong></div>`;
+                }
+                html += `<div style="text-align: center; margin: 20px 0;">
+                    <div class="color-picker">
+                        <div class="color-btn active" style="background: black;" onclick="selectColor('#000000')"></div>
+                        <div class="color-btn" style="background: red;" onclick="selectColor('#ff0000')"></div>
+                        <div class="color-btn" style="background: blue;" onclick="selectColor('#0000ff')"></div>
+                        <div class="color-btn" style="background: green;" onclick="selectColor('#00ff00')"></div>
+                        <div class="color-btn" style="background: yellow;" onclick="selectColor('#ffff00')"></div>
+                        <div class="color-btn" style="background: orange;" onclick="selectColor('#ff8800')"></div>
+                        <div class="color-btn" style="background: purple;" onclick="selectColor('#8800ff')"></div>
+                    </div>
+                    <canvas class="drawing-canvas" id="canvas" width="600" height="300"></canvas>
+                    <div class="tools">
+                        <button class="tool-btn" onclick="clearCanvas()">🗑️ Borrar</button>
+                        <button class="tool-btn" onclick="changeLineWidth(2)">✏️ Fino</button>
+                        <button class="tool-btn" onclick="changeLineWidth(5)">🖊️ Medio</button>
+                        <button class="tool-btn" onclick="changeLineWidth(10)">🖍️ Grueso</button>
+                    </div>
+                </div>`;
             }
             
             if (exercise.hint) {
@@ -1526,51 +1721,217 @@
             html += `</div>`;
             
             document.getElementById('exerciseContent').innerHTML = html;
-        }
-
-        // FUNCIÓN MEJORADA: sistema de estrellas basado en rendimiento
-        function calculateStars(correctCount, totalQuestions, hasErrors = false) {
-            if (correctCount === 0) return 0;
             
-            const accuracy = correctCount / totalQuestions;
-            let stars = 0;
-            
-            if (accuracy === 1.0 && !hasErrors) {
-                // Perfecto: 5 estrellas
-                stars = 5;
-            } else if (accuracy >= 0.8 && !hasErrors) {
-                // Muy bueno: 4 estrellas
-                stars = 4;
-            } else if (accuracy >= 0.6) {
-                // Bueno: 3 estrellas
-                stars = 3;
-            } else if (accuracy >= 0.4) {
-                // Regular: 2 estrellas
-                stars = 2;
-            } else if (correctCount > 0) {
-                // Al menos intentó: 1 estrella
-                stars = 1;
+            if (exercise.drawing && (exercise.drawingPrompt || exercise.type === 'creative')) {
+                initCanvas();
             }
             
-            return stars;
+            if (exercise.type === 'drag') {
+                initDragAndDrop();
+            }
+        }
+        
+        function initDragAndDrop() {
+            const draggables = document.querySelectorAll('.draggable-item');
+            const dropZones = document.querySelectorAll('.drop-zone');
+            
+            draggables.forEach(draggable => {
+                draggable.addEventListener('dragstart', () => {
+                    draggable.classList.add('dragging');
+                });
+                
+                draggable.addEventListener('dragend', () => {
+                    draggable.classList.remove('dragging');
+                });
+            });
+            
+            dropZones.forEach(zone => {
+                zone.addEventListener('dragover', e => {
+                    e.preventDefault();
+                    zone.classList.add('drag-over');
+                });
+                
+                zone.addEventListener('dragleave', () => {
+                    zone.classList.remove('drag-over');
+                });
+                
+                zone.addEventListener('drop', e => {
+                    e.preventDefault();
+                    zone.classList.remove('drag-over');
+                    
+                    const dragging = document.querySelector('.dragging');
+                    const dragValue = dragging.dataset.value;
+                    const zoneAnswer = zone.dataset.answer;
+                    
+                    if (dragValue === zoneAnswer) {
+                        zone.classList.add('correct');
+                        zone.appendChild(dragging);
+                        dragging.draggable = false;
+                        state.correctAnswers++;
+                        state.stars++;
+                        updateStats();
+                        saveState();
+                        
+                        const allCorrect = Array.from(dropZones).every(z => z.classList.contains('correct'));
+                        if (allCorrect) {
+                            const exerciseContent = document.getElementById('exerciseContent');
+                            let continueBtn = document.getElementById('continueBtn');
+                            
+                            if (!continueBtn) {
+                                continueBtn = document.createElement('div');
+                                continueBtn.id = 'continueBtn';
+                                continueBtn.className = 'btn-container';
+                                continueBtn.innerHTML = '<button class="btn btn-success" onclick="nextExercise()">➡️ Continuar</button>';
+                                exerciseContent.appendChild(continueBtn);
+                            }
+                        }
+                    } else {
+                        zone.classList.add('incorrect');
+                        setTimeout(() => {
+                            zone.classList.remove('incorrect');
+                        }, 1000);
+                    }
+                });
+            });
+        }
+        
+        let selectedSequence = [];
+        
+        function selectSequenceItem(item) {
+            if (item.classList.contains('selected')) {
+                item.classList.remove('selected');
+                item.removeAttribute('data-selected-order');
+                const index = selectedSequence.indexOf(item);
+                selectedSequence.splice(index, 1);
+                selectedSequence.forEach((el, i) => {
+                    el.setAttribute('data-selected-order', i + 1);
+                });
+            } else {
+                item.classList.add('selected');
+                selectedSequence.push(item);
+                item.setAttribute('data-selected-order', selectedSequence.length);
+            }
+        }
+        
+        function checkSequence(correctSequence) {
+            const result = document.getElementById('sequenceResult');
+            const userSequence = selectedSequence.map(item => item.textContent);
+            
+            if (userSequence.length !== correctSequence.length) {
+                result.textContent = '❌ Selecciona todos los elementos en el orden correcto';
+                result.className = 'sequence-result show incorrect';
+                return;
+            }
+            
+            const isCorrect = userSequence.every((item, i) => item === correctSequence[i]);
+            
+            if (isCorrect) {
+                result.textContent = '✅ ¡Correcto! Orden perfecto';
+                result.className = 'sequence-result show correct';
+                state.correctAnswers++;
+                state.stars++;
+                updateStats();
+                saveState();
+                
+                setTimeout(() => {
+                    const week = weeksData[state.currentWeek];
+                    const day = week.days[state.currentDay - 1];
+                    if (state.currentExercise < day.exercises.length - 1) {
+                        state.currentExercise++;
+                        loadExercise();
+                    } else {
+                        finishDay();
+                    }
+                }, 1500);
+            } else {
+                result.textContent = '❌ Incorrecto. Revisa el orden y vuelve a intentarlo';
+                result.className = 'sequence-result show incorrect';
+                setTimeout(() => {
+                    selectedSequence.forEach(item => {
+                        item.classList.remove('selected');
+                        item.removeAttribute('data-selected-order');
+                    });
+                    selectedSequence = [];
+                    result.classList.remove('show');
+                }, 2000);
+            }
         }
 
-        // FUNCIÓN MEJORADA: verificar respuestas con conteo de errores
+        let canvas, ctx, isDrawing = false, lineWidth = 5;
+        
+        function initCanvas() {
+            canvas = document.getElementById('canvas');
+            if (!canvas) return;
+            ctx = canvas.getContext('2d');
+            ctx.lineWidth = lineWidth;
+            ctx.lineCap = 'round';
+            ctx.strokeStyle = state.currentColor;
+            
+            canvas.addEventListener('mousedown', startDrawing);
+            canvas.addEventListener('mousemove', draw);
+            canvas.addEventListener('mouseup', stopDrawing);
+            canvas.addEventListener('mouseout', stopDrawing);
+            
+            canvas.addEventListener('touchstart', (e) => {
+                e.preventDefault();
+                const touch = e.touches[0];
+                const rect = canvas.getBoundingClientRect();
+                startDrawing({offsetX: touch.clientX - rect.left, offsetY: touch.clientY - rect.top});
+            });
+            
+            canvas.addEventListener('touchmove', (e) => {
+                e.preventDefault();
+                const touch = e.touches[0];
+                const rect = canvas.getBoundingClientRect();
+                draw({offsetX: touch.clientX - rect.left, offsetY: touch.clientY - rect.top});
+            });
+            
+            canvas.addEventListener('touchend', stopDrawing);
+        }
+        
+        function startDrawing(e) {
+            isDrawing = true;
+            ctx.beginPath();
+            ctx.moveTo(e.offsetX, e.offsetY);
+        }
+        
+        function draw(e) {
+            if (!isDrawing) return;
+            ctx.lineTo(e.offsetX, e.offsetY);
+            ctx.stroke();
+        }
+        
+        function stopDrawing() {
+            isDrawing = false;
+        }
+        
+        function selectColor(color) {
+            state.currentColor = color;
+            if (ctx) ctx.strokeStyle = color;
+            document.querySelectorAll('.color-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+        }
+        
+        function clearCanvas() {
+            if (!ctx) return;
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+        }
+        
+        function changeLineWidth(width) {
+            lineWidth = width;
+            if (ctx) ctx.lineWidth = width;
+        }
+
         function checkAnswers() {
             const week = weeksData[state.currentWeek];
             const day = week.days[state.currentDay - 1];
             const exercise = day.exercises[state.currentExercise];
             let allCorrect = true;
             let correctCount = 0;
-            let totalQuestions = 0;
-            let errorCount = 0;
             
-            if (exercise.type === 'math' || exercise.type === 'reading' || exercise.type === 'english') {
+            if (exercise.type === 'math' || exercise.type === 'reading') {
                 const inputs = document.querySelectorAll('.answer-input');
-                totalQuestions = inputs.length;
-                
                 inputs.forEach((input, i) => {
-                    state.exerciseAttempts++;
                     const userAnswer = input.value.trim().toLowerCase();
                     const correctAnswer = input.dataset.answer.toLowerCase();
                     const alternatives = input.dataset.alternatives ? input.dataset.alternatives.split('|') : [];
@@ -1581,3 +1942,526 @@
                     if (isCorrect) {
                         input.classList.add('correct');
                         input.classList.remove('incorrect');
+                        correctCount++;
+                    } else {
+                        input.classList.add('incorrect');
+                        input.classList.remove('correct');
+                        allCorrect = false;
+                    }
+                });
+            } else if (exercise.type === 'creative') {
+                const inputs = document.querySelectorAll('.answer-input');
+                inputs.forEach(input => {
+                    if (input.value.trim()) {
+                        input.classList.add('correct');
+                        correctCount++;
+                    }
+                });
+                allCorrect = true;
+            } else if (exercise.type === 'fillblanks') {
+                const inputs = document.querySelectorAll('.blank-input');
+                inputs.forEach(input => {
+                    const userAnswer = input.value.trim().toLowerCase();
+                    const correctAnswer = input.dataset.answer.toLowerCase();
+                    
+                    if (userAnswer === correctAnswer) {
+                        input.classList.add('correct');
+                        input.classList.remove('incorrect');
+                        correctCount++;
+                    } else {
+                        input.classList.add('incorrect');
+                        input.classList.remove('correct');
+                        allCorrect = false;
+                    }
+                });
+            }
+            
+            if (allCorrect) {
+                state.correctAnswers += correctCount;
+                state.stars += 1;
+                updateStats();
+                saveState();
+                
+                setTimeout(() => {
+                    if (state.currentExercise < day.exercises.length - 1) {
+                        state.currentExercise++;
+                        loadExercise();
+                    } else {
+                        finishDay();
+                    }
+                }, 1000);
+            }
+        }
+
+        function checkChoice(button, choice, correctAnswer) {
+            const buttons = button.parentElement.querySelectorAll('.choice-btn');
+            buttons.forEach(btn => {
+                btn.disabled = true;
+            });
+            
+            if (choice === correctAnswer) {
+                button.classList.add('correct');
+                state.correctAnswers++;
+                state.stars++;
+                updateStats();
+                saveState();
+                
+                const allChoiceContainers = document.querySelectorAll('.multiple-choice');
+                let allAnswered = true;
+                
+                allChoiceContainers.forEach(container => {
+                    const containerButtons = container.querySelectorAll('.choice-btn');
+                    const hasCorrect = Array.from(containerButtons).some(btn => btn.classList.contains('correct'));
+                    if (!hasCorrect) {
+                        allAnswered = false;
+                    }
+                });
+                
+                if (allAnswered) {
+                    const exerciseContent = document.getElementById('exerciseContent');
+                    let continueBtn = document.getElementById('continueBtn');
+                    
+                    if (!continueBtn) {
+                        continueBtn = document.createElement('div');
+                        continueBtn.id = 'continueBtn';
+                        continueBtn.className = 'btn-container';
+                        continueBtn.innerHTML = '<button class="btn btn-success" onclick="nextExercise()">➡️ Continuar</button>';
+                        exerciseContent.appendChild(continueBtn);
+                    }
+                }
+            } else {
+                button.classList.add('incorrect');
+                setTimeout(() => {
+                    buttons.forEach(btn => {
+                        btn.disabled = false;
+                        btn.classList.remove('incorrect');
+                    });
+                }, 1000);
+            }
+        }
+
+        function showHint() {
+            document.getElementById('hint').classList.add('show');
+        }
+
+        function finishDay() {
+            stopTimer();
+            const dayKey = `${state.currentWeek}_${state.currentDay}`;
+            
+            if (!state.completedDays[dayKey]) {
+                state.completedDays[dayKey] = true;
+                state.daysCompleted++;
+            }
+            state.stars += 4;
+            updateStats();
+            saveState();
+            
+            const week = weeksData[state.currentWeek];
+            const day = week.days[state.currentDay - 1];
+            document.getElementById('rewardBadge').textContent = day.badge;
+            document.getElementById('earnedStars').textContent = '5';
+            
+            const nextDayBtn = document.getElementById('nextDayBtn');
+            if (state.currentDay < week.days.length) {
+                nextDayBtn.style.display = 'inline-block';
+            } else {
+                nextDayBtn.style.display = 'none';
+            }
+            
+            showScreen('rewardScreen');
+            createConfetti();
+        }
+
+        let timerInterval;
+        
+        function startTimer() {
+            timerInterval = setInterval(() => {
+                const elapsed = Math.floor((Date.now() - state.startTime) / 1000);
+                const minutes = Math.floor(elapsed / 60);
+                const seconds = elapsed % 60;
+                document.getElementById('timer').textContent = 
+                    `⏱️ ${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+            }, 1000);
+        }
+        
+        function stopTimer() {
+            if (timerInterval) {
+                clearInterval(timerInterval);
+            }
+        }
+
+        function createConfetti() {
+            const celebration = document.getElementById('celebration');
+            celebration.innerHTML = '';
+            
+            const colors = ['#ff0000', '#00ff00', '#0000ff', '#ffff00', '#ff00ff', '#00ffff'];
+            
+            for (let i = 0; i < 50; i++) {
+                const confetti = document.createElement('div');
+                confetti.className = 'confetti';
+                confetti.style.left = Math.random() * 100 + '%';
+                confetti.style.background = colors[Math.floor(Math.random() * colors.length)];
+                confetti.style.animationDelay = Math.random() * 3 + 's';
+                celebration.appendChild(confetti);
+            }
+            
+            setTimeout(() => {
+                celebration.innerHTML = '';
+            }, 3000);
+        }
+
+        function showScreen(screenId) {
+            document.querySelectorAll('.screen').forEach(screen => {
+                screen.classList.remove('active');
+            });
+            document.getElementById(screenId).classList.add('active');
+        }
+
+        function goHome() {
+            stopTimer();
+            showScreen('homeScreen');
+            loadWeek(state.currentWeek);
+        }
+
+        function nextExercise() {
+            const week = weeksData[state.currentWeek];
+            const day = week.days[state.currentDay - 1];
+            if (state.currentExercise < day.exercises.length - 1) {
+                state.currentExercise++;
+                loadExercise();
+            } else {
+                finishDay();
+            }
+        }
+
+        function nextDay() {
+            const week = weeksData[state.currentWeek];
+            const nextDayNum = state.currentDay + 1;
+            if (nextDayNum <= week.days.length) {
+                startDay(nextDayNum);
+            } else {
+                goHome();
+            }
+        }
+
+        function downloadWeekPDF() {
+            if (!weeksData || !state.currentWeek) {
+                alert('⚠️ Primero selecciona una semana');
+                return;
+            }
+            
+            const week = weeksData[state.currentWeek];
+            
+            let pdfContent = `
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>${week.name} - ${week.description}</title>
+    <style>
+        @page { margin: 20mm; }
+        body { 
+            font-family: Arial, sans-serif; 
+            line-height: 1.6;
+            color: #333;
+        }
+        .page-break { page-break-after: always; }
+        h1 { 
+            color: #667eea; 
+            text-align: center; 
+            margin-bottom: 30px;
+            font-size: 2.5em;
+        }
+        h2 { 
+            color: #764ba2; 
+            margin-top: 30px; 
+            border-bottom: 3px solid #667eea;
+            padding-bottom: 10px;
+        }
+        h3 { 
+            color: #667eea; 
+            margin-top: 20px; 
+        }
+        .exercise { 
+            margin: 25px 0; 
+            padding: 20px; 
+            background: #f8f9fa; 
+            border-radius: 10px;
+            border-left: 5px solid #667eea;
+        }
+        .question { 
+            margin: 15px 0; 
+            font-size: 1.1em;
+        }
+        .answer-space { 
+            border-bottom: 2px solid #333; 
+            display: inline-block; 
+            min-width: 100px; 
+            margin: 0 5px; 
+        }
+        .draw-box { 
+            border: 2px dashed #667eea; 
+            min-height: 200px; 
+            margin: 20px 0; 
+            border-radius: 10px;
+            background: #fff;
+        }
+        .story { 
+            background: #e3f2fd; 
+            padding: 15px; 
+            border-radius: 8px; 
+            border-left: 4px solid #2196f3;
+            margin: 15px 0;
+        }
+        .choices { 
+            margin: 15px 0; 
+        }
+        .choice { 
+            display: block; 
+            padding: 10px; 
+            margin: 8px 0; 
+            border: 2px solid #667eea; 
+            border-radius: 8px;
+        }
+        .info-box {
+            background: #fff3cd;
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 4px solid #ffc107;
+            margin: 15px 0;
+        }
+        .day-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <h1>${week.name}<br><small style="font-size: 0.6em;">${week.description}</small></h1>
+`;
+
+            week.days.forEach((day, dayIndex) => {
+                if (dayIndex > 0) pdfContent += '<div class="page-break"></div>';
+                
+                pdfContent += `
+    <div class="day-header">
+        <h2 style="color: white; border: none; margin: 0;">${day.icon} Día ${dayIndex + 1}: ${day.title}</h2>
+    </div>
+`;
+
+                day.exercises.forEach((exercise, exIndex) => {
+                    pdfContent += `
+    <div class="exercise">
+        <h3>Ejercicio ${exIndex + 1}: ${exercise.title}</h3>
+`;
+
+                    if (exercise.info) {
+                        pdfContent += `<div class="info-box"><strong>💡 ${exercise.info}</strong></div>`;
+                    }
+
+                    if (exercise.story) {
+                        pdfContent += `<div class="story">${exercise.story}</div>`;
+                    }
+
+                    if (exercise.questions) {
+                        exercise.questions.forEach((q, qIndex) => {
+                            if (q.question) {
+                                pdfContent += `<div class="question"><strong>${q.question}</strong> <span class="answer-space"></span></div>`;
+                            }
+                            if (q.options) {
+                                pdfContent += `<div class="question"><strong>${q.question}</strong></div><div class="choices">`;
+                                q.options.forEach(opt => {
+                                    pdfContent += `<div class="choice">☐ ${opt}</div>`;
+                                });
+                                pdfContent += `</div>`;
+                            }
+                        });
+                    }
+
+                    if (exercise.drawingPrompt) {
+                        pdfContent += `<p><strong>${exercise.drawingPrompt}</strong></p><div class="draw-box"></div>`;
+                    } else if (exercise.drawing && exercise.type === 'creative') {
+                        pdfContent += `<p><strong>Dibuja aquí tu creación:</strong></p><div class="draw-box"></div>`;
+                    }
+
+                    if (exercise.fields) {
+                        exercise.fields.forEach(field => {
+                            pdfContent += `<div class="question"><strong>${field.label}</strong> <span class="answer-space" style="min-width: 200px;"></span></div>`;
+                        });
+                    }
+
+                    pdfContent += `</div>`;
+                });
+            });
+
+            pdfContent += `
+</body>
+</html>`;
+
+            const blob = new Blob([pdfContent], { type: 'text/html' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `${week.name.replace(/\s+/g, '_')}_Ejercicios.html`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+            
+            alert(`📥 Descargado: ${week.name}\n\n✅ Abre el archivo HTML descargado\n✅ Usa Ctrl+P (o Cmd+P) para imprimir\n✅ Selecciona "Guardar como PDF"`);
+        }
+        
+        const ADMIN_PASSWORD = '1234';
+        
+        function showAdminLogin() {
+            document.getElementById('adminPanel').classList.add('show');
+            document.getElementById('adminLogin').style.display = 'block';
+            document.getElementById('adminContent').style.display = 'none';
+            document.getElementById('adminPassword').value = '';
+            document.getElementById('errorMessage').classList.remove('show');
+            document.getElementById('adminPassword').focus();
+        }
+        
+        function checkAdminPassword() {
+            const password = document.getElementById('adminPassword').value;
+            
+            if (password === ADMIN_PASSWORD) {
+                document.getElementById('adminLogin').style.display = 'none';
+                document.getElementById('adminContent').style.display = 'block';
+                updateAdminStats();
+            } else {
+                document.getElementById('errorMessage').classList.add('show');
+                document.getElementById('adminPassword').value = '';
+                document.getElementById('adminPassword').focus();
+            }
+        }
+        
+        function closeAdminPanel() {
+            document.getElementById('adminPanel').classList.remove('show');
+            document.getElementById('adminPassword').value = '';
+            document.getElementById('errorMessage').classList.remove('show');
+        }
+        
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && document.getElementById('adminPanel').classList.contains('show')) {
+                closeAdminPanel();
+            }
+        });
+        
+        function updateAdminStats() {
+            document.getElementById('adminStars').textContent = state.stars;
+            document.getElementById('adminDays').textContent = state.daysCompleted;
+            document.getElementById('adminCorrect').textContent = state.correctAnswers;
+            
+            const weeksWithProgress = new Set();
+            Object.keys(state.completedDays).forEach(key => {
+                const weekNum = key.split('_')[0];
+                weeksWithProgress.add(weekNum);
+            });
+            document.getElementById('adminWeeks').textContent = weeksWithProgress.size;
+            
+            generateWeeksList();
+        }
+        
+        function generateWeeksList() {
+            const weeksList = document.getElementById('weeksList');
+            weeksList.innerHTML = '';
+            
+            if (!weeksData) return;
+            
+            Object.keys(weeksData).forEach(weekNum => {
+                const week = weeksData[weekNum];
+                const completedInWeek = Object.keys(state.completedDays).filter(key => 
+                    key.startsWith(`${weekNum}_`)
+                ).length;
+                
+                if (completedInWeek === 0) return;
+                
+                const weekItem = document.createElement('div');
+                weekItem.className = 'week-item';
+                weekItem.innerHTML = `
+                    <div class="week-info">
+                        <strong>${week.name}</strong>
+                        <div class="week-stats">
+                            📅 ${completedInWeek} de ${week.days.length} días completados
+                        </div>
+                    </div>
+                    <button class="admin-btn admin-btn-danger" onclick="deleteWeekProgress(${weekNum})">
+                        🗑️ Eliminar
+                    </button>
+                `;
+                weeksList.appendChild(weekItem);
+            });
+            
+            if (weeksList.children.length === 0) {
+                weeksList.innerHTML = '<p style="text-align: center; color: #999;">No hay progreso registrado aún</p>';
+            }
+        }
+        
+        function deleteWeekProgress(weekNum) {
+            if (!confirm(`¿Estás seguro de que quieres eliminar el progreso de la ${weeksData[weekNum].name}?`)) {
+                return;
+            }
+            
+            let daysToDelete = 0;
+            Object.keys(state.completedDays).forEach(key => {
+                if (key.startsWith(`${weekNum}_`)) {
+                    delete state.completedDays[key];
+                    daysToDelete++;
+                }
+            });
+            
+            state.daysCompleted -= daysToDelete;
+            if (state.daysCompleted < 0) state.daysCompleted = 0;
+            
+            saveState();
+            updateStats();
+            updateAdminStats();
+            
+            if (state.currentWeek == weekNum) {
+                loadWeek(weekNum);
+            }
+            
+            alert(`✅ Progreso de ${weeksData[weekNum].name} eliminado correctamente`);
+        }
+        
+        function resetAllProgress() {
+            const confirmation = confirm('⚠️ ¿ESTÁS SEGURO?\n\nEsto borrará:\n- Todas las estrellas\n- Todos los días completados\n- Todas las estadísticas\n\nEsta acción NO se puede deshacer.');
+            
+            if (!confirmation) return;
+            
+            const doubleCheck = confirm('🔴 ÚLTIMA CONFIRMACIÓN\n\n¿Realmente quieres borrar TODO el progreso?');
+            
+            if (!doubleCheck) return;
+            
+            state = {
+                currentWeek: 1,
+                currentDay: 0,
+                currentExercise: 0,
+                stars: 0,
+                correctAnswers: 0,
+                daysCompleted: 0,
+                completedDays: {},
+                startTime: null,
+                currentColor: '#000000'
+            };
+            
+            saveState();
+            updateStats();
+            updateAdminStats();
+            closeAdminPanel();
+            goHome();
+            
+            alert('✅ Todo el progreso ha sido eliminado. ¡Comenzando desde cero!');
+        }
+
+        window.onload = function() {
+            loadWeeksData();
+        };
+    </script>
+</body>
+</html>
