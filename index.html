@@ -437,12 +437,16 @@
             
             let mensaje = '👑 SUPERADMIN\n\n📊 Usuarios registrados:\n\n';
             
-            if (Object.keys(allUsersData).length === 0) {
+            const usernames = Object.keys(allUsersData);
+            
+            if (usernames.length === 0) {
                 mensaje += 'No hay usuarios registrados\n\n';
             } else {
-                Object.keys(allUsersData).forEach(username => {
+                usernames.forEach(username => {
                     const userData = allUsersData[username];
-                    mensaje += `• ${username}\n  ⭐ ${userData.stars || 0} estrellas\n  📅 ${userData.daysCompleted || 0} días\n\n`;
+                    const stars = userData && userData.stars ? userData.stars : 0;
+                    const days = userData && userData.daysCompleted ? userData.daysCompleted : 0;
+                    mensaje += `• ${username}\n  ⭐ ${stars} estrellas\n  📅 ${days} días\n\n`;
                 });
             }
             
@@ -467,10 +471,13 @@
         }
 
         function showConfig() {
+            const stars = state && state.stars ? state.stars : 0;
+            const days = state && state.daysCompleted ? state.daysCompleted : 0;
+            
             let mensaje = `⚙️ CONFIGURACIÓN DE ${currentUser}\n\n`;
             mensaje += `📊 Tus estadísticas:\n`;
-            mensaje += `⭐ ${state.stars} estrellas\n`;
-            mensaje += `📅 ${state.daysCompleted} días completados\n\n`;
+            mensaje += `⭐ ${stars} estrellas\n`;
+            mensaje += `📅 ${days} días completados\n\n`;
             mensaje += `──────────────────\n\n`;
             mensaje += `¿Qué deseas hacer?\n\n`;
             mensaje += `1️⃣ Reiniciar mi progreso (escribe REINICIAR)\n`;
