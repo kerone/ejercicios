@@ -137,7 +137,7 @@
             }
         }
         
-        .admin-link, .pdf-download-btn {
+        .admin-link, .pdf-download-btn, .logout-btn {
             position: absolute;
             top: 15px;
             background: rgba(255,255,255,0.25);
@@ -153,7 +153,13 @@
         }
         
         .admin-link {
+            right: 90px;
+        }
+        
+        .logout-btn {
             right: 15px;
+            background: rgba(239, 68, 68, 0.25);
+            border-color: rgba(239, 68, 68, 0.3);
         }
         
         .pdf-download-btn {
@@ -161,13 +167,17 @@
         }
         
         @media screen and (min-width: 768px) {
-            .admin-link, .pdf-download-btn {
+            .admin-link, .pdf-download-btn, .logout-btn {
                 top: 20px;
                 padding: 10px 20px;
                 font-size: 0.95em;
             }
             
             .admin-link {
+                right: 110px;
+            }
+            
+            .logout-btn {
                 right: 25px;
             }
             
@@ -176,7 +186,7 @@
             }
         }
         
-        .admin-link:hover, .pdf-download-btn:hover {
+        .admin-link:hover, .pdf-download-btn:hover, .logout-btn:hover {
             background: rgba(255,255,255,0.35);
             border-color: rgba(255,255,255,0.5);
             transform: translateY(-2px);
@@ -696,91 +706,6 @@
             border-color: #ef4444;
         }
         
-        .drawing-canvas {
-            border: 4px solid #e5e7eb;
-            border-radius: 20px;
-            cursor: crosshair;
-            display: block;
-            margin: 25px auto;
-            background: white;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-            max-width: 100%;
-            height: auto;
-        }
-        
-        .color-picker {
-            display: flex;
-            justify-content: center;
-            gap: 8px;
-            margin: 20px 0;
-            padding: 12px;
-            background: #f9fafb;
-            border-radius: 20px;
-            flex-wrap: wrap;
-        }
-        
-        @media screen and (min-width: 768px) {
-            .color-picker {
-                gap: 12px;
-                padding: 15px;
-            }
-        }
-        
-        .color-btn {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            border: 4px solid #e5e7eb;
-            cursor: pointer;
-            transition: all 0.3s;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-        }
-        
-        @media screen and (min-width: 768px) {
-            .color-btn {
-                width: 50px;
-                height: 50px;
-            }
-        }
-        
-        .color-btn:hover {
-            transform: scale(1.15);
-            box-shadow: 0 6px 20px rgba(0,0,0,0.25);
-        }
-        
-        .color-btn.active {
-            border-color: #1f2937;
-            transform: scale(1.2);
-            box-shadow: 0 8px 25px rgba(0,0,0,0.3);
-        }
-        
-        .tools {
-            display: flex;
-            justify-content: center;
-            gap: 12px;
-            margin: 20px 0;
-        }
-        
-        .tool-btn {
-            padding: 12px 24px;
-            border: 3px solid #e5e7eb;
-            background: white;
-            border-radius: 15px;
-            cursor: pointer;
-            font-family: 'Poppins', sans-serif;
-            font-weight: 600;
-            transition: all 0.3s;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-        }
-        
-        .tool-btn:hover {
-            background: #667eea;
-            color: white;
-            border-color: #667eea;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
-        }
-        
         .story-box {
             background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%);
             padding: 25px;
@@ -925,7 +850,6 @@
             margin: 20px;
         }
         
-        /* Drag and Drop styles */
         .drag-drop-container {
             margin: 25px 0;
         }
@@ -1011,7 +935,6 @@
             text-align: center;
         }
         
-        /* Sequence styles */
         .sequence-container {
             margin: 25px 0;
         }
@@ -1091,7 +1014,6 @@
             border: 3px solid #ef4444;
         }
         
-        /* Fill blanks styles */
         .fillblanks-container {
             margin: 25px 0;
         }
@@ -1108,7 +1030,6 @@
             margin: 0 5px;
         }
         
-        /* Panel de Administración */
         .admin-panel {
             position: fixed;
             top: 0;
@@ -1307,7 +1228,6 @@
             border-radius: 5px;
         }
         
-        /* Feedback styles */
         @keyframes feedbackPop {
             0% { transform: translate(-50%, -50%) scale(0.5); opacity: 0; }
             100% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
@@ -1318,6 +1238,7 @@
     <div class="app-container">
         <div class="header">
             <div class="pdf-download-btn" onclick="downloadWeekPDF()">📥 PDF</div>
+            <div class="logout-btn" onclick="logout()">👋 Salir</div>
             <div class="admin-link" onclick="showAdminLogin()">🔧 Admin</div>
             <h1>🎮 Aventuras de Aprendizaje 🎮</h1>
             
@@ -1345,6 +1266,40 @@
         <div class="content">
             <div class="screen active loading" id="loadingScreen">
                 <div>⏳ Cargando aventuras...</div>
+            </div>
+            
+            <div class="screen" id="loginScreen">
+                <div style="max-width: 500px; margin: 0 auto; text-align: center;">
+                    <div style="font-size: 5em; margin-bottom: 20px;">🎮</div>
+                    <h2 style="color: #667eea; margin-bottom: 15px;">¡Bienvenido, Aventurero!</h2>
+                    <p style="font-size: 1.2em; margin-bottom: 30px; color: #666;">
+                        Introduce tu nombre para comenzar tu aventura de aprendizaje
+                    </p>
+                    
+                    <div style="background: white; padding: 30px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.1);">
+                        <input 
+                            type="text" 
+                            id="userName" 
+                            placeholder="Tu nombre"
+                            style="width: 100%; padding: 18px; font-size: 1.3em; border: 3px solid #667eea; border-radius: 15px; text-align: center; font-family: 'Poppins', sans-serif; font-weight: 600; margin-bottom: 20px;"
+                            onkeypress="if(event.key === 'Enter') handleLogin()"
+                            autofocus
+                        >
+                        
+                        <button 
+                            class="btn btn-primary" 
+                            id="loginBtn"
+                            onclick="handleLogin()"
+                            style="width: 100%; font-size: 1.3em; padding: 18px;"
+                        >
+                            🚀 Comenzar Aventura
+                        </button>
+                        
+                        <p style="margin-top: 20px; font-size: 0.9em; color: #999;">
+                            💾 Tu progreso se guardará automáticamente en la nube
+                        </p>
+                    </div>
+                </div>
             </div>
             
             <div class="screen" id="homeScreen">
@@ -1461,7 +1416,9 @@
     </div>
 
     <script>
-        // ESTADO MEJORADO CON TRACKING DE FALLOS
+        const JSONBIN_API_KEY = '$2a$10$byEkgCiPtr6uA9j.sw5Uiuld00jGPRMT1Rn9TlhHYbPe3CFfaEu6G';
+        const JSONBIN_BIN_ID = '68ee144343b1c97be96704f9';
+        
         let state = {
             currentWeek: 1,
             currentDay: 0,
@@ -1472,14 +1429,15 @@
             completedDays: {},
             startTime: null,
             currentColor: '#000000',
-            // NUEVOS CAMPOS PARA FALLOS
             totalFailures: 0,
             currentExerciseFailures: 0,
-            failuresByExercise: {}, // Guarda fallos por ejercicio específico
-            exerciseAttempts: {} // Guarda intentos por ejercicio
+            failuresByExercise: {},
+            exerciseAttempts: {}
         };
 
         let weeksData = null;
+        let currentUser = null;
+        let allUsersData = {};
 
         async function loadWeeksData() {
             try {
@@ -1488,7 +1446,7 @@
                     throw new Error('No se pudo cargar semanas.json');
                 }
                 weeksData = await response.json();
-                initApp();
+                checkLoginStatus();
             } catch (error) {
                 document.getElementById('loadingScreen').innerHTML = `
                     <div class="error">
@@ -1500,11 +1458,132 @@
             }
         }
 
+        function checkLoginStatus() {
+            const savedUser = localStorage.getItem('currentUser');
+            if (savedUser) {
+                currentUser = savedUser;
+                loadUserDataAndInit();
+            } else {
+                showScreen('loginScreen');
+            }
+        }
+
+        async function loadUserDataAndInit() {
+            document.getElementById('loadingScreen').innerHTML = '<div>⏳ Cargando tu progreso...</div>';
+            showScreen('loadingScreen');
+            try {
+                await loadUserData(currentUser);
+                initApp();
+            } catch (error) {
+                alert('Error al cargar: ' + error.message);
+                logout();
+            }
+        }
+
+        async function handleLogin() {
+            const nameInput = document.getElementById('userName');
+            const name = nameInput.value.trim();
+            
+            if (!name) {
+                alert('❌ Por favor, introduce tu nombre');
+                return;
+            }
+            
+            if (name.length < 2) {
+                alert('❌ El nombre debe tener al menos 2 caracteres');
+                return;
+            }
+            
+            document.getElementById('loginBtn').disabled = true;
+            document.getElementById('loginBtn').textContent = '⏳ Cargando...';
+            
+            try {
+                await loadUserData(name);
+                currentUser = name;
+                localStorage.setItem('currentUser', name);
+                initApp();
+            } catch (error) {
+                alert('❌ Error al cargar datos: ' + error.message);
+                document.getElementById('loginBtn').disabled = false;
+                document.getElementById('loginBtn').textContent = '🚀 Comenzar Aventura';
+            }
+        }
+
+        async function loadUserData(userName) {
+            try {
+                const response = await fetch(`https://api.jsonbin.io/v3/b/${JSONBIN_BIN_ID}/latest`, {
+                    headers: {
+                        'X-Master-Key': JSONBIN_API_KEY
+                    }
+                });
+                
+                if (response.ok) {
+                    const data = await response.json();
+                    allUsersData = data.record || {};
+                    
+                    if (allUsersData[userName]) {
+                        state = { ...state, ...allUsersData[userName] };
+                    }
+                } else if (response.status === 404) {
+                    throw new Error('❌ BIN no encontrado. Verifica la configuración');
+                } else {
+                    allUsersData = {};
+                }
+            } catch (error) {
+                if (error.message.includes('BIN no encontrado')) {
+                    throw error;
+                }
+                console.log('Creando datos nuevos:', error);
+                allUsersData = {};
+            }
+        }
+
+        async function saveToCloud() {
+            if (!currentUser) return;
+            
+            allUsersData[currentUser] = { ...state };
+            delete allUsersData[currentUser].startTime;
+            delete allUsersData[currentUser].currentColor;
+            
+            try {
+                const response = await fetch(`https://api.jsonbin.io/v3/b/${JSONBIN_BIN_ID}`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-Master-Key': JSONBIN_API_KEY
+                    },
+                    body: JSON.stringify(allUsersData)
+                });
+                
+                if (!response.ok) {
+                    console.error('Error guardando en la nube');
+                }
+            } catch (error) {
+                console.error('Error de conexión:', error);
+            }
+        }
+
         function initApp() {
-            loadState();
+            updateStats();
             createWeekTabs();
             showScreen('homeScreen');
             loadWeek(state.currentWeek);
+            updateUserDisplay();
+        }
+
+        function updateUserDisplay() {
+            const header = document.querySelector('.header h1');
+            if (currentUser && header) {
+                header.innerHTML = `🎮 Aventuras de Aprendizaje 🎮<br><small style="font-size: 0.5em; opacity: 0.9;">👤 ${currentUser}</small>`;
+            }
+        }
+
+        function logout() {
+            if (confirm('¿Estás seguro de que quieres cerrar sesión?')) {
+                localStorage.removeItem('currentUser');
+                currentUser = null;
+                location.reload();
+            }
         }
 
         function createWeekTabs() {
@@ -1571,17 +1650,8 @@
             });
         }
 
-        function loadState() {
-            const saved = localStorage.getItem('appState');
-            if (saved) {
-                const loaded = JSON.parse(saved);
-                state = { ...state, ...loaded };
-                updateStats();
-            }
-        }
-
         function saveState() {
-            localStorage.setItem('appState', JSON.stringify(state));
+            saveToCloud();
         }
 
         function updateStats() {
@@ -1612,27 +1682,16 @@
             loadExercise();
         }
 
-        // NUEVA FUNCIÓN PARA CALCULAR ESTRELLAS GANADAS
         function calculateStarsEarned(exerciseId, totalQuestions) {
             const attempts = state.exerciseAttempts[exerciseId] || 1;
-            
-            // Sistema de estrellas basado en rendimiento:
-            // - 5 estrellas: Primer intento correcto
-            // - 4 estrellas: Segundo intento correcto
-            // - 3 estrellas: Tercer intento correcto
-            // - 2 estrellas: Cuarto intento correcto
-            // - 1 estrella: Quinto intento o más
-            
             if (attempts === 1) return 5;
             if (attempts === 2) return 4;
             if (attempts === 3) return 3;
             if (attempts === 4) return 2;
-            return 1; // Mínimo 1 estrella por completar
+            return 1;
         }
 
-        // FUNCIÓN PARA MOSTRAR FEEDBACK VISUAL
         function showFeedback(message, type) {
-            // Remover feedback anterior si existe
             const existingFeedback = document.getElementById('exerciseFeedback');
             if (existingFeedback) {
                 existingFeedback.remove();
@@ -1846,16 +1905,13 @@
             }
         }
         
-        // FUNCIÓN MEJORADA DE VERIFICACIÓN DE RESPUESTAS
         function checkAnswers() {
             const week = weeksData[state.currentWeek];
             const day = week.days[state.currentDay - 1];
             const exercise = day.exercises[state.currentExercise];
             
-            // Identificador único del ejercicio
             const exerciseId = `${state.currentWeek}_${state.currentDay}_${state.currentExercise}`;
             
-            // Inicializar tracking si no existe
             if (!state.failuresByExercise[exerciseId]) {
                 state.failuresByExercise[exerciseId] = 0;
             }
@@ -1921,17 +1977,14 @@
                 });
             }
             
-            // Incrementar intentos
             state.exerciseAttempts[exerciseId]++;
             
             if (allCorrect) {
-                // NUEVO SISTEMA DE ESTRELLAS BASADO EN RENDIMIENTO
                 const starsEarned = calculateStarsEarned(exerciseId, totalQuestions);
                 
                 state.correctAnswers += correctCount;
                 state.stars += starsEarned;
                 
-                // Mostrar feedback positivo
                 showFeedback(`¡Excelente! +${starsEarned} ⭐`, 'success');
                 
                 updateStats();
@@ -1940,19 +1993,17 @@
                 setTimeout(() => {
                     if (state.currentExercise < day.exercises.length - 1) {
                         state.currentExercise++;
-                        state.currentExerciseFailures = 0; // Reset para próximo ejercicio
+                        state.currentExerciseFailures = 0;
                         loadExercise();
                     } else {
                         finishDay();
                     }
                 }, 1500);
             } else {
-                // REGISTRAR FALLO
                 state.currentExerciseFailures++;
                 state.failuresByExercise[exerciseId]++;
                 state.totalFailures++;
                 
-                // Mostrar feedback de error con estadísticas
                 const failureCount = state.failuresByExercise[exerciseId];
                 showFeedback(`❌ Respuesta incorrecta (Intento ${state.exerciseAttempts[exerciseId]})`, 'error');
                 
@@ -1961,7 +2012,6 @@
             }
         }
 
-        // ACTUALIZAR checkChoice PARA DRAG & DROP Y MULTIPLE CHOICE
         function checkChoice(button, choice, correctAnswer) {
             const exerciseId = `${state.currentWeek}_${state.currentDay}_${state.currentExercise}`;
             
@@ -1989,7 +2039,6 @@
                 updateStats();
                 saveState();
                 
-                // Verificar si todas las preguntas están respondidas
                 const allChoiceContainers = document.querySelectorAll('.multiple-choice');
                 let allAnswered = true;
                 
@@ -2024,7 +2073,6 @@
             }
         }
 
-        // MEJORAR DRAG AND DROP
         function initDragAndDrop() {
             const draggables = document.querySelectorAll('.draggable-item');
             const dropZones = document.querySelectorAll('.drop-zone');
@@ -2081,7 +2129,6 @@
                         updateStats();
                         saveState();
                         
-                        // Verificar que TODAS las zonas tengan elementos Y que NO queden elementos sin arrastrar
                         const allZonesHaveItems = Array.from(dropZones).every(z => z.classList.contains('correct') && z.children.length > 1);
                         const remainingItems = document.querySelectorAll('.draggable-item[draggable="true"]');
                         
@@ -2195,71 +2242,6 @@
             }
         }
 
-        let canvas, ctx, isDrawing = false, lineWidth = 5;
-        
-        function initCanvas() {
-            canvas = document.getElementById('canvas');
-            if (!canvas) return;
-            ctx = canvas.getContext('2d');
-            ctx.lineWidth = lineWidth;
-            ctx.lineCap = 'round';
-            ctx.strokeStyle = state.currentColor;
-            
-            canvas.addEventListener('mousedown', startDrawing);
-            canvas.addEventListener('mousemove', draw);
-            canvas.addEventListener('mouseup', stopDrawing);
-            canvas.addEventListener('mouseout', stopDrawing);
-            
-            canvas.addEventListener('touchstart', (e) => {
-                e.preventDefault();
-                const touch = e.touches[0];
-                const rect = canvas.getBoundingClientRect();
-                startDrawing({offsetX: touch.clientX - rect.left, offsetY: touch.clientY - rect.top});
-            });
-            
-            canvas.addEventListener('touchmove', (e) => {
-                e.preventDefault();
-                const touch = e.touches[0];
-                const rect = canvas.getBoundingClientRect();
-                draw({offsetX: touch.clientX - rect.left, offsetY: touch.clientY - rect.top});
-            });
-            
-            canvas.addEventListener('touchend', stopDrawing);
-        }
-        
-        function startDrawing(e) {
-            isDrawing = true;
-            ctx.beginPath();
-            ctx.moveTo(e.offsetX, e.offsetY);
-        }
-        
-        function draw(e) {
-            if (!isDrawing) return;
-            ctx.lineTo(e.offsetX, e.offsetY);
-            ctx.stroke();
-        }
-        
-        function stopDrawing() {
-            isDrawing = false;
-        }
-        
-        function selectColor(color) {
-            state.currentColor = color;
-            if (ctx) ctx.strokeStyle = color;
-            document.querySelectorAll('.color-btn').forEach(btn => btn.classList.remove('active'));
-            event.target.classList.add('active');
-        }
-        
-        function clearCanvas() {
-            if (!ctx) return;
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-        }
-        
-        function changeLineWidth(width) {
-            lineWidth = width;
-            if (ctx) ctx.lineWidth = width;
-        }
-
         function showHint() {
             document.getElementById('hint').classList.add('show');
         }
@@ -2272,7 +2254,7 @@
             if (!state.completedDays[dayKey]) {
                 state.completedDays[dayKey] = true;
                 state.daysCompleted++;
-                dayStars = 4; // Bonus por completar el día
+                dayStars = 4;
             }
             
             state.stars += dayStars;
@@ -2423,13 +2405,6 @@
             min-width: 100px; 
             margin: 0 5px; 
         }
-        .draw-box { 
-            border: 2px dashed #667eea; 
-            min-height: 200px; 
-            margin: 20px 0; 
-            border-radius: 10px;
-            background: #fff;
-        }
         .story { 
             background: #e3f2fd; 
             padding: 15px; 
@@ -2570,14 +2545,12 @@
             }
         });
         
-        // ACTUALIZAR ESTADÍSTICAS DEL ADMIN CON FALLOS
         function updateAdminStats() {
             document.getElementById('adminStars').textContent = state.stars;
             document.getElementById('adminDays').textContent = state.daysCompleted;
             document.getElementById('adminCorrect').textContent = state.correctAnswers;
             document.getElementById('adminFailures').textContent = state.totalFailures;
             
-            // Calcular precisión
             const totalAttempts = state.correctAnswers + state.totalFailures;
             const accuracy = totalAttempts > 0 ? Math.round((state.correctAnswers / totalAttempts) * 100) : 0;
             document.getElementById('adminAccuracy').textContent = accuracy + '%';
@@ -2593,7 +2566,6 @@
             generateFailureDetails();
         }
         
-        // NUEVA FUNCIÓN PARA MOSTRAR DETALLES DE FALLOS
         function generateFailureDetails() {
             const failureDetails = document.getElementById('failureDetails');
             if (!failureDetails) return;
@@ -2605,7 +2577,6 @@
                 return;
             }
             
-            // Agrupar por semana y día
             const groupedFailures = {};
             
             Object.entries(state.failuresByExercise).forEach(([exerciseId, failures]) => {
@@ -2618,7 +2589,6 @@
                     groupedFailures[weekDay] = [];
                 }
                 
-                const attempts = state.exerciseAttempts[exerciseId] || 0;
                 const weekData = weeksData[week];
                 const dayData = weekData?.days[parseInt(day) - 1];
                 const exerciseData = dayData?.exercises[parseInt(exercise)];
@@ -2627,7 +2597,7 @@
                     exerciseNum: parseInt(exercise) + 1,
                     exerciseTitle: exerciseData?.title || 'Ejercicio desconocido',
                     failures,
-                    attempts
+                    attempts: state.exerciseAttempts[exerciseId] || 0
                 });
             });
             
