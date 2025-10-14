@@ -1607,11 +1607,30 @@
         async function loadUserDataAndInit() {
             showScreen('loadingScreen');
             document.getElementById('loadingScreen').innerHTML = '<div>⏳ Cargando tu progreso...</div>';
+            
+            console.log('🔍 loadUserDataAndInit - weeksData:', weeksData ? 'OK' : 'NULL');
+            
+            if (!weeksData) {
+                console.error('❌ weeksData es NULL en loadUserDataAndInit');
+                showScreen('loadingScreen');
+                document.getElementById('loadingScreen').innerHTML = `
+                    <div class="error">
+                        <h3>⚠️ Error interno</h3>
+                        <p>Los datos de las semanas se perdieron durante la carga.</p>
+                        <button class="btn btn-primary" onclick="location.reload()" style="margin-top: 20px;">
+                            🔄 Recargar página
+                        </button>
+                    </div>
+                `;
+                return;
+            }
+            
             try {
                 await loadUserData(currentUser);
+                console.log('✅ Datos de usuario cargados, iniciando app...');
                 initApp();
             } catch (error) {
-                console.error('Error:', error);
+                console.error('❌ Error en loadUserDataAndInit:', error);
                 showScreen('loadingScreen');
                 document.getElementById('loadingScreen').innerHTML = `
                     <div class="error">
@@ -1639,8 +1658,11 @@
                 return;
             }
             
+            console.log('🔍 Verificando weeksData:', weeksData ? 'OK' : 'NULL');
+            
             if (!weeksData) {
-                alert('❌ Error: Los datos de las semanas no están cargados. Recarga la página.');
+                alert('❌ Error: Los datos de las semanas no están cargados. Recargando página...');
+                location.reload();
                 return;
             }
             
@@ -1648,11 +1670,17 @@
             document.getElementById('loginBtn').textContent = '⏳ Cargando...';
             
             try {
-                await loadUserData(name);
                 currentUser = name;
+                await loadUserData(name);
                 localStorage.setItem('currentUser', name);
+                
+                console.log('✅ Usuario cargado, iniciando app...');
+                console.log('📊 State actual:', state);
+                console.log('📚 weeksData disponible:', weeksData ? 'SÍ' : 'NO');
+                
                 initApp();
             } catch (error) {
+                console.error('❌ Error en handleLogin:', error);
                 alert('❌ Error al cargar datos: ' + error.message);
                 document.getElementById('loginBtn').disabled = false;
                 document.getElementById('loginBtn').textContent = '🚀 Comenzar Aventura';
@@ -1733,25 +1761,43 @@
         }
 
         function initApp() {
+            console.log('🎮 Iniciando app...');
+            console.log('📊 weeksData:', weeksData ? 'OK' : 'NULL');
+            console.log('👤 currentUser:', currentUser);
+            console.log('⭐ state.stars:', state.stars);
+            
             if (!weeksData) {
+                console.error('❌ CRÍTICO: weeksData es NULL en initApp');
                 showScreen('loadingScreen');
                 document.getElementById('loadingScreen').innerHTML = `
                     <div class="error">
                         <h3>⚠️ Error</h3>
                         <p>No se pudieron cargar los datos de las semanas.</p>
+                        <p style="font-size: 0.9em; color: #666; margin-top: 15px;">
+                            Esto puede ocurrir si el archivo semanas.json no se cargó correctamente.
+                        </p>
                         <button class="btn btn-primary" onclick="location.reload()" style="margin-top: 20px;">
-                            Recargar página
+                            🔄 Recargar página
                         </button>
                     </div>
                 `;
                 return;
             }
             
-            updateStats();
-            createWeekTabs();
-            showScreen('homeScreen');
-            loadWeek(state.currentWeek);
-            updateUserDisplay();
+            console.log('✅ Todas las verificaciones pasadas, mostrando interfaz...');
+            
+            try {
+                updateStats();
+                createWeekTabs();
+                showScreen('homeScreen');
+                loadWeek(state.currentWeek);
+                updateUserDisplay();
+                
+                console.log('✅ App iniciada correctamente');
+            } catch (error) {
+                console.error('❌ Error al iniciar app:', error);
+                alert('Error al iniciar: ' + error.message);
+            }
         }
 
         function updateUserDisplay() {
