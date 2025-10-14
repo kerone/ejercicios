@@ -925,7 +925,6 @@
             margin: 20px;
         }
         
-        /* Drag and Drop styles */
         .drag-drop-container {
             margin: 25px 0;
         }
@@ -1011,7 +1010,6 @@
             text-align: center;
         }
         
-        /* Sequence styles */
         .sequence-container {
             margin: 25px 0;
         }
@@ -1091,7 +1089,6 @@
             border: 3px solid #ef4444;
         }
         
-        /* Fill blanks styles */
         .fillblanks-container {
             margin: 25px 0;
         }
@@ -1108,7 +1105,6 @@
             margin: 0 5px;
         }
         
-        /* Panel de Administración */
         .admin-panel {
             position: fixed;
             top: 0;
@@ -1307,7 +1303,6 @@
             border-radius: 5px;
         }
         
-        /* Feedback styles */
         @keyframes feedbackPop {
             0% { transform: translate(-50%, -50%) scale(0.5); opacity: 0; }
             100% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
@@ -1461,7 +1456,10 @@
     </div>
 
     <script>
-        // ESTADO MEJORADO CON TRACKING DE FALLOS
+        const JSONBIN_BIN_ID = '68ee144343b1c97be96704f9';
+        const JSONBIN_MASTER_KEY = '$2a$10$byEkgCiPtr6uA9j.sw5Uiuld00jGPRMT1Rn9TlhHYbPe3CFfaEu6G';
+        const JSONBIN_API_URL = `https://api.jsonbin.io/v3/b/${JSONBIN_BIN_ID}`;
+
         let state = {
             currentWeek: 1,
             currentDay: 0,
@@ -1472,14 +1470,14 @@
             completedDays: {},
             startTime: null,
             currentColor: '#000000',
-            // NUEVOS CAMPOS PARA FALLOS
             totalFailures: 0,
             currentExerciseFailures: 0,
-            failuresByExercise: {}, // Guarda fallos por ejercicio específico
-            exerciseAttempts: {} // Guarda intentos por ejercicio
+            failuresByExercise: {},
+            exerciseAttempts: {}
         };
 
         let weeksData = null;
+        let isSaving = false;
 
         async function loadWeeksData() {
             try {
@@ -1488,7 +1486,7 @@
                     throw new Error('No se pudo cargar semanas.json');
                 }
                 weeksData = await response.json();
-                initApp();
+                await initApp();
             } catch (error) {
                 document.getElementById('loadingScreen').innerHTML = `
                     <div class="error">
@@ -1500,8 +1498,8 @@
             }
         }
 
-        function initApp() {
-            loadState();
+        async function initApp() {
+            await loadState();
             createWeekTabs();
             showScreen('homeScreen');
             loadWeek(state.currentWeek);
@@ -1571,17 +1569,64 @@
             });
         }
 
-        function loadState() {
-            const saved = localStorage.getItem('appState');
-            if (saved) {
-                const loaded = JSON.parse(saved);
-                state = { ...state, ...loaded };
-                updateStats();
+        async function loadState() {
+            try {
+                const response = await fetch(JSONBIN_API_URL + '/latest', {
+                    method: 'GET',
+                    headers: {
+                        'X-Master-Key': JSONBIN_MASTER_KEY
+                    }
+                });
+
+                if (response.ok) {
+                    const data = await response.json();
+                    if (data.record) {
+                        state = { ...state, ...data.record };
+                        updateStats();
+                        console.log('✅ Estado cargado desde JSONBin');
+                    }
+                } else {
+                    console.log('⚠️ No se pudo cargar el estado, usando estado inicial');
+                }
+            } catch (error) {
+                console.error('❌ Error al cargar estado:', error);
+                const localBackup = localStorage.getItem('appState');
+                if (localBackup) {
+                    const loaded = JSON.parse(localBackup);
+                    state = { ...state, ...loaded };
+                    updateStats();
+                    console.log('✅ Estado recuperado desde backup local');
+                }
             }
         }
 
-        function saveState() {
-            localStorage.setItem('appState', JSON.stringify(state));
+        async function saveState() {
+            if (isSaving) return;
+            
+            isSaving = true;
+            
+            try {
+                localStorage.setItem('appState', JSON.stringify(state));
+                
+                const response = await fetch(JSONBIN_API_URL, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-Master-Key': JSONBIN_MASTER_KEY
+                    },
+                    body: JSON.stringify(state)
+                });
+
+                if (response.ok) {
+                    console.log('✅ Estado guardado en JSONBin');
+                } else {
+                    console.error('⚠️ Error al guardar en JSONBin:', response.status);
+                }
+            } catch (error) {
+                console.error('❌ Error al guardar estado:', error);
+            } finally {
+                isSaving = false;
+            }
         }
 
         function updateStats() {
@@ -1612,27 +1657,17 @@
             loadExercise();
         }
 
-        // NUEVA FUNCIÓN PARA CALCULAR ESTRELLAS GANADAS
         function calculateStarsEarned(exerciseId, totalQuestions) {
             const attempts = state.exerciseAttempts[exerciseId] || 1;
-            
-            // Sistema de estrellas basado en rendimiento:
-            // - 5 estrellas: Primer intento correcto
-            // - 4 estrellas: Segundo intento correcto
-            // - 3 estrellas: Tercer intento correcto
-            // - 2 estrellas: Cuarto intento correcto
-            // - 1 estrella: Quinto intento o más
             
             if (attempts === 1) return 5;
             if (attempts === 2) return 4;
             if (attempts === 3) return 3;
             if (attempts === 4) return 2;
-            return 1; // Mínimo 1 estrella por completar
+            return 1;
         }
 
-        // FUNCIÓN PARA MOSTRAR FEEDBACK VISUAL
         function showFeedback(message, type) {
-            // Remover feedback anterior si existe
             const existingFeedback = document.getElementById('exerciseFeedback');
             if (existingFeedback) {
                 existingFeedback.remove();
@@ -1846,16 +1881,13 @@
             }
         }
         
-        // FUNCIÓN MEJORADA DE VERIFICACIÓN DE RESPUESTAS
         function checkAnswers() {
             const week = weeksData[state.currentWeek];
             const day = week.days[state.currentDay - 1];
             const exercise = day.exercises[state.currentExercise];
             
-            // Identificador único del ejercicio
             const exerciseId = `${state.currentWeek}_${state.currentDay}_${state.currentExercise}`;
             
-            // Inicializar tracking si no existe
             if (!state.failuresByExercise[exerciseId]) {
                 state.failuresByExercise[exerciseId] = 0;
             }
@@ -1921,17 +1953,14 @@
                 });
             }
             
-            // Incrementar intentos
             state.exerciseAttempts[exerciseId]++;
             
             if (allCorrect) {
-                // NUEVO SISTEMA DE ESTRELLAS BASADO EN RENDIMIENTO
                 const starsEarned = calculateStarsEarned(exerciseId, totalQuestions);
                 
                 state.correctAnswers += correctCount;
                 state.stars += starsEarned;
                 
-                // Mostrar feedback positivo
                 showFeedback(`¡Excelente! +${starsEarned} ⭐`, 'success');
                 
                 updateStats();
@@ -1940,19 +1969,17 @@
                 setTimeout(() => {
                     if (state.currentExercise < day.exercises.length - 1) {
                         state.currentExercise++;
-                        state.currentExerciseFailures = 0; // Reset para próximo ejercicio
+                        state.currentExerciseFailures = 0;
                         loadExercise();
                     } else {
                         finishDay();
                     }
                 }, 1500);
             } else {
-                // REGISTRAR FALLO
                 state.currentExerciseFailures++;
                 state.failuresByExercise[exerciseId]++;
                 state.totalFailures++;
                 
-                // Mostrar feedback de error con estadísticas
                 const failureCount = state.failuresByExercise[exerciseId];
                 showFeedback(`❌ Respuesta incorrecta (Intento ${state.exerciseAttempts[exerciseId]})`, 'error');
                 
@@ -1961,7 +1988,6 @@
             }
         }
 
-        // ACTUALIZAR checkChoice PARA DRAG & DROP Y MULTIPLE CHOICE
         function checkChoice(button, choice, correctAnswer) {
             const exerciseId = `${state.currentWeek}_${state.currentDay}_${state.currentExercise}`;
             
@@ -1989,7 +2015,6 @@
                 updateStats();
                 saveState();
                 
-                // Verificar si todas las preguntas están respondidas
                 const allChoiceContainers = document.querySelectorAll('.multiple-choice');
                 let allAnswered = true;
                 
@@ -2024,7 +2049,6 @@
             }
         }
 
-        // MEJORAR DRAG AND DROP
         function initDragAndDrop() {
             const draggables = document.querySelectorAll('.draggable-item');
             const dropZones = document.querySelectorAll('.drop-zone');
@@ -2081,7 +2105,6 @@
                         updateStats();
                         saveState();
                         
-                        // Verificar que TODAS las zonas tengan elementos Y que NO queden elementos sin arrastrar
                         const allZonesHaveItems = Array.from(dropZones).every(z => z.classList.contains('correct') && z.children.length > 1);
                         const remainingItems = document.querySelectorAll('.draggable-item[draggable="true"]');
                         
@@ -2272,7 +2295,7 @@
             if (!state.completedDays[dayKey]) {
                 state.completedDays[dayKey] = true;
                 state.daysCompleted++;
-                dayStars = 4; // Bonus por completar el día
+                dayStars = 4;
             }
             
             state.stars += dayStars;
@@ -2570,14 +2593,12 @@
             }
         });
         
-        // ACTUALIZAR ESTADÍSTICAS DEL ADMIN CON FALLOS
         function updateAdminStats() {
             document.getElementById('adminStars').textContent = state.stars;
             document.getElementById('adminDays').textContent = state.daysCompleted;
             document.getElementById('adminCorrect').textContent = state.correctAnswers;
             document.getElementById('adminFailures').textContent = state.totalFailures;
             
-            // Calcular precisión
             const totalAttempts = state.correctAnswers + state.totalFailures;
             const accuracy = totalAttempts > 0 ? Math.round((state.correctAnswers / totalAttempts) * 100) : 0;
             document.getElementById('adminAccuracy').textContent = accuracy + '%';
@@ -2593,7 +2614,6 @@
             generateFailureDetails();
         }
         
-        // NUEVA FUNCIÓN PARA MOSTRAR DETALLES DE FALLOS
         function generateFailureDetails() {
             const failureDetails = document.getElementById('failureDetails');
             if (!failureDetails) return;
@@ -2605,7 +2625,6 @@
                 return;
             }
             
-            // Agrupar por semana y día
             const groupedFailures = {};
             
             Object.entries(state.failuresByExercise).forEach(([exerciseId, failures]) => {
