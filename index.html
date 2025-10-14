@@ -160,6 +160,32 @@
             left: 15px;
         }
         
+        .user-badge {
+            position: absolute;
+            top: 15px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(255,255,255,0.95);
+            color: #667eea;
+            backdrop-filter: blur(10px);
+            padding: 8px 20px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.85em;
+            font-weight: 700;
+            transition: all 0.3s;
+            border: 2px solid rgba(102, 126, 234, 0.5);
+            z-index: 2;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+        
+        .user-badge:hover {
+            background: white;
+            border-color: #667eea;
+            transform: translateX(-50%) translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+        }
+        
         @media screen and (min-width: 768px) {
             .admin-link, .pdf-download-btn {
                 top: 20px;
@@ -1307,13 +1333,164 @@
             0% { transform: translate(-50%, -50%) scale(0.5); opacity: 0; }
             100% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
         }
+        
+        .login-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            z-index: 10001;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        
+        .login-box {
+            background: white;
+            border-radius: 30px;
+            padding: 50px 40px;
+            max-width: 450px;
+            width: 100%;
+            box-shadow: 0 30px 90px rgba(0,0,0,0.4);
+            text-align: center;
+        }
+        
+        .login-box h2 {
+            color: #667eea;
+            font-size: 2.5em;
+            margin-bottom: 15px;
+        }
+        
+        .login-box p {
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 1.1em;
+        }
+        
+        .login-box input {
+            width: 100%;
+            padding: 18px 20px;
+            font-size: 1.2em;
+            border: 3px solid #e5e7eb;
+            border-radius: 15px;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            transition: all 0.3s;
+            margin-bottom: 25px;
+            text-align: center;
+        }
+        
+        .login-box input:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1);
+        }
+        
+        .users-list {
+            max-height: 300px;
+            overflow-y: auto;
+            margin: 20px 0;
+            text-align: left;
+        }
+        
+        .user-item {
+            background: #f9fafb;
+            padding: 15px 20px;
+            border-radius: 12px;
+            margin: 10px 0;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: 2px solid #e5e7eb;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .user-item:hover {
+            background: #667eea;
+            color: white;
+            border-color: #667eea;
+            transform: translateX(5px);
+        }
+        
+        .user-item .icon {
+            font-size: 1.5em;
+        }
+        
+        .user-menu {
+            position: absolute;
+            top: 60px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: white;
+            border-radius: 15px;
+            padding: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            z-index: 3;
+            min-width: 200px;
+            display: none;
+        }
+        
+        .user-menu.show {
+            display: block;
+            animation: slideDown 0.3s;
+        }
+        
+        .user-menu-item {
+            padding: 12px 15px;
+            cursor: pointer;
+            border-radius: 10px;
+            transition: all 0.3s;
+            font-weight: 600;
+            color: #667eea;
+        }
+        
+        .user-menu-item:hover {
+            background: #f3f4f6;
+        }
     </style>
 </head>
 <body>
+    <div class="login-screen" id="loginScreen">
+        <div class="login-box">
+            <h2>👋 ¡Hola!</h2>
+            <p>¿Quién eres tú?</p>
+            
+            <input 
+                type="text" 
+                id="usernameInput" 
+                placeholder="Escribe tu nombre"
+                onkeypress="if(event.key === 'Enter') loginUser()"
+                autocomplete="off"
+            >
+            
+            <button class="btn btn-primary" onclick="loginUser()" style="width: 100%;">
+                ✨ Comenzar Aventura
+            </button>
+            
+            <div id="existingUsers" style="margin-top: 30px;"></div>
+        </div>
+    </div>
+    
+    <div class="user-menu" id="userMenu">
+        <div class="user-menu-item" onclick="changeUser()">
+            🔄 Cambiar usuario
+        </div>
+        <div class="user-menu-item" onclick="logoutUser()">
+            🚪 Cerrar sesión
+        </div>
+    </div>
+
     <div class="app-container">
         <div class="header">
             <div class="pdf-download-btn" onclick="downloadWeekPDF()">📥 PDF</div>
             <div class="admin-link" onclick="showAdminLogin()">🔧 Admin</div>
+            <div class="user-badge" id="userBadge" onclick="showUserMenu()" style="display: none;">
+                👤 <span id="currentUserName"></span>
+            </div>
             <h1>🎮 Aventuras de Aprendizaje 🎮</h1>
             
             <div class="week-selector" id="weekSelector"></div>
@@ -1460,6 +1637,9 @@
         const JSONBIN_MASTER_KEY = '$2a$10$byEkgCiPtr6uA9j.sw5Uiuld00jGPRMT1Rn9TlhHYbPe3CFfaEu6G';
         const JSONBIN_API_URL = `https://api.jsonbin.io/v3/b/${JSONBIN_BIN_ID}`;
 
+        let currentUser = null;
+        let allUsersData = {};
+        
         let state = {
             currentWeek: 1,
             currentDay: 0,
@@ -1486,7 +1666,7 @@
                     throw new Error('No se pudo cargar semanas.json');
                 }
                 weeksData = await response.json();
-                await initApp();
+                await checkExistingSession();
             } catch (error) {
                 document.getElementById('loadingScreen').innerHTML = `
                     <div class="error">
@@ -1495,6 +1675,188 @@
                         <p>Asegúrate de que el archivo <strong>semanas.json</strong> está en la misma carpeta que este HTML.</p>
                     </div>
                 `;
+            }
+        }
+
+        async function checkExistingSession() {
+            const savedUser = localStorage.getItem('currentUser');
+            if (savedUser) {
+                currentUser = savedUser;
+                await loadAllUsersData();
+                if (allUsersData[currentUser]) {
+                    hideLoginScreen();
+                    await initApp();
+                } else {
+                    showLoginScreen();
+                }
+            } else {
+                showLoginScreen();
+            }
+        }
+
+        function showLoginScreen() {
+            document.getElementById('loginScreen').style.display = 'flex';
+            loadExistingUsersList();
+            document.getElementById('usernameInput').focus();
+        }
+
+        function hideLoginScreen() {
+            document.getElementById('loginScreen').style.display = 'none';
+            document.getElementById('userBadge').style.display = 'block';
+            document.getElementById('currentUserName').textContent = currentUser;
+        }
+
+        async function loadExistingUsersList() {
+            await loadAllUsersData();
+            const existingUsersDiv = document.getElementById('existingUsers');
+            
+            const usernames = Object.keys(allUsersData);
+            if (usernames.length === 0) {
+                existingUsersDiv.innerHTML = '';
+                return;
+            }
+            
+            existingUsersDiv.innerHTML = '<p style="color: #666; margin-bottom: 10px; font-weight: 600;">O selecciona un usuario existente:</p><div class="users-list"></div>';
+            const usersList = existingUsersDiv.querySelector('.users-list');
+            
+            usernames.forEach(username => {
+                const userItem = document.createElement('div');
+                userItem.className = 'user-item';
+                const userData = allUsersData[username];
+                userItem.innerHTML = `
+                    <span class="icon">👤</span>
+                    <div style="flex: 1;">
+                        <div style="font-weight: bold;">${username}</div>
+                        <div style="font-size: 0.85em; opacity: 0.8;">⭐ ${userData.stars || 0} estrellas • 📅 ${userData.daysCompleted || 0} días</div>
+                    </div>
+                `;
+                userItem.onclick = () => selectExistingUser(username);
+                usersList.appendChild(userItem);
+            });
+        }
+
+        async function loginUser() {
+            const username = document.getElementById('usernameInput').value.trim();
+            
+            if (!username) {
+                alert('⚠️ Por favor, escribe tu nombre');
+                return;
+            }
+            
+            if (username.length < 2) {
+                alert('⚠️ El nombre debe tener al menos 2 caracteres');
+                return;
+            }
+            
+            currentUser = username;
+            localStorage.setItem('currentUser', username);
+            
+            await loadAllUsersData();
+            
+            if (!allUsersData[username]) {
+                allUsersData[username] = { ...state };
+                await saveAllUsersData();
+            }
+            
+            hideLoginScreen();
+            await initApp();
+        }
+
+        async function selectExistingUser(username) {
+            currentUser = username;
+            localStorage.setItem('currentUser', username);
+            hideLoginScreen();
+            await initApp();
+        }
+
+        function showUserMenu() {
+            const menu = document.getElementById('userMenu');
+            menu.classList.toggle('show');
+            
+            document.addEventListener('click', closeUserMenuOnClickOutside);
+        }
+
+        function closeUserMenuOnClickOutside(e) {
+            const menu = document.getElementById('userMenu');
+            const badge = document.getElementById('userBadge');
+            
+            if (!menu.contains(e.target) && !badge.contains(e.target)) {
+                menu.classList.remove('show');
+                document.removeEventListener('click', closeUserMenuOnClickOutside);
+            }
+        }
+
+        function changeUser() {
+            document.getElementById('userMenu').classList.remove('show');
+            currentUser = null;
+            localStorage.removeItem('currentUser');
+            document.getElementById('userBadge').style.display = 'none';
+            showLoginScreen();
+        }
+
+        function logoutUser() {
+            if (confirm('¿Seguro que quieres cerrar sesión?')) {
+                changeUser();
+            }
+        }
+
+        async function loadAllUsersData() {
+            try {
+                const response = await fetch(JSONBIN_API_URL + '/latest', {
+                    method: 'GET',
+                    headers: {
+                        'X-Master-Key': JSONBIN_MASTER_KEY
+                    }
+                });
+
+                if (response.ok) {
+                    const data = await response.json();
+                    if (data.record && typeof data.record === 'object') {
+                        allUsersData = data.record;
+                        console.log('✅ Datos de todos los usuarios cargados desde JSONBin');
+                    }
+                } else {
+                    console.log('⚠️ No se pudieron cargar los datos, usando objeto vacío');
+                    allUsersData = {};
+                }
+            } catch (error) {
+                console.error('❌ Error al cargar datos de usuarios:', error);
+                const localBackup = localStorage.getItem('allUsersData');
+                if (localBackup) {
+                    allUsersData = JSON.parse(localBackup);
+                    console.log('✅ Datos recuperados desde backup local');
+                } else {
+                    allUsersData = {};
+                }
+            }
+        }
+
+        async function saveAllUsersData() {
+            if (isSaving) return;
+            
+            isSaving = true;
+            
+            try {
+                localStorage.setItem('allUsersData', JSON.stringify(allUsersData));
+                
+                const response = await fetch(JSONBIN_API_URL, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-Master-Key': JSONBIN_MASTER_KEY
+                    },
+                    body: JSON.stringify(allUsersData)
+                });
+
+                if (response.ok) {
+                    console.log('✅ Datos de todos los usuarios guardados en JSONBin');
+                } else {
+                    console.error('⚠️ Error al guardar en JSONBin:', response.status);
+                }
+            } catch (error) {
+                console.error('❌ Error al guardar datos:', error);
+            } finally {
+                isSaving = false;
             }
         }
 
