@@ -1686,22 +1686,30 @@
                 if (allUsersData[currentUser]) {
                     hideLoginScreen();
                     await initApp();
-                } else {
-                    showLoginScreen();
+                    return;
                 }
-            } else {
-                showLoginScreen();
             }
+            showLoginScreen();
         }
 
         function showLoginScreen() {
             document.getElementById('loginScreen').style.display = 'flex';
+            const appContainer = document.querySelector('.app-container');
+            if (appContainer) {
+                appContainer.style.display = 'none';
+            }
             document.getElementById('usernameInput').value = '';
-            document.getElementById('usernameInput').focus();
+            setTimeout(() => {
+                document.getElementById('usernameInput').focus();
+            }, 100);
         }
 
         function hideLoginScreen() {
             document.getElementById('loginScreen').style.display = 'none';
+            const appContainer = document.querySelector('.app-container');
+            if (appContainer) {
+                appContainer.style.display = 'block';
+            }
             document.getElementById('userBadge').style.display = 'block';
             document.getElementById('currentUserName').textContent = currentUser;
         }
@@ -1725,7 +1733,22 @@
             await loadAllUsersData();
             
             if (!allUsersData[username]) {
-                allUsersData[username] = { ...state };
+                console.log('Creando nuevo usuario:', username);
+                allUsersData[username] = {
+                    currentWeek: 1,
+                    currentDay: 0,
+                    currentExercise: 0,
+                    stars: 0,
+                    correctAnswers: 0,
+                    daysCompleted: 0,
+                    completedDays: {},
+                    startTime: null,
+                    currentColor: '#000000',
+                    totalFailures: 0,
+                    currentExerciseFailures: 0,
+                    failuresByExercise: {},
+                    exerciseAttempts: {}
+                };
                 await saveAllUsersData();
             }
             
