@@ -1448,6 +1448,7 @@
                 weeksData = await response.json();
                 checkLoginStatus();
             } catch (error) {
+                showScreen('loadingScreen');
                 document.getElementById('loadingScreen').innerHTML = `
                     <div class="error">
                         <h3>⚠️ Error al cargar las aventuras</h3>
@@ -1469,14 +1470,23 @@
         }
 
         async function loadUserDataAndInit() {
-            document.getElementById('loadingScreen').innerHTML = '<div>⏳ Cargando tu progreso...</div>';
             showScreen('loadingScreen');
+            document.getElementById('loadingScreen').innerHTML = '<div>⏳ Cargando tu progreso...</div>';
             try {
                 await loadUserData(currentUser);
                 initApp();
             } catch (error) {
-                alert('Error al cargar: ' + error.message);
-                logout();
+                console.error('Error:', error);
+                showScreen('loadingScreen');
+                document.getElementById('loadingScreen').innerHTML = `
+                    <div class="error">
+                        <h3>⚠️ Error al cargar datos</h3>
+                        <p>${error.message}</p>
+                        <button class="btn btn-primary" onclick="logout()" style="margin-top: 20px;">
+                            Volver al login
+                        </button>
+                    </div>
+                `;
             }
         }
 
@@ -1491,6 +1501,11 @@
             
             if (name.length < 2) {
                 alert('❌ El nombre debe tener al menos 2 caracteres');
+                return;
+            }
+            
+            if (!weeksData) {
+                alert('❌ Error: Los datos de las semanas no están cargados. Recarga la página.');
                 return;
             }
             
@@ -1564,6 +1579,20 @@
         }
 
         function initApp() {
+            if (!weeksData) {
+                showScreen('loadingScreen');
+                document.getElementById('loadingScreen').innerHTML = `
+                    <div class="error">
+                        <h3>⚠️ Error</h3>
+                        <p>No se pudieron cargar los datos de las semanas.</p>
+                        <button class="btn btn-primary" onclick="location.reload()" style="margin-top: 20px;">
+                            Recargar página
+                        </button>
+                    </div>
+                `;
+                return;
+            }
+            
             updateStats();
             createWeekTabs();
             showScreen('homeScreen');
@@ -1582,7 +1611,23 @@
             if (confirm('¿Estás seguro de que quieres cerrar sesión?')) {
                 localStorage.removeItem('currentUser');
                 currentUser = null;
-                location.reload();
+                state = {
+                    currentWeek: 1,
+                    currentDay: 0,
+                    currentExercise: 0,
+                    stars: 0,
+                    correctAnswers: 0,
+                    daysCompleted: 0,
+                    completedDays: {},
+                    startTime: null,
+                    currentColor: '#000000',
+                    totalFailures: 0,
+                    currentExerciseFailures: 0,
+                    failuresByExercise: {},
+                    exerciseAttempts: {}
+                };
+                showScreen('loginScreen');
+                document.getElementById('userName').value = '';
             }
         }
 
