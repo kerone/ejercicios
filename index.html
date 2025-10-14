@@ -1487,7 +1487,7 @@
     <div class="app-container">
         <div class="header">
             <div class="pdf-download-btn" onclick="downloadWeekPDF()">📥 PDF</div>
-            <div class="admin-link" onclick="showAdminLogin()">🔧 Admin</div>
+            <div class="admin-link" onclick="showConfigPanel()">⚙️ Config</div>
             <div class="user-badge" id="userBadge" onclick="showUserMenu()" style="display: none;">
                 👤 <span id="currentUserName"></span>
             </div>
@@ -1696,7 +1696,7 @@
 
         function showLoginScreen() {
             document.getElementById('loginScreen').style.display = 'flex';
-            loadExistingUsersList();
+            document.getElementById('usernameInput').value = '';
             document.getElementById('usernameInput').focus();
         }
 
@@ -1704,35 +1704,6 @@
             document.getElementById('loginScreen').style.display = 'none';
             document.getElementById('userBadge').style.display = 'block';
             document.getElementById('currentUserName').textContent = currentUser;
-        }
-
-        async function loadExistingUsersList() {
-            await loadAllUsersData();
-            const existingUsersDiv = document.getElementById('existingUsers');
-            
-            const usernames = Object.keys(allUsersData);
-            if (usernames.length === 0) {
-                existingUsersDiv.innerHTML = '';
-                return;
-            }
-            
-            existingUsersDiv.innerHTML = '<p style="color: #666; margin-bottom: 10px; font-weight: 600;">O selecciona un usuario existente:</p><div class="users-list"></div>';
-            const usersList = existingUsersDiv.querySelector('.users-list');
-            
-            usernames.forEach(username => {
-                const userItem = document.createElement('div');
-                userItem.className = 'user-item';
-                const userData = allUsersData[username];
-                userItem.innerHTML = `
-                    <span class="icon">👤</span>
-                    <div style="flex: 1;">
-                        <div style="font-weight: bold;">${username}</div>
-                        <div style="font-size: 0.85em; opacity: 0.8;">⭐ ${userData.stars || 0} estrellas • 📅 ${userData.daysCompleted || 0} días</div>
-                    </div>
-                `;
-                userItem.onclick = () => selectExistingUser(username);
-                usersList.appendChild(userItem);
-            });
         }
 
         async function loginUser() {
@@ -1758,13 +1729,6 @@
                 await saveAllUsersData();
             }
             
-            hideLoginScreen();
-            await initApp();
-        }
-
-        async function selectExistingUser(username) {
-            currentUser = username;
-            localStorage.setItem('currentUser', username);
             hideLoginScreen();
             await initApp();
         }
@@ -2918,28 +2882,301 @@
             alert(`📥 Descargado: ${week.name}\n\n✅ Abre el archivo HTML descargado\n✅ Usa Ctrl+P (o Cmd+P) para imprimir\n✅ Selecciona "Guardar como PDF"`);
         }
         
-        const ADMIN_PASSWORD = '1234';
+        const SUPERADMIN_PASSWORD = 'superadmin2024';
         
-        function showAdminLogin() {
-            document.getElementById('adminPanel').classList.add('show');
-            document.getElementById('adminLogin').style.display = 'block';
-            document.getElementById('adminContent').style.display = 'none';
-            document.getElementById('adminPassword').value = '';
-            document.getElementById('errorMessage').classList.remove('show');
-            document.getElementById('adminPassword').focus();
+        function showSuperAdminLogin() {
+            document.getElementById('loginScreen').style.display = 'none';
+            document.getElementById('superAdminPanel').classList.add('show');
+            document.getElementById('superAdminLogin').style.display = 'block';
+            document.getElementById('superAdminContent').style.display = 'none';
+            document.getElementById('superAdminPassword').value = '';
+            document.getElementById('superAdminError').classList.remove('show');
+            document.getElementById('superAdminPassword').focus();
         }
         
-        function checkAdminPassword() {
-            const password = document.getElementById('adminPassword').value;
+        function checkSuperAdminPassword() {
+            const password = document.getElementById('superAdminPassword').value;
             
-            if (password === ADMIN_PASSWORD) {
-                document.getElementById('adminLogin').style.display = 'none';
-                document.getElementById('adminContent').style.display = 'block';
-                updateAdminStats();
+            if (password === SUPERADMIN_PASSWORD) {
+                document.getElementById('superAdminLogin').style.display = 'none';
+                document.getElementById('superAdminContent').style.display = 'block';
+                loadSuperAdminUsers();
             } else {
-                document.getElementById('errorMessage').classList.add('show');
-                document.getElementById('adminPassword').value = '';
-                document.getElementById('adminPassword').focus();
+                document.getElementById('superAdminError').classList.add('show');
+                document.getElementById('superAdminPassword').value = '';
+                document.getElementById('superAdminPassword').focus();
+            }
+        }
+        
+        function closeSuperAdminPanel() {
+            document.getElementById('superAdminPanel').classList.remove('show');
+            document.getElementById('superAdminPassword').value = '';
+            document.getElementById('superAdminError').classList.remove('show');
+            showLoginScreen();
+        }
+        
+        async function loadSuperAdminUsers() {
+            await loadAllUsersData();
+            const usersList = document.getElementById('superAdminUsersList');
+            usersList.innerHTML = '';
+            
+            const usernames = Object.keys(allUsersData);
+            
+            if (usernames.length === 0) {
+                usersList.innerHTML = '<p style="text-align: center; color: #999;">No hay usuarios registrados</p>';
+                return;
+            }
+            
+            usernames.forEach(username => {
+                const userData = allUsersData[username];
+                const userItem = document.createElement('div');
+                userItem.className = 'week-item';
+                userItem.innerHTML = `
+                    <div class="week-info">
+                        <strong>👤 ${username}</strong>
+                        <div class="week-stats">
+                            ⭐ ${userData.stars || 0} estrellas • 
+                            📅 ${userData.daysCompleted || 0} días completados • 
+                            ✅ ${userData.correctAnswers || 0} respuestas correctas
+                        </div>
+                    </div>
+                    <button class="admin-btn admin-btn-danger" onclick="deleteUser('${username}')">
+                        🗑️ Eliminar
+                    </button>
+                `;
+                usersList.appendChild(userItem);
+            });
+        }
+        
+        async function deleteUser(username) {
+            if (!confirm(`¿Estás seguro de que quieres eliminar al usuario "${username}"?\n\nEsto borrará todo su progreso de forma permanente.`)) {
+                return;
+            }
+            
+            delete allUsersData[username];
+            await saveAllUsersData();
+            loadSuperAdminUsers();
+            
+            alert(`✅ Usuario "${username}" eliminado correctamente`);
+        }
+        
+        async function resetAllUsersData() {
+            const confirmation = confirm('⚠️ ¿ESTÁS ABSOLUTAMENTE SEGURO?\n\nEsto eliminará:\n- TODOS los usuarios\n- TODO el progreso de todos\n- TODAS las estadísticas\n\nEsta acción NO se puede deshacer.');
+            
+            if (!confirmation) return;
+            
+            const doubleCheck = confirm('🔴 ÚLTIMA CONFIRMACIÓN\n\n¿Realmente quieres borrar TODO el sistema completo?');
+            
+            if (!doubleCheck) return;
+            
+            allUsersData = {};
+            await saveAllUsersData();
+            
+            alert('✅ Todos los datos del sistema han sido eliminados');
+            closeSuperAdminPanel();
+        }
+        
+        function showConfigPanel() {
+            if (!currentUser) {
+                alert('⚠️ Debes iniciar sesión primero');
+                return;
+            }
+            
+            document.getElementById('configPanel').classList.add('show');
+            updateConfigStats();
+        }
+        
+        function closeConfigPanel() {
+            document.getElementById('configPanel').classList.remove('show');
+        }
+        
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                if (document.getElementById('configPanel').classList.contains('show')) {
+                    closeConfigPanel();
+                }
+                if (document.getElementById('superAdminPanel').classList.contains('show')) {
+                    closeSuperAdminPanel();
+                }
+            }
+        });
+        
+        function updateConfigStats() {
+            document.getElementById('configStars').textContent = state.stars;
+            document.getElementById('configDays').textContent = state.daysCompleted;
+            document.getElementById('configCorrect').textContent = state.correctAnswers;
+            document.getElementById('configFailures').textContent = state.totalFailures;
+            
+            const totalAttempts = state.correctAnswers + state.totalFailures;
+            const accuracy = totalAttempts > 0 ? Math.round((state.correctAnswers / totalAttempts) * 100) : 0;
+            document.getElementById('configAccuracy').textContent = accuracy + '%';
+            
+            const weeksWithProgress = new Set();
+            Object.keys(state.completedDays).forEach(key => {
+                const weekNum = key.split('_')[0];
+                weeksWithProgress.add(weekNum);
+            });
+            document.getElementById('configWeeks').textContent = weeksWithProgress.size;
+            
+            generateConfigWeeksList();
+            generateConfigFailureDetails();
+        }
+        
+        function generateConfigFailureDetails() {
+            const failureDetails = document.getElementById('configFailureDetails');
+            if (!failureDetails) return;
+            
+            failureDetails.innerHTML = '';
+            
+            if (Object.keys(state.failuresByExercise).length === 0) {
+                failureDetails.innerHTML = '<p style="text-align: center; color: #999;">No hay fallos registrados</p>';
+                return;
+            }
+            
+            const groupedFailures = {};
+            
+            Object.entries(state.failuresByExercise).forEach(([exerciseId, failures]) => {
+                if (failures === 0) return;
+                
+                const [week, day, exercise] = exerciseId.split('_');
+                const weekDay = `${week}_${day}`;
+                
+                if (!groupedFailures[weekDay]) {
+                    groupedFailures[weekDay] = [];
+                }
+                
+                const attempts = state.exerciseAttempts[exerciseId] || 0;
+                const weekData = weeksData[week];
+                const dayData = weekData?.days[parseInt(day) - 1];
+                const exerciseData = dayData?.exercises[parseInt(exercise)];
+                
+                groupedFailures[weekDay].push({
+                    exerciseNum: parseInt(exercise) + 1,
+                    exerciseTitle: exerciseData?.title || 'Ejercicio desconocido',
+                    failures,
+                    attempts
+                });
+            });
+            
+            Object.entries(groupedFailures).forEach(([weekDay, exercises]) => {
+                const [week, day] = weekDay.split('_');
+                const weekData = weeksData[week];
+                const dayData = weekData?.days[parseInt(day) - 1];
+                
+                const failureGroup = document.createElement('div');
+                failureGroup.className = 'failure-group';
+                
+                failureGroup.innerHTML = `
+                    <div style="font-weight: bold; color: #ef4444; margin-bottom: 10px;">
+                        ${weekData?.name || 'Semana ' + week} - Día ${day}: ${dayData?.title || 'Día desconocido'}
+                    </div>
+                    ${exercises.map(ex => `
+                        <div class="exercise-failure">
+                            <strong>Ejercicio ${ex.exerciseNum}:</strong> ${ex.exerciseTitle}<br>
+                            <small>❌ ${ex.failures} fallos en ${ex.attempts} intentos</small>
+                        </div>
+                    `).join('')}
+                `;
+                
+                failureDetails.appendChild(failureGroup);
+            });
+        }
+        
+        function generateConfigWeeksList() {
+            const weeksList = document.getElementById('configWeeksList');
+            weeksList.innerHTML = '';
+            
+            if (!weeksData) return;
+            
+            Object.keys(weeksData).forEach(weekNum => {
+                const week = weeksData[weekNum];
+                const completedInWeek = Object.keys(state.completedDays).filter(key => 
+                    key.startsWith(`${weekNum}_`)
+                ).length;
+                
+                if (completedInWeek === 0) return;
+                
+                const weekItem = document.createElement('div');
+                weekItem.className = 'week-item';
+                weekItem.innerHTML = `
+                    <div class="week-info">
+                        <strong>${week.name}</strong>
+                        <div class="week-stats">
+                            📅 ${completedInWeek} de ${week.days.length} días completados
+                        </div>
+                    </div>
+                    <button class="admin-btn admin-btn-danger" onclick="deleteWeekProgress(${weekNum})">
+                        🗑️ Eliminar
+                    </button>
+                `;
+                weeksList.appendChild(weekItem);
+            });
+            
+            if (weeksList.children.length === 0) {
+                weeksList.innerHTML = '<p style="text-align: center; color: #999;">No hay progreso registrado aún</p>';
+            }
+        }
+        
+        function deleteWeekProgress(weekNum) {
+            if (!confirm(`¿Estás seguro de que quieres eliminar tu progreso de la ${weeksData[weekNum].name}?`)) {
+                return;
+            }
+            
+            let daysToDelete = 0;
+            Object.keys(state.completedDays).forEach(key => {
+                if (key.startsWith(`${weekNum}_`)) {
+                    delete state.completedDays[key];
+                    daysToDelete++;
+                }
+            });
+            
+            state.daysCompleted -= daysToDelete;
+            if (state.daysCompleted < 0) state.daysCompleted = 0;
+            
+            saveState();
+            updateStats();
+            updateConfigStats();
+            
+            if (state.currentWeek == weekNum) {
+                loadWeek(weekNum);
+            }
+            
+            alert(`✅ Progreso de ${weeksData[weekNum].name} eliminado correctamente`);
+        }
+        
+        function resetMyProgress() {
+            const confirmation = confirm('⚠️ ¿ESTÁS SEGURO?\n\nEsto borrará:\n- Todas tus estrellas\n- Todos tus días completados\n- Todas tus estadísticas\n- Todos tus registros de fallos\n\nEsta acción NO se puede deshacer.');
+            
+            if (!confirmation) return;
+            
+            const doubleCheck = confirm('🔴 ÚLTIMA CONFIRMACIÓN\n\n¿Realmente quieres borrar TODO tu progreso?');
+            
+            if (!doubleCheck) return;
+            
+            state = {
+                currentWeek: 1,
+                currentDay: 0,
+                currentExercise: 0,
+                stars: 0,
+                correctAnswers: 0,
+                daysCompleted: 0,
+                completedDays: {},
+                startTime: null,
+                currentColor: '#000000',
+                totalFailures: 0,
+                currentExerciseFailures: 0,
+                failuresByExercise: {},
+                exerciseAttempts: {}
+            };
+            
+            saveState();
+            updateStats();
+            updateConfigStats();
+            closeConfigPanel();
+            goHome();
+            
+            alert('✅ Tu progreso ha sido eliminado. ¡Comenzando desde cero!');
+        }d('adminPassword').focus();
             }
         }
         
