@@ -1690,6 +1690,29 @@
                 }
             }
             showLoginScreen();
+            setupLoginEvents();
+        }
+
+        function setupLoginEvents() {
+            const usernameInput = document.getElementById('usernameInput');
+            const loginBtn = document.querySelector('.login-box .btn-primary');
+            const superAdminBtn = document.querySelector('.login-box .btn-secondary');
+            
+            if (usernameInput) {
+                usernameInput.addEventListener('keypress', function(event) {
+                    if (event.key === 'Enter') {
+                        loginUser();
+                    }
+                });
+            }
+            
+            if (loginBtn) {
+                loginBtn.addEventListener('click', loginUser);
+            }
+            
+            if (superAdminBtn) {
+                superAdminBtn.addEventListener('click', showSuperAdminLogin);
+            }
         }
 
         function showLoginScreen() {
