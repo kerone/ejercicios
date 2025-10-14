@@ -1493,14 +1493,22 @@
         let allUsersData = {};
 
         async function loadWeeksData() {
+            const loadingScreen = document.getElementById('loadingScreen');
+            
             try {
+                loadingScreen.innerHTML = '<div>🔄 Paso 1/3: Buscando semanas.json...</div>';
                 console.log('🔄 Intentando cargar semanas.json...');
+                
                 const response = await fetch('semanas.json');
                 console.log('📡 Respuesta de semanas.json:', response.status);
                 
+                loadingScreen.innerHTML = `<div>📡 Paso 2/3: Respuesta recibida (Status: ${response.status})</div>`;
+                
                 if (!response.ok) {
-                    throw new Error(`No se pudo cargar semanas.json (Status: ${response.status})`);
+                    throw new Error(`No se pudo cargar semanas.json (Status: ${response.status}). El archivo no existe o no es accesible.`);
                 }
+                
+                loadingScreen.innerHTML = '<div>📄 Paso 3/3: Procesando datos...</div>';
                 
                 const text = await response.text();
                 console.log('📄 Contenido recibido, primeros 100 caracteres:', text.substring(0, 100));
@@ -1509,27 +1517,80 @@
                 console.log('✅ semanas.json cargado correctamente');
                 console.log('📚 Semanas disponibles:', Object.keys(weeksData));
                 
-                checkLoginStatus();
+                loadingScreen.innerHTML = '<div>✅ Datos cargados. Iniciando...</div>';
+                
+                setTimeout(() => {
+                    checkLoginStatus();
+                }, 500);
+                
             } catch (error) {
                 console.error('❌ Error completo:', error);
                 showScreen('loadingScreen');
-                document.getElementById('loadingScreen').innerHTML = `
+                
+                let errorHTML = `
                     <div class="error">
                         <h3>⚠️ Error al cargar las aventuras</h3>
                         <p><strong>${error.message}</strong></p>
                         <br>
+                `;
+                
+                // Detectar tipo de error
+                if (error.message.includes('Failed to fetch') || error.message.includes('NetworkError')) {
+                    errorHTML += `
+                        <p><strong>🚫 Error de acceso a archivo local</strong></p>
+                        <p>Tu navegador está bloqueando el acceso a archivos locales.</p>
+                        <br>
+                        <p><strong>Soluciones:</strong></p>
+                        <ol style="text-align: left; display: inline-block; max-width: 500px;">
+                            <li><strong>Opción 1 - Usar Firefox:</strong><br>
+                                Abre el HTML con Firefox (es más permisivo)</li>
+                            <li><strong>Opción 2 - Servidor local:</strong><br>
+                                Usa: <code>python -m http.server 8000</code><br>
+                                Luego abre: <code>http://localhost:8000</code></li>
+                            <li><strong>Opción 3 - VS Code:</strong><br>
+                                Instala "Live Server" y ábrelo desde ahí</li>
+                        </ol>
+                    `;
+                } else if (error.message.includes('404')) {
+                    errorHTML += `
+                        <p><strong>📁 Archivo no encontrado</strong></p>
+                        <ul style="text-align: left; display: inline-block;">
+                            <li>Verifica que <strong>semanas.json</strong> está en la misma carpeta</li>
+                            <li>El nombre debe ser exacto: <strong>semanas.json</strong> (minúsculas)</li>
+                            <li>Extensión correcta: <strong>.json</strong> (no .txt)</li>
+                        </ul>
+                    `;
+                } else if (error.message.includes('JSON')) {
+                    errorHTML += `
+                        <p><strong>⚠️ Error de formato JSON</strong></p>
+                        <p>El archivo semanas.json tiene errores de sintaxis.</p>
+                        <p>Verifica que está bien formateado.</p>
+                    `;
+                } else {
+                    errorHTML += `
                         <p><strong>Posibles soluciones:</strong></p>
                         <ul style="text-align: left; display: inline-block;">
                             <li>Asegúrate de que <strong>semanas.json</strong> está en la misma carpeta que este HTML</li>
-                            <li>Verifica que el archivo se llama exactamente <strong>semanas.json</strong> (no semanas.txt)</li>
-                            <li>Si estás en Chrome, abre desde un servidor local (no con file://)</li>
+                            <li>Verifica que el archivo se llama exactamente <strong>semanas.json</strong></li>
+                            <li>Si usas Chrome, prueba con Firefox o un servidor local</li>
                         </ul>
+                    `;
+                }
+                
+                errorHTML += `
                         <br><br>
                         <button class="btn btn-primary" onclick="location.reload()">
                             🔄 Reintentar
                         </button>
+                        <br><br>
+                        <p style="font-size: 0.85em; color: #666; margin-top: 20px;">
+                            <strong>Detalles técnicos:</strong><br>
+                            Abre la consola (F12) para ver más información
+                        </p>
                     </div>
                 `;
+                
+                loadingScreen.innerHTML = errorHTML;
             }
         }
 
