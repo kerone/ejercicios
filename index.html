@@ -1778,12 +1778,18 @@
             currentUser = null;
             localStorage.removeItem('currentUser');
             document.getElementById('userBadge').style.display = 'none';
+            const appContainer = document.querySelector('.app-container');
+            if (appContainer) {
+                appContainer.style.display = 'none';
+            }
             showLoginScreen();
         }
 
         function logoutUser() {
             if (confirm('¿Seguro que quieres cerrar sesión?')) {
                 changeUser();
+            } else {
+                document.getElementById('userMenu').classList.remove('show');
             }
         }
 
@@ -1848,6 +1854,7 @@
         }
 
         async function initApp() {
+            document.getElementById('loadingScreen').classList.remove('active');
             await loadState();
             createWeekTabs();
             showScreen('homeScreen');
