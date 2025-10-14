@@ -12,7 +12,42 @@
             padding: 0;
             box-sizing: border-box;
             -webkit-tap-highlight-color: transparent;
+        function clearAllCache() {
+            if (confirm('🧹 Esto borrará toda la caché local y reiniciará la aplicación.\n\n¿Continuar?')) {
+                // Limpiar localStorage
+                localStorage.clear();
+                
+                // Limpiar sessionStorage
+                sessionStorage.clear();
+                
+                // Limpiar variables globales
+                currentUser = null;
+                allUsersData = {};
+                weeksData = null;
+                state = {
+                    currentWeek: 1,
+                    currentDay: 0,
+                    currentExercise: 0,
+                    stars: 0,
+                    correctAnswers: 0,
+                    daysCompleted: 0,
+                    completedDays: {},
+                    startTime: null,
+                    currentColor: '#000000',
+                    totalFailures: 0,
+                    currentExerciseFailures: 0,
+                    failuresByExercise: {},
+                    exerciseAttempts: {}
+                };
+                
+                alert('✅ Caché limpiada. Recargando...');
+                location.reload(true);
+            }
         }
+
+        window.onload = function() {
+            loadWeeksData();
+        };
         
         html {
             font-size: 16px;
@@ -1303,6 +1338,14 @@
                             🔍 Probar Conexión JSONBin
                         </button>
                         
+                        <button 
+                            class="btn btn-secondary" 
+                            onclick="clearAllCache()"
+                            style="width: 100%; font-size: 1em; padding: 12px; margin-top: 10px; background: linear-gradient(135deg, #f59e0b 0%, #f97316 100%);"
+                        >
+                            🧹 Limpiar Caché y Reiniciar
+                        </button>
+                        
                         <div id="testResult" style="margin-top: 15px; padding: 10px; border-radius: 10px; display: none;"></div>
                         
                         <p style="margin-top: 20px; font-size: 0.9em; color: #999;">
@@ -1451,19 +1494,40 @@
 
         async function loadWeeksData() {
             try {
+                console.log('🔄 Intentando cargar semanas.json...');
                 const response = await fetch('semanas.json');
+                console.log('📡 Respuesta de semanas.json:', response.status);
+                
                 if (!response.ok) {
-                    throw new Error('No se pudo cargar semanas.json');
+                    throw new Error(`No se pudo cargar semanas.json (Status: ${response.status})`);
                 }
-                weeksData = await response.json();
+                
+                const text = await response.text();
+                console.log('📄 Contenido recibido, primeros 100 caracteres:', text.substring(0, 100));
+                
+                weeksData = JSON.parse(text);
+                console.log('✅ semanas.json cargado correctamente');
+                console.log('📚 Semanas disponibles:', Object.keys(weeksData));
+                
                 checkLoginStatus();
             } catch (error) {
+                console.error('❌ Error completo:', error);
                 showScreen('loadingScreen');
                 document.getElementById('loadingScreen').innerHTML = `
                     <div class="error">
                         <h3>⚠️ Error al cargar las aventuras</h3>
-                        <p>${error.message}</p>
-                        <p>Asegúrate de que el archivo <strong>semanas.json</strong> está en la misma carpeta que este HTML.</p>
+                        <p><strong>${error.message}</strong></p>
+                        <br>
+                        <p><strong>Posibles soluciones:</strong></p>
+                        <ul style="text-align: left; display: inline-block;">
+                            <li>Asegúrate de que <strong>semanas.json</strong> está en la misma carpeta que este HTML</li>
+                            <li>Verifica que el archivo se llama exactamente <strong>semanas.json</strong> (no semanas.txt)</li>
+                            <li>Si estás en Chrome, abre desde un servidor local (no con file://)</li>
+                        </ul>
+                        <br><br>
+                        <button class="btn btn-primary" onclick="location.reload()">
+                            🔄 Reintentar
+                        </button>
                     </div>
                 `;
             }
@@ -2815,8 +2879,10 @@
                 
                 if (response.ok) {
                     const data = await response.json();
+                    allUsersData = data.record || {};
                     results.push('✅ Lectura: OK (Status: ' + response.status + ')');
-                    results.push('📦 Datos encontrados: ' + Object.keys(data.record || {}).length + ' usuarios');
+                    const userCount = Object.keys(allUsersData).filter(k => k !== '_test').length;
+                    results.push('📦 Usuarios encontrados: ' + userCount);
                 } else {
                     results.push('❌ Lectura: FALLO (Status: ' + response.status + ')');
                     if (response.status === 401) {
@@ -2829,9 +2895,9 @@
                 results.push('❌ Error de red en lectura: ' + error.message);
             }
             
-            // Test 2: Escritura
+            // Test 2: Escritura (sin borrar datos existentes)
             try {
-                const testData = { _test: { timestamp: Date.now() } };
+                const testData = { ...allUsersData, _test: { timestamp: Date.now() } };
                 const response = await fetch(`https://api.jsonbin.io/v3/b/${JSONBIN_BIN_ID}`, {
                     method: 'PUT',
                     headers: {
@@ -2843,7 +2909,7 @@
                 
                 if (response.ok) {
                     results.push('✅ Escritura: OK (Status: ' + response.status + ')');
-                    results.push('💡 El BIN funciona correctamente');
+                    results.push('💡 JSONBin funciona correctamente');
                 } else {
                     results.push('❌ Escritura: FALLO (Status: ' + response.status + ')');
                     if (response.status === 403) {
