@@ -1295,6 +1295,16 @@
                             🚀 Comenzar Aventura
                         </button>
                         
+                        <button 
+                            class="btn btn-secondary" 
+                            onclick="testJSONBin()"
+                            style="width: 100%; font-size: 1em; padding: 12px; margin-top: 15px;"
+                        >
+                            🔍 Probar Conexión JSONBin
+                        </button>
+                        
+                        <div id="testResult" style="margin-top: 15px; padding: 10px; border-radius: 10px; display: none;"></div>
+                        
                         <p style="margin-top: 20px; font-size: 0.9em; color: #999;">
                             💾 Tu progreso se guardará automáticamente en la nube
                         </p>
@@ -1416,7 +1426,7 @@
     </div>
 
     <script>
-        const JSONBIN_API_KEY = '$2a$10$zQO4JGldYjxGir42Ysz.j.yJnbB.DY6Z/6ytIaWK6AnBHcofAe4SS';
+        const JSONBIN_API_KEY = '$2a$10$byEkgCiPtr6uA9j.sw5Uiuld00jGPRMT1Rn9TlhHYbPe3CFfaEu6G';
         const JSONBIN_BIN_ID = '68ee144343b1c97be96704f9';
         
         let state = {
@@ -1532,23 +1542,36 @@
                     }
                 });
                 
+                console.log('Estado de respuesta JSONBin:', response.status);
+                
                 if (response.ok) {
                     const data = await response.json();
+                    console.log('Datos recibidos de JSONBin:', data);
+                    
                     allUsersData = data.record || {};
                     
                     if (allUsersData[userName]) {
+                        console.log('Cargando datos del usuario:', userName);
                         state = { ...state, ...allUsersData[userName] };
+                    } else {
+                        console.log('Usuario nuevo:', userName, '- Creando progreso inicial');
                     }
                 } else if (response.status === 404) {
-                    throw new Error('❌ BIN no encontrado. Verifica la configuración');
+                    console.error('BIN no encontrado');
+                    throw new Error('❌ BIN no encontrado. Verifica tu JSONBIN_BIN_ID');
+                } else if (response.status === 401) {
+                    console.error('API Key inválida');
+                    throw new Error('❌ API Key inválida. Verifica tu JSONBIN_API_KEY');
                 } else {
+                    console.error('Error HTTP:', response.status);
                     allUsersData = {};
                 }
             } catch (error) {
-                if (error.message.includes('BIN no encontrado')) {
+                console.error('Error completo:', error);
+                if (error.message.includes('BIN no encontrado') || error.message.includes('API Key')) {
                     throw error;
                 }
-                console.log('Creando datos nuevos:', error);
+                console.log('⚠️ No se pudo conectar con JSONBin, usando datos locales');
                 allUsersData = {};
             }
         }
@@ -1560,6 +1583,8 @@
             delete allUsersData[currentUser].startTime;
             delete allUsersData[currentUser].currentColor;
             
+            console.log('Guardando en la nube:', currentUser);
+            
             try {
                 const response = await fetch(`https://api.jsonbin.io/v3/b/${JSONBIN_BIN_ID}`, {
                     method: 'PUT',
@@ -1570,11 +1595,15 @@
                     body: JSON.stringify(allUsersData)
                 });
                 
-                if (!response.ok) {
-                    console.error('Error guardando en la nube');
+                if (response.ok) {
+                    console.log('✅ Guardado exitoso en JSONBin');
+                } else {
+                    console.error('❌ Error al guardar:', response.status, response.statusText);
+                    const errorText = await response.text();
+                    console.error('Detalles del error:', errorText);
                 }
             } catch (error) {
-                console.error('Error de conexión:', error);
+                console.error('❌ Error de red al guardar:', error);
             }
         }
 
@@ -2766,9 +2795,80 @@
             alert('✅ Todo el progreso ha sido eliminado. ¡Comenzando desde cero!');
         }
 
-        window.onload = function() {
-            loadWeeksData();
-        };
+        async function testJSONBin() {
+            const testResult = document.getElementById('testResult');
+            testResult.style.display = 'block';
+            testResult.style.background = '#f0f9ff';
+            testResult.style.border = '2px solid #0369a1';
+            testResult.style.color = '#0c4a6e';
+            testResult.innerHTML = '🔄 Probando conexión...';
+            
+            let results = [];
+            
+            // Test 1: Lectura
+            try {
+                const response = await fetch(`https://api.jsonbin.io/v3/b/${JSONBIN_BIN_ID}/latest`, {
+                    headers: {
+                        'X-Master-Key': JSONBIN_API_KEY
+                    }
+                });
+                
+                if (response.ok) {
+                    const data = await response.json();
+                    results.push('✅ Lectura: OK (Status: ' + response.status + ')');
+                    results.push('📦 Datos encontrados: ' + Object.keys(data.record || {}).length + ' usuarios');
+                } else {
+                    results.push('❌ Lectura: FALLO (Status: ' + response.status + ')');
+                    if (response.status === 401) {
+                        results.push('⚠️ API Key incorrecta');
+                    } else if (response.status === 404) {
+                        results.push('⚠️ BIN ID no encontrado');
+                    }
+                }
+            } catch (error) {
+                results.push('❌ Error de red en lectura: ' + error.message);
+            }
+            
+            // Test 2: Escritura
+            try {
+                const testData = { _test: { timestamp: Date.now() } };
+                const response = await fetch(`https://api.jsonbin.io/v3/b/${JSONBIN_BIN_ID}`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-Master-Key': JSONBIN_API_KEY
+                    },
+                    body: JSON.stringify(testData)
+                });
+                
+                if (response.ok) {
+                    results.push('✅ Escritura: OK (Status: ' + response.status + ')');
+                    results.push('💡 El BIN funciona correctamente');
+                } else {
+                    results.push('❌ Escritura: FALLO (Status: ' + response.status + ')');
+                    if (response.status === 403) {
+                        results.push('⚠️ BIN en modo Read-Only - Crea uno nuevo');
+                    }
+                }
+            } catch (error) {
+                results.push('❌ Error de red en escritura: ' + error.message);
+            }
+            
+            // Mostrar resultados
+            if (results.some(r => r.includes('❌'))) {
+                testResult.style.background = '#fee2e2';
+                testResult.style.border = '2px solid #ef4444';
+                testResult.style.color = '#991b1b';
+            } else {
+                testResult.style.background = '#d1fae5';
+                testResult.style.border = '2px solid #10b981';
+                testResult.style.color = '#065f46';
+            }
+            
+            testResult.innerHTML = '<div style="text-align: left; font-size: 0.9em;">' + 
+                results.join('<br>') + 
+                '</div>';
+        }
     </script>
 </body>
 </html>
