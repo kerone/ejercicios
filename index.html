@@ -341,7 +341,7 @@
             <div id="mainContent"></div>
         </div>
     </div>
-    <script>
+   <script>
         // =====================================================
         // CONFIGURACIÓN
         // =====================================================
@@ -416,6 +416,8 @@
         // CARGA DE DATOS
         // =====================================================
         async function loadWeeksData() {
+            console.log('📚 Intentando cargar semanas.json...');
+            
             try {
                 const response = await fetch('semanas.json');
                 if (!response.ok) {
@@ -423,51 +425,88 @@
                 }
                 weeksData = await response.json();
                 console.log('✅ Semanas cargadas:', Object.keys(weeksData).length, 'semanas');
+                return;
             } catch (error) {
-                console.error('❌ Error cargando semanas:', error);
-                
-                // Datos de ejemplo si no existe semanas.json
-                weeksData = {
-                    "1": {
-                        "name": "Semana 1",
-                        "description": "Comenzando la aventura",
-                        "days": [
-                            {
-                                "icon": "📚",
-                                "title": "Matemáticas",
-                                "badge": "Maestro de Números",
-                                "exercises": []
-                            },
-                            {
-                                "icon": "🔤",
-                                "title": "Lectura",
-                                "badge": "Gran Lector",
-                                "exercises": []
-                            },
-                            {
-                                "icon": "🌍",
-                                "title": "Ciencias",
-                                "badge": "Científico",
-                                "exercises": []
-                            },
-                            {
-                                "icon": "🎨",
-                                "title": "Arte",
-                                "badge": "Artista Creativo",
-                                "exercises": []
-                            },
-                            {
-                                "icon": "🌐",
-                                "title": "Inglés",
-                                "badge": "Políglota",
-                                "exercises": []
-                            }
-                        ]
-                    }
-                };
-                
-                alert('⚠️ No se encontró semanas.json\n\nUsando datos de ejemplo.');
+                console.warn('⚠️ No se encontró semanas.json, usando datos de ejemplo');
             }
+            
+            // DATOS DE EJEMPLO SI NO EXISTE semanas.json
+            weeksData = {
+                "1": {
+                    "name": "Semana 1",
+                    "description": "Comenzando la aventura",
+                    "days": [
+                        {
+                            "icon": "📚",
+                            "title": "Matemáticas",
+                            "badge": "Maestro de Números",
+                            "exercises": []
+                        },
+                        {
+                            "icon": "🔤",
+                            "title": "Lectura",
+                            "badge": "Gran Lector",
+                            "exercises": []
+                        },
+                        {
+                            "icon": "🌍",
+                            "title": "Ciencias",
+                            "badge": "Científico",
+                            "exercises": []
+                        },
+                        {
+                            "icon": "🎨",
+                            "title": "Arte",
+                            "badge": "Artista Creativo",
+                            "exercises": []
+                        },
+                        {
+                            "icon": "🌐",
+                            "title": "Inglés",
+                            "badge": "Políglota",
+                            "exercises": []
+                        }
+                    ]
+                },
+                "2": {
+                    "name": "Semana 2",
+                    "description": "Avanzando en el aprendizaje",
+                    "days": [
+                        {
+                            "icon": "🔢",
+                            "title": "Matemáticas Avanzadas",
+                            "badge": "Genio Matemático",
+                            "exercises": []
+                        },
+                        {
+                            "icon": "📖",
+                            "title": "Comprensión Lectora",
+                            "badge": "Lector Experto",
+                            "exercises": []
+                        },
+                        {
+                            "icon": "🧪",
+                            "title": "Experimentos",
+                            "badge": "Científico Loco",
+                            "exercises": []
+                        },
+                        {
+                            "icon": "🎭",
+                            "title": "Teatro",
+                            "badge": "Actor Estrella",
+                            "exercises": []
+                        },
+                        {
+                            "icon": "🗣️",
+                            "title": "Conversación",
+                            "badge": "Hablante Nativo",
+                            "exercises": []
+                        }
+                    ]
+                }
+            };
+            
+            console.log('✅ Datos de ejemplo cargados');
         }
 
         async function checkExistingSession() {
@@ -506,10 +545,18 @@
         }
 
         function loadWeekContent() {
-            if (!weeksData) return;
+            if (!weeksData) {
+                document.getElementById('weekTitle').textContent = '⚠️ Error al cargar semanas';
+                document.getElementById('mainContent').innerHTML = '<p style="text-align:center;color:#ef4444;">No se pudieron cargar las semanas. Recarga la página.</p>';
+                return;
+            }
             
             const week = weeksData[state.currentWeek];
-            if (!week) return;
+            if (!week) {
+                document.getElementById('weekTitle').textContent = '⚠️ Semana no encontrada';
+                document.getElementById('mainContent').innerHTML = '<p style="text-align:center;color:#ef4444;">La semana seleccionada no existe.</p>';
+                return;
+            }
             
             document.getElementById('weekTitle').textContent = `${week.name} - ${week.description}`;
             
@@ -539,7 +586,7 @@
             const week = weeksData[state.currentWeek];
             const day = week.days[dayNum - 1];
             
-            alert(`🎮 Comenzando Día ${dayNum}: ${day.title}\n\n✨ Por ahora es una demostración.\n\nAquí se cargarían los ejercicios reales del archivo semanas.json`);
+            alert(`🎮 Comenzando Día ${dayNum}: ${day.title}\n\n✨ Por ahora es una demostración.\n\nAquí se cargarían los ejercicios reales del archivo semanas.json\n\n💡 Presiona OK para marcar el día como completado (DEMO)`);
             
             // Marcar como completado (demo)
             const dayKey = `${state.currentWeek}_${dayNum}`;
@@ -555,7 +602,9 @@
                 saveState();
                 loadWeekContent();
                 
-                alert(`🎉 ¡Día completado!\n\n⭐ +10 estrellas\n✅ +5 respuestas correctas`);
+                alert(`🎉 ¡Día completado!\n\n⭐ +10 estrellas\n✅ +5 respuestas correctas\n\n🏆 Badge ganado: ${day.badge}`);
+            } else {
+                alert(`ℹ️ Ya completaste este día\n\nBadge: ${day.badge}`);
             }
         }
         // =====================================================
