@@ -546,15 +546,34 @@
 
         function loadWeekContent() {
             if (!weeksData) {
+                console.error('❌ weeksData es null');
                 document.getElementById('weekTitle').textContent = '⚠️ Error al cargar semanas';
                 document.getElementById('mainContent').innerHTML = '<p style="text-align:center;color:#ef4444;">No se pudieron cargar las semanas. Recarga la página.</p>';
                 return;
             }
             
-            const week = weeksData[state.currentWeek];
+            // Convertir currentWeek a string para buscar en weeksData
+            const weekKey = String(state.currentWeek);
+            const week = weeksData[weekKey];
+            
+            console.log('🔍 Buscando semana:', weekKey);
+            console.log('📚 Semanas disponibles:', Object.keys(weeksData));
+            console.log('✅ Semana encontrada:', week ? 'Sí' : 'No');
+            
             if (!week) {
+                console.error('❌ Semana no encontrada:', weekKey);
                 document.getElementById('weekTitle').textContent = '⚠️ Semana no encontrada';
-                document.getElementById('mainContent').innerHTML = '<p style="text-align:center;color:#ef4444;">La semana seleccionada no existe.</p>';
+                document.getElementById('mainContent').innerHTML = `
+                    <p style="text-align:center;color:#ef4444;">
+                        La semana ${state.currentWeek} no existe.<br><br>
+                        Semanas disponibles: ${Object.keys(weeksData).join(', ')}
+                    </p>
+                    <div style="text-align:center;margin-top:20px;">
+                        <button class="btn btn-primary" onclick="state.currentWeek=1;saveState();loadWeekContent();">
+                            Ir a Semana 1
+                        </button>
+                    </div>
+                `;
                 return;
             }
             
@@ -580,11 +599,24 @@
             html += '</div>';
             
             document.getElementById('mainContent').innerHTML = html;
+            console.log('✅ Contenido de semana cargado correctamente');
         }
 
         function startDay(dayNum) {
-            const week = weeksData[state.currentWeek];
+            const weekKey = String(state.currentWeek);
+            const week = weeksData[weekKey];
+            
+            if (!week) {
+                alert('❌ Error: Semana no encontrada');
+                return;
+            }
+            
             const day = week.days[dayNum - 1];
+            
+            if (!day) {
+                alert('❌ Error: Día no encontrado');
+                return;
+            }
             
             alert(`🎮 Comenzando Día ${dayNum}: ${day.title}\n\n✨ Por ahora es una demostración.\n\nAquí se cargarían los ejercicios reales del archivo semanas.json\n\n💡 Presiona OK para marcar el día como completado (DEMO)`);
             
