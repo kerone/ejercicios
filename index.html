@@ -187,7 +187,7 @@
 
         .day-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 15px;
         }
 
@@ -212,12 +212,13 @@
 
         .exercise-item {
             background: #f8f9fa;
-            padding: 10px;
-            margin: 8px 0;
-            border-radius: 8px;
+            padding: 8px;
+            margin: 6px 0;
+            border-radius: 6px;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            font-size: 14px;
         }
 
         .exercise-modal {
@@ -237,9 +238,9 @@
             background: white;
             padding: 40px;
             border-radius: 20px;
-            max-width: 900px;
-            width: 90%;
-            max-height: 90%;
+            max-width: 1000px;
+            width: 95%;
+            max-height: 95%;
             overflow-y: auto;
             position: relative;
         }
@@ -335,6 +336,95 @@
             background: #f8d7da;
             border-color: #dc3545;
             animation: incorrectShake 0.6s ease-out;
+        }
+
+        /* Estilos para ejercicios interactivos */
+        .interactive-exercise {
+            margin: 20px 0;
+        }
+
+        .drag-drop-area {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+            margin: 20px 0;
+        }
+
+        .draggable {
+            padding: 10px 15px;
+            background: #667eea;
+            color: white;
+            border-radius: 8px;
+            cursor: move;
+            user-select: none;
+            transition: all 0.3s;
+        }
+
+        .draggable:hover {
+            background: #5a6fdb;
+            transform: scale(1.05);
+        }
+
+        .draggable.dragging {
+            opacity: 0.5;
+        }
+
+        .drop-zone {
+            min-height: 50px;
+            border: 2px dashed #ccc;
+            border-radius: 8px;
+            padding: 10px;
+            margin: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+            background: #f8f9fa;
+        }
+
+        .drop-zone.drag-over {
+            border-color: #667eea;
+            background: #e3f2fd;
+        }
+
+        .drop-zone.filled {
+            background: #d4edda;
+            border-color: #28a745;
+        }
+
+        .sequence-container {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin: 20px 0;
+        }
+
+        .sequence-item {
+            width: 60px;
+            height: 60px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            font-weight: bold;
+            background: white;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .sequence-item:hover {
+            border-color: #667eea;
+            background: #f0f4ff;
+        }
+
+        .sequence-item.selected {
+            background: #667eea;
+            color: white;
+            border-color: #667eea;
         }
 
         @keyframes correctPulse {
@@ -482,7 +572,8 @@
 
             .modal-content {
                 padding: 20px;
-                margin: 20px;
+                margin: 10px;
+                width: 98%;
             }
 
             .question {
@@ -491,6 +582,25 @@
 
             .options {
                 grid-template-columns: 1fr;
+            }
+
+            .day-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .draggable {
+                font-size: 14px;
+                padding: 8px 12px;
+            }
+
+            .sequence-container {
+                gap: 5px;
+            }
+
+            .sequence-item {
+                width: 50px;
+                height: 50px;
+                font-size: 16px;
             }
         }
     </style>
@@ -600,6 +710,7 @@
                 <div id="learningHint" class="learning-hint" style="display: none;"></div>
                 <div id="readingText" class="reading-text" style="display: none;"></div>
                 <div id="exerciseQuestion" class="question"></div>
+                <div id="interactiveArea" class="interactive-exercise" style="display: none;"></div>
                 <div id="exerciseOptions" class="options"></div>
                 <div id="exerciseFeedback" class="feedback"></div>
                 <button id="nextExerciseBtn" class="next-btn" onclick="nextExercise()">Siguiente</button>
@@ -633,202 +744,348 @@
             connectionStatus: 'offline'
         };
 
-        // Base de datos de ejercicios con contenido más completo
+        // Base de datos de ejercicios AMPLIADA
         const exerciseDatabase = {
             week1: {
                 day1: [
                     {
                         type: 'math',
                         theme: 'pokemon',
-                        learningHint: '<strong>💡 Pista:</strong> Para sumar números, junta las cantidades. Por ejemplo: si tienes 5 Pokéballs y te dan 3 más, cuentas 5 + 3 = 8 Pokéballs en total.',
-                        question: '🔥 Charizard tenía 45 puntos de ataque. Después de entrenar con Ash durante una semana, ganó 23 puntos más. ¿Cuántos puntos de ataque tiene Charizard ahora?',
-                        options: ['68 puntos', '72 puntos', '65 puntos', '70 puntos'],
+                        learningHint: '<strong>💡 Suma con llevadas:</strong> Cuando la suma de unidades es mayor que 9, "llevamos" a las decenas. Ejemplo: 47 + 28 = ?',
+                        question: '🔥 Charizard tenía 47 puntos de ataque. Después de entrenar intensamente con Ash, ganó 28 puntos más. ¿Cuántos puntos de ataque tiene ahora?',
+                        options: ['75 puntos', '65 puntos', '71 puntos', '79 puntos'],
                         correct: 0,
-                        explanation: '¡Perfecto! 45 + 23 = 68 puntos. Charizard se ha vuelto más fuerte entrenando. ¡La suma nos ayuda a saber cuánto ha crecido!'
+                        explanation: '¡Perfecto! 47 + 28 = 75. Recuerda: 7 + 8 = 15, escribimos 5 y llevamos 1. Luego 4 + 2 + 1 = 7.'
                     },
                     {
                         type: 'reading',
                         theme: 'pokemon',
-                        learningHint: '<strong>📚 Pista para leer mejor:</strong> Lee el texto despacio y busca las palabras clave. Si no entiendes algo, lee esa parte otra vez.',
-                        readingText: '<h4>🔵 La Historia de Pikachu</h4>Pikachu es un Pokémon eléctrico muy especial que vive en los bosques verdes cerca del pueblo de Ash. Le encanta comer bayas dulces rojas que encuentra en los árboles altos. Su ataque favorito es el "Rayo" porque puede generar electricidad con sus mejillas amarillas. Pikachu es muy leal y siempre protege a sus amigos.',
-                        question: 'Según el texto que acabas de leer, ¿dónde vive Pikachu?',
-                        options: ['En una ciudad grande', 'En los bosques verdes', 'En el océano azul', 'En las montañas nevadas'],
+                        learningHint: '<strong>📚 Comprensión lectora:</strong> Lee despacio y busca detalles específicos. Subraya mentalmente las palabras importantes.',
+                        readingText: '<h4>🔵 El Entrenamiento de Pikachu</h4>Pikachu es un Pokémon eléctrico muy especial que vive en los densos bosques verdes cerca de Pueblo Paleta. Cada mañana temprano, a las 7:00, entrena sus habilidades eléctricas junto a Ash. Le encanta comer exactamente 12 bayas dulces rojas para desayunar, que encuentra en los árboles más altos del bosque. Su ataque favorito es el "Rayo" porque puede generar hasta 100.000 voltios de electricidad con sus mejillas amarillas brillantes. Pikachu es extremadamente leal y siempre protege a sus amigos del peligro.',
+                        question: '¿Cuántas bayas rojas come Pikachu para desayunar cada mañana?',
+                        options: ['10 bayas', '12 bayas', '15 bayas', '8 bayas'],
                         correct: 1,
-                        explanation: '¡Excelente! El texto dice claramente que "Pikachu vive en los bosques verdes cerca del pueblo de Ash". ¡Has leído con mucha atención!'
+                        explanation: '¡Excelente! El texto dice claramente que "come exactamente 12 bayas dulces rojas para desayunar". ¡Has leído con mucha atención a los detalles!'
                     },
                     {
                         type: 'english',
                         theme: 'pokemon',
-                        learningHint: '<strong>🇬🇧 Pista de inglés:</strong> "Fire" significa fuego. Piensa en Charizard que lanza fuego, ¡eso te ayudará a recordarlo!',
-                        question: '🔥 Charizard es un Pokémon de fuego. ¿Cómo se dice "fuego" en inglés?',
-                        options: ['Water (agua)', 'Fire (fuego)', 'Earth (tierra)', 'Air (aire)'],
-                        correct: 1,
-                        explanation: '¡Genial! "Fire" significa fuego en inglés. Recuerda: Charizard = Fire Type Pokémon.'
+                        learningHint: '<strong>🇬🇧 Colores en inglés:</strong> Los colores son palabras muy importantes. "Yellow" suena como "jelo" en español.',
+                        question: '🟡 Las mejillas de Pikachu son amarillas y brillantes. ¿Cómo se dice "amarillo" en inglés?',
+                        options: ['Red', 'Blue', 'Yellow', 'Green'],
+                        correct: 2,
+                        explanation: '¡Genial! "Yellow" significa amarillo en inglés. Pikachu has yellow cheeks! (¡Pikachu tiene mejillas amarillas!)'
                     },
                     {
                         type: 'math',
                         theme: 'pokemon',
-                        learningHint: '<strong>✖️ Pista de multiplicación:</strong> Multiplicar es sumar el mismo número varias veces. 3 × 4 es lo mismo que 3 + 3 + 3 + 3 = 12.',
-                        question: '🎯 Ash captura 3 Pokémon cada día durante 4 días seguidos. ¿Cuántos Pokémon capturó en total?',
-                        options: ['12 Pokémon', '7 Pokémon', '10 Pokémon', '15 Pokémon'],
+                        learningHint: '<strong>✖️ Multiplicación visual:</strong> 6 × 4 significa 6 grupos de 4 objetos. Imagina 6 filas de 4 Pokémon cada una.',
+                        question: '🎯 Ash tiene 6 Pokémon en su equipo. Cada Pokémon puede aprender exactamente 4 movimientos diferentes. ¿Cuántos movimientos conoce todo su equipo?',
+                        options: ['24 movimientos', '20 movimientos', '26 movimientos', '22 movimientos'],
                         correct: 0,
-                        explanation: '¡Perfecto! 3 × 4 = 12 Pokémon. Es como sumar: 3 + 3 + 3 + 3 = 12. ¡Ash tiene un gran equipo!'
+                        explanation: '¡Perfecto! 6 × 4 = 24 movimientos. Puedes pensarlo como sumar: 4 + 4 + 4 + 4 + 4 + 4 = 24.'
+                    },
+                    {
+                        type: 'interactive',
+                        theme: 'pokemon',
+                        subtype: 'sequence',
+                        learningHint: '<strong>🔢 Secuencias numéricas:</strong> Observa el patrón. Los números pueden aumentar de 2 en 2, de 5 en 5, etc.',
+                        question: '🧩 Ayuda a Ash a ordenar estos números de Pokédex de menor a mayor:',
+                        data: [25, 1, 150, 9, 144],
+                        correctOrder: [1, 9, 25, 144, 150],
+                        explanation: '¡Excelente! Has ordenado correctamente: 1 (Bulbasaur), 9 (Blastoise), 25 (Pikachu), 144 (Articuno), 150 (Mewtwo).'
+                    },
+                    {
+                        type: 'science',
+                        theme: 'pokemon',
+                        learningHint: '<strong>🔬 Estados de la materia:</strong> Sólido (hielo), líquido (agua), gas (vapor). El calor cambia el estado.',
+                        question: '🧊 Cuando unPokémon de tipo hielo usa su ataque, convierte el agua líquida en hielo sólido. ¿Qué tipo de cambio de estado es este?',
+                        options: ['Evaporación', 'Solidificación', 'Fusión', 'Condensación'],
+                        correct: 1,
+                        explanation: '¡Correcto! La solidificación es cuando un líquido (agua) se convierte en sólido (hielo). ¡Como los ataques de hielo de los Pokémon!'
+                    },
+                    {
+                        type: 'geography',
+                        theme: 'pokemon',
+                        learningHint: '<strong>🗺️ Puntos cardinales:</strong> Norte arriba, Sur abajo, Este derecha, Oeste izquierda. Como una brújula.',
+                        question: '🧭 Ash viaja desde Pueblo Paleta hacia Ciudad Plateada. Si va hacia donde sale el sol, ¿en qué dirección se mueve?',
+                        options: ['Norte', 'Sur', 'Este', 'Oeste'],
+                        correct: 2,
+                        explanation: '¡Perfecto! El sol sale por el Este. Si Ash va hacia donde sale el sol, se dirige al Este.'
                     }
                 ],
                 day2: [
                     {
                         type: 'math',
                         theme: 'titans',
-                        learningHint: '<strong>➕ Recordemos sumar:</strong> Cuando tenemos varios números para sumar, podemos hacerlo paso a paso: primero sumamos dos, luego sumamos el tercero.',
-                        question: '⚔️ Eren observó titanes durante tres días. El primer día vio 12 titanes, el segundo día vio 8 titanes, y el tercer día vio 15 titanes. ¿Cuántos titanes vio en total durante los tres días?',
-                        options: ['35 titanes', '33 titanes', '37 titanes', '32 titanes'],
+                        learningHint: '<strong>➕ Sumas con tres números:</strong> Suma de dos en dos: primero 15 + 23 = 38, luego 38 + 17.',
+                        question: '⚔️ Eren contó titanes durante tres días consecutivos. El lunes vio 15 titanes, el martes 23 titanes, y el miércoles 17 titanes. ¿Cuántos titanes observó en total?',
+                        options: ['55 titanes', '53 titanes', '57 titanes', '52 titanes'],
                         correct: 0,
-                        explanation: '¡Correcto! Paso a paso: 12 + 8 = 20, luego 20 + 15 = 35 titanes en total. ¡Eren es muy observador!'
+                        explanation: '¡Correcto! 15 + 23 + 17 = 55 titanes. Paso a paso: 15 + 23 = 38, luego 38 + 17 = 55.'
                     },
                     {
                         type: 'reading',
                         theme: 'titans',
-                        learningHint: '<strong>🧱 Pista:</strong> Cuando leas sobre las murallas, imagínatelas como círculos uno dentro del otro, como las capas de una cebolla.',
-                        readingText: '<h4>🏰 Las Murallas Protectoras</h4>Las tres murallas protegen a la humanidad de los gigantes peligrosos. La muralla más externa se llama María y es la primera línea de defensa. Dentro de María está la muralla Rose, que es la segunda protección. Y en el centro está la muralla Sina, la más pequeña pero la más segura. Cada muralla es muy alta y muy gruesa.',
-                        question: 'Según el texto, ¿cuál es la muralla que está más afuera de todas?',
-                        options: ['Muralla Rose', 'Muralla Sina', 'Muralla María', 'Todas están igual'],
+                        learningHint: '<strong>🧱 Organización espacial:</strong> Imagina las murallas como círculos concéntricos, una dentro de otra.',
+                        readingText: '<h4>🏰 El Sistema de Murallas Defensivas</h4>Las tres enormes murallas protegen a la humanidad de los gigantes titanes. La muralla exterior se llama María, tiene 50 metros de altura y es la primera línea de defensa contra los titanes. Dentro de María se encuentra la muralla Rose, de 45 metros de altura, que protege las ciudades intermedias. En el centro de todo está la muralla Sina, la más pequeña con 40 metros de altura, pero la más segura, donde vive la familia real. Entre cada muralla hay aproximadamente 100 kilómetros de distancia.',
+                        question: '¿Cuál es la altura de la muralla Rose?',
+                        options: ['50 metros', '40 metros', '45 metros', '35 metros'],
                         correct: 2,
-                        explanation: '¡Muy bien! El texto dice que "la muralla más externa se llama María". ¡Has entendido perfectamente la organización de las murallas!'
+                        explanation: '¡Muy bien! El texto dice claramente que "la muralla Rose, de 45 metros de altura". ¡Has encontrado la información específica!'
                     },
                     {
                         type: 'english',
                         theme: 'titans',
-                        learningHint: '<strong>🗣️ Truco:</strong> "Giant" suena parecido a "gigante" en español. ¡Las palabras parecidas nos ayudan a recordar!',
-                        question: '🗿 Los titanes son gigantes muy grandes. ¿Cómo se dice "gigante" en inglés?',
-                        options: ['Giant', 'Small', 'Fast', 'Strong'],
-                        correct: 0,
-                        explanation: '¡Excelente! "Giant" significa gigante. Nota cómo suena parecido a "gigante" en español.'
+                        learningHint: '<strong>🗣️ Palabras cognadas:</strong> "Giant" y "gigante" suenan parecido porque vienen de la misma raíz latina.',
+                        question: '🗿 Los titanes son criaturas gigantes y terroríficas. ¿Cómo se dice "gigante" en inglés?',
+                        options: ['Small', 'Giant', 'Tiny', 'Little'],
+                        correct: 1,
+                        explanation: '¡Excelente! "Giant" significa gigante. ¿Notaste que suena similar a "gigante" en español?'
                     },
                     {
                         type: 'math',
                         theme: 'titans',
-                        learningHint: '<strong>✖️ Multiplicación práctica:</strong> 5 × 3 significa 5 grupos de 3 soldados cada uno. Cuenta: 3 + 3 + 3 + 3 + 3.',
-                        question: '🛡️ Hay 5 escuadrones de soldados. Cada escuadrón tiene 3 soldados. ¿Cuántos soldados hay en total?',
-                        options: ['15 soldados', '8 soldados', '12 soldados', '18 soldados'],
+                        learningHint: '<strong>✖️ Multiplicación práctica:</strong> 8 × 6 = 48. Piensa en 8 grupos de 6 soldados formados.',
+                        question: '🛡️ El escuadrón se organiza en 8 filas de soldados. En cada fila hay 6 soldados. ¿Cuántos soldados hay en total en la formación?',
+                        options: ['48 soldados', '42 soldados', '54 soldados', '46 soldados'],
                         correct: 0,
-                        explanation: '¡Perfecto! 5 × 3 = 15 soldados. Piénsalo como 5 grupos de 3: 3+3+3+3+3 = 15.'
+                        explanation: '¡Perfecto! 8 × 6 = 48 soldados. Es como sumar 6 ocho veces: 6+6+6+6+6+6+6+6 = 48.'
+                    },
+                    {
+                        type: 'interactive',
+                        theme: 'titans',
+                        subtype: 'drag_drop',
+                        learningHint: '<strong>📏 Unidades de medida:</strong> Metro para altura, kilómetro para distancias largas, gramo para peso.',
+                        question: '📐 Arrastra cada medida a la unidad correcta:',
+                        data: {
+                            items: ['Altura de muralla', 'Distancia entre ciudades', 'Peso de una espada'],
+                            zones: ['Metros', 'Kilómetros', 'Gramos'],
+                            correct: [0, 1, 2]
+                        },
+                        explanation: '¡Genial! Altura se mide en metros, distancias largas en kilómetros, y peso en gramos.'
+                    },
+                    {
+                        type: 'history',
+                        theme: 'titans',
+                        learningHint: '<strong>🏛️ Épocas históricas:</strong> Prehistoria (sin escritura), Edad Antigua (pirámides), Edad Media (castillos).',
+                        question: '🏰 Las murallas de la serie recuerdan a las fortificaciones medievales. ¿En qué época histórica se construían castillos y murallas defensivas?',
+                        options: ['Prehistoria', 'Edad Antigua', 'Edad Media', 'Edad Moderna'],
+                        correct: 2,
+                        explanation: '¡Correcto! En la Edad Media se construían castillos y murallas para defenderse. ¡Como las murallas contra los titanes!'
+                    },
+                    {
+                        type: 'body',
+                        theme: 'titans',
+                        learningHint: '<strong>💪 Sistema muscular:</strong> Los músculos nos permiten moverse. Los soldados necesitan músculos fuertes.',
+                        question: '💪 Los soldados de las murallas necesitan músculos fuertes para manejar sus equipos. ¿Qué parte del cuerpo humano permite el movimiento?',
+                        options: ['Los huesos', 'Los músculos', 'La piel', 'Los nervios'],
+                        correct: 1,
+                        explanation: '¡Perfecto! Los músculos son los que nos permiten movernos y hacer fuerza, como los soldados entrenados.'
                     }
                 ],
                 day3: [
                     {
                         type: 'math',
                         theme: 'football',
-                        learningHint: '<strong>➕➖ Suma y resta juntas:</strong> Primero sumamos todos los goles del Real Madrid, luego restamos para comparar.',
-                        question: '⚽ En el partido de ayer, el Real Madrid metió 3 goles en el primer tiempo y 2 golesen el segundo tiempo. El Barcelona metió 4 goles en total. ¿Cuántos goles más metió el Real Madrid que el Barcelona?',
-                        options: ['1 gol más', '2 goles más', '0 goles (empataron)', '3 goles más'],
+                        learningHint: '<strong>➕➖ Operaciones combinadas:</strong> Primero suma todos los goles de cada equipo, luego resta para comparar.',
+                        question: '⚽ En el partido de ayer, el Real Madrid metió 2 goles en el primer tiempo y 3 en el segundo. El Barcelona metió 1 gol en el primer tiempo y 3 en el segundo. ¿Cuál fue la diferencia de goles?',
+                        options: ['1 gol', '2 goles', '0 goles', '3 goles'],
                         correct: 0,
-                        explanation: '¡Muy bien! Real Madrid: 3 + 2 = 5 goles. Barcelona: 4 goles. Diferencia: 5 - 4 = 1 gol más para el Real Madrid.'
+                        explanation: '¡Muy bien! Real Madrid: 2 + 3 = 5 goles. Barcelona: 1 + 3 = 4 goles. Diferencia: 5 - 4 = 1 gol a favor del Real Madrid.'
                     },
                     {
                         type: 'reading',
                         theme: 'football',
-                        learningHint: '<strong>🏃‍♂️ Busca la información:</strong> Cuando te pregunten "¿de qué país es alguien?", busca en el texto palabras como "argentino", "español", etc.',
-                        readingText: '<h4>⭐ Lionel Messi, El Mejor</h4>Lionel Messi es un futbolista argentino considerado uno de los mejores del mundo. Nació en Argentina, un país de Sudamérica, y comenzó a jugar fútbol desde muy pequeño. Messi es famoso por ser un delantero muy hábil con la pelota y por haber ganado muchos premios importantes como el Balón de Oro. Su técnica con el balón es increíble y puede driblar a muchos jugadores.',
-                        question: '🌎 Según el texto, ¿de qué país es Lionel Messi?',
-                        options: ['España', 'Brasil', 'Argentina', 'Francia'],
-                        correct: 2,
-                        explanation: '¡Perfecto! El texto dice claramente que "Messi es un futbolista argentino" y que "nació en Argentina". ¡Has leído con mucha atención!'
+                        learningHint: '<strong>🏃‍♂️ Datos biográficos:</strong> Busca información específica sobre la persona: origen, profesión, logros.',
+                        readingText: '<h4>⭐ Lionel Messi: Una Leyenda del Fútbol</h4>Lionel Andrés Messi nació el 24 de junio de 1987 en Rosario, Argentina, una ciudad de Sudamérica. Comenzó a jugar fútbol profesional a los 17 años en el FC Barcelona de España. Messi es famoso mundialmente por ser un delantero extraordinariamente hábil con la pelota y por haber ganado 7 premios Balón de Oro, más que cualquier otro jugador en la historia. Mide 1,70 metros de altura y es conocido por su increíble velocidad y técnica de dribleo. En 2022 logró su mayor sueño: ganar la Copa del Mundo con Argentina.',
+                        question: '¿En qué año nació Lionel Messi según el texto?',
+                        options: ['1986', '1987', '1988', '1985'],
+                        correct: 1,
+                        explanation: '¡Perfecto! El texto dice claramente que "nació el 24 de junio de 1987". ¡Has leído con mucha precisión!'
                     },
                     {
                         type: 'english',
                         theme: 'football',
-                        learningHint: '<strong>⚽ Conexión:</strong> "Ball" se parece a "balón". ¡Las palabras similares nos ayudan a aprender inglés más fácil!',
-                        question: '⚽ Los jugadores de fútbol patean la pelota. ¿Cómo se dice "pelota" en inglés?',
+                        learningHint: '<strong>⚽ Deportes en inglés:</strong> "Ball" viene de la palabra germánica para pelota. Se usa en muchos deportes.',
+                        question: '⚽ En el fútbol, los jugadores patean la pelota con los pies. ¿Cómo se dice "pelota" en inglés?',
                         options: ['Ball', 'Goal', 'Field', 'Player'],
                         correct: 0,
-                        explanation: '¡Genial! "Ball" significa pelota o balón. ¿Notaste que "ball" suena parecido a "balón"?'
+                        explanation: '¡Genial! "Ball" significa pelota. Football = foot (pie) + ball (pelota) = fútbol.'
                     },
                     {
                         type: 'math',
                         theme: 'football',
-                        learningHint: '<strong>✖️ Multiplicación en equipos:</strong> 11 jugadores × 2 equipos. Es como contar: 11 + 11.',
-                        question: '👥 En un partido de fútbol juegan 2 equipos. Cada equipo tiene 11 jugadores en el campo. ¿Cuántos jugadores están jugando en total?',
+                        learningHint: '<strong>✖️ Problemas de multiplicación:</strong> 11 jugadores × 2 equipos. Cada equipo tiene el mismo número de jugadores.',
+                        question: '👥 En un partido oficial de fútbol juegan 2 equipos completos. Cada equipo tiene 11 jugadores en el campo. ¿Cuántos jugadores están jugando en total?',
                         options: ['22 jugadores', '20 jugadores', '24 jugadores', '18 jugadores'],
                         correct: 0,
-                        explanation: '¡Excelente! 11 × 2 = 22 jugadores. O también puedes pensarlo como 11 + 11 = 22.'
+                        explanation: '¡Excelente! 11 × 2 = 22 jugadores en total. También puedes sumar: 11 + 11 = 22.'
+                    },
+                    {
+                        type: 'interactive',
+                        theme: 'football',
+                        subtype: 'sequence',
+                        learningHint: '<strong>⏰ Tiempo en el deporte:</strong> Un partido dura 90 minutos: 45 + 45. Se divide en dos tiempos.',
+                        question: '⏱️ Ordena las fases de un partido de fútbol:',
+                        data: ['Segundo tiempo', 'Calentamiento', 'Primer tiempo', 'Descanso', 'Final del partido'],
+                        correctOrder: ['Calentamiento', 'Primer tiempo', 'Descanso', 'Segundo tiempo', 'Final del partido'],
+                        explanation: '¡Perfecto! Has ordenado correctamente las fases de un partido de fútbol.'
+                    },
+                    {
+                        type: 'geography',
+                        theme: 'football',
+                        learningHint: '<strong>🌍 Países y continentes:</strong> Argentina está en Sudamérica, España en Europa.',
+                        question: '🌎 Messi nació en Argentina. ¿En qué continente está Argentina?',
+                        options: ['Europa', 'Sudamérica', 'África', 'Asia'],
+                        correct: 1,
+                        explanation: '¡Correcto! Argentina está en Sudamérica, junto con países como Brasil, Chile y Perú.'
+                    },
+                    {
+                        type: 'body',
+                        theme: 'football',
+                        learningHint: '<strong>🦵 Partes del cuerpo:</strong> Los futbolistas usan principalmente las piernas y los pies para jugar.',
+                        question: '🦶 Los futbolistas necesitan tener piernas muy fuertes. ¿Cuál es el hueso más largo del cuerpo humano?',
+                        options: ['El húmero (brazo)', 'El fémur (muslo)', 'La tibia (espinilla)', 'El radio (antebrazo)'],
+                        correct: 1,
+                        explanation: '¡Perfecto! El fémur, que está en el muslo, es el hueso más largo y fuerte del cuerpo humano.'
                     }
                 ],
                 day4: [
                     {
                         type: 'math',
                         theme: 'warframe',
-                        learningHint: '<strong>➖ Restar paso a paso:</strong> Cuando restas varias veces, hazlo una operación a la vez: 100 - 25 = 75, luego 75 - 30.',
-                        question: '🔫 Un Tenno guerrero espacial tiene 100 puntos de energía al comenzar su misión. Usa 25 puntos para su primera habilidad especial, luego usa 30 puntos para su segunda habilidad. ¿Cuánta energía le queda?',
-                        options: ['45 puntos', '50 puntos', '40 puntos', '55 puntos'],
+                        learningHint: '<strong>➖ Resta con llevadas:</strong> Si necesitas quitar más de lo que tienes en una posición, "pides prestado" a la siguiente.',
+                        question: '🔫 Un Tenno empieza su misión con 124 puntos de energía. Usa 67 puntos para sus habilidades especiales. ¿Cuánta energía le queda?',
+                        options: ['57 puntos', '63 puntos', '51 puntos', '59 puntos'],
                         correct: 0,
-                        explanation: '¡Perfecto! Paso a paso: 100 - 25 = 75, luego 75 - 30 = 45 puntos. ¡El Tenno debe administrar bien su energía!'
+                        explanation: '¡Perfecto! 124 - 67 = 57 puntos. En la resta: 4 - 7 no se puede, pido prestado: 14 - 7 = 7, luego 1 - 6 no se puede, pido prestado: 11 - 6 = 5.'
                     },
                     {
                         type: 'reading',
                         theme: 'warframe',
-                        learningHint: '<strong>🚀 Palabras clave:</strong> Cuando busques una respuesta específica, busca en el texto la palabra exacta de la pregunta.',
-                        readingText: '<h4>🤖 Los Guerreros Tenno</h4>Los Tenno son guerreros espaciales muy avanzados que protegen el sistema solar. Usan armaduras especiales llamadas Warframes que les dan poderes increíbles. Estos Warframes pueden ser de diferentes tipos: algunos son rápidos, otros son fuertes, y algunos pueden usar magia. Los Tenno viajan por diferentes planetas luchando contra enemigos peligrosos.',
-                        question: '🛡️ Según el texto, ¿cómo se llaman las armaduras especiales que usan los Tenno?',
-                        options: ['Robots espaciales', 'Warframes', 'Naves de combate', 'Cascos mágicos'],
-                        correct: 1,
-                        explanation: '¡Excelente! El texto dice claramente "armaduras especiales llamadas Warframes". ¡Has encontrado la información exacta!'
+                        learningHint: '<strong>🚀 Ciencia ficción:</strong> Busca información sobre tecnología futurista y características especiales.',
+                        readingText: '<h4>🤖 Los Guerreros Tenno del Futuro</h4>Los Tenno son antiguos guerreros espaciales que despertaron después de siglos durmiendo en criosueño. Utilizan armaduras bio-mecánicas llamadas Warframes que les otorgan poderes sobrenaturales únicos. Existen más de 50 tipos diferentes de Warframes: algunos se especializan en velocidad extrema como Volt, otros en fuerza bruta como Rhino, y algunos en sigilo como Ash. Cada Warframe puede usar hasta 4 habilidades especiales diferentes. Los Tenno protegen el Sistema Solar viajando entre planetas como Marte, Venus, Júpiter y Saturno usando naves espaciales llamadas Orbiter.',
+                        question: '¿Cuántos tipos diferentes de Warframes existen según el texto?',
+                        options: ['Más de 40', 'Exactamente 50', 'Más de 50', 'Menos de 50'],
+                        correct: 2,
+                        explanation: '¡Excelente! El texto dice "más de 50 tipos diferentes de Warframes". ¡Has leído con mucha atención!'
                     },
                     {
                         type: 'english',
                         theme: 'warframe',
-                        learningHint: '<strong>🌌 Imagen mental:</strong> Piensa en las estrellas y planetas cuando escuches "space". ¡Las imágenes nos ayudan a recordar!',
-                        question: '🌌 Los Tenno luchan en el espacio exterior. ¿Cómo se dice "espacio" en inglés?',
+                        learningHint: '<strong>🌌 Vocabulario espacial:</strong> "Space" se relaciona con astronauta, spaceship (nave espacial).',
+                        question: '🌌 Los Tenno son guerreros que luchan en el espacio exterior. ¿Cómo se dice "espacio" en inglés?',
                         options: ['Space', 'Time', 'World', 'Sky'],
                         correct: 0,
-                        explanation: '¡Perfecto! "Space" significa espacio. Piensa en "space" como el lugar donde están las estrellas y planetas.'
+                        explanation: '¡Perfecto! "Space" significa espacio. Outer space = espacio exterior, donde luchan los Tenno.'
                     },
                     {
                         type: 'math',
                         theme: 'warframe',
-                        learningHint: '<strong>✖️ Grupos iguales:</strong> 4 planetas × 6 misiones cada uno. Es como tener 4 grupos de 6 misiones.',
-                        question: '🪐 Un Tenno debe completar misiones en 4 planetas diferentes. En cada planeta hay 6 misiones. ¿Cuántas misiones debe completar en total?',
-                        options: ['24 misiones', '10 misiones', '20 misiones', '26 misiones'],
+                        learningHint: '<strong>✖️ Multiplicación de dos cifras:</strong> 15 × 4 = (10 × 4) + (5 × 4) = 40 + 20 = 60.',
+                        question: '🪐 Un Tenno debe completar misiones en 15 planetas diferentes. En cada planeta hay 4 misiones obligatorias. ¿Cuántas misiones debe completar en total?',
+                        options: ['60 misiones', '55 misiones', '65 misiones', '50 misiones'],
                         correct: 0,
-                        explanation: '¡Genial! 4 × 6 = 24 misiones. Piénsalo como 4 grupos de 6: 6+6+6+6 = 24.'
+                        explanation: '¡Genial! 15 × 4 = 60 misiones. Puedes calcularlo como (10 × 4) + (5 × 4) = 40 + 20 = 60.'
+                    },
+                    {
+                        type: 'interactive',
+                        theme: 'warframe',
+                        subtype: 'drag_drop',
+                        learningHint: '<strong>🌌 Sistema Solar:</strong> Los planetas tienen orden desde el Sol: Mercurio, Venus, Tierra, Marte...',
+                        question: '🌍 Arrastra cada planeta a su posición correcta desde el Sol:',
+                        data: {
+                            items: ['Marte', 'Venus', 'Tierra'],
+                            zones: ['2º planeta', '3º planeta', '4º planeta'],
+                            correct: [1, 2, 0]
+                        },
+                        explanation: '¡Perfecto! Venus (2º), Tierra (3º), Marte (4º). Los Tenno luchan en todos estos mundos.'
+                    },
+                    {
+                        type: 'science',
+                        theme: 'warframe',
+                        learningHint: '<strong>🌍 El Sistema Solar:</strong> Hay 8 planetas que giran alrededor del Sol. Los más cercanos son rocosos.',
+                        question: '🌍 Los Tenno protegen el Sistema Solar. ¿Cuántos planetas principales hay en nuestro Sistema Solar?',
+                        options: ['7 planetas', '8 planetas', '9 planetas', '10 planetas'],
+                        correct: 1,
+                        explanation: '¡Correcto! Hay 8 planetas: Mercurio, Venus, Tierra, Marte, Júpiter, Saturno, Urano y Neptuno.'
+                    },
+                    {
+                        type: 'technology',
+                        theme: 'warframe',
+                        learningHint: '<strong>💻 Tecnología:</strong> Los robots y la inteligencia artificial son parte de la ciencia moderna.',
+                        question: '🤖 Los Warframes son como robots avanzados. ¿Cómo se llama la ciencia que estudia los robots?',
+                        options: ['Biología', 'Robótica', 'Geología', 'Astronomía'],
+                        correct: 1,
+                        explanation: '¡Perfecto! La robótica es la ciencia que estudia y desarrolla robots, como los Warframes futuristas.'
                     }
                 ],
                 day5: [
                     {
                         type: 'math',
                         theme: 'pokemon',
-                        learningHint: '<strong>✖️ Multiplicación útil:</strong> 6 Pokémon × 4 movimientos cada uno. Cada Pokémon aprende la misma cantidad de movimientos.',
-                        question: '🎯 Ash tiene un equipo completo de 6 Pokémon. Cada Pokémon puede aprender exactamente 4 movimientos diferentes. ¿Cuántos movimientos conoce todo el equipo de Ash en total?',
-                        options: ['24 movimientos', '20 movimientos', '26 movimientos', '22 movimientos'],
+                        learningHint: '<strong>➗ División exacta:</strong> Dividir es repartir en partes iguales. 24 ÷ 6 = 4 significa que cada grupo tiene 4.',
+                        question: '🔴 Ash tiene 24 Pokéballs nuevas y quiere repartirlas igualmente entre sus 6 amigos entrenadores. ¿Cuántas Pokéballs recibirá cada amigo?',
+                        options: ['4 Pokéballs', '5 Pokéballs', '3 Pokéballs', '6 Pokéballs'],
                         correct: 0,
-                        explanation: '¡Genial! 6 × 4 = 24 movimientos en total. ¡El equipo de Ash conoce muchos ataques diferentes!'
+                        explanation: '¡Perfecto! 24 ÷ 6 = 4 Pokéballs cada uno. Puedes comprobarlo: 4 × 6 = 24. ¡Ash es muy generoso!'
                     },
                     {
                         type: 'reading',
                         theme: 'football',
-                        learningHint: '<strong>🥅 Detalles importantes:</strong> Lee despacio la parte sobre el portero, porque es diferente a los otros jugadores.',
-                        readingText: '<h4>⚽ Las Reglas del Fútbol</h4>En un partido de fútbol, cada equipo tiene exactamente 11 jugadores en el campo al mismo tiempo. Hay 10 jugadores de campo que pueden correr por todo el terreno, pero solo pueden tocar la pelota con los pies y la cabeza. Sin embargo, hay un jugador muy especial: el portero. El portero es el único jugador que puede usar las manos, pero solo cuando está dentro de su área especial.',
-                        question: '👥 Según el texto, ¿cuántos jugadores tiene cada equipo en el campo durante un partido?',
-                        options: ['10 jugadores', '12 jugadores', '11 jugadores', '9 jugadores'],
-                        correct: 2,
-                        explanation: '¡Correcto! El texto dice "cada equipo tiene exactamente 11 jugadores en el campo". ¡Has leído con mucha atención!'
+                        learningHint: '<strong>🥅 Reglas deportivas:</strong> Presta atención a las reglas especiales y las excepciones.',
+                        readingText: '<h4>⚽ Las Reglas Básicas del Fútbol</h4>En un partido oficial de fútbol, cada equipo tiene exactamente 11 jugadores en el campo simultáneamente. De estos 11 jugadores, hay 10 jugadores de campo que pueden correr libremente por todo el terreno, pero tienen una regla muy importante: solo pueden tocar la pelota con los pies, la cabeza, el pecho y los hombros. Sin embargo, existe un jugador muy especial llamado portero o guardameta. El portero es el único jugador de todo el equipo que puede usar las manos para tocar la pelota, pero esta regla especial solo funciona cuando está dentro de su área de penalti, que es un rectángulo de 16,5 metros marcado frente a su portería.',
+                        question: '¿Cuántos jugadores de campo (sin contar el portero) hay en cada equipo?',
+                        options: ['9 jugadores', '10 jugadores', '11 jugadores', '12 jugadores'],
+                        correct: 1,
+                        explanation: '¡Correcto! Son 11 jugadores en total: 10 jugadores de campo + 1 portero = 11 jugadores por equipo.'
                     },
                     {
                         type: 'english',
                         theme: 'titans',
-                        learningHint: '<strong>🧱 Piensa en construcción:</strong> "Wall" como las murallas que protegen de los titanes. ¡Las historias nos ayudan a recordar!',
-                        question: '🏰 Las murallas protegen a la gente de los titanes. ¿Cómo se dice "muro" o "muralla" en inglés?',
-                        options: ['Wall', 'Door', 'Window', 'Floor'],
+                        learningHint: '<strong>🧱 Construcciones:</strong> "Wall" también se usa en "Great Wall of China" (Gran Muralla China).',
+                        question: '🏰 Las murallas protegen a la humanidad de los titanes. ¿Cómo se dice "muralla" o "muro" en inglés?',
+                        options: ['Wall', 'Door', 'Window', 'Roof'],
                         correct: 0,
-                        explanation: '¡Excelente! "Wall" significa muro o muralla. Como las murallas que protegen de los titanes.'
+                        explanation: '¡Excelente! "Wall" significa muro o muralla. The Great Wall = La Gran Muralla (de China).'
                     },
                     {
                         type: 'math',
                         theme: 'pokemon',
-                        learningHint: '<strong>➗ División sencilla:</strong> Dividir es repartir en partes iguales. 20 ÷ 4 = 5 significa que cada grupo tiene 5.',
-                        question: '🔴 Ash tiene 20 Pokéballs y quiere repartirlas igualmente en 4 mochilas. ¿Cuántas Pokéballs pondrá en cada mochila?',
-                        options: ['5 Pokéballs', '6 Pokéballs', '4 Pokéballs', '8 Pokéballs'],
+                        learningHint: '<strong>🔢 Fracciones básicas:</strong> 1/2 es la mitad, 1/3 es un tercio, 1/4 es un cuarto.',
+                        question: '🍎 Pikachu tiene 8 bayas para comer. Si se come la mitad en el desayuno, ¿cuántas bayas se comió?',
+                        options: ['4 bayas', '3 bayas', '5 bayas', '2 bayas'],
                         correct: 0,
-                        explanation: '¡Perfecto! 20 ÷ 4 = 5 Pokéballs en cada mochila. ¡Todas las mochilas tendrán la misma cantidad!'
+                        explanation: '¡Perfecto! La mitad de 8 es 4. La mitad (1/2) significa dividir entre 2: 8 ÷ 2 = 4 bayas.'
+                    },
+                    {
+                        type: 'interactive',
+                        theme: 'mixed',
+                        subtype: 'sequence',
+                        learningHint: '<strong>📅 Días de la semana:</strong> Lunes es el primer día laborable, domingo el último día del fin de semana.',
+                        question: '📅 Ordena los días de la semana correctamente:',
+                        data: ['Miércoles', 'Lunes', 'Viernes', 'Martes', 'Jueves'],
+                        correctOrder: ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes'],
+                        explanation: '¡Genial! Has ordenado perfectamente los días laborables de la semana.'
+                    },
+                    {
+                        type: 'grammar',
+                        theme: 'pokemon',
+                        learningHint: '<strong>📝 Nombres propios:</strong> Los nombres de personas, lugares y Pokémon se escriben con mayúscula inicial.',
+                        question: '✏️ ¿Cuál de estas palabras debe escribirse con mayúscula inicial?',
+                        options: ['pelota', 'pikachu', 'amarillo', 'rápido'],
+                        correct: 1,
+                        explanation: '¡Correcto! "Pikachu" es un nombre propio (de un Pokémon específico) y se debe escribir con mayúscula: Pikachu.'
+                    },
+                    {
+                        type: 'values',
+                        theme: 'mixed',
+                        learningHint: '<strong>❤️ Valores sociales:</strong> El respeto, la ayuda mutua y la honestidad son valores importantes.',
+                        question: '🤝 Ash siempre ayuda a sus amigos cuando tienen problemas. ¿Qué valor positivo demuestra Ash?',
+                        options: ['Egoísmo', 'Solidaridad', 'Envidia', 'Pereza'],
+                        correct: 1,
+                        explanation: '¡Perfecto! Ash demuestra solidaridad al ayudar a sus amigos. La solidaridad es ayudar a otros sin esperar nada a cambio.'
                     }
                 ]
             },
@@ -837,54 +1094,98 @@
                     {
                         type: 'math',
                         theme: 'pokemon',
-                        learningHint: '<strong>✖️ Multiplicación de dos cifras:</strong> 15 × 3 = (10 × 3) + (5 × 3) = 30 + 15 = 45.',
-                        question: '🔥 Charizard entrena 15 minutos cada día durante 3 días. ¿Cuántos minutos entrenó en total?',
-                        options: ['45 minutos', '50 minutos', '40 minutos', '48 minutos'],
+                        learningHint: '<strong>✖️ Tablas de multiplicar:</strong> La tabla del 7 es: 7×1=7, 7×2=14, 7×3=21, 7×4=28, 7×5=35.',
+                        question: '🔥 Charizard entrena 7 horas cada día durante 5 días seguidos. ¿Cuántas horas entrenó en total?',
+                        options: ['35 horas', '32 horas', '40 horas', '28 horas'],
                         correct: 0,
-                        explanation: '¡Correcto! 15 × 3 = 45 minutos. Charizard entrenó mucho para ser más fuerte.'
+                        explanation: '¡Correcto! 7 × 5 = 35 horas. La tabla del 7: 7×5 = 35. ¡Charizard entrena muchísimo!'
                     },
                     {
                         type: 'reading',
                         theme: 'titans',
-                        learningHint: '<strong>📊 Números en el texto:</strong> Cuando veas números, subráyalos mentalmente para no olvidarlos.',
-                        readingText: '<h4>⚔️ La Exploración Peligrosa</h4>El escuadrón de reconocimiento salió muy temprano para explorar más allá de la muralla María. El grupo estaba formado por 25 soldados valientes montados a caballo. Durante su misión de 6 horas, encontraron 3 titanes pequeños y 1 titán gigante de 15 metros de altura. Afortunadamente, todos los soldados regresaron sanos y salvos a casa.',
-                        question: '👥 ¿Cuántos soldados formaban el escuadrón de reconocimiento?',
-                        options: ['20 soldados', '25 soldados', '30 soldados', '15 soldados'],
-                        correct: 1,
-                        explanation: '¡Excelente! El texto dice claramente "25 soldados valientes". ¡Has prestado atención a los números!'
+                        learningHint: '<strong>📊 Datos numéricos:</strong> Cuando leas textos con números, anótalos mentalmente o subráyalos.',
+                        readingText: '<h4>⚔️ La Gran Expedición Exploratoria</h4>El comandante Erwin organizó la expedición más grande de la historia para explorar más allá de la muralla María. La expedición estaba compuesta por 150 soldados de élite montados a caballo, divididos en 3 escuadrones de 50 soldados cada uno. Llevaban provisiones para 12 días de viaje y partieron al amanecer del día 15 de marzo. Durante las primeras 6 horas de viaje, avanzaron 42 kilómetros sin encontrar ningún titán. Sin embargo, al mediodía descubrieron las huellas de un titán gigante de 15 metros de altura que había pasado por allí recientemente.',
+                        question: '¿Cuántos kilómetros avanzaron durante las primeras 6 horas?',
+                        options: ['40 kilómetros', '45 kilómetros', '42 kilómetros', '38 kilómetros'],
+                        correct: 2,
+                        explanation: '¡Excelente! El texto dice "avanzaron 42 kilómetros sin encontrar ningún titán". ¡Has prestado atención a los detalles numéricos!'
                     },
                     {
                         type: 'english',
                         theme: 'football',
-                        learningHint: '<strong>🏃‍♂️ Movimiento:</strong> "Run" es cuando corres rápido, como los jugadores en el campo.',
-                        question: '🏃‍♂️ Los futbolistas corren por el campo. ¿Cómo se dice "correr" en inglés?',
-                        options: ['Walk', 'Run', 'Jump', 'Stop'],
+                        learningHint: '<strong>🏃‍♂️ Verbos de movimiento:</strong> "Run" (correr), "walk" (caminar), "jump" (saltar).',
+                        question: '🏃‍♂️ Los futbolistas corren muy rápido por el campo durante 90 minutos. ¿Cómo se dice "correr" en inglés?',
+                        options: ['Walk', 'Run', 'Stop', 'Sit'],
                         correct: 1,
-                        explanation: '¡Genial! "Run" significa correr. Los futbolistas "run" por el campo durante todo el partido.'
+                        explanation: '¡Genial! "Run" significa correr. Football players run fast! (¡Los futbolistas corren rápido!)'
                     },
                     {
                         type: 'math',
                         theme: 'warframe',
-                        learningHint: '<strong>✖️ Doble multiplicación:</strong> Primero calcula 8 × 3, luego multiplica por 2.',
-                        question: '🔫 Un Tenno completa 8 misiones cada día durante 3 días, y lo hace 2 veces por semana. ¿Cuántas misiones completa en total?',
-                        options: ['48 misiones', '24 misiones', '32 misiones', '40 misiones'],
+                        learningHint: '<strong>🔢 Números grandes:</strong> 1.000 = mil, 10.000 = diez mil, 100.000 = cien mil.',
+                        question: '🔫 Un Tenno ha completado misiones y ganado 1.250 puntos de experiencia en la primera semana y 2.375 puntos en la segunda semana. ¿Cuántos puntos tiene en total?',
+                        options: ['3.625 puntos', '3.525 puntos', '3.725 puntos', '3.500 puntos'],
                         correct: 0,
-                        explanation: '¡Perfecto! 8 × 3 = 24 misiones en 3 días, luego 24 × 2 = 48 misiones en total.'
+                        explanation: '¡Perfecto! 1.250 + 2.375 = 3.625 puntos. Suma las unidades, luego decenas, centenas y miles.'
+                    },
+                    {
+                        type: 'interactive',
+                        theme: 'science',
+                        subtype: 'drag_drop',
+                        learningHint: '<strong>🔬 Estados de la materia:</strong> Sólido (forma fija), líquido (toma forma del recipiente), gas (llena todo el espacio).',
+                        question: '🧪 Clasifica estos elementos según su estado:',
+                        data: {
+                            items: ['Hielo', 'Vapor de agua', 'Agua del grifo'],
+                            zones: ['Sólido', 'Líquido', 'Gas'],
+                            correct: [0, 2, 1]
+                        },
+                        explanation: '¡Excelente! Hielo = sólido, agua = líquido, vapor = gas. ¡Son el mismo elemento en diferentes estados!'
+                    },
+                    {
+                        type: 'geography',
+                        theme: 'football',
+                        learningHint: '<strong>🗺️ Capitales de España:</strong> Madrid es la capital, Barcelona es en Cataluña, Sevilla en Andalucía.',
+                        question: '🏛️ El Real Madrid juega en la capital de España. ¿Cuál es la capital de España?',
+                        options: ['Barcelona', 'Madrid', 'Sevilla', 'Valencia'],
+                        correct: 1,
+                        explanation: '¡Correcto! Madrid es la capital de España, donde juega el Real Madrid en el estadio Santiago Bernabéu.'
+                    },
+                    {
+                        type: 'nature',
+                        theme: 'pokemon',
+                        learningHint: '<strong>🌱 Partes de las plantas:</strong> Raíz (bajo tierra), tallo (soporte), hojas (respiran), flores (reproducción).',
+                        question: '🌳 Pikachu busca bayas en los árboles del bosque. ¿Qué parte de la planta produce las frutas y bayas?',
+                        options: ['Las raíces', 'El tallo', 'Las hojas', 'Las flores'],
+                        correct: 3,
+                        explanation: '¡Perfecto! Las flores se transforman en frutos y bayas después de la polinización. ¡Por eso Pikachu encuentra bayas donde antes había flores!'
+                    },
+                    {
+                        type: 'money',
+                        theme: 'pokemon',
+                        learningHint: '<strong>💰 Euros y céntimos:</strong> 1 euro = 100 céntimos. Para sumar dinero, suma euros con euros y céntimos con céntimos.',
+                        question: '💰 Ash compra 3 Pokéballs que cuestan 1,50 euros cada una. ¿Cuánto paga en total?',
+                        options: ['4,50 euros', '4,00 euros', '5,00 euros', '3,50 euros'],
+                        correct: 0,
+                        explanation: '¡Genial! 3 × 1,50 = 4,50 euros. También puedes pensarlo como 1,50 + 1,50 + 1,50 = 4,50 euros.'
                     }
                 ]
             }
         };
 
-        // Logros disponibles
+        // Logros disponibles AMPLIADOS
         const achievements = [
             { id: 'first_exercise', name: 'Primer Paso', description: 'Completa tu primer ejercicio', icon: '🎯', requirement: 1 },
-            { id: 'math_master', name: 'Maestro Matemático', description: 'Completa 15 ejercicios de matemáticas', icon: '🧮', requirement: 15 },
-            { id: 'reading_hero', name: 'Héroe de la Lectura', description: 'Completa 15 ejercicios de comprensión lectora', icon: '📚', requirement: 15 },
+            { id: 'math_master', name: 'Maestro Matemático', description: 'Completa 20 ejercicios de matemáticas', icon: '🧮', requirement: 20 },
+            { id: 'reading_hero', name: 'Héroe de la Lectura', description: 'Completa 20 ejercicios de comprensión lectora', icon: '📚', requirement: 20 },
             { id: 'english_expert', name: 'Experto en Inglés', description: 'Completa 15 ejercicios de inglés', icon: '🇬🇧', requirement: 15 },
             { id: 'perfect_day', name: 'Día Perfecto', description: 'Completa todos los ejercicios de un día sin errores', icon: '⭐', requirement: 1 },
             { id: 'streak_week', name: 'Racha Semanal', description: 'Mantén una racha de 7 días', icon: '🔥', requirement: 7 },
-            { id: 'multiplication_master', name: 'Maestro de la Multiplicación', description: 'Completa 10 ejercicios de multiplicación correctos', icon: '✖️', requirement: 10 },
-            { id: 'reading_champion', name: 'Campeón de Lectura', description: 'Lee 20 textos completos', icon: '👑', requirement: 20 }
+            { id: 'multiplication_master', name: 'Maestro de la Multiplicación', description: 'Completa 15 ejercicios de multiplicación correctos', icon: '✖️', requirement: 15 },
+            { id: 'reading_champion', name: 'Campeón de Lectura', description: 'Lee 25 textos completos', icon: '👑', requirement: 25 },
+            { id: 'interactive_genius', name: 'Genio Interactivo', description: 'Completa 10 ejercicios interactivos', icon: '🧩', requirement: 10 },
+            { id: 'science_explorer', name: 'Explorador Científico', description: 'Completa 10 ejercicios de ciencias', icon: '🔬', requirement: 10 },
+            { id: 'speed_demon', name: 'Demonio de Velocidad', description: 'Completa un día en menos de 20 minutos', icon: '⚡', requirement: 1 },
+            { id: 'hundred_club', name: 'Club de los 100', description: 'Alcanza 100 ejercicios completados', icon: '💯', requirement: 100 }
         ];
 
         // Funciones de autenticación
@@ -909,7 +1210,7 @@
             }
         }
 
-        // Gestión de datos con JSONBin CORREGIDA
+        // Gestión de datos con JSONBin
         async function loadUserData() {
             updateConnectionStatus('connecting');
             try {
@@ -953,7 +1254,6 @@
                 console.log('Guardando datos del usuario:', appState.currentUser);
                 updateConnectionStatus('saving');
                 
-                // Primero obtenemos los datos actuales para no sobrescribir otros usuarios
                 let allData = { users: {} };
                 
                 try {
@@ -973,7 +1273,6 @@
                     console.log('No se pudieron obtener datos existentes, creando estructura nueva');
                 }
                 
-                // Actualizamos solo los datos del usuario actual
                 if (!allData.users) {
                     allData.users = {};
                 }
@@ -984,7 +1283,6 @@
                 
                 console.log('Datos a guardar:', allData);
                 
-                // Guardamos los datos actualizados
                 const saveResponse = await fetch(`${JSONBIN_CONFIG.apiUrl}/b/${JSONBIN_CONFIG.binId}`, {
                     method: 'PUT',
                     headers: {
@@ -1075,12 +1373,20 @@
                 streak: 0,
                 totalExercises: 0,
                 correctAnswers: 0,
-                exercisesByType: { math: 0, reading: 0, english: 0 },
-                exercisesByTheme: { pokemon: 0, titans: 0, football: 0, warframe: 0 },
+                exercisesByType: { 
+                    math: 0, reading: 0, english: 0, interactive: 0, 
+                    science: 0, geography: 0, history: 0, body: 0, 
+                    technology: 0, grammar: 0, values: 0, nature: 0, money: 0 
+                },
+                exercisesByTheme: { pokemon: 0, titans: 0, football: 0, warframe: 0, mixed: 0 },
                 multiplicationExercises: 0,
                 textsRead: 0,
+                interactiveExercises: 0,
+                perfectDays: 0,
+                fastestDay: null,
                 completedExercises: {},
                 achievements: [],
+                sessionStartTime: null,
                 created: new Date().toISOString(),
                 lastActivity: new Date().toISOString()
             };
@@ -1093,7 +1399,6 @@
             updateUserInterface();
             generateWeeks();
             
-            // Actualizar panel de administración
             const adminUser = document.getElementById('currentUserAdmin');
             if (adminUser) {
                 adminUser.textContent = appState.currentUser;
@@ -1155,11 +1460,19 @@
                             <div style="background: white; height: 100%; width: ${(completedDays/totalDays)*100}%; border-radius: 4px;"></div>
                         </div>
                     </div>
-                    <p style="margin-top: 10px; font-size: 14px;">🎯 Temas: Pokémon, Titanes, Fútbol, Warframe</p>
+                    <p style="margin-top: 10px; font-size: 14px;">🎯 ${getTotalExercisesInWeek(week)} ejercicios por día</p>
                 `;
                 
                 weekGrid.appendChild(weekCard);
             }
+        }
+
+        function getTotalExercisesInWeek(week) {
+            const weekKey = `week${week}`;
+            if (exerciseDatabase[weekKey] && exerciseDatabase[weekKey].day1) {
+                return exerciseDatabase[weekKey].day1.length;
+            }
+            return 4;
         }
 
         function getCompletedDaysInWeek(week) {
@@ -1203,9 +1516,11 @@
                     </div>
                 `).join('');
                 
+                const timeEstimate = Math.ceil(exercises.length * 4); // 4 minutos por ejercicio aproximadamente
+                
                 dayCard.innerHTML = `
                     <h4>${days[day-1]} - Día ${day}</h4>
-                    <p style="color: #666; margin-bottom: 15px;">🕐 ~30 minutos de entrenamiento</p>
+                    <p style="color: #666; margin-bottom: 15px;">🕐 ~${timeEstimate} minutos | ${exercises.length} ejercicios</p>
                     <div class="exercise-list">
                         ${exerciseList}
                     </div>
@@ -1229,20 +1544,25 @@
                 return exerciseDatabase[weekKey][dayKey];
             }
             
-            return generateDayExercises(week, day);
-        }
-
-        function generateDayExercises(week, day) {
-            // Si no existen ejercicios para esa semana/día, usar ejercicios base
-            const baseExercises = exerciseDatabase.week1.day1;
-            return baseExercises;
+            // Si no hay ejercicios, usar ejercicios base
+            return exerciseDatabase.week1.day1.slice(0, 4);
         }
 
         function getExerciseIcon(type) {
             const icons = {
                 math: '🧮',
                 reading: '📖',
-                english: '🇬🇧'
+                english: '🇬🇧',
+                interactive: '🧩',
+                science: '🔬',
+                geography: '🌍',
+                history: '🏛️',
+                body: '🫀',
+                technology: '💻',
+                grammar: '✏️',
+                values: '❤️',
+                nature: '🌱',
+                money: '💰'
             };
             return icons[type] || '📝';
         }
@@ -1251,25 +1571,42 @@
             const titles = {
                 math: 'Matemáticas',
                 reading: 'Comprensión Lectora',
-                english: 'Inglés'
+                english: 'Inglés',
+                interactive: 'Ejercicio Interactivo',
+                science: 'Ciencias Naturales',
+                geography: 'Geografía',
+                history: 'Historia',
+                body: 'Cuerpo Humano',
+                technology: 'Tecnología',
+                grammar: 'Gramática',
+                values: 'Valores',
+                nature: 'Naturaleza',
+                money: 'Dinero'
             };
             
             const themes = {
                 pokemon: 'Pokémon',
                 titans: 'Titanes',
                 football: 'Fútbol',
-                warframe: 'Warframe'
+                warframe: 'Warframe',
+                mixed: 'Variado'
             };
             
-            return `${titles[type]} - ${themes[theme]}`;
+            return `${titles[type]} - ${themes[theme] || 'General'}`;
         }
 
-        // Sistema de ejercicios
+        // Sistema de ejercicios MEJORADO
         function startDay(week, day) {
             const exercises = getDayExercises(week, day);
             appState.currentExerciseSet = exercises;
             appState.currentExerciseIndex = 0;
-            appState.currentSessionStats = { correct: 0, total: 0, week, day };
+            appState.currentSessionStats = { 
+                correct: 0, 
+                total: 0, 
+                week, 
+                day,
+                startTime: new Date().getTime()
+            };
             
             showExercise();
         }
@@ -1281,7 +1618,8 @@
             document.getElementById('exerciseTitle').textContent = getExerciseTitle(exercise.type, exercise.theme);
             
             // Mostrar pista de aprendizaje
-            const hintElement = document.getElementById('learningHint');if (exercise.learningHint) {
+            const hintElement = document.getElementById('learningHint');
+            if (exercise.learningHint) {
                 hintElement.innerHTML = exercise.learningHint;
                 hintElement.style.display = 'block';
             } else {
@@ -1300,7 +1638,29 @@
             
             document.getElementById('exerciseQuestion').innerHTML = exercise.question;
             
+            // Ocultar elementos por defecto
+            document.getElementById('exerciseOptions').style.display = 'none';
+            document.getElementById('interactiveArea').style.display = 'none';
+            document.getElementById('exerciseFeedback').style.display = 'none';
+            document.getElementById('nextExerciseBtn').style.display = 'none';
+            
+            // Mostrar contenido según el tipo de ejercicio
+            if (exercise.type === 'interactive') {
+                showInteractiveExercise(exercise);
+            } else {
+                showNormalExercise(exercise);
+            }
+            
+            // Actualizar barra de progreso
+            const progress = ((appState.currentExerciseIndex + 1) / appState.currentExerciseSet.length) * 100;
+            document.getElementById('progressFill').style.width = progress + '%';
+            
+            modal.style.display = 'flex';
+        }
+
+        function showNormalExercise(exercise) {
             const optionsContainer = document.getElementById('exerciseOptions');
+            optionsContainer.style.display = 'grid';
             optionsContainer.innerHTML = '';
             
             exercise.options.forEach((option, index) => {
@@ -1310,15 +1670,206 @@
                 optionDiv.onclick = () => selectOption(index);
                 optionsContainer.appendChild(optionDiv);
             });
+        }
+
+        function showInteractiveExercise(exercise) {
+            const interactiveArea = document.getElementById('interactiveArea');
+            interactiveArea.style.display = 'block';
             
-            document.getElementById('exerciseFeedback').style.display = 'none';
-            document.getElementById('nextExerciseBtn').style.display = 'none';
+            if (exercise.subtype === 'sequence') {
+                createSequenceExercise(exercise);
+            } else if (exercise.subtype === 'drag_drop') {
+                createDragDropExercise(exercise);
+            }
+        }
+
+        function createSequenceExercise(exercise) {
+            const interactiveArea = document.getElementById('interactiveArea');
+            let selectedOrder = [];
             
-            // Actualizar barra de progreso
-            const progress = ((appState.currentExerciseIndex + 1) / appState.currentExerciseSet.length) * 100;
-            document.getElementById('progressFill').style.width = progress + '%';
+            interactiveArea.innerHTML = `
+                <div class="sequence-container" id="sequenceItems"></div>
+                <div style="margin: 20px 0;">
+                    <p><strong>Orden seleccionado:</strong></p>
+                    <div id="selectedOrder" style="min-height: 40px; border: 2px dashed #ccc; padding: 10px; border-radius: 8px; margin: 10px 0;"></div>
+                </div>
+                <button onclick="checkSequence()" style="background: #667eea; color: white; padding: 10px 20px; border: none; border-radius: 8px; cursor: pointer;">Comprobar Orden</button>
+                <button onclick="resetSequence()" style="background: #6c757d; color: white; padding: 10px 20px; border: none; border-radius: 8px; cursor: pointer; margin-left: 10px;">Reiniciar</button>
+            `;
             
-            modal.style.display = 'flex';
+            const container = document.getElementById('sequenceItems');
+            const shuffledData = [...exercise.data].sort(() => Math.random() - 0.5);
+            
+            shuffledData.forEach((item, index) => {
+                const itemDiv = document.createElement('div');
+                itemDiv.className = 'sequence-item';
+                itemDiv.textContent = item;
+                itemDiv.onclick = () => selectSequenceItem(item, itemDiv);
+                container.appendChild(itemDiv);
+            });
+            
+            window.currentExercise = exercise;
+            window.selectedOrder = selectedOrder;
+        }
+
+        function selectSequenceItem(item, element) {
+            if (element.classList.contains('selected')) return;
+            
+            element.classList.add('selected');
+            window.selectedOrder.push(item);
+            
+            const orderDisplay = document.getElementById('selectedOrder');
+            orderDisplay.innerHTML = window.selectedOrder.map((item, index) => 
+                `<span style="background: #667eea; color: white; padding: 5px 10px; border-radius: 5px; margin: 2px; display: inline-block;">${index + 1}. ${item}</span>`
+            ).join('');
+        }
+
+        function checkSequence() {
+            const exercise = window.currentExercise;
+            const isCorrect = JSON.stringify(window.selectedOrder) === JSON.stringify(exercise.correctOrder);
+            
+            handleInteractiveResult(isCorrect, exercise.explanation);
+        }
+
+        function resetSequence() {
+            window.selectedOrder = [];
+            document.getElementById('selectedOrder').innerHTML = '';
+            document.querySelectorAll('.sequence-item').forEach(item => {
+                item.classList.remove('selected');
+            });
+        }
+
+        function createDragDropExercise(exercise) {
+            const interactiveArea = document.getElementById('interactiveArea');
+            
+            interactiveArea.innerHTML = `
+                <div class="drag-drop-area">
+                    <div style="margin-bottom: 20px;">
+                        <h4>Arrastra los elementos:</h4>
+                        <div id="draggableItems" style="display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin: 15px 0;"></div>
+                    </div>
+                    <div style="margin-top: 20px;">
+                        <h4>A las zonas correctas:</h4>
+                        <div id="dropZones" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; margin: 15px 0;"></div>
+                    </div>
+                </div>
+                <button onclick="checkDragDrop()" style="background: #667eea; color: white; padding: 10px 20px; border: none; border-radius: 8px; cursor: pointer; margin-top: 15px;">Comprobar</button>
+            `;
+            
+            const itemsContainer = document.getElementById('draggableItems');
+            const zonesContainer = document.getElementById('dropZones');
+            
+            // Crear elementos arrastrables
+            exercise.data.items.forEach((item, index) => {
+                const itemDiv = document.createElement('div');
+                itemDiv.className = 'draggable';
+                itemDiv.textContent = item;
+                itemDiv.draggable = true;
+                itemDiv.dataset.index = index;
+                
+                itemDiv.addEventListener('dragstart', (e) => {
+                    e.dataTransfer.setData('text/plain', index);
+                    itemDiv.classList.add('dragging');
+                });
+                
+                itemDiv.addEventListener('dragend', () => {
+                    itemDiv.classList.remove('dragging');
+                });
+                
+                itemsContainer.appendChild(itemDiv);
+            });
+            
+            // Crear zonas de soltar
+            exercise.data.zones.forEach((zone, index) => {
+                const zoneDiv = document.createElement('div');
+                zoneDiv.className = 'drop-zone';
+                zoneDiv.innerHTML = `<strong>${zone}</strong>`;
+                zoneDiv.dataset.zoneIndex = index;
+                
+                zoneDiv.addEventListener('dragover', (e) => {
+                    e.preventDefault();
+                    zoneDiv.classList.add('drag-over');
+                });
+                
+                zoneDiv.addEventListener('dragleave', () => {
+                    zoneDiv.classList.remove('drag-over');
+                });
+                
+                zoneDiv.addEventListener('drop', (e) => {
+                    e.preventDefault();
+                    const itemIndex = e.dataTransfer.getData('text/plain');
+                    const itemElement = document.querySelector(`[data-index="${itemIndex}"]`);
+                    
+                    // Limpiar zona anterior si el elemento ya estaba colocado
+                    const currentZone = itemElement.parentElement;
+                    if (currentZone.classList.contains('drop-zone')) {
+                        currentZone.classList.remove('filled');
+                    }
+                    
+                    // Colocar en nueva zona
+                    zoneDiv.appendChild(itemElement);
+                    zoneDiv.classList.remove('drag-over');
+                    zoneDiv.classList.add('filled');
+                });
+                
+                zonesContainer.appendChild(zoneDiv);
+            });
+            
+            window.currentExercise = exercise;
+        }
+
+        function checkDragDrop() {
+            const exercise = window.currentExercise;
+            const dropZones = document.querySelectorAll('.drop-zone');
+            let userAnswers = [];
+            let allPlaced = true;
+            
+            dropZones.forEach((zone, zoneIndex) => {
+                const item = zone.querySelector('.draggable');
+                if (item) {
+                    userAnswers[zoneIndex] = parseInt(item.dataset.index);
+                } else {
+                    allPlaced = false;
+                }
+            });
+            
+            if (!allPlaced) {
+                alert('¡Coloca todos los elementos en las zonas antes de comprobar!');
+                return;
+            }
+            
+            const isCorrect = JSON.stringify(userAnswers) === JSON.stringify(exercise.data.correct);
+            handleInteractiveResult(isCorrect, exercise.explanation);
+        }
+
+        function handleInteractiveResult(isCorrect, explanation) {
+            const feedback = document.getElementById('exerciseFeedback');
+            
+            appState.currentSessionStats.total++;
+            appState.userData.interactiveExercises++;
+            
+            if (isCorrect) {
+                feedback.className = 'feedback correct';
+                feedback.innerHTML = '🎉 ' + explanation;
+                appState.currentSessionStats.correct++;
+                appState.userData.correctAnswers++;
+                appState.userData.totalPoints += 15; // Más puntos por ejercicios interactivos
+            } else {
+                feedback.className = 'feedback incorrect';
+                feedback.innerHTML = '❌ ' + explanation;
+            }
+            
+            feedback.style.display = 'block';
+            document.getElementById('nextExerciseBtn').style.display = 'inline-block';
+            
+            // Actualizar estadísticas
+            appState.userData.totalExercises++;
+            const exercise = appState.currentExerciseSet[appState.currentExerciseIndex];
+            appState.userData.exercisesByType[exercise.type]++;
+            appState.userData.exercisesByTheme[exercise.theme]++;
+            appState.userData.lastActivity = new Date().toISOString();
+            
+            saveUserData();
         }
 
         function selectOption(selectedIndex) {
@@ -1359,7 +1910,6 @@
             feedback.style.display = 'block';
             document.getElementById('nextExerciseBtn').style.display = 'inline-block';
             
-            // Guardar progreso inmediatamente
             saveUserData();
         }
 
@@ -1374,25 +1924,35 @@
         }
 
         function completeDay() {
-            const { week, day, correct, total } = appState.currentSessionStats;
+            const { week, day, correct, total, startTime } = appState.currentSessionStats;
             const dayKey = `week${week}_day${day}`;
+            const endTime = new Date().getTime();
+            const duration = Math.round((endTime - startTime) / 1000 / 60); // minutos
             
             appState.userData.completedExercises[dayKey] = {
                 completed: true,
                 score: correct,
                 total: total,
+                duration: duration,
                 date: new Date().toISOString()
             };
             
+            // Actualizar racha
             if (correct === total) {
                 appState.userData.streak++;
+                appState.userData.perfectDays++;
             } else {
                 appState.userData.streak = 0;
             }
             
+            // Verificar día más rápido
+            if (correct === total && (!appState.userData.fastestDay || duration < appState.userData.fastestDay)) {
+                appState.userData.fastestDay = duration;
+            }
+            
             checkAchievements();
             
-            const newLevel = Math.floor(appState.userData.totalPoints / 100) + 1;
+            const newLevel = Math.floor(appState.userData.totalPoints / 150) + 1;
             if (newLevel > appState.userData.level) {
                 appState.userData.level = newLevel;
                 showReward('¡Nivel Superior!', '🆙', `¡Has alcanzado el nivel ${newLevel}!`);
@@ -1403,10 +1963,10 @@
             updateUserInterface();
             generateWeeks();
             
-            showDayComplete(correct, total);
+            showDayComplete(correct, total, duration);
         }
 
-        function showDayComplete(correct, total) {
+        function showDayComplete(correct, total, duration) {
             const percentage = Math.round((correct / total) * 100);
             let message = '';
             let icon = '';
@@ -1414,6 +1974,9 @@
             if (percentage === 100) {
                 message = '¡Perfecto! ¡Eres un verdadero maestro entrenador!';
                 icon = '🏆';
+                if (duration <= 20) {
+                    message += ' ¡Y muy rápido!';
+                }
             } else if (percentage >= 80) {
                 message = '¡Excelente trabajo! Casi perfecto.';
                 icon = '⭐';
@@ -1425,14 +1988,14 @@
                 icon = '💪';
             }
             
-            showReward('¡Día Completado!', icon, `${message}\nPuntuación: ${correct}/${total} (${percentage}%)`);
+            showReward('¡Día Completado!', icon, `${message}\nPuntuación: ${correct}/${total} (${percentage}%)\nTiempo: ${duration} minutos`);
         }
 
         function closeExercise() {
             document.getElementById('exerciseModal').style.display = 'none';
         }
 
-        // Sistema de logros
+        // Sistema de logros AMPLIADO
         function checkAchievements() {
             achievements.forEach(achievement => {
                 if (!appState.userData.achievements.includes(achievement.id)) {
@@ -1443,10 +2006,10 @@
                             earned = appState.userData.totalExercises >= 1;
                             break;
                         case 'math_master':
-                            earned = appState.userData.exercisesByType.math >= 15;
+                            earned = appState.userData.exercisesByType.math >= 20;
                             break;
                         case 'reading_hero':
-                            earned = appState.userData.exercisesByType.reading >= 15;
+                            earned = appState.userData.exercisesByType.reading >= 20;
                             break;
                         case 'english_expert':
                             earned = appState.userData.exercisesByType.english >= 15;
@@ -1458,10 +2021,22 @@
                             earned = appState.userData.streak >= 7;
                             break;
                         case 'multiplication_master':
-                            earned = appState.userData.multiplicationExercises >= 10;
+                            earned = appState.userData.multiplicationExercises >= 15;
                             break;
                         case 'reading_champion':
-                            earned = appState.userData.textsRead >= 20;
+                            earned = appState.userData.textsRead >= 25;
+                            break;
+                        case 'interactive_genius':
+                            earned = appState.userData.interactiveExercises >= 10;
+                            break;
+                        case 'science_explorer':
+                            earned = (appState.userData.exercisesByType.science || 0) >= 10;
+                            break;
+                        case 'speed_demon':
+                            earned = appState.userData.fastestDay && appState.userData.fastestDay <= 20;
+                            break;
+                        case 'hundred_club':
+                            earned = appState.userData.totalExercises >= 100;
                             break;
                     }
                     
@@ -1496,7 +2071,7 @@
             });
         }
 
-        // Estadísticas detalladas
+        // Estadísticas detalladas AMPLIADAS
         function loadStats() {
             const content = document.getElementById('statsContent');
             const userData = appState.userData;
@@ -1506,7 +2081,7 @@
                 : 0;
             
             content.innerHTML = `
-                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px;">
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px;">
                     <div class="stat-card" style="padding: 20px;">
                         <h3>📊 Estadísticas Generales</h3>
                         <p><strong>Ejercicios totales:</strong> ${userData.totalExercises}</p>
@@ -1515,6 +2090,8 @@
                         <p><strong>Puntos totales:</strong> ${userData.totalPoints}</p>
                         <p><strong>Racha actual:</strong> ${userData.streak} días</p>
                         <p><strong>Nivel:</strong> ${userData.level}</p>
+                        <p><strong>Días perfectos:</strong> ${userData.perfectDays || 0}</p>
+                        <p><strong>Día más rápido:</strong> ${userData.fastestDay ? userData.fastestDay + ' minutos' : 'No disponible'}</p>
                     </div>
                     
                     <div class="stat-card" style="padding: 20px;">
@@ -1522,6 +2099,9 @@
                         <p><strong>🧮 Matemáticas:</strong> ${userData.exercisesByType.math || 0}</p>
                         <p><strong>📖 Comprensión Lectora:</strong> ${userData.exercisesByType.reading || 0}</p>
                         <p><strong>🇬🇧 Inglés:</strong> ${userData.exercisesByType.english || 0}</p>
+                        <p><strong>🧩 Interactivos:</strong> ${userData.exercisesByType.interactive || 0}</p>
+                        <p><strong>🔬 Ciencias:</strong> ${userData.exercisesByType.science || 0}</p>
+                        <p><strong>🌍 Geografía:</strong> ${userData.exercisesByType.geography || 0}</p>
                         <div style="margin-top: 10px; padding-top: 10px; border-top: 1px solid #ddd;">
                             <p><strong>✖️ Multiplicaciones:</strong> ${userData.multiplicationExercises || 0}</p>
                             <p><strong>📖 Textos leídos:</strong> ${userData.textsRead || 0}</p>
@@ -1534,6 +2114,7 @@
                         <p><strong>⚔️ Titanes:</strong> ${userData.exercisesByTheme.titans || 0}</p>
                         <p><strong>⚽ Fútbol:</strong> ${userData.exercisesByTheme.football || 0}</p>
                         <p><strong>🔫 Warframe:</strong> ${userData.exercisesByTheme.warframe || 0}</p>
+                        <p><strong>🎯 Variado:</strong> ${userData.exercisesByTheme.mixed || 0}</p>
                     </div>
                     
                     <div class="stat-card" style="padding: 20px;">
@@ -1549,16 +2130,23 @@
                 </div>
                 
                 <div style="margin-top: 30px; padding: 20px; background: #f8f9fa; border-radius: 10px;">
-                    <h3>📈 Progreso Semanal</h3>
-                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-top: 15px;">
+                    <h3>📈 Progreso Semanal Detallado</h3>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px; margin-top: 15px;">
                         ${Object.keys(exerciseDatabase).map(weekKey => {
                             const weekNum = weekKey.replace('week', '');
                             const completed = getCompletedDaysInWeek(weekNum);
+                            const weekData = getWeekStats(weekNum);
                             return `
-                                <div style="text-align: center; padding: 15px; background: white; border-radius: 8px;">
+                                <div style="text-align: center; padding: 15px; background: white; border-radius: 8px; border: 1px solid #ddd;">
                                     <h4>Semana ${weekNum}</h4>
                                     <div style="font-size: 24px; color: #667eea; margin: 10px 0;">${completed}/5</div>
                                     <div style="font-size: 12px; color: #666;">días completados</div>
+                                    ${weekData.totalScore > 0 ? `
+                                        <div style="margin-top: 10px; font-size: 14px;">
+                                            <div>📊 ${weekData.totalScore}/${weekData.totalExercises} ejercicios</div>
+                                            <div>🎯 ${Math.round((weekData.totalScore/weekData.totalExercises)*100)}% precisión</div>
+                                        </div>
+                                    ` : ''}
                                 </div>
                             `;
                         }).join('')}
@@ -1573,6 +2161,22 @@
                     <p><strong>Estado de guardado:</strong> ${appState.connectionStatus === 'online' ? '✅ Sincronizado' : '❌ Sin sincronizar'}</p>
                 </div>
             `;
+        }
+
+        function getWeekStats(weekNum) {
+            let totalScore = 0;
+            let totalExercises = 0;
+            
+            for (let day = 1; day <= 5; day++) {
+                const dayKey = `week${weekNum}_day${day}`;
+                const dayData = appState.userData.completedExercises[dayKey];
+                if (dayData) {
+                    totalScore += dayData.score;
+                    totalExercises += dayData.total;
+                }
+            }
+            
+            return { totalScore, totalExercises };
         }
 
         // Sistema de recompensas
@@ -1608,7 +2212,9 @@
                     accuracy: appState.userData.totalExercises > 0 ? Math.round((appState.userData.correctAnswers / appState.userData.totalExercises) * 100) : 0,
                     level: appState.userData.level,
                     achievements: appState.userData.achievements.length,
-                    connectionStatus: appState.connectionStatus
+                    connectionStatus: appState.connectionStatus,
+                    perfectDays: appState.userData.perfectDays || 0,
+                    fastestDay: appState.userData.fastestDay || null
                 }
             };
             
@@ -1623,7 +2229,7 @@
 
         // Inicialización
         document.addEventListener('DOMContentLoaded', function() {
-            console.log('🎮 Academia Pokemon iniciada');
+            console.log('🎮 Academia Pokemon iniciada - Versión ampliada');
             console.log('📡 Configuración JSONBin:', {
                 binId: JSONBIN_CONFIG.binId,
                 apiUrl: JSONBIN_CONFIG.apiUrl
