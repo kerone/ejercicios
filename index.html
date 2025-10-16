@@ -3,1135 +3,1643 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Aventuras de Aprendizaje - Completo</title>
+    <title>Academia Pokemon - Aprendizaje Divertido</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&family=Poppins:wght@400;600;700&display=swap');
-        
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            -webkit-tap-highlight-color: transparent;
         }
-        
-        html {
-            font-size: 16px;
-        }
-        
+
         body {
-            font-family: 'Poppins', sans-serif;
-            background: linear-gradient(135deg, #4ade80 0%, #3b82f6 50%, #8b5cf6 100%);
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
+            color: #333;
+            font-size: 16px;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .login-screen {
             display: flex;
             justify-content: center;
             align-items: center;
-            padding: 20px;
+            min-height: 100vh;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><text y=".9em" font-size="90">🎮</text></svg>') no-repeat center;
+            background-size: 200px;
         }
-        
-        /* Login Screen */
-        .login-screen {
+
+        .login-card {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            text-align: center;
+            max-width: 400px;
+            width: 100%;
+        }
+
+        .login-card h1 {
+            color: #667eea;
+            margin-bottom: 20px;
+            font-size: 2.5em;
+        }
+
+        .login-card input {
+            width: 100%;
+            padding: 15px;
+            margin: 10px 0;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            font-size: 18px;
+            font-family: inherit;
+        }
+
+        .login-card button {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 18px;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: transform 0.2s;
+        }
+
+        .login-card button:hover {
+            transform: scale(1.05);
+        }
+
+        .main-app {
+            display: none;
+        }
+
+        .header {
+            background: rgba(255,255,255,0.95);
+            padding: 20px;
+            border-radius: 15px;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 30px;
+            color: white;
+        }
+
+        .stats {
+            display: flex;
+            gap: 20px;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            min-width: 80px;
+        }
+
+        .stat-number {
+            font-size: 24px;
+            font-weight: bold;
+            color: #667eea;
+        }
+
+        .nav-tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .nav-tab {
+            padding: 15px 25px;
+            background: rgba(255,255,255,0.9);
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 16px;
+            font-family: inherit;
+            transition: all 0.3s;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        }
+
+        .nav-tab:hover, .nav-tab.active {
+            background: #667eea;
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .content-area {
+            background: rgba(255,255,255,0.95);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            min-height: 500px;
+        }
+
+        .week-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .week-card {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+
+        .week-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .day-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+        }
+
+        .day-card {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            border-left: 5px solid #667eea;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .day-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+        }
+
+        .exercise-list {
+            margin-top: 15px;
+        }
+
+        .exercise-item {
+            background: #f8f9fa;
+            padding: 10px;
+            margin: 8px 0;
+            border-radius: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .exercise-modal {
+            display: none;
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            z-index: 10001;
-            display: flex;
-            justify-content: center;
+            background: rgba(0,0,0,0.8);
+            z-index: 1000;
             align-items: center;
-            padding: 20px;
+            justify-content: center;
         }
-        
-        .login-box {
+
+        .modal-content {
             background: white;
-            border-radius: 30px;
-            padding: 50px 40px;
-            max-width: 450px;
-            width: 100%;
-            box-shadow: 0 30px 90px rgba(0,0,0,0.4);
-            text-align: center;
-        }
-        
-        .login-box h2 {
-            color: #667eea;
-            font-size: 2.5em;
-            margin-bottom: 15px;
-        }
-        
-        .login-box p {
-            color: #666;
-            margin-bottom: 30px;
-            font-size: 1.1em;
-        }
-        
-        .login-box input {
-            width: 100%;
-            padding: 18px 20px;
-            font-size: 1.2em;
-            border: 3px solid #e5e7eb;
-            border-radius: 15px;
-            font-family: 'Poppins', sans-serif;
-            font-weight: 600;
-            transition: all 0.3s;
-            margin-bottom: 25px;
-            text-align: center;
-        }
-        
-        .login-box input:focus {
-            outline: none;
-            border-color: #667eea;
-            box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1);
-        }
-        
-        /* Buttons */
-        .btn {
-            padding: 18px 35px;
-            font-size: 1.2em;
-            font-family: 'Poppins', sans-serif;
-            font-weight: 700;
-            border: none;
-            border-radius: 18px;
-            cursor: pointer;
-            transition: all 0.3s;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.15);
-        }
-        
-        .btn-primary {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            width: 100%;
-            margin-bottom: 15px;
-        }
-        
-        .btn-primary:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
-        }
-        
-        .btn-secondary {
-            background: linear-gradient(135deg, #6b7280 0%, #4b5563 100%);
-            color: white;
-            width: 100%;
-            opacity: 0.6;
-        }
-        
-        /* App Container */
-        .app-container {
-            background: white;
-            border-radius: 40px;
-            box-shadow: 0 30px 90px rgba(0,0,0,0.3);
+            padding: 40px;
+            border-radius: 20px;
             max-width: 900px;
-            width: 100%;
-            overflow: hidden;
-            display: none;
-        }
-        
-        .header {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 30px 25px;
-            text-align: center;
+            width: 90%;
+            max-height: 90%;
+            overflow-y: auto;
             position: relative;
         }
-        
-        .header h1 {
-            font-size: 2.2em;
-            font-weight: 700;
-            text-shadow: 0 2px 10px rgba(0,0,0,0.3);
-            margin-bottom: 5px;
-        }
-        
-        .user-badge {
+
+        .close-btn {
             position: absolute;
-            top: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: rgba(255,255,255,0.95);
-            color: #667eea;
-            backdrop-filter: blur(10px);
-            padding: 8px 20px;
-            border-radius: 20px;
+            top: 15px;
+            right: 20px;
+            background: none;
+            border: none;
+            font-size: 30px;
             cursor: pointer;
-            font-size: 0.9em;
-            font-weight: 700;
-            transition: all 0.3s;
-            border: 2px solid rgba(102, 126, 234, 0.5);
-            z-index: 2;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            color: #999;
         }
-        
-        .user-badge:hover {
-            background: white;
-            border-color: #667eea;
-            transform: translateX(-50%) translateY(-2px);
-            box-shadow: 0 6px 20px rgba(0,0,0,0.3);
-        }
-        
-        .config-btn {
-            position: absolute;
-            top: 20px;
-            right: 25px;
-            background: rgba(255,255,255,0.25);
-            backdrop-filter: blur(10px);
-            padding: 10px 20px;
-            border-radius: 15px;
-            cursor: pointer;
-            font-size: 0.95em;
-            font-weight: 600;
-            transition: all 0.3s;
-            border: 2px solid rgba(255,255,255,0.3);
-            z-index: 2;
-        }
-        
-        .config-btn:hover {
-            background: rgba(255,255,255,0.35);
-            border-color: rgba(255,255,255,0.5);
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-        }
-        
-        .stats {
-            display: flex;
-            justify-content: space-around;
-            margin-top: 20px;
-        }
-        
-        .stat-item {
+
+        .exercise-content {
             text-align: center;
-            padding: 8px;
-            border-radius: 12px;
-            background: rgba(255,255,255,0.1);
-            backdrop-filter: blur(5px);
-            min-width: 80px;
         }
-        
-        .stat-number {
-            font-size: 2.2em;
-            font-weight: 700;
-            text-shadow: 0 2px 10px rgba(0,0,0,0.3);
-            display: block;
+
+        .learning-hint {
+            background: #e3f2fd;
+            border: 2px solid #2196f3;
+            border-radius: 10px;
+            padding: 15px;
+            margin: 20px 0;
+            font-size: 16px;
+            text-align: left;
         }
-        
-        .stat-item div:last-child {
-            font-size: 0.85em;
-            opacity: 0.95;
-            font-weight: 500;
+
+        .learning-hint strong {
+            color: #1976d2;
         }
-        
-        .content {
-            padding: 35px 30px;
-            min-height: 500px;
-            background: linear-gradient(180deg, #fafbff 0%, #f5f7ff 100%);
-        }
-        
-        .day-selector {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-            gap: 30px;
-            margin-top: 40px;
+
+        .question {
+            font-size: 22px;
+            margin-bottom: 20px;
+            line-height: 1.6;
+            text-align: left;
+            background: #fff8e1;
             padding: 20px;
+            border-radius: 10px;
+            border-left: 5px solid #ffc107;
         }
-        
-        .day-card {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+
+        .reading-text {
+            background: #f3e5f5;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            font-size: 18px;
+            line-height: 1.8;
+            text-align: left;
+            border: 2px solid #9c27b0;
+        }
+
+        .reading-text h4 {
+            color: #7b1fa2;
+            margin-bottom: 15px;
+            font-size: 20px;
+        }
+
+        .options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .option {
+            padding: 15px;
+            border: 3px solid #ddd;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s;
+            background: white;
+            font-size: 16px;
+            text-align: center;
+        }
+
+        .option:hover {
+            border-color: #667eea;
+            background: #f0f4ff;
+            transform: scale(1.02);
+        }
+
+        .option.correct {
+            background: #d4edda;
+            border-color: #28a745;
+            animation: correctPulse 0.6s ease-out;
+        }
+
+        .option.incorrect {
+            background: #f8d7da;
+            border-color: #dc3545;
+            animation: incorrectShake 0.6s ease-out;
+        }
+
+        @keyframes correctPulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        @keyframes incorrectShake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            75% { transform: translateX(5px); }
+        }
+
+        .feedback {
+            margin: 20px 0;
+            padding: 20px;
+            border-radius: 10px;
+            display: none;
+            font-size: 16px;
+            line-height: 1.5;
+        }
+
+        .feedback.correct {
+            background: #d4edda;
+            color: #155724;
+            border: 2px solid #c3e6cb;
+        }
+
+        .feedback.incorrect {
+            background: #f8d7da;
+            color: #721c24;
+            border: 2px solid #f5c6cb;
+        }
+
+        .next-btn {
+            background: #667eea;
             color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 10px;
+            font-size: 18px;
+            cursor: pointer;
+            margin-top: 20px;
+            display: none;
+            font-family: inherit;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 12px;
+            background: #e9ecef;
+            border-radius: 6px;
+            margin: 20px 0;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            width: 0%;
+            transition: width 0.5s ease;
+        }
+
+        .reward-popup {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
             padding: 30px;
             border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
             text-align: center;
-            cursor: pointer;
-            transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-            box-shadow: 0 15px 40px rgba(102, 126, 234, 0.5);
+            z-index: 1001;
+            animation: popup 0.5s ease-out;
         }
-        
-        .day-card:hover {
-            transform: scale(1.05) translateY(-10px);
+
+        @keyframes popup {
+            from { transform: translate(-50%, -50%) scale(0.5); opacity: 0; }
+            to { transform: translate(-50%, -50%) scale(1); opacity: 1; }
         }
-        
-        .day-card .icon {
-            font-size: 3em;
-            margin-bottom: 8px;
-            display: block;
-            filter: drop-shadow(0 6px 12px rgba(0,0,0,0.3));
+
+        .achievement-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 15px;
         }
-        
-        .day-card .title {
-            font-size: 1.4em;
-            font-weight: 900;
-            margin-bottom: 4px;
-            text-shadow: 0 3px 8px rgba(0,0,0,0.4);
+
+        .achievement-card {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            border: 2px solid #ddd;
         }
-        
-        .day-card.completed {
-            background: linear-gradient(135deg, #10b981 0%, #34d399 100%);
-            box-shadow: 0 15px 40px rgba(16, 185, 129, 0.6);
+
+        .achievement-card.unlocked {
+            border-color: #ffd700;
+            background: linear-gradient(135deg, #ffd700, #ffed4e);
         }
-        
-        .day-card.completed::after {
-            content: '✓';
-            position: absolute;
+
+        .achievement-icon {
+            font-size: 40px;
+            margin-bottom: 10px;
+        }
+
+        .connection-status {
+            position: fixed;
             top: 10px;
             right: 10px;
-            background: white;
-            color: #10b981;
-            width: 32px;
-            height: 32px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 900;
-            font-size: 1.3em;
-            box-shadow: 0 6px 15px rgba(0,0,0,0.3);
+            padding: 8px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+            z-index: 1000;
+        }
+
+        .connection-status.online {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .connection-status.offline {
+            background: #f8d7da;
+            color: #721c24;
+        }
+
+        @media (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .stats {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .nav-tabs {
+                justify-content: center;
+            }
+
+            .modal-content {
+                padding: 20px;
+                margin: 20px;
+            }
+
+            .question {
+                font-size: 18px;
+            }
+
+            .options {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
 <body>
-    <body>
-    <div class="login-screen" id="loginScreen">
-        <div class="login-box">
-            <h2>👋 ¡Hola!</h2>
-            <p>Escribe tu nombre para comenzar</p>
-            
-            <input 
-                type="text" 
-                id="usernameInput" 
-                placeholder="Tu nombre"
-                autocomplete="off"
-            >
-            
-            <button class="btn btn-primary" id="loginBtn">
-                ✨ Comenzar Aventura
-            </button>
-            
-            <button class="btn btn-secondary" id="superAdminBtn">
-                🔐 SuperAdmin
-            </button>
+    <!-- Indicador de conexión -->
+    <div id="connectionStatus" class="connection-status offline">🔄 Conectando...</div>
+
+    <!-- Pantalla de Login -->
+    <div id="loginScreen" class="login-screen">
+        <div class="login-card">
+            <h1>🎮 Academia Pokemon</h1>
+            <p style="margin-bottom: 20px; color: #666;">¡Conviértete en el mejor entrenador de conocimientos!</p>
+            <input type="text" id="usernameInput" placeholder="Escribe tu nombre de entrenador" maxlength="20">
+            <button onclick="login()">¡Comenzar Aventura! 🚀</button>
         </div>
     </div>
 
-    <div class="app-container" id="appContainer">
-        <div class="header">
-            <div class="config-btn" id="configBtn">⚙️ Config</div>
-            <div class="user-badge" id="userBadge" style="display: none;">
-                👤 <span id="currentUserName"></span>
+    <!-- Aplicación Principal -->
+    <div id="mainApp" class="main-app">
+        <div class="container">
+            <!-- Header -->
+            <div class="header">
+                <div class="user-info">
+                    <div class="avatar">🏆</div>
+                    <div>
+                        <h2 id="userName">Entrenador</h2>
+                        <p>Nivel <span id="userLevel">1</span></p>
+                    </div>
+                </div>
+                <div class="stats">
+                    <div class="stat-card">
+                        <div class="stat-number" id="totalPoints">0</div>
+                        <div>Puntos</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number" id="streak">0</div>
+                        <div>Racha</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number" id="accuracy">0%</div>
+                        <div>Precisión</div>
+                    </div>
+                </div>
+                <button onclick="logout()" style="background: #dc3545; color: white; border: none; padding: 10px 20px; border-radius: 8px; cursor: pointer;">Salir</button>
             </div>
-            <h1>🎮 Aventuras de Aprendizaje 🎮</h1>
-            
-            <div class="stats">
-                <div class="stat-item">
-                    <div class="stat-number" id="starsCount">0</div>
-                    <div>⭐ Estrellas</div>
+
+            <!-- Navegación -->
+            <div class="nav-tabs">
+                <button class="nav-tab active" onclick="showTab('training')">🎯 Entrenamiento</button>
+                <button class="nav-tab" onclick="showTab('achievements')">🏆 Logros</button>
+                <button class="nav-tab" onclick="showTab('stats')">📊 Estadísticas</button>
+                <button class="nav-tab" onclick="showTab('admin')">⚙️ Administrar</button>
+            </div>
+
+            <!-- Área de contenido -->
+            <div class="content-area">
+                <!-- Pestaña de Entrenamiento -->
+                <div id="trainingTab" class="tab-content">
+                    <h2>🗓️ Plan de Entrenamiento Semanal</h2>
+                    <div class="week-grid" id="weekGrid"></div>
+                    <div id="dayView" style="display: none;">
+                        <button onclick="backToWeeks()" style="margin-bottom: 20px; padding: 10px 20px; background: #6c757d; color: white; border: none; border-radius: 8px; cursor: pointer;">← Volver a Semanas</button>
+                        <h3 id="dayTitle"></h3>
+                        <div class="day-grid" id="dayGrid"></div>
+                    </div>
                 </div>
-                <div class="stat-item">
-                    <div class="stat-number" id="daysCompleted">0</div>
-                    <div>📅 Días</div>
+
+                <!-- Pestaña de Logros -->
+                <div id="achievementsTab" class="tab-content" style="display: none;">
+                    <h2>🏆 Tus Logros de Entrenador</h2>
+                    <div class="achievement-grid" id="achievementGrid"></div>
                 </div>
-                <div class="stat-item">
-                    <div class="stat-number" id="correctAnswers">0</div>
-                    <div>✅ Correctas</div>
+
+                <!-- Pestaña de Estadísticas -->
+                <div id="statsTab" class="tab-content" style="display: none;">
+                    <h2>📊 Estadísticas Detalladas</h2>
+                    <div id="statsContent"></div>
+                </div>
+
+                <!-- Pestaña de Administración -->
+                <div id="adminTab" class="tab-content" style="display: none;">
+                    <h2>⚙️ Panel de Administración</h2>
+                    <div style="background: #f8f9fa; padding: 20px; border-radius: 10px; margin-bottom: 20px;">
+                        <h4>📊 Estado de Guardado</h4>
+                        <p>Los datos se guardan automáticamente en JSONBin.io</p>
+                        <p><strong>Usuario actual:</strong> <span id="currentUserAdmin"></span></p>
+                        <p><strong>Última sincronización:</strong> <span id="lastSync">-</span></p>
+                    </div>
+                    <button onclick="testConnection()" style="padding: 15px 30px; background: #17a2b8; color: white; border: none; border-radius: 10px; font-size: 16px; cursor: pointer; margin: 10px;">🔄 Probar Conexión</button>
+                    <button onclick="resetProgress()" style="padding: 15px 30px; background: #dc3545; color: white; border: none; border-radius: 10px; font-size: 16px; cursor: pointer; margin: 10px;">🔄 Reiniciar Progreso</button>
+                    <button onclick="exportData()" style="padding: 15px 30px; background: #28a745; color: white; border: none; border-radius: 10px; font-size: 16px; cursor: pointer; margin: 10px;">📥 Exportar Datos</button>
                 </div>
             </div>
-        </div>
-        
-        <div class="content">
-            <h2 style="text-align: center; color: #667eea; margin-bottom: 20px;" id="weekTitle">
-                Cargando aventuras...
-            </h2>
-            <div id="mainContent"></div>
         </div>
     </div>
-   <script>
-        // =====================================================
-        // CONFIGURACIÓN
-        // =====================================================
-        const JSONBIN_BIN_ID = '68ee144343b1c97be96704f9';
-        const JSONBIN_MASTER_KEY = '$2a$10$byEkgCiPtr6uA9j.sw5Uiuld00jGPRMT1Rn9TlhHYbPe3CFfaEu6G';
-        const JSONBIN_API_URL = `https://api.jsonbin.io/v3/b/${JSONBIN_BIN_ID}`;
-        const SUPERADMIN_PASSWORD = 'superadmin2024';
 
-        // =====================================================
-        // ESTADO GLOBAL
-        // =====================================================
-        let currentUser = null;
-        let allUsersData = {};
-        let weeksData = null;
-        let isSaving = false;
+    <!-- Modal de Ejercicio -->
+    <div id="exerciseModal" class="exercise-modal">
+        <div class="modal-content">
+            <button class="close-btn" onclick="closeExercise()">×</button>
+            <div class="exercise-content">
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill"></div>
+                </div>
+                <h3 id="exerciseTitle"></h3>
+                <div id="learningHint" class="learning-hint" style="display: none;"></div>
+                <div id="readingText" class="reading-text" style="display: none;"></div>
+                <div id="exerciseQuestion" class="question"></div>
+                <div id="exerciseOptions" class="options"></div>
+                <div id="exerciseFeedback" class="feedback"></div>
+                <button id="nextExerciseBtn" class="next-btn" onclick="nextExercise()">Siguiente</button>
+            </div>
+        </div>
+    </div>
 
-        let state = {
-            currentWeek: 2,
-            currentDay: 0,
-            currentExercise: 0,
-            stars: 0,
-            correctAnswers: 0,
-            daysCompleted: 0,
-            completedDays: {},
-            startTime: null,
-            currentColor: '#000000',
-            totalFailures: 0,
-            currentExerciseFailures: 0,
-            failuresByExercise: {},
-            exerciseAttempts: {}
+    <!-- Popup de Recompensa -->
+    <div id="rewardPopup" class="reward-popup">
+        <h2 id="rewardTitle"></h2>
+        <div id="rewardIcon" style="font-size: 60px; margin: 20px 0;"></div>
+        <p id="rewardMessage"></p>
+        <button onclick="closeReward()" style="margin-top: 20px; padding: 10px 20px; background: #667eea; color: white; border: none; border-radius: 8px; cursor: pointer;">¡Genial!</button>
+    </div>
+
+    <script>
+        // Configuración de JSONBin
+        const JSONBIN_CONFIG = {
+            binId: '68ee144343b1c97be96704f9',
+            masterKey: '$2a$10$byEkgCiPtr6uA9j.sw5Uiuld00jGPRMT1Rn9TlhHYbPe3CFfaEu6G',
+            apiUrl: 'https://api.jsonbin.io/v3'
         };
 
-        // =====================================================
-        // INICIALIZACIÓN
-        // =====================================================
-        async function init() {
-            setupEventListeners();
-            await loadWeeksData();
-            await checkExistingSession();
-        }
+        // Estado global de la aplicación
+        let appState = {
+            currentUser: null,
+            userData: {},
+            currentExerciseSet: [],
+            currentExerciseIndex: 0,
+            currentSessionStats: { correct: 0, total: 0 },
+            connectionStatus: 'offline'
+        };
 
-        function setupEventListeners() {
-            // Login
-            document.getElementById('usernameInput').addEventListener('keypress', (e) => {
-                if (e.key === 'Enter') loginUser();
-            });
-            
-            document.getElementById('loginBtn').addEventListener('click', loginUser);
-            
-            // SuperAdmin
-            document.getElementById('superAdminBtn').addEventListener('click', () => {
-                const password = prompt('🔐 Contraseña SuperAdmin:');
-                if (password === SUPERADMIN_PASSWORD) {
-                    showSuperAdmin();
-                } else if (password) {
-                    alert('❌ Contraseña incorrecta');
-                }
-            });
-            
-            // Config
-            document.getElementById('configBtn').addEventListener('click', showConfig);
-            
-            // User Badge (logout)
-            document.getElementById('userBadge').addEventListener('click', () => {
-                if (confirm('¿Deseas cerrar sesión?')) {
-                    logout();
-                }
-            });
-        }
+        // Base de datos de ejercicios con contenido más completo
+        const exerciseDatabase = {
+            week1: {
+                day1: [
+                    {
+                        type: 'math',
+                        theme: 'pokemon',
+                        learningHint: '<strong>💡 Pista:</strong> Para sumar números, junta las cantidades. Por ejemplo: si tienes 5 Pokéballs y te dan 3 más, cuentas 5 + 3 = 8 Pokéballs en total.',
+                        question: '🔥 Charizard tenía 45 puntos de ataque. Después de entrenar con Ash durante una semana, ganó 23 puntos más. ¿Cuántos puntos de ataque tiene Charizard ahora?',
+                        options: ['68 puntos', '72 puntos', '65 puntos', '70 puntos'],
+                        correct: 0,
+                        explanation: '¡Perfecto! 45 + 23 = 68 puntos. Charizard se ha vuelto más fuerte entrenando. ¡La suma nos ayuda a saber cuánto ha crecido!'
+                    },
+                    {
+                        type: 'reading',
+                        theme: 'pokemon',
+                        learningHint: '<strong>📚 Pista para leer mejor:</strong> Lee el texto despacio y busca las palabras clave. Si no entiendes algo, lee esa parte otra vez.',
+                        readingText: '<h4>🔵 La Historia de Pikachu</h4>Pikachu es un Pokémon eléctrico muy especial que vive en los bosques verdes cerca del pueblo de Ash. Le encanta comer bayas dulces rojas que encuentra en los árboles altos. Su ataque favorito es el "Rayo" porque puede generar electricidad con sus mejillas amarillas. Pikachu es muy leal y siempre protege a sus amigos.',
+                        question: 'Según el texto que acabas de leer, ¿dónde vive Pikachu?',
+                        options: ['En una ciudad grande', 'En los bosques verdes', 'En el océano azul', 'En las montañas nevadas'],
+                        correct: 1,
+                        explanation: '¡Excelente! El texto dice claramente que "Pikachu vive en los bosques verdes cerca del pueblo de Ash". ¡Has leído con mucha atención!'
+                    },
+                    {
+                        type: 'english',
+                        theme: 'pokemon',
+                        learningHint: '<strong>🇬🇧 Pista de inglés:</strong> "Fire" significa fuego. Piensa en Charizard que lanza fuego, ¡eso te ayudará a recordarlo!',
+                        question: '🔥 Charizard es un Pokémon de fuego. ¿Cómo se dice "fuego" en inglés?',
+                        options: ['Water (agua)', 'Fire (fuego)', 'Earth (tierra)', 'Air (aire)'],
+                        correct: 1,
+                        explanation: '¡Genial! "Fire" significa fuego en inglés. Recuerda: Charizard = Fire Type Pokémon.'
+                    },
+                    {
+                        type: 'math',
+                        theme: 'pokemon',
+                        learningHint: '<strong>✖️ Pista de multiplicación:</strong> Multiplicar es sumar el mismo número varias veces. 3 × 4 es lo mismo que 3 + 3 + 3 + 3 = 12.',
+                        question: '🎯 Ash captura 3 Pokémon cada día durante 4 días seguidos. ¿Cuántos Pokémon capturó en total?',
+                        options: ['12 Pokémon', '7 Pokémon', '10 Pokémon', '15 Pokémon'],
+                        correct: 0,
+                        explanation: '¡Perfecto! 3 × 4 = 12 Pokémon. Es como sumar: 3 + 3 + 3 + 3 = 12. ¡Ash tiene un gran equipo!'
+                    }
+                ],
+                day2: [
+                    {
+                        type: 'math',
+                        theme: 'titans',
+                        learningHint: '<strong>➕ Recordemos sumar:</strong> Cuando tenemos varios números para sumar, podemos hacerlo paso a paso: primero sumamos dos, luego sumamos el tercero.',
+                        question: '⚔️ Eren observó titanes durante tres días. El primer día vio 12 titanes, el segundo día vio 8 titanes, y el tercer día vio 15 titanes. ¿Cuántos titanes vio en total durante los tres días?',
+                        options: ['35 titanes', '33 titanes', '37 titanes', '32 titanes'],
+                        correct: 0,
+                        explanation: '¡Correcto! Paso a paso: 12 + 8 = 20, luego 20 + 15 = 35 titanes en total. ¡Eren es muy observador!'
+                    },
+                    {
+                        type: 'reading',
+                        theme: 'titans',
+                        learningHint: '<strong>🧱 Pista:</strong> Cuando leas sobre las murallas, imagínatelas como círculos uno dentro del otro, como las capas de una cebolla.',
+                        readingText: '<h4>🏰 Las Murallas Protectoras</h4>Las tres murallas protegen a la humanidad de los gigantes peligrosos. La muralla más externa se llama María y es la primera línea de defensa. Dentro de María está la muralla Rose, que es la segunda protección. Y en el centro está la muralla Sina, la más pequeña pero la más segura. Cada muralla es muy alta y muy gruesa.',
+                        question: 'Según el texto, ¿cuál es la muralla que está más afuera de todas?',
+                        options: ['Muralla Rose', 'Muralla Sina', 'Muralla María', 'Todas están igual'],
+                        correct: 2,
+                        explanation: '¡Muy bien! El texto dice que "la muralla más externa se llama María". ¡Has entendido perfectamente la organización de las murallas!'
+                    },
+                    {
+                        type: 'english',
+                        theme: 'titans',
+                        learningHint: '<strong>🗣️ Truco:</strong> "Giant" suena parecido a "gigante" en español. ¡Las palabras parecidas nos ayudan a recordar!',
+                        question: '🗿 Los titanes son gigantes muy grandes. ¿Cómo se dice "gigante" en inglés?',
+                        options: ['Giant', 'Small', 'Fast', 'Strong'],
+                        correct: 0,
+                        explanation: '¡Excelente! "Giant" significa gigante. Nota cómo suena parecido a "gigante" en español.'
+                    },
+                    {
+                        type: 'math',
+                        theme: 'titans',
+                        learningHint: '<strong>✖️ Multiplicación práctica:</strong> 5 × 3 significa 5 grupos de 3 soldados cada uno. Cuenta: 3 + 3 + 3 + 3 + 3.',
+                        question: '🛡️ Hay 5 escuadrones de soldados. Cada escuadrón tiene 3 soldados. ¿Cuántos soldados hay en total?',
+                        options: ['15 soldados', '8 soldados', '12 soldados', '18 soldados'],
+                        correct: 0,
+                        explanation: '¡Perfecto! 5 × 3 = 15 soldados. Piénsalo como 5 grupos de 3: 3+3+3+3+3 = 15.'
+                    }
+                ],
+                day3: [
+                    {
+                        type: 'math',
+                        theme: 'football',
+                        learningHint: '<strong>➕➖ Suma y resta juntas:</strong> Primero sumamos todos los goles del Real Madrid, luego restamos para comparar.',
+                        question: '⚽ En el partido de ayer, el Real Madrid metió 3 goles en el primer tiempo y 2 golesen el segundo tiempo. El Barcelona metió 4 goles en total. ¿Cuántos goles más metió el Real Madrid que el Barcelona?',
+                        options: ['1 gol más', '2 goles más', '0 goles (empataron)', '3 goles más'],
+                        correct: 0,
+                        explanation: '¡Muy bien! Real Madrid: 3 + 2 = 5 goles. Barcelona: 4 goles. Diferencia: 5 - 4 = 1 gol más para el Real Madrid.'
+                    },
+                    {
+                        type: 'reading',
+                        theme: 'football',
+                        learningHint: '<strong>🏃‍♂️ Busca la información:</strong> Cuando te pregunten "¿de qué país es alguien?", busca en el texto palabras como "argentino", "español", etc.',
+                        readingText: '<h4>⭐ Lionel Messi, El Mejor</h4>Lionel Messi es un futbolista argentino considerado uno de los mejores del mundo. Nació en Argentina, un país de Sudamérica, y comenzó a jugar fútbol desde muy pequeño. Messi es famoso por ser un delantero muy hábil con la pelota y por haber ganado muchos premios importantes como el Balón de Oro. Su técnica con el balón es increíble y puede driblar a muchos jugadores.',
+                        question: '🌎 Según el texto, ¿de qué país es Lionel Messi?',
+                        options: ['España', 'Brasil', 'Argentina', 'Francia'],
+                        correct: 2,
+                        explanation: '¡Perfecto! El texto dice claramente que "Messi es un futbolista argentino" y que "nació en Argentina". ¡Has leído con mucha atención!'
+                    },
+                    {
+                        type: 'english',
+                        theme: 'football',
+                        learningHint: '<strong>⚽ Conexión:</strong> "Ball" se parece a "balón". ¡Las palabras similares nos ayudan a aprender inglés más fácil!',
+                        question: '⚽ Los jugadores de fútbol patean la pelota. ¿Cómo se dice "pelota" en inglés?',
+                        options: ['Ball', 'Goal', 'Field', 'Player'],
+                        correct: 0,
+                        explanation: '¡Genial! "Ball" significa pelota o balón. ¿Notaste que "ball" suena parecido a "balón"?'
+                    },
+                    {
+                        type: 'math',
+                        theme: 'football',
+                        learningHint: '<strong>✖️ Multiplicación en equipos:</strong> 11 jugadores × 2 equipos. Es como contar: 11 + 11.',
+                        question: '👥 En un partido de fútbol juegan 2 equipos. Cada equipo tiene 11 jugadores en el campo. ¿Cuántos jugadores están jugando en total?',
+                        options: ['22 jugadores', '20 jugadores', '24 jugadores', '18 jugadores'],
+                        correct: 0,
+                        explanation: '¡Excelente! 11 × 2 = 22 jugadores. O también puedes pensarlo como 11 + 11 = 22.'
+                    }
+                ],
+                day4: [
+                    {
+                        type: 'math',
+                        theme: 'warframe',
+                        learningHint: '<strong>➖ Restar paso a paso:</strong> Cuando restas varias veces, hazlo una operación a la vez: 100 - 25 = 75, luego 75 - 30.',
+                        question: '🔫 Un Tenno guerrero espacial tiene 100 puntos de energía al comenzar su misión. Usa 25 puntos para su primera habilidad especial, luego usa 30 puntos para su segunda habilidad. ¿Cuánta energía le queda?',
+                        options: ['45 puntos', '50 puntos', '40 puntos', '55 puntos'],
+                        correct: 0,
+                        explanation: '¡Perfecto! Paso a paso: 100 - 25 = 75, luego 75 - 30 = 45 puntos. ¡El Tenno debe administrar bien su energía!'
+                    },
+                    {
+                        type: 'reading',
+                        theme: 'warframe',
+                        learningHint: '<strong>🚀 Palabras clave:</strong> Cuando busques una respuesta específica, busca en el texto la palabra exacta de la pregunta.',
+                        readingText: '<h4>🤖 Los Guerreros Tenno</h4>Los Tenno son guerreros espaciales muy avanzados que protegen el sistema solar. Usan armaduras especiales llamadas Warframes que les dan poderes increíbles. Estos Warframes pueden ser de diferentes tipos: algunos son rápidos, otros son fuertes, y algunos pueden usar magia. Los Tenno viajan por diferentes planetas luchando contra enemigos peligrosos.',
+                        question: '🛡️ Según el texto, ¿cómo se llaman las armaduras especiales que usan los Tenno?',
+                        options: ['Robots espaciales', 'Warframes', 'Naves de combate', 'Cascos mágicos'],
+                        correct: 1,
+                        explanation: '¡Excelente! El texto dice claramente "armaduras especiales llamadas Warframes". ¡Has encontrado la información exacta!'
+                    },
+                    {
+                        type: 'english',
+                        theme: 'warframe',
+                        learningHint: '<strong>🌌 Imagen mental:</strong> Piensa en las estrellas y planetas cuando escuches "space". ¡Las imágenes nos ayudan a recordar!',
+                        question: '🌌 Los Tenno luchan en el espacio exterior. ¿Cómo se dice "espacio" en inglés?',
+                        options: ['Space', 'Time', 'World', 'Sky'],
+                        correct: 0,
+                        explanation: '¡Perfecto! "Space" significa espacio. Piensa en "space" como el lugar donde están las estrellas y planetas.'
+                    },
+                    {
+                        type: 'math',
+                        theme: 'warframe',
+                        learningHint: '<strong>✖️ Grupos iguales:</strong> 4 planetas × 6 misiones cada uno. Es como tener 4 grupos de 6 misiones.',
+                        question: '🪐 Un Tenno debe completar misiones en 4 planetas diferentes. En cada planeta hay 6 misiones. ¿Cuántas misiones debe completar en total?',
+                        options: ['24 misiones', '10 misiones', '20 misiones', '26 misiones'],
+                        correct: 0,
+                        explanation: '¡Genial! 4 × 6 = 24 misiones. Piénsalo como 4 grupos de 6: 6+6+6+6 = 24.'
+                    }
+                ],
+                day5: [
+                    {
+                        type: 'math',
+                        theme: 'pokemon',
+                        learningHint: '<strong>✖️ Multiplicación útil:</strong> 6 Pokémon × 4 movimientos cada uno. Cada Pokémon aprende la misma cantidad de movimientos.',
+                        question: '🎯 Ash tiene un equipo completo de 6 Pokémon. Cada Pokémon puede aprender exactamente 4 movimientos diferentes. ¿Cuántos movimientos conoce todo el equipo de Ash en total?',
+                        options: ['24 movimientos', '20 movimientos', '26 movimientos', '22 movimientos'],
+                        correct: 0,
+                        explanation: '¡Genial! 6 × 4 = 24 movimientos en total. ¡El equipo de Ash conoce muchos ataques diferentes!'
+                    },
+                    {
+                        type: 'reading',
+                        theme: 'football',
+                        learningHint: '<strong>🥅 Detalles importantes:</strong> Lee despacio la parte sobre el portero, porque es diferente a los otros jugadores.',
+                        readingText: '<h4>⚽ Las Reglas del Fútbol</h4>En un partido de fútbol, cada equipo tiene exactamente 11 jugadores en el campo al mismo tiempo. Hay 10 jugadores de campo que pueden correr por todo el terreno, pero solo pueden tocar la pelota con los pies y la cabeza. Sin embargo, hay un jugador muy especial: el portero. El portero es el único jugador que puede usar las manos, pero solo cuando está dentro de su área especial.',
+                        question: '👥 Según el texto, ¿cuántos jugadores tiene cada equipo en el campo durante un partido?',
+                        options: ['10 jugadores', '12 jugadores', '11 jugadores', '9 jugadores'],
+                        correct: 2,
+                        explanation: '¡Correcto! El texto dice "cada equipo tiene exactamente 11 jugadores en el campo". ¡Has leído con mucha atención!'
+                    },
+                    {
+                        type: 'english',
+                        theme: 'titans',
+                        learningHint: '<strong>🧱 Piensa en construcción:</strong> "Wall" como las murallas que protegen de los titanes. ¡Las historias nos ayudan a recordar!',
+                        question: '🏰 Las murallas protegen a la gente de los titanes. ¿Cómo se dice "muro" o "muralla" en inglés?',
+                        options: ['Wall', 'Door', 'Window', 'Floor'],
+                        correct: 0,
+                        explanation: '¡Excelente! "Wall" significa muro o muralla. Como las murallas que protegen de los titanes.'
+                    },
+                    {
+                        type: 'math',
+                        theme: 'pokemon',
+                        learningHint: '<strong>➗ División sencilla:</strong> Dividir es repartir en partes iguales. 20 ÷ 4 = 5 significa que cada grupo tiene 5.',
+                        question: '🔴 Ash tiene 20 Pokéballs y quiere repartirlas igualmente en 4 mochilas. ¿Cuántas Pokéballs pondrá en cada mochila?',
+                        options: ['5 Pokéballs', '6 Pokéballs', '4 Pokéballs', '8 Pokéballs'],
+                        correct: 0,
+                        explanation: '¡Perfecto! 20 ÷ 4 = 5 Pokéballs en cada mochila. ¡Todas las mochilas tendrán la misma cantidad!'
+                    }
+                ]
+            },
+            week2: {
+                day1: [
+                    {
+                        type: 'math',
+                        theme: 'pokemon',
+                        learningHint: '<strong>✖️ Multiplicación de dos cifras:</strong> 15 × 3 = (10 × 3) + (5 × 3) = 30 + 15 = 45.',
+                        question: '🔥 Charizard entrena 15 minutos cada día durante 3 días. ¿Cuántos minutos entrenó en total?',
+                        options: ['45 minutos', '50 minutos', '40 minutos', '48 minutos'],
+                        correct: 0,
+                        explanation: '¡Correcto! 15 × 3 = 45 minutos. Charizard entrenó mucho para ser más fuerte.'
+                    },
+                    {
+                        type: 'reading',
+                        theme: 'titans',
+                        learningHint: '<strong>📊 Números en el texto:</strong> Cuando veas números, subráyalos mentalmente para no olvidarlos.',
+                        readingText: '<h4>⚔️ La Exploración Peligrosa</h4>El escuadrón de reconocimiento salió muy temprano para explorar más allá de la muralla María. El grupo estaba formado por 25 soldados valientes montados a caballo. Durante su misión de 6 horas, encontraron 3 titanes pequeños y 1 titán gigante de 15 metros de altura. Afortunadamente, todos los soldados regresaron sanos y salvos a casa.',
+                        question: '👥 ¿Cuántos soldados formaban el escuadrón de reconocimiento?',
+                        options: ['20 soldados', '25 soldados', '30 soldados', '15 soldados'],
+                        correct: 1,
+                        explanation: '¡Excelente! El texto dice claramente "25 soldados valientes". ¡Has prestado atención a los números!'
+                    },
+                    {
+                        type: 'english',
+                        theme: 'football',
+                        learningHint: '<strong>🏃‍♂️ Movimiento:</strong> "Run" es cuando corres rápido, como los jugadores en el campo.',
+                        question: '🏃‍♂️ Los futbolistas corren por el campo. ¿Cómo se dice "correr" en inglés?',
+                        options: ['Walk', 'Run', 'Jump', 'Stop'],
+                        correct: 1,
+                        explanation: '¡Genial! "Run" significa correr. Los futbolistas "run" por el campo durante todo el partido.'
+                    },
+                    {
+                        type: 'math',
+                        theme: 'warframe',
+                        learningHint: '<strong>✖️ Doble multiplicación:</strong> Primero calcula 8 × 3, luego multiplica por 2.',
+                        question: '🔫 Un Tenno completa 8 misiones cada día durante 3 días, y lo hace 2 veces por semana. ¿Cuántas misiones completa en total?',
+                        options: ['48 misiones', '24 misiones', '32 misiones', '40 misiones'],
+                        correct: 0,
+                        explanation: '¡Perfecto! 8 × 3 = 24 misiones en 3 días, luego 24 × 2 = 48 misiones en total.'
+                    }
+                ]
+            }
+        };
 
-        // =====================================================
-        // CARGA DE DATOS
-        // =====================================================
-        async function loadWeeksData() {
-            console.log('📚 Intentando cargar semanas.json...');
-            
-            try {
-                const response = await fetch('semanas.json');
-                if (!response.ok) {
-                    throw new Error('No se pudo cargar semanas.json');
-                }
-                weeksData = await response.json();
-                console.log('✅ Semanas cargadas:', Object.keys(weeksData).length, 'semanas');
-                return;
-            } catch (error) {
-                console.warn('⚠️ No se encontró semanas.json, usando datos de ejemplo');
-            }
-            
-            // DATOS DE EJEMPLO SI NO EXISTE semanas.json
-            weeksData = {
-                "1": {
-                    "name": "Semana 1",
-                    "description": "Comenzando la aventura",
-                    "days": [
-                        {
-                            "icon": "📚",
-                            "title": "Matemáticas",
-                            "badge": "Maestro de Números",
-                            "exercises": []
-                        },
-                        {
-                            "icon": "🔤",
-                            "title": "Lectura",
-                            "badge": "Gran Lector",
-                            "exercises": []
-                        },
-                        {
-                            "icon": "🌍",
-                            "title": "Ciencias",
-                            "badge": "Científico",
-                            "exercises": []
-                        },
-                        {
-                            "icon": "🎨",
-                            "title": "Arte",
-                            "badge": "Artista Creativo",
-                            "exercises": []
-                        },
-                        {
-                            "icon": "🌐",
-                            "title": "Inglés",
-                            "badge": "Políglota",
-                            "exercises": []
-                        }
-                    ]
-                },
-                "2": {
-                    "name": "Semana 2",
-                    "description": "Avanzando en el aprendizaje",
-                    "days": [
-                        {
-                            "icon": "🔢",
-                            "title": "Matemáticas Avanzadas",
-                            "badge": "Genio Matemático",
-                            "exercises": []
-                        },
-                        {
-                            "icon": "📖",
-                            "title": "Comprensión Lectora",
-                            "badge": "Lector Experto",
-                            "exercises": []
-                        },
-                        {
-                            "icon": "🧪",
-                            "title": "Experimentos",
-                            "badge": "Científico Loco",
-                            "exercises": []
-                        },
-                        {
-                            "icon": "🎭",
-                            "title": "Teatro",
-                            "badge": "Actor Estrella",
-                            "exercises": []
-                        },
-                        {
-                            "icon": "🗣️",
-                            "title": "Conversación",
-                            "badge": "Hablante Nativo",
-                            "exercises": []
-                        }
-                    ]
-                }
-            };
-            
-            console.log('✅ Datos de ejemplo cargados');
-        }
+        // Logros disponibles
+        const achievements = [
+            { id: 'first_exercise', name: 'Primer Paso', description: 'Completa tu primer ejercicio', icon: '🎯', requirement: 1 },
+            { id: 'math_master', name: 'Maestro Matemático', description: 'Completa 15 ejercicios de matemáticas', icon: '🧮', requirement: 15 },
+            { id: 'reading_hero', name: 'Héroe de la Lectura', description: 'Completa 15 ejercicios de comprensión lectora', icon: '📚', requirement: 15 },
+            { id: 'english_expert', name: 'Experto en Inglés', description: 'Completa 15 ejercicios de inglés', icon: '🇬🇧', requirement: 15 },
+            { id: 'perfect_day', name: 'Día Perfecto', description: 'Completa todos los ejercicios de un día sin errores', icon: '⭐', requirement: 1 },
+            { id: 'streak_week', name: 'Racha Semanal', description: 'Mantén una racha de 7 días', icon: '🔥', requirement: 7 },
+            { id: 'multiplication_master', name: 'Maestro de la Multiplicación', description: 'Completa 10 ejercicios de multiplicación correctos', icon: '✖️', requirement: 10 },
+            { id: 'reading_champion', name: 'Campeón de Lectura', description: 'Lee 20 textos completos', icon: '👑', requirement: 20 }
+        ];
 
-        async function checkExistingSession() {
-            const savedUser = localStorage.getItem('currentUser');
-            if (savedUser) {
-                currentUser = savedUser;
-                await loadAllUsersData();
-                if (allUsersData[currentUser]) {
-                    await loadState();
-                    hideLoginScreen();
-                    return;
-                }
-            }
-            showLoginScreen();
-        }
-
-        // =====================================================
-        // UI - PANTALLAS
-        // =====================================================
-        function showLoginScreen() {
-            document.getElementById('loginScreen').style.display = 'flex';
-            document.getElementById('appContainer').style.display = 'none';
-            document.getElementById('usernameInput').value = '';
-            setTimeout(() => {
-                document.getElementById('usernameInput').focus();
-            }, 100);
-        }
-
-        function hideLoginScreen() {
-            document.getElementById('loginScreen').style.display = 'none';
-            document.getElementById('appContainer').style.display = 'block';
-            document.getElementById('userBadge').style.display = 'block';
-            document.getElementById('currentUserName').textContent = currentUser;
-            updateStats();
-            loadWeekContent();
-        }
-
-        function loadWeekContent() {
-            if (!weeksData) {
-                console.error('❌ weeksData es null');
-                document.getElementById('weekTitle').textContent = '⚠️ Error al cargar semanas';
-                document.getElementById('mainContent').innerHTML = '<p style="text-align:center;color:#ef4444;">No se pudieron cargar las semanas. Recarga la página.</p>';
-                return;
-            }
-            
-            // Convertir currentWeek a string para buscar en weeksData
-            const weekKey = String(state.currentWeek);
-            const week = weeksData[weekKey];
-            
-            console.log('🔍 Buscando semana:', weekKey);
-            console.log('📚 Semanas disponibles:', Object.keys(weeksData));
-            console.log('✅ Semana encontrada:', week ? 'Sí' : 'No');
-            
-            if (!week) {
-                console.error('❌ Semana no encontrada:', weekKey);
-                document.getElementById('weekTitle').textContent = '⚠️ Semana no encontrada';
-                document.getElementById('mainContent').innerHTML = `
-                    <p style="text-align:center;color:#ef4444;">
-                        La semana ${state.currentWeek} no existe.<br><br>
-                        Semanas disponibles: ${Object.keys(weeksData).join(', ')}
-                    </p>
-                    <div style="text-align:center;margin-top:20px;">
-                        <button class="btn btn-primary" onclick="state.currentWeek=1;saveState();loadWeekContent();">
-                            Ir a Semana 1
-                        </button>
-                    </div>
-                `;
-                return;
-            }
-            
-            document.getElementById('weekTitle').textContent = `${week.name} - ${week.description}`;
-            
-            let html = '<div class="day-selector">';
-            
-            week.days.forEach((day, index) => {
-                const dayKey = `${state.currentWeek}_${index + 1}`;
-                const isCompleted = state.completedDays && state.completedDays[dayKey];
-                
-                html += `
-                    <div class="day-card ${isCompleted ? 'completed' : ''}" 
-                         onclick="startDay(${index + 1})" 
-                         style="position: relative;">
-                        <div class="icon">${day.icon}</div>
-                        <div class="title">Día ${index + 1}</div>
-                        <div>${day.title}</div>
-                    </div>
-                `;
-            });
-            
-            html += '</div>';
-            
-            document.getElementById('mainContent').innerHTML = html;
-            console.log('✅ Contenido de semana cargado correctamente');
-        }
-
-        function startDay(dayNum) {
-            const weekKey = String(state.currentWeek);
-            const week = weeksData[weekKey];
-            
-            if (!week) {
-                alert('❌ Error: Semana no encontrada');
-                return;
-            }
-            
-            const day = week.days[dayNum - 1];
-            
-            if (!day) {
-                alert('❌ Error: Día no encontrado');
-                return;
-            }
-            
-            alert(`🎮 Comenzando Día ${dayNum}: ${day.title}\n\n✨ Por ahora es una demostración.\n\nAquí se cargarían los ejercicios reales del archivo semanas.json\n\n💡 Presiona OK para marcar el día como completado (DEMO)`);
-            
-            // Marcar como completado (demo)
-            const dayKey = `${state.currentWeek}_${dayNum}`;
-            if (!state.completedDays) state.completedDays = {};
-            
-            if (!state.completedDays[dayKey]) {
-                state.completedDays[dayKey] = true;
-                state.daysCompleted = (state.daysCompleted || 0) + 1;
-                state.stars = (state.stars || 0) + 10;
-                state.correctAnswers = (state.correctAnswers || 0) + 5;
-                
-                updateStats();
-                saveState();
-                loadWeekContent();
-                
-                alert(`🎉 ¡Día completado!\n\n⭐ +10 estrellas\n✅ +5 respuestas correctas\n\n🏆 Badge ganado: ${day.badge}`);
-            } else {
-                alert(`ℹ️ Ya completaste este día\n\nBadge: ${day.badge}`);
-            }
-        }
-        // =====================================================
-        // AUTENTICACIÓN Y LOGIN
-        // =====================================================
-        async function loginUser() {
+        // Funciones de autenticación
+        async function login() {
             const username = document.getElementById('usernameInput').value.trim();
-            
             if (!username) {
-                alert('⚠️ Por favor, escribe tu nombre');
+                alert('¡Por favor escribe tu nombre!');
                 return;
             }
             
-            if (username.length < 2) {
-                alert('⚠️ El nombre debe tener al menos 2 caracteres');
-                return;
-            }
-            
-            currentUser = username;
-            localStorage.setItem('currentUser', username);
-            
-            await loadAllUsersData();
-            
-            // Si el usuario no existe, crear uno nuevo
-            if (!allUsersData[username]) {
-                console.log('✅ Creando nuevo usuario:', username);
-                allUsersData[username] = {
-                    currentWeek: 1,
-                    currentDay: 0,
-                    currentExercise: 0,
-                    stars: 0,
-                    correctAnswers: 0,
-                    daysCompleted: 0,
-                    completedDays: {},
-                    startTime: null,
-                    currentColor: '#000000',
-                    totalFailures: 0,
-                    currentExerciseFailures: 0,
-                    failuresByExercise: {},
-                    exerciseAttempts: {}
-                };
-                await saveAllUsersData();
-            }
-            
-            await loadState();
-            hideLoginScreen();
+            appState.currentUser = username;
+            await loadUserData();
+            showMainApp();
         }
 
         function logout() {
-            currentUser = null;
-            localStorage.removeItem('currentUser');
-            state = {
-                currentWeek: 1,
-                currentDay: 0,
-                currentExercise: 0,
-                stars: 0,
-                correctAnswers: 0,
-                daysCompleted: 0,
-                completedDays: {},
-                startTime: null,
-                currentColor: '#000000',
-                totalFailures: 0,
-                currentExerciseFailures: 0,
-                failuresByExercise: {},
-                exerciseAttempts: {}
-            };
-            showLoginScreen();
+            if (confirm('¿Estás seguro de que quieres salir?')) {
+                appState.currentUser = null;
+                appState.userData = {};
+                document.getElementById('loginScreen').style.display = 'flex';
+                document.getElementById('mainApp').style.display = 'none';
+            }
         }
 
-        // =====================================================
-        // JSONBIN - GESTIÓN DE DATOS EN LA NUBE
-        // =====================================================
-        async function loadAllUsersData() {
+        // Gestión de datos con JSONBin CORREGIDA
+        async function loadUserData() {
+            updateConnectionStatus('connecting');
             try {
-                console.log('📡 Cargando datos desde JSONBin...');
+                console.log('Cargando datos del usuario:', appState.currentUser);
                 
-                const response = await fetch(JSONBIN_API_URL + '/latest', {
+                const response = await fetch(`${JSONBIN_CONFIG.apiUrl}/b/${JSONBIN_CONFIG.binId}/latest`, {
                     method: 'GET',
                     headers: {
-                        'X-Master-Key': JSONBIN_MASTER_KEY
+                        'X-Master-Key': JSONBIN_CONFIG.masterKey,
+                        'Content-Type': 'application/json'
                     }
                 });
-
+                
+                console.log('Respuesta del servidor:', response.status);
+                
                 if (response.ok) {
                     const data = await response.json();
-                    if (data.record && typeof data.record === 'object') {
-                        allUsersData = data.record;
-                        console.log('✅ Datos cargados desde JSONBin:', Object.keys(allUsersData).length, 'usuarios');
-                    } else {
-                        allUsersData = {};
-                        console.log('⚠️ JSONBin vacío, inicializando...');
-                    }
+                    console.log('Datos recibidos:', data);
+                    
+                    const users = data.record?.users || {};
+                    appState.userData = users[appState.currentUser] || createNewUser();
+                    
+                    console.log('Datos del usuario cargados:', appState.userData);
+                    updateConnectionStatus('online');
                 } else {
-                    console.log('⚠️ Error al cargar desde JSONBin, usando datos locales');
-                    allUsersData = {};
+                    console.log('Error en respuesta, creando usuario nuevo');
+                    appState.userData = createNewUser();
+                    updateConnectionStatus('offline');
                 }
             } catch (error) {
-                console.error('❌ Error al cargar datos de usuarios:', error);
-                
-                // Intentar recuperar desde localStorage como backup
-                const localBackup = localStorage.getItem('allUsersData');
-                if (localBackup) {
-                    try {
-                        allUsersData = JSON.parse(localBackup);
-                        console.log('✅ Datos recuperados desde backup local:', Object.keys(allUsersData).length, 'usuarios');
-                    } catch (e) {
-                        allUsersData = {};
-                    }
-                } else {
-                    allUsersData = {};
-                }
+                console.error('Error cargando datos:', error);
+                appState.userData = createNewUser();
+                updateConnectionStatus('offline');
             }
+            
+            updateLastSyncTime();
         }
 
-        async function saveAllUsersData() {
-            if (isSaving) {
-                console.log('⏳ Ya hay un guardado en progreso...');
-                return;
-            }
-            
-            isSaving = true;
-            
+        async function saveUserData() {
             try {
-                // Guardar en localStorage como backup
-                localStorage.setItem('allUsersData', JSON.stringify(allUsersData));
+                console.log('Guardando datos del usuario:', appState.currentUser);
+                updateConnectionStatus('saving');
                 
-                console.log('💾 Guardando en JSONBin...', Object.keys(allUsersData).length, 'usuarios');
+                // Primero obtenemos los datos actuales para no sobrescribir otros usuarios
+                let allData = { users: {} };
                 
-                const response = await fetch(JSONBIN_API_URL, {
+                try {
+                    const getCurrentResponse = await fetch(`${JSONBIN_CONFIG.apiUrl}/b/${JSONBIN_CONFIG.binId}/latest`, {
+                        method: 'GET',
+                        headers: {
+                            'X-Master-Key': JSONBIN_CONFIG.masterKey,
+                            'Content-Type': 'application/json'
+                        }
+                    });
+                    
+                    if (getCurrentResponse.ok) {
+                        const currentData = await getCurrentResponse.json();
+                        allData = currentData.record || { users: {} };
+                    }
+                } catch (error) {
+                    console.log('No se pudieron obtener datos existentes, creando estructura nueva');
+                }
+                
+                // Actualizamos solo los datos del usuario actual
+                if (!allData.users) {
+                    allData.users = {};
+                }
+                allData.users[appState.currentUser] = {
+                    ...appState.userData,
+                    lastSaved: new Date().toISOString()
+                };
+                
+                console.log('Datos a guardar:', allData);
+                
+                // Guardamos los datos actualizados
+                const saveResponse = await fetch(`${JSONBIN_CONFIG.apiUrl}/b/${JSONBIN_CONFIG.binId}`, {
                     method: 'PUT',
                     headers: {
                         'Content-Type': 'application/json',
-                        'X-Master-Key': JSONBIN_MASTER_KEY
+                        'X-Master-Key': JSONBIN_CONFIG.masterKey
                     },
-                    body: JSON.stringify(allUsersData)
+                    body: JSON.stringify(allData)
                 });
-
-                if (response.ok) {
+                
+                if (saveResponse.ok) {
                     console.log('✅ Datos guardados exitosamente en JSONBin');
+                    updateConnectionStatus('online');
+                    updateLastSyncTime();
                 } else {
-                    console.error('⚠️ Error al guardar en JSONBin. Status:', response.status);
+                    console.error('❌ Error al guardar:', saveResponse.status);
+                    updateConnectionStatus('error');
+                }
+                
+            } catch (error) {
+                console.error('❌ Error guardando datos:', error);
+                updateConnectionStatus('error');
+            }
+        }
+
+        function updateConnectionStatus(status) {
+            const statusElement = document.getElementById('connectionStatus');
+            appState.connectionStatus = status;
+            
+            switch (status) {
+                case 'online':
+                    statusElement.textContent = '✅ Conectado';
+                    statusElement.className = 'connection-status online';
+                    break;
+                case 'offline':
+                    statusElement.textContent = '❌ Sin conexión';
+                    statusElement.className = 'connection-status offline';
+                    break;
+                case 'connecting':
+                    statusElement.textContent = '🔄 Conectando...';
+                    statusElement.className = 'connection-status offline';
+                    break;
+                case 'saving':
+                    statusElement.textContent = '💾 Guardando...';
+                    statusElement.className = 'connection-status online';
+                    break;
+                case 'error':
+                    statusElement.textContent = '⚠️ Error de conexión';
+                    statusElement.className = 'connection-status offline';
+                    break;
+            }
+        }
+
+        function updateLastSyncTime() {
+            const now = new Date().toLocaleString('es-ES');
+            const adminElement = document.getElementById('lastSync');
+            if (adminElement) {
+                adminElement.textContent = now;
+            }
+        }
+
+        async function testConnection() {
+            updateConnectionStatus('connecting');
+            try {
+                const response = await fetch(`${JSONBIN_CONFIG.apiUrl}/b/${JSONBIN_CONFIG.binId}/latest`, {
+                    method: 'GET',
+                    headers: {
+                        'X-Master-Key': JSONBIN_CONFIG.masterKey
+                    }
+                });
+                
+                if (response.ok) {
+                    updateConnectionStatus('online');
+                    alert('✅ Conexión exitosa con JSONBin.io');
+                } else {
+                    updateConnectionStatus('error');
+                    alert('❌ Error de conexión: ' + response.status);
                 }
             } catch (error) {
-                console.error('❌ Error al guardar datos:', error);
-            } finally {
-                isSaving = false;
+                updateConnectionStatus('error');
+                alert('❌ Error de red: ' + error.message);
             }
         }
 
-        async function loadState() {
-            if (!currentUser) return;
+        function createNewUser() {
+            return {
+                level: 1,
+                totalPoints: 0,
+                streak: 0,
+                totalExercises: 0,
+                correctAnswers: 0,
+                exercisesByType: { math: 0, reading: 0, english: 0 },
+                exercisesByTheme: { pokemon: 0, titans: 0, football: 0, warframe: 0 },
+                multiplicationExercises: 0,
+                textsRead: 0,
+                completedExercises: {},
+                achievements: [],
+                created: new Date().toISOString(),
+                lastActivity: new Date().toISOString()
+            };
+        }
+
+        // Interfaz principal
+        function showMainApp() {
+            document.getElementById('loginScreen').style.display = 'none';
+            document.getElementById('mainApp').style.display = 'block';
+            updateUserInterface();
+            generateWeeks();
             
-            await loadAllUsersData();
-            
-            if (allUsersData[currentUser]) {
-                state = { ...state, ...allUsersData[currentUser] };
-                console.log(`✅ Estado cargado para usuario: ${currentUser}`);
-                console.log('📊 Estrellas:', state.stars, '| Días:', state.daysCompleted);
-            } else {
-                console.log(`⚠️ Usuario nuevo: ${currentUser}`);
-                allUsersData[currentUser] = { ...state };
-                await saveAllUsersData();
+            // Actualizar panel de administración
+            const adminUser = document.getElementById('currentUserAdmin');
+            if (adminUser) {
+                adminUser.textContent = appState.currentUser;
             }
         }
 
-        async function saveState() {
-            if (!currentUser || isSaving) return;
+        function updateUserInterface() {
+            document.getElementById('userName').textContent = appState.currentUser;
+            document.getElementById('userLevel').textContent = appState.userData.level;
+            document.getElementById('totalPoints').textContent = appState.userData.totalPoints;
+            document.getElementById('streak').textContent = appState.userData.streak;
             
-            allUsersData[currentUser] = { ...state };
-            await saveAllUsersData();
+            const accuracy = appState.userData.totalExercises > 0 
+                ? Math.round((appState.userData.correctAnswers / appState.userData.totalExercises) * 100)
+                : 0;
+            document.getElementById('accuracy').textContent = accuracy + '%';
         }
 
-        function updateStats() {
-            document.getElementById('starsCount').textContent = state.stars || 0;
-            document.getElementById('daysCompleted').textContent = state.daysCompleted || 0;
-            document.getElementById('correctAnswers').textContent = state.correctAnswers || 0;
-        }
-
-        // =====================================================
-        // SUPERADMIN - GESTIÓN DE USUARIOS
-        // =====================================================
-        async function showSuperAdmin() {
-            await loadAllUsersData();
-            
-            let mensaje = '👑 PANEL SUPERADMIN\n\n';
-            mensaje += '═══════════════════════════════\n\n';
-            mensaje += '📊 USUARIOS REGISTRADOS:\n\n';
-            
-            const usernames = Object.keys(allUsersData);
-            
-            if (usernames.length === 0) {
-                mensaje += '   ⚠️ No hay usuarios registrados\n\n';
-            } else {
-                usernames.forEach((username, index) => {
-                    const userData = allUsersData[username] || {};
-                    const stars = userData.stars || 0;
-                    const days = userData.daysCompleted || 0;
-                    const correct = userData.correctAnswers || 0;
-                    
-                    mensaje += `${index + 1}. 👤 ${username}\n`;
-                    mensaje += `   ⭐ ${stars} estrellas\n`;
-                    mensaje += `   📅 ${days} días completados\n`;
-                    mensaje += `   ✅ ${correct} respuestas correctas\n\n`;
-                });
-            }
-            
-            mensaje += '═══════════════════════════════\n\n';
-            mensaje += '🔧 ACCIONES DISPONIBLES:\n\n';
-            mensaje += '1️⃣ Eliminar usuario específico\n';
-            mensaje += '   → Escribe el nombre exacto del usuario\n\n';
-            mensaje += '2️⃣ Reiniciar TODOS los datos\n';
-            mensaje += '   → Escribe: RESET\n\n';
-            mensaje += '3️⃣ Cancelar\n';
-            mensaje += '   → Escribe: CANCELAR\n\n';
-            mensaje += '═══════════════════════════════\n';
-            
-            const accion = prompt(mensaje);
-            
-            if (!accion || accion.toUpperCase() === 'CANCELAR') {
-                return;
-            }
-            
-            if (accion.toUpperCase() === 'RESET') {
-                const confirmReset = confirm(
-                    '⚠️⚠️⚠️ ADVERTENCIA CRÍTICA ⚠️⚠️⚠️\n\n' +
-                    'Estás a punto de ELIMINAR:\n\n' +
-                    '❌ TODOS los usuarios\n' +
-                    '❌ TODO el progreso\n' +
-                    '❌ TODAS las estadísticas\n\n' +
-                    '🔴 Esta acción NO se puede deshacer\n\n' +
-                    '¿Estás ABSOLUTAMENTE seguro?'
-                );
-                
-                if (confirmReset) {
-                    const doubleConfirm = confirm(
-                        '🔴 ÚLTIMA CONFIRMACIÓN\n\n' +
-                        'Escribe OK en el siguiente cuadro para confirmar'
-                    );
-                    
-                    if (doubleConfirm) {
-                        allUsersData = {};
-                        await saveAllUsersData();
-                        alert('✅ Sistema reiniciado completamente\n\nTodos los datos han sido eliminados.');
-                        logout();
-                    }
-                }
-            } else {
-                // Eliminar usuario específico
-                if (allUsersData[accion]) {
-                    if (confirm(
-                        `¿Eliminar usuario "${accion}"?\n\n` +
-                        `⭐ ${allUsersData[accion].stars || 0} estrellas\n` +
-                        `📅 ${allUsersData[accion].daysCompleted || 0} días\n\n` +
-                        `⚠️ Esta acción no se puede deshacer`
-                    )) {
-                        delete allUsersData[accion];
-                        await saveAllUsersData();
-                        alert(`✅ Usuario "${accion}" eliminado correctamente`);
-                    }
-                } else {
-                    alert(`❌ Usuario "${accion}" no encontrado\n\nVerifica que el nombre esté escrito correctamente.`);
-                }
-            }
-        }
-        // =====================================================
-        // PANEL DE CONFIGURACIÓN PERSONAL
-        // =====================================================
-        function showConfig() {
-            if (!currentUser) {
-                alert('⚠️ Debes iniciar sesión primero');
-                return;
-            }
-            
-            const stars = state.stars || 0;
-            const days = state.daysCompleted || 0;
-            const correct = state.correctAnswers || 0;
-            const failures = state.totalFailures || 0;
-            const totalAttempts = correct + failures;
-            const accuracy = totalAttempts > 0 ? Math.round((correct / totalAttempts) * 100) : 0;
-            
-            let mensaje = '⚙️ PANEL DE CONFIGURACIÓN\n\n';
-            mensaje += '═══════════════════════════════\n\n';
-            mensaje += `👤 Usuario: ${currentUser}\n\n`;
-            mensaje += '📊 TUS ESTADÍSTICAS:\n\n';
-            mensaje += `⭐ Estrellas: ${stars}\n`;
-            mensaje += `📅 Días completados: ${days}\n`;
-            mensaje += `✅ Respuestas correctas: ${correct}\n`;
-            mensaje += `❌ Fallos totales: ${failures}\n`;
-            mensaje += `🎯 Precisión: ${accuracy}%\n\n`;
-            
-            // Mostrar detalles de días completados por semana
-            if (state.completedDays && Object.keys(state.completedDays).length > 0) {
-                mensaje += '📚 PROGRESO POR SEMANAS:\n\n';
-                const weekProgress = {};
-                
-                Object.keys(state.completedDays).forEach(dayKey => {
-                    const [week, day] = dayKey.split('_');
-                    if (!weekProgress[week]) {
-                        weekProgress[week] = [];
-                    }
-                    weekProgress[week].push(day);
-                });
-                
-                Object.keys(weekProgress).sort().forEach(week => {
-                    const days = weekProgress[week].sort((a, b) => parseInt(a) - parseInt(b));
-                    mensaje += `   Semana ${week}: Días ${days.join(', ')} ✓\n`;
-                });
-                mensaje += '\n';
-            }
-            
-            mensaje += '═══════════════════════════════\n\n';
-            mensaje += '🔧 ACCIONES DISPONIBLES:\n\n';
-            mensaje += '1️⃣ Ver estadísticas detalladas\n';
-            mensaje += '   → Escribe: STATS\n\n';
-            mensaje += '2️⃣ Reiniciar MI progreso\n';
-            mensaje += '   → Escribe: REINICIAR\n\n';
-            mensaje += '3️⃣ Eliminar semana específica\n';
-            mensaje += '   → Escribe el número de semana (ej: 1)\n\n';
-            mensaje += '4️⃣ Cerrar\n';
-            mensaje += '   → Escribe: CANCELAR\n\n';
-            mensaje += '═══════════════════════════════\n';
-            
-            const accion = prompt(mensaje);
-            
-            if (!accion || accion.toUpperCase() === 'CANCELAR') {
-                return;
-            }
-            
-            if (accion.toUpperCase() === 'STATS') {
-                showDetailedStats();
-            } else if (accion.toUpperCase() === 'REINICIAR') {
-                resetMyProgress();
-            } else if (!isNaN(accion)) {
-                // Eliminar semana específica
-                const weekNum = parseInt(accion);
-                deleteWeekProgress(weekNum);
-            } else {
-                alert('❌ Opción no válida');
-            }
-        }
-        
-        function showDetailedStats() {
-            let mensaje = '📊 ESTADÍSTICAS DETALLADAS\n\n';
-            mensaje += `👤 Usuario: ${currentUser}\n\n`;
-            mensaje += '═══════════════════════════════\n\n';
-            
-            // Estadísticas por ejercicio
-            if (state.failuresByExercise && Object.keys(state.failuresByExercise).length > 0) {
-                mensaje += '❌ FALLOS POR EJERCICIO:\n\n';
-                
-                Object.entries(state.failuresByExercise).forEach(([exerciseId, failures]) => {
-                    if (failures > 0) {
-                        const [week, day, exercise] = exerciseId.split('_');
-                        const attempts = state.exerciseAttempts[exerciseId] || 0;
-                        mensaje += `Semana ${week}, Día ${day}, Ejercicio ${parseInt(exercise) + 1}:\n`;
-                        mensaje += `   ❌ ${failures} fallos en ${attempts} intentos\n\n`;
-                    }
-                });
-            } else {
-                mensaje += '✅ ¡Sin fallos registrados! ¡Excelente trabajo!\n\n';
-            }
-            
-            mensaje += '═══════════════════════════════\n';
-            
-            alert(mensaje);
-        }
-        
-        function resetMyProgress() {
-            const confirmReset = confirm(
-                '⚠️ ADVERTENCIA ⚠️\n\n' +
-                'Vas a REINICIAR tu progreso:\n\n' +
-                `❌ ${state.stars || 0} estrellas\n` +
-                `❌ ${state.daysCompleted || 0} días completados\n` +
-                `❌ ${state.correctAnswers || 0} respuestas correctas\n` +
-                `❌ Todas tus estadísticas\n\n` +
-                '🔴 Esta acción NO se puede deshacer\n\n' +
-                '¿Estás seguro?'
-            );
-            
-            if (!confirmReset) return;
-            
-            const doubleConfirm = confirm(
-                '🔴 ÚLTIMA CONFIRMACIÓN\n\n' +
-                '¿Realmente quieres borrar TODO tu progreso?\n\n' +
-                'Presiona OK para confirmar'
-            );
-            
-            if (doubleConfirm) {
-                state = {
-                    currentWeek: 1,
-                    currentDay: 0,
-                    currentExercise: 0,
-                    stars: 0,
-                    correctAnswers: 0,
-                    daysCompleted: 0,
-                    completedDays: {},
-                    startTime: null,
-                    currentColor: '#000000',
-                    totalFailures: 0,
-                    currentExerciseFailures: 0,
-                    failuresByExercise: {},
-                    exerciseAttempts: {}
-                };
-                
-                saveState();
-                updateStats();
-                loadWeekContent();
-                
-                alert('✅ Tu progreso ha sido reiniciado\n\n¡Comienza tu aventura de nuevo!');
-            }
-        }
-        
-        function deleteWeekProgress(weekNum) {
-            if (!weeksData[weekNum]) {
-                alert(`❌ La semana ${weekNum} no existe`);
-                return;
-            }
-            
-            // Contar días completados de esa semana
-            let daysInWeek = 0;
-            Object.keys(state.completedDays || {}).forEach(key => {
-                if (key.startsWith(`${weekNum}_`)) {
-                    daysInWeek++;
-                }
+        // Gestión de pestañas
+        function showTab(tabName) {
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.style.display = 'none';
             });
             
-            if (daysInWeek === 0) {
-                alert(`ℹ️ No tienes progreso en la Semana ${weekNum}`);
-                return;
-            }
+            document.querySelectorAll('.nav-tab').forEach(btn => {
+                btn.classList.remove('active');
+            });
             
-            const confirmDelete = confirm(
-                `¿Eliminar progreso de la Semana ${weekNum}?\n\n` +
-                `📅 ${daysInWeek} días completados se perderán\n\n` +
-                `⚠️ Esta acción no se puede deshacer`
-            );
+            document.getElementById(tabName + 'Tab').style.display = 'block';
+            event.target.classList.add('active');
             
-            if (confirmDelete) {
-                // Eliminar días de esa semana
-                Object.keys(state.completedDays).forEach(key => {
-                    if (key.startsWith(`${weekNum}_`)) {
-                        delete state.completedDays[key];
-                    }
-                });
-                
-                state.daysCompleted -= daysInWeek;
-                if (state.daysCompleted < 0) state.daysCompleted = 0;
-                
-                saveState();
-                updateStats();
-                loadWeekContent();
-                
-                alert(`✅ Progreso de Semana ${weekNum} eliminado\n\n${daysInWeek} días borrados`);
+            if (tabName === 'achievements') {
+                loadAchievements();
+            } else if (tabName === 'stats') {
+                loadStats();
             }
         }
 
-        // =====================================================
-        // EVENTOS GLOBALES
-        // =====================================================
-        document.addEventListener('keydown', function(e) {
-            // ESC para cerrar paneles (si implementas modales)
-            if (e.key === 'Escape') {
-                // Aquí puedes agregar lógica para cerrar modales
+        // Generación de semanas
+        function generateWeeks() {
+            const weekGrid = document.getElementById('weekGrid');
+            weekGrid.innerHTML = '';
+            
+            const availableWeeks = Object.keys(exerciseDatabase).length;
+            
+            for (let week = 1; week <= availableWeeks; week++) {
+                const weekCard = document.createElement('div');
+                weekCard.className = 'week-card';
+                weekCard.onclick = () => showWeek(week);
+                
+                const completedDays = getCompletedDaysInWeek(week);
+                const totalDays = 5;
+                
+                weekCard.innerHTML = `
+                    <h3>🗓️ Semana ${week}</h3>
+                    <p>Progreso: ${completedDays}/${totalDays} días completados</p>
+                    <div style="margin-top: 15px;">
+                        <div style="background: rgba(255,255,255,0.3); height: 8px; border-radius: 4px;">
+                            <div style="background: white; height: 100%; width: ${(completedDays/totalDays)*100}%; border-radius: 4px;"></div>
+                        </div>
+                    </div>
+                    <p style="margin-top: 10px; font-size: 14px;">🎯 Temas: Pokémon, Titanes, Fútbol, Warframe</p>
+                `;
+                
+                weekGrid.appendChild(weekCard);
             }
-        });
+        }
 
-        // Guardar progreso antes de cerrar la ventana
-        window.addEventListener('beforeunload', function(e) {
-            if (currentUser && Object.keys(state.completedDays || {}).length > 0) {
-                saveState();
+        function getCompletedDaysInWeek(week) {
+            let completed = 0;
+            for (let day = 1; day <= 5; day++) {
+                const dayKey = `week${week}_day${day}`;
+                if (appState.userData.completedExercises[dayKey]) {
+                    completed++;
+                }
             }
-        });
+            return completed;
+        }
 
-        // =====================================================
-        // INICIO DE LA APLICACIÓN
-        // =====================================================
-        window.addEventListener('load', function() {
-            console.log('🎮 Aventuras de Aprendizaje - Inicializando...');
-            init();
-        });
+        function showWeek(weekNumber) {
+            document.getElementById('weekGrid').style.display = 'none';
+            document.getElementById('dayView').style.display = 'block';
+            
+            const dayGrid = document.getElementById('dayGrid');
+            dayGrid.innerHTML = '';
+            
+            const days = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes'];
+            
+            for (let day = 1; day <= 5; day++) {
+                const dayKey = `week${weekNumber}_day${day}`;
+                const isCompleted = appState.userData.completedExercises[dayKey];
+                
+                const dayCard = document.createElement('div');
+                dayCard.className = 'day-card';
+                if (isCompleted) {
+                    dayCard.style.background = 'linear-gradient(135deg, #d4edda, #c3e6cb)';
+                    dayCard.style.borderLeft = '5px solid #28a745';
+                }
+                
+                dayCard.onclick = () => startDay(weekNumber, day);
+                
+                const exercises = getDayExercises(weekNumber, day);
+                const exerciseList = exercises.map(ex => `
+                    <div class="exercise-item">
+                        <span>${getExerciseIcon(ex.type)} ${getExerciseTitle(ex.type, ex.theme)}</span>
+                        <span>${isCompleted ? '✅' : '⏳'}</span>
+                    </div>
+                `).join('');
+                
+                dayCard.innerHTML = `
+                    <h4>${days[day-1]} - Día ${day}</h4>
+                    <p style="color: #666; margin-bottom: 15px;">🕐 ~30 minutos de entrenamiento</p>
+                    <div class="exercise-list">
+                        ${exerciseList}
+                    </div>
+                    ${isCompleted ? '<div style="margin-top: 15px; color: #28a745; font-weight: bold;">🎉 ¡Día completado!</div>' : ''}
+                `;
+                
+                dayGrid.appendChild(dayCard);
+            }
+        }
 
-        // Función auxiliar para debug en consola
-        window.debugState = function() {
-            console.log('═════════════════════════════════');
-            console.log('🔍 DEBUG STATE');
-            console.log('═════════════════════════════════');
-            console.log('Usuario actual:', currentUser);
-            console.log('Estado:', state);
-            console.log('Todos los usuarios:', allUsersData);
-            console.log('Semanas cargadas:', weeksData ? Object.keys(weeksData).length : 0);
-            console.log('═════════════════════════════════');
-        };
-        
-        console.log('✅ Código JavaScript cargado correctamente');
-        console.log('💡 Usa debugState() en consola para ver el estado actual');
+        function backToWeeks() {
+            document.getElementById('weekGrid').style.display = 'grid';
+            document.getElementById('dayView').style.display = 'none';
+        }
+
+        function getDayExercises(week, day) {
+            const weekKey = `week${week}`;
+            const dayKey = `day${day}`;
+            
+            if (exerciseDatabase[weekKey] && exerciseDatabase[weekKey][dayKey]) {
+                return exerciseDatabase[weekKey][dayKey];
+            }
+            
+            return generateDayExercises(week, day);
+        }
+
+        function generateDayExercises(week, day) {
+            // Si no existen ejercicios para esa semana/día, usar ejercicios base
+            const baseExercises = exerciseDatabase.week1.day1;
+            return baseExercises;
+        }
+
+        function getExerciseIcon(type) {
+            const icons = {
+                math: '🧮',
+                reading: '📖',
+                english: '🇬🇧'
+            };
+            return icons[type] || '📝';
+        }
+
+        function getExerciseTitle(type, theme) {
+            const titles = {
+                math: 'Matemáticas',
+                reading: 'Comprensión Lectora',
+                english: 'Inglés'
+            };
+            
+            const themes = {
+                pokemon: 'Pokémon',
+                titans: 'Titanes',
+                football: 'Fútbol',
+                warframe: 'Warframe'
+            };
+            
+            return `${titles[type]} - ${themes[theme]}`;
+        }
+
+        // Sistema de ejercicios
+        function startDay(week, day) {
+            const exercises = getDayExercises(week, day);
+            appState.currentExerciseSet = exercises;
+            appState.currentExerciseIndex = 0;
+            appState.currentSessionStats = { correct: 0, total: 0, week, day };
+            
+            showExercise();
+        }
+
+        function showExercise() {
+            const modal = document.getElementById('exerciseModal');
+            const exercise = appState.currentExerciseSet[appState.currentExerciseIndex];
+            
+            document.getElementById('exerciseTitle').textContent = getExerciseTitle(exercise.type, exercise.theme);
+            
+            // Mostrar pista de aprendizaje
+            const hintElement = document.getElementById('learningHint');if (exercise.learningHint) {
+                hintElement.innerHTML = exercise.learningHint;
+                hintElement.style.display = 'block';
+            } else {
+                hintElement.style.display = 'none';
+            }
+            
+            // Mostrar texto de lectura si existe
+            const readingElement = document.getElementById('readingText');
+            if (exercise.readingText) {
+                readingElement.innerHTML = exercise.readingText;
+                readingElement.style.display = 'block';
+                appState.userData.textsRead++;
+            } else {
+                readingElement.style.display = 'none';
+            }
+            
+            document.getElementById('exerciseQuestion').innerHTML = exercise.question;
+            
+            const optionsContainer = document.getElementById('exerciseOptions');
+            optionsContainer.innerHTML = '';
+            
+            exercise.options.forEach((option, index) => {
+                const optionDiv = document.createElement('div');
+                optionDiv.className = 'option';
+                optionDiv.textContent = option;
+                optionDiv.onclick = () => selectOption(index);
+                optionsContainer.appendChild(optionDiv);
+            });
+            
+            document.getElementById('exerciseFeedback').style.display = 'none';
+            document.getElementById('nextExerciseBtn').style.display = 'none';
+            
+            // Actualizar barra de progreso
+            const progress = ((appState.currentExerciseIndex + 1) / appState.currentExerciseSet.length) * 100;
+            document.getElementById('progressFill').style.width = progress + '%';
+            
+            modal.style.display = 'flex';
+        }
+
+        function selectOption(selectedIndex) {
+            const exercise = appState.currentExerciseSet[appState.currentExerciseIndex];
+            const options = document.querySelectorAll('.option');
+            const feedback = document.getElementById('exerciseFeedback');
+            
+            options.forEach(option => option.onclick = null);
+            
+            appState.currentSessionStats.total++;
+            
+            if (selectedIndex === exercise.correct) {
+                options[selectedIndex].classList.add('correct');
+                feedback.className = 'feedback correct';
+                feedback.innerHTML = '🎉 ' + exercise.explanation;
+                appState.currentSessionStats.correct++;
+                
+                appState.userData.correctAnswers++;
+                appState.userData.totalPoints += 10;
+                
+                // Puntos extra por multiplicación
+                if (exercise.question.includes('×') || exercise.question.includes('multiplicar')) {
+                    appState.userData.multiplicationExercises++;
+                    appState.userData.totalPoints += 5;
+                }
+            } else {
+                options[selectedIndex].classList.add('incorrect');
+                options[exercise.correct].classList.add('correct');
+                feedback.className = 'feedback incorrect';
+                feedback.innerHTML = '❌ ' + exercise.explanation;
+            }
+            
+            appState.userData.totalExercises++;
+            appState.userData.exercisesByType[exercise.type]++;
+            appState.userData.exercisesByTheme[exercise.theme]++;
+            appState.userData.lastActivity = new Date().toISOString();
+            
+            feedback.style.display = 'block';
+            document.getElementById('nextExerciseBtn').style.display = 'inline-block';
+            
+            // Guardar progreso inmediatamente
+            saveUserData();
+        }
+
+        function nextExercise() {
+            appState.currentExerciseIndex++;
+            
+            if (appState.currentExerciseIndex < appState.currentExerciseSet.length) {
+                showExercise();
+            } else {
+                completeDay();
+            }
+        }
+
+        function completeDay() {
+            const { week, day, correct, total } = appState.currentSessionStats;
+            const dayKey = `week${week}_day${day}`;
+            
+            appState.userData.completedExercises[dayKey] = {
+                completed: true,
+                score: correct,
+                total: total,
+                date: new Date().toISOString()
+            };
+            
+            if (correct === total) {
+                appState.userData.streak++;
+            } else {
+                appState.userData.streak = 0;
+            }
+            
+            checkAchievements();
+            
+            const newLevel = Math.floor(appState.userData.totalPoints / 100) + 1;
+            if (newLevel > appState.userData.level) {
+                appState.userData.level = newLevel;
+                showReward('¡Nivel Superior!', '🆙', `¡Has alcanzado el nivel ${newLevel}!`);
+            }
+            
+            closeExercise();
+            saveUserData();
+            updateUserInterface();
+            generateWeeks();
+            
+            showDayComplete(correct, total);
+        }
+
+        function showDayComplete(correct, total) {
+            const percentage = Math.round((correct / total) * 100);
+            let message = '';
+            let icon = '';
+            
+            if (percentage === 100) {
+                message = '¡Perfecto! ¡Eres un verdadero maestro entrenador!';
+                icon = '🏆';
+            } else if (percentage >= 80) {
+                message = '¡Excelente trabajo! Casi perfecto.';
+                icon = '⭐';
+            } else if (percentage >= 60) {
+                message = '¡Buen trabajo! Sigue practicando.';
+                icon = '👍';
+            } else {
+                message = '¡Sigue intentando! La práctica hace al maestro.';
+                icon = '💪';
+            }
+            
+            showReward('¡Día Completado!', icon, `${message}\nPuntuación: ${correct}/${total} (${percentage}%)`);
+        }
+
+        function closeExercise() {
+            document.getElementById('exerciseModal').style.display = 'none';
+        }
+
+        // Sistema de logros
+        function checkAchievements() {
+            achievements.forEach(achievement => {
+                if (!appState.userData.achievements.includes(achievement.id)) {
+                    let earned = false;
+                    
+                    switch (achievement.id) {
+                        case 'first_exercise':
+                            earned = appState.userData.totalExercises >= 1;
+                            break;
+                        case 'math_master':
+                            earned = appState.userData.exercisesByType.math >= 15;
+                            break;
+                        case 'reading_hero':
+                            earned = appState.userData.exercisesByType.reading >= 15;
+                            break;
+                        case 'english_expert':
+                            earned = appState.userData.exercisesByType.english >= 15;
+                            break;
+                        case 'perfect_day':
+                            earned = appState.currentSessionStats.correct === appState.currentSessionStats.total && appState.currentSessionStats.total > 0;
+                            break;
+                        case 'streak_week':
+                            earned = appState.userData.streak >= 7;
+                            break;
+                        case 'multiplication_master':
+                            earned = appState.userData.multiplicationExercises >= 10;
+                            break;
+                        case 'reading_champion':
+                            earned = appState.userData.textsRead >= 20;
+                            break;
+                    }
+                    
+                    if (earned) {
+                        appState.userData.achievements.push(achievement.id);
+                        showReward('¡Nuevo Logro!', achievement.icon, `${achievement.name}\n${achievement.description}`);
+                    }
+                }
+            });
+        }
+
+        function loadAchievements() {
+            const grid = document.getElementById('achievementGrid');
+            grid.innerHTML = '';
+            
+            achievements.forEach(achievement => {
+                const isUnlocked = appState.userData.achievements.includes(achievement.id);
+                
+                const card = document.createElement('div');
+                card.className = `achievement-card ${isUnlocked ? 'unlocked' : ''}`;
+                
+                card.innerHTML = `
+                    <div class="achievement-icon">${achievement.icon}</div>
+                    <h4>${achievement.name}</h4>
+                    <p>${achievement.description}</p>
+                    <div style="margin-top: 10px; font-size: 12px; color: #666;">
+                        ${isUnlocked ? '✅ Desbloqueado' : '🔒 Bloqueado'}
+                    </div>
+                `;
+                
+                grid.appendChild(card);
+            });
+        }
+
+        // Estadísticas detalladas
+        function loadStats() {
+            const content = document.getElementById('statsContent');
+            const userData = appState.userData;
+            
+            const accuracy = userData.totalExercises > 0 
+                ? Math.round((userData.correctAnswers / userData.totalExercises) * 100)
+                : 0;
+            
+            content.innerHTML = `
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px;">
+                    <div class="stat-card" style="padding: 20px;">
+                        <h3>📊 Estadísticas Generales</h3>
+                        <p><strong>Ejercicios totales:</strong> ${userData.totalExercises}</p>
+                        <p><strong>Respuestas correctas:</strong> ${userData.correctAnswers}</p>
+                        <p><strong>Precisión:</strong> ${accuracy}%</p>
+                        <p><strong>Puntos totales:</strong> ${userData.totalPoints}</p>
+                        <p><strong>Racha actual:</strong> ${userData.streak} días</p>
+                        <p><strong>Nivel:</strong> ${userData.level}</p>
+                    </div>
+                    
+                    <div class="stat-card" style="padding: 20px;">
+                        <h3>📚 Por Materia</h3>
+                        <p><strong>🧮 Matemáticas:</strong> ${userData.exercisesByType.math || 0}</p>
+                        <p><strong>📖 Comprensión Lectora:</strong> ${userData.exercisesByType.reading || 0}</p>
+                        <p><strong>🇬🇧 Inglés:</strong> ${userData.exercisesByType.english || 0}</p>
+                        <div style="margin-top: 10px; padding-top: 10px; border-top: 1px solid #ddd;">
+                            <p><strong>✖️ Multiplicaciones:</strong> ${userData.multiplicationExercises || 0}</p>
+                            <p><strong>📖 Textos leídos:</strong> ${userData.textsRead || 0}</p>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card" style="padding: 20px;">
+                        <h3>🎮 Por Tema Favorito</h3>
+                        <p><strong>🔴 Pokémon:</strong> ${userData.exercisesByTheme.pokemon || 0}</p>
+                        <p><strong>⚔️ Titanes:</strong> ${userData.exercisesByTheme.titans || 0}</p>
+                        <p><strong>⚽ Fútbol:</strong> ${userData.exercisesByTheme.football || 0}</p>
+                        <p><strong>🔫 Warframe:</strong> ${userData.exercisesByTheme.warframe || 0}</p>
+                    </div>
+                    
+                    <div class="stat-card" style="padding: 20px;">
+                        <h3>🏆 Progreso de Logros</h3>
+                        <p><strong>Desbloqueados:</strong> ${userData.achievements.length}/${achievements.length}</p>
+                        <div style="margin-top: 15px; display: flex; flex-wrap: wrap; gap: 5px;">
+                            ${userData.achievements.map(id => {
+                                const achievement = achievements.find(a => a.id === id);
+                                return achievement ? `<span style="padding: 4px 8px; background: #ffd700; border-radius: 4px; font-size: 12px; color: #333;">${achievement.icon} ${achievement.name}</span>` : '';
+                            }).join('')}
+                        </div>
+                    </div>
+                </div>
+                
+                <div style="margin-top: 30px; padding: 20px; background: #f8f9fa; border-radius: 10px;">
+                    <h3>📈 Progreso Semanal</h3>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-top: 15px;">
+                        ${Object.keys(exerciseDatabase).map(weekKey => {
+                            const weekNum = weekKey.replace('week', '');
+                            const completed = getCompletedDaysInWeek(weekNum);
+                            return `
+                                <div style="text-align: center; padding: 15px; background: white; border-radius: 8px;">
+                                    <h4>Semana ${weekNum}</h4>
+                                    <div style="font-size: 24px; color: #667eea; margin: 10px 0;">${completed}/5</div>
+                                    <div style="font-size: 12px; color: #666;">días completados</div>
+                                </div>
+                            `;
+                        }).join('')}
+                    </div>
+                </div>
+                
+                <div style="margin-top: 20px; padding: 15px; background: #e3f2fd; border-radius: 10px; border-left: 4px solid #2196f3;">
+                    <h4>📝 Información de Cuenta</h4>
+                    <p><strong>Usuario:</strong> ${appState.currentUser}</p>
+                    <p><strong>Cuenta creada:</strong> ${userData.created ? new Date(userData.created).toLocaleDateString('es-ES') : 'Fecha no disponible'}</p>
+                    <p><strong>Última actividad:</strong> ${userData.lastActivity ? new Date(userData.lastActivity).toLocaleString('es-ES') : 'No disponible'}</p>
+                    <p><strong>Estado de guardado:</strong> ${appState.connectionStatus === 'online' ? '✅ Sincronizado' : '❌ Sin sincronizar'}</p>
+                </div>
+            `;
+        }
+
+        // Sistema de recompensas
+        function showReward(title, icon, message) {
+            document.getElementById('rewardTitle').textContent = title;
+            document.getElementById('rewardIcon').textContent = icon;
+            document.getElementById('rewardMessage').textContent = message;
+            document.getElementById('rewardPopup').style.display = 'block';
+        }
+
+        function closeReward() {
+            document.getElementById('rewardPopup').style.display = 'none';
+        }
+
+        // Funciones de administración
+        function resetProgress() {
+            if (confirm('¿Estás seguro de que quieres reiniciar todo el progreso? Esta acción no se puede deshacer.')) {
+                appState.userData = createNewUser();
+                saveUserData();
+                updateUserInterface();
+                generateWeeks();
+                alert('Progreso reiniciado correctamente.');
+            }
+        }
+
+        function exportData() {
+            const dataToExport = {
+                user: appState.currentUser,
+                data: appState.userData,
+                exportDate: new Date().toISOString(),
+                summary: {
+                    totalExercises: appState.userData.totalExercises,
+                    accuracy: appState.userData.totalExercises > 0 ? Math.round((appState.userData.correctAnswers / appState.userData.totalExercises) * 100) : 0,
+                    level: appState.userData.level,
+                    achievements: appState.userData.achievements.length,
+                    connectionStatus: appState.connectionStatus
+                }
+            };
+            
+            const dataStr = JSON.stringify(dataToExport, null, 2);
+            const dataBlob = new Blob([dataStr], {type: 'application/json'});
+            
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(dataBlob);
+            link.download = `academia_pokemon_${appState.currentUser}_${new Date().toISOString().split('T')[0]}.json`;
+            link.click();
+        }
+
+        // Inicialización
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('🎮 Academia Pokemon iniciada');
+            console.log('📡 Configuración JSONBin:', {
+                binId: JSONBIN_CONFIG.binId,
+                apiUrl: JSONBIN_CONFIG.apiUrl
+            });
+            
+            updateConnectionStatus('offline');
+            document.getElementById('loginScreen').style.display = 'flex';
+            document.getElementById('mainApp').style.display = 'none';
+            
+            // Event listener para Enter en el input de login
+            document.getElementById('usernameInput').addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    login();
+                }
+            });
+        });
     </script>
 </body>
 </html>
