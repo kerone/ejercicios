@@ -173,6 +173,8 @@
             align-items: center;
             box-shadow: 0 10px 40px rgba(0,0,0,0.1);
             border: 3px solid #fdcb6e;
+            flex-wrap: wrap;
+            gap: 15px;
         }
 
         .user-info {
@@ -213,6 +215,7 @@
         .stats {
             display: flex;
             gap: 15px;
+            flex-wrap: wrap;
         }
 
         .stat-card {
@@ -296,6 +299,14 @@
             box-shadow: 0 10px 40px rgba(0,0,0,0.1);
             min-height: 600px;
             border: 3px solid #fdcb6e;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
         }
 
         .content-area h2 {
@@ -682,6 +693,177 @@
             box-shadow: 0 2px 6px rgba(0,0,0,0.2);
         }
 
+        /* Día individual - nuevo */
+        .day-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .day-card {
+            background: white;
+            padding: 25px;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+            border: 3px solid #74b9ff;
+        }
+
+        .day-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 30px rgba(0,0,0,0.2);
+        }
+
+        .exercise-list {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .exercise-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 15px;
+            border-radius: 10px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        /* Ejercicio individual - nuevo */
+        #exerciseOverlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .exercise-container {
+            background: white;
+            padding: 40px;
+            border-radius: 30px;
+            max-width: 800px;
+            width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+
+        .close-exercise {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            background: none;
+            border: none;
+            font-size: 30px;
+            cursor: pointer;
+            color: #636e72;
+        }
+
+        .exercise-hint {
+            background: linear-gradient(135deg, #74b9ff, #0984e3);
+            color: white;
+            padding: 20px;
+            border-radius: 15px;
+            margin-bottom: 25px;
+            border: 3px solid white;
+        }
+
+        .reading-text {
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 15px;
+            margin: 20px 0;
+            border: 3px solid #74b9ff;
+            line-height: 1.6;
+        }
+
+        .exercise-question {
+            font-size: 20px;
+            font-weight: 700;
+            margin: 25px 0;
+            color: #2d3436;
+        }
+
+        .options-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            margin: 25px 0;
+        }
+
+        .option-btn {
+            padding: 20px;
+            border: 3px solid #ddd;
+            border-radius: 15px;
+            background: white;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 16px;
+            font-weight: 600;
+            text-align: left;
+        }
+
+        .option-btn:hover {
+            border-color: #74b9ff;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+        }
+
+        .option-btn.selected {
+            border-color: #74b9ff;
+            background: linear-gradient(135deg, #74b9ff, #0984e3);
+            color: white;
+        }
+
+        .exercise-controls {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 30px;
+        }
+
+        .exercise-btn {
+            padding: 15px 30px;
+            border: none;
+            border-radius: 20px;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-family: 'Nunito', sans-serif;
+        }
+
+        .exercise-btn.primary {
+            background: linear-gradient(45deg, #00b894, #00cec9);
+            color: white;
+            box-shadow: 0 5px 15px rgba(0, 184, 148, 0.4);
+        }
+
+        .exercise-btn.secondary {
+            background: #636e72;
+            color: white;
+            box-shadow: 0 5px 15px rgba(99, 110, 114, 0.4);
+        }
+
+        .exercise-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .exercise-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
         /* Estadísticas kids-friendly */
         .stats-kids {
             display: grid;
@@ -748,9 +930,41 @@
         }
 
         .stat-label-big {
-            font-size: 18px;
-            font-weight: 700;
+            font-size: 18pxfont-weight: 700;
             opacity: 0.9;
+        }
+
+        /* Logros */
+        .achievement-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .achievement-card {
+            background: white;
+            padding: 25px;
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+            border: 3px solid #ddd;
+        }
+
+        .achievement-card.unlocked {
+            border-color: #ffd700;
+            background: linear-gradient(135deg, #fdcb6e, #f39c12);
+            color: white;
+            animation: achievement-glow 2s ease-in-out infinite;
+        }
+
+        .achievement-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .achievement-icon {
+            font-size: 60px;
+            margin-bottom: 15px;
         }
 
         .connection-status {
@@ -775,12 +989,13 @@
             color: white;
         }
 
-        /* Responsive para niños */
+        /* Responsive para móviles */
         @media (max-width: 768px) {
             .header {
                 flex-direction: column;
                 gap: 20px;
                 text-align: center;
+                padding: 20px;
             }
 
             .stats {
@@ -790,13 +1005,24 @@
 
             .nav-tabs {
                 justify-content: center;
+                gap: 10px;
+            }
+
+            .nav-tab {
+                padding: 12px 20px;
+                font-size: 14px;
+            }
+
+            .content-area {
+                padding: 20px;
             }
 
             .ranking-header,
             .ranking-row {
-                grid-template-columns: 60px 1fr 80px 80px 80px;
+                grid-template-columns: 50px 1fr 60px 60px 60px;
                 gap: 10px;
-                font-size: 14px;
+                font-size: 12px;
+                padding: 15px;
             }
 
             .ranking-header span:nth-child(6),
@@ -821,8 +1047,38 @@
                 grid-template-columns: 1fr;
             }
 
+            .day-grid {
+                grid-template-columns: 1fr;
+            }
+
             .stats-kids {
                 grid-template-columns: 1fr;
+            }
+
+            .options-container {
+                grid-template-columns: 1fr;
+            }
+
+            .exercise-container {
+                padding: 20px;
+                width: 95%;
+            }
+
+            .exercise-controls {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .user-info {
+                flex-direction: column;
+                text-align: center;
+                gap: 10px;
+            }
+
+            .avatar {
+                width: 60px;
+                height: 60px;
+                font-size: 24px;
             }
         }
 
@@ -838,6 +1094,18 @@
         @keyframes sparkle {
             0%, 100% { opacity: 0; transform: scale(0); }
             50% { opacity: 1; transform: scale(1); }
+        }
+
+        /* Animación flotante */
+        @keyframes floatUp {
+            from {
+                transform: translateY(0px) rotate(0deg);
+                opacity: 1;
+            }
+            to {
+                transform: translateY(-100vh) rotate(360deg);
+                opacity: 0;
+            }
         }
     </style>
 </head>
@@ -895,7 +1163,7 @@
 
             <!-- Navegación -->
             <div class="nav-tabs">
-                <button class="nav-tabactive" onclick="showTab('training')">🎯 Entrenamiento</button>
+                <button class="nav-tab active" onclick="showTab('training')">🎯 Entrenamiento</button>
                 <button class="nav-tab" onclick="showTab('ranking')">🏆 Ranking</button>
                 <button class="nav-tab" onclick="showTab('achievements')">🎖️ Mis Logros</button>
                 <button class="nav-tab" onclick="showTab('stats')">📊 Mis Estadísticas</button>
@@ -905,7 +1173,7 @@
             <!-- Área de contenido -->
             <div class="content-area">
                 <!-- Pestaña de Entrenamiento -->
-                <div id="trainingTab" class="tab-content">
+                <div id="trainingTab" class="tab-content active">
                     <h2>🗓️ ¡Elige tu Semana de Aventuras!</h2>
                     <div class="week-grid" id="weekGrid"></div>
                     <div id="dayView" style="display: none;">
@@ -916,7 +1184,7 @@
                 </div>
 
                 <!-- Pestaña de Ranking -->
-                <div id="rankingTab" class="tab-content" style="display: none;">
+                <div id="rankingTab" class="tab-content">
                     <h2>🏆 ¡Tabla de Campeones!</h2>
                     <div class="ranking-container">
                         <!-- Filtros -->
@@ -938,19 +1206,19 @@
                 </div>
 
                 <!-- Pestaña de Logros -->
-                <div id="achievementsTab" class="tab-content" style="display: none;">
+                <div id="achievementsTab" class="tab-content">
                     <h2>🎖️ ¡Mis Súper Logros!</h2>
                     <div class="achievement-grid" id="achievementGrid"></div>
                 </div>
 
                 <!-- Pestaña de Estadísticas -->
-                <div id="statsTab" class="tab-content" style="display: none;">
+                <div id="statsTab" class="tab-content">
                     <h2>📊 ¡Mis Números Geniales!</h2>
                     <div id="statsContent"></div>
                 </div>
 
                 <!-- Pestaña de Administración -->
-                <div id="adminTab" class="tab-content" style="display: none;">
+                <div id="adminTab" class="tab-content">
                     <h2>⚙️ Mi Panel de Control</h2>
                     <div style="background: linear-gradient(135deg, #f8f9fa, #e9ecef); padding: 25px; border-radius: 20px; margin-bottom: 25px; border: 3px solid #74b9ff;">
                         <h4 style="font-family: 'Fredoka One', cursive; font-size: 20px; margin-bottom: 15px; color: #2d3436;">📊 Estado de mi Cuenta</h4>
@@ -965,6 +1233,14 @@
                     </div>
                 </div>
             </div>
+        </div>
+    </div>
+
+    <!-- Overlay para ejercicios -->
+    <div id="exerciseOverlay">
+        <div class="exercise-container">
+            <button class="close-exercise" onclick="closeExercise()">✕</button>
+            <div id="exerciseContent"></div>
         </div>
     </div>
 
@@ -985,7 +1261,8 @@
             currentSessionStats: { correct: 0, total: 0 },
             connectionStatus: 'offline',
             allUsersData: {},
-            currentRankingFilter: 'achievements'
+            currentRankingFilter: 'achievements',
+            selectedOption: null
         };
 
         // Base de datos de ejercicios AMPLIADA con 2 semanas completas
@@ -1243,234 +1520,6 @@
                         options: ['Blue', 'Green', 'Purple', 'Orange'],
                         correct: 0,
                         explanation: '¡Genial! "Blue" significa azul en inglés. Squirtle is blue like the ocean! (¡Squirtle es azul como el océano!)'
-                    },
-                    {
-                        type: 'math',
-                        theme: 'pokemon',
-                        learningHint: '<strong>🔢 Números hasta el millón:</strong> 1.000 = mil, 10.000 = diez mil, 100.000 = cien mil, 1.000.000 = un millón.',
-                        question: '🏆 En el Pokédex Nacional hay registrados 1.008 especies diferentes de Pokémon. Si Ash ha visto 234 especies, ¿cuántas especies le faltan por ver?',
-                        options: ['774 especies', '784 especies', '764 especies', '794 especies'],
-                        correct: 0,
-                        explanation: '¡Excelente! 1.008 - 234 = 774 especies le faltan por ver. ¡Ash tiene mucho trabajo de exploración por delante!'
-                    },
-                    {
-                        type: 'science',
-                        theme: 'pokemon',
-                        learningHint: '<strong>🔋 Electricidad:</strong> La electricidad puede generar luz, calor y movimiento. Los rayos son electricidad natural.',
-                        question: '⚡ Pikachu genera electricidad con sus mejillas. ¿Cuál de estos efectos NO puede producir la electricidad?',
-                        options: ['Luz (como las bombillas)', 'Calor (como las estufas)', 'Gravedad (como los imanes)', 'Movimiento (como los motores)'],
-                        correct: 2,
-                        explanation: '¡Correcto! La electricidad puede producir luz, calor y movimiento, pero NO puede crear gravedad. La gravedad es una fuerza diferente.'
-                    },
-                    {
-                        type: 'geography',
-                        theme: 'pokemon',
-                        learningHint: '<strong>🌍 Regiones del mundo:</strong> Asia es el continente más grande, donde está Japón, el país donde se creó Pokémon.',
-                        question: '🗾 Pokémon fue creado en Japón. ¿En qué continente está Japón?',
-                        options: ['Europa', 'Asia', 'América', 'Oceanía'],
-                        correct: 1,
-                        explanation: '¡Perfecto! Japón está en Asia, el continente más grande del mundo. ¡De ahí vienen nuestros Pokémon favoritos!'
-                    }
-                ],
-                day2: [
-                    {
-                        type: 'math',
-                        theme: 'titans',
-                        learningHint: '<strong>📏 Medidas de longitud:</strong> 1 metro = 100 centímetros. Para pasar de metros a centímetros, multiplicas por 100.',
-                        question: '📐 Un titán mide 15 metros de altura. ¿Cuántos centímetros mide el mismo titán?',
-                        options: ['1.500 centímetros', '150 centímetros', '15.000 centímetros', '1.050 centímetros'],
-                        correct: 0,
-                        explanation: '¡Perfecto! 15 metros × 100 = 1.500 centímetros. Recuerda: 1 metro = 100 centímetros.'
-                    },
-                    {
-                        type: 'reading',
-                        theme: 'titans',
-                        learningHint: '<strong>⏰ Información temporal:</strong> Presta atención a las palabras que indican tiempo: antes, después, durante, etc.',
-                        readingText: '<h4>📅 La Caída de la Muralla María</h4>El día más oscuro de la humanidad ocurrió hace exactamente 5 años, cuando el Titán Colosal apareció por primera vez. Ese titán gigante de 60 metros de altura destruyó la puerta sur de la muralla María en solo unos minutos. Antes de ese ataque, los humanos habían vivido en paz durante 100 años sin ver ningún titán. Después del ataque, la humanidad tuvo que retirarse a la muralla Rose, perdiendo aproximadamente un tercio de su territorio.',
-                        question: '¿Cuántos años habían vivido los humanos en paz antes del ataque del Titán Colosal?',
-                        options: ['5 años', '60 años', '100 años', '50 años'],
-                        correct: 2,
-                        explanation: '¡Excelente! El texto dice que "habían vivido en paz durante 100 años sin ver ningún titán". ¡Un siglo completo de paz!'
-                    },
-                    {
-                        type: 'english',
-                        theme: 'titans',
-                        learningHint: '<strong>🏃‍♂️ Verbos de acción:</strong> "Attack" significa atacar. Es un verbo que indica una acción violenta.',
-                        question: '⚔️ Los titanes atacan a los humanos. ¿Cómo se dice "atacar" en inglés?',
-                        options: ['Defend', 'Attack', 'Protect', 'Help'],
-                        correct: 1,
-                        explanation: '¡Correcto! "Attack" significa atacar en inglés. The titans attack the city! (¡Los titanes atacan la ciudad!)'
-                    },
-                    {
-                        type: 'math',
-                        theme: 'titans',
-                        learningHint: '<strong>🔢 Fracciones básicas:</strong> 1/3 significa "un tercio" = dividir algo en 3 partes iguales y tomar 1.',
-                        question: '🗺️ Si la humanidad tenía 3.000 kilómetros cuadrados de territorio y perdió un tercio (1/3), ¿cuánto territorio perdió?',
-                        options: ['1.000 km²', '2.000 km²', '500 km²', '1.500 km²'],
-                        correct: 0,
-                        explanation: '¡Perfecto! Un tercio de 3.000 es 3.000 ÷ 3 = 1.000 km². ¡Una pérdida enorme de territorio!'
-                    },
-                    {
-                        type: 'history',
-                        theme: 'titans',
-                        learningHint: '<strong>🏰 La Edad Media:</strong> En la Edad Media (hace muchos siglos) se construían castillos y murallas para defenderse.',
-                        question: '🏛️ Las murallas como las de los titanes se construían mucho en la Edad Media. ¿Para qué servían principalmente?',
-                        options: ['Para decorar las ciudades', 'Para defenderse de enemigos', 'Para hacer competencias', 'Para estudiar arquitectura'],
-                        correct: 1,
-                        explanation: '¡Correcto! Las murallas se construían principalmente para defenderse de enemigos, igual que en el mundo de los titanes.'
-                    }
-                ],
-                day3: [
-                    {
-                        type: 'math',
-                        theme: 'football',
-                        learningHint: '<strong>⏱️ Tiempo y duración:</strong> Un partido dura 90 minutos = 45 minutos + 45 minutos (dos tiempos).',
-                        question: '⏰ Un partido de fútbol dura 90 minutos en total. Si ya han pasado 67 minutos, ¿cuántos minutos faltan para que termine?',
-                        options: ['23 minutos', '27 minutos', '33 minutos', '17 minutos'],
-                        correct: 0,
-                        explanation: '¡Perfecto! 90 - 67 = 23 minutos restantes. ¡El partido está casi por terminar!'
-                    },
-                    {
-                        type: 'reading',
-                        theme: 'football',
-                        learningHint: '<strong>🏆 Logros deportivos:</strong> Cuando el texto menciona números de premios o logros, son datos importantes.',
-                        readingText: '<h4>🐐 Cristiano Ronaldo: El Fenómeno Portugués</h4>Cristiano Ronaldo dos Santos Aveiro nació el 5 de febrero de 1985 en Madeira, Portugal. Es considerado uno de los mejores futbolistas de todos los tiempos junto con Messi. A lo largo de su carrera ha ganado 5 premios Balón de Oro y ha marcado más de 850 goles oficiales. Ronaldo es famoso por su increíble salto (puede saltar hasta 78 centímetros de altura) y por su velocidad en el sprint.',
-                        question: '¿Cuántos premios Balón de Oro ha ganado Cristiano Ronaldo según el texto?',
-                        options: ['3 premios', '5 premios', '7 premios', '4 premios'],
-                        correct: 1,
-                        explanation: '¡Excelente! El texto dice que "ha ganado 5 premios Balón de Oro". ¡Un logro increíble!'
-                    },
-                    {
-                        type: 'english',
-                        theme: 'football',
-                        learningHint: '<strong>🏃‍♂️ Verbos de movimiento:</strong> "Jump" significa saltar. Cristiano Ronaldo jumps very high!',
-                        question: '🦘 Cristiano Ronaldo puede saltar muy alto para cabecear. ¿Cómo se dice "saltar" en inglés?',
-                        options: ['Run', 'Walk', 'Jump', 'Kick'],
-                        correct: 2,
-                        explanation: '¡Genial! "Jump" significa saltar. Ronaldo can jump 78 centimeters! (¡Ronaldo puede saltar 78 centímetros!)'
-                    },
-                    {
-                        type: 'math',
-                        theme: 'football',
-                        learningHint: '<strong>📊 Problemas con datos:</strong> Lee bien todos los números del problema antes de calcular.',
-                        question: '⚽ En una temporada, Messi marcó 35 goles y Ronaldo marcó 28 goles. ¿Cuántos goles marcaron entre los dos?',
-                        options: ['63 goles', '53 goles', '73 goles', '57 goles'],
-                        correct: 0,
-                        explanation: '¡Perfecto! 35 + 28 = 63 goles en total. ¡Qué dupla tan increíble!'
-                    },
-                    {
-                        type: 'geography',
-                        theme: 'football',
-                        learningHint: '<strong>🌍 Países europeos:</strong> Portugal está en Europa, al lado de España. Lisboa es su capital.',
-                        question: '🇵🇹 Cristiano Ronaldo nació en Portugal. ¿Cuál es la capital de Portugal?',
-                        options: ['Madrid', 'Lisboa', 'Porto', 'Barcelona'],
-                        correct: 1,
-                        explanation: '¡Correcto! Lisboa es la capital de Portugal, el país donde nació Cristiano Ronaldo.'
-                    },
-                    {
-                        type: 'body',
-                        theme: 'football',
-                        learningHint: '<strong>🫀 El corazón:</strong> El corazón es un músculo que bombea sangre por todo el cuerpo. Late unas 70 veces por minuto.',
-                        question: '💓 Los futbolistas necesitan un corazón fuerte para correr tanto. ¿Cuál es la función principal del corazón?',
-                        options: ['Respirar aire', 'Bombear sangre', 'Digerir comida', 'Pensar ideas'],
-                        correct: 1,
-                        explanation: '¡Perfecto! El corazón bombea sangre a todo el cuerpo, llevando oxígeno y nutrientes a los músculos.'
-                    }
-                ],
-                day4: [
-                    {
-                        type: 'math',
-                        theme: 'warframe',
-                        learningHint: '<strong>🔢 Números decimales:</strong> 2,5 significa "dos coma cinco" = 2 enteros y 5 décimas = 2 + 0,5.',
-                        question: '🕐 Un Tenno tarda 2,5 minutos en completar cada misión. Si hace 8 misiones, ¿cuánto tiempo tardó en total?',
-                        options: ['20 minutos', '18 minutos', '16 minutos', '22 minutos'],
-                        correct: 0,
-                        explanation: '¡Excelente! 2,5 × 8 = 20 minutos. Recuerda: 2,5 = 2 + 0,5, entonces 2,5 × 8 = (2 × 8) + (0,5 × 8) = 16 + 4 = 20.'
-                    },
-                    {
-                        type: 'reading',
-                        theme: 'warframe',
-                        learningHint: '<strong>🔬 Ciencia ficción:</strong> Los textos de ciencia ficción mezclan ciencia real con imaginación futurista.',
-                        readingText: '<h4>🚀 La Tecnología Orokin</h4>Los antiguos Orokin eran una civilización tecnológicamente muy avanzada que existió hace miles de años en el sistema solar. Crearon tecnología que mezclaba lo biológico con lo mecánico, como los Warframes. Su material más preciado era el Oro Orokin, un metal especial que podía auto-repararse y durar eternamente. Los Orokin también construyeron estaciones espaciales gigantes llamadas Torres Orokin, algunas de las cuales todavía flotan en el espacio.',
-                        question: '¿Cómo se llamaba el material más preciado de los Orokin?',
-                        options: ['Acero Espacial', 'Oro Orokin', 'Titanio Cósmico', 'Platino Galáctico'],
-                        correct: 1,
-                        explanation: '¡Perfecto! El texto menciona claramente el "Oro Orokin" como su material más preciado. ¡Qué tecnología tan avanzada!'
-                    },
-                    {
-                        type: 'english',
-                        theme: 'warframe',
-                        learningHint: '<strong>🌟 Palabras del espacio:</strong> "Star" significa estrella. Las estrellas son soles que están muy lejos.',
-                        question: '⭐ Los Tenno viajan entre las estrellas del universo. ¿Cómo se dice "estrella" en inglés?',
-                        options: ['Moon', 'Star', 'Planet', 'Sun'],
-                        correct: 1,
-                        explanation: '¡Genial! "Star" significa estrella. There are billions of stars in space! (¡Hay miles de millones de estrellas en el espacio!)'
-                    },
-                    {
-                        type: 'science',
-                        theme: 'warframe',
-                        learningHint: '<strong>🌌 El universo:</strong> Una galaxia es un grupo gigante de estrellas. Nuestra galaxia se llama Vía Láctea.',
-                        question: '🌌 Los Tenno protegen el sistema solar, que está dentro de nuestra galaxia. ¿Cómo se llama nuestra galaxia?',
-                        options: ['Andrómeda', 'Vía Láctea', 'Magallanes', 'Orión'],
-                        correct: 1,
-                        explanation: '¡Correcto! Vivimos en la galaxia llamada Vía Láctea, que tiene miles de millones de estrellas como nuestro Sol.'
-                    },
-                    {
-                        type: 'technology',
-                        theme: 'warframe',
-                        learningHint: '<strong>🤖 Inteligencia Artificial:</strong> La IA son programas de computadora que pueden "pensar" y tomar decisiones.',
-                        question: '🧠 En Warframe, los Cephalon son inteligencias artificiales. ¿Qué significa "inteligencia artificial"?',
-                        options: ['Robots muy fuertes', 'Computadoras que pueden pensar', 'Naves espaciales rápidas', 'Armas muy poderosas'],
-                        correct: 1,
-                        explanation: '¡Perfecto! La inteligencia artificial son programas de computadora que pueden pensar y resolver problemas como los humanos.'
-                    }
-                ],
-                day5: [
-                    {
-                        type: 'math',
-                        theme: 'mixed',
-                        learningHint: '<strong>📈 Gráficos simples:</strong> Un gráfico nos ayuda a comparar números de forma visual.',
-                        question: '📊 En una encuesta sobre Pokémon favoritos: Pikachu tuvo 45 votos, Charizard 38 votos, y Blastoise 27 votos. ¿Cuál fue el total de votos?',
-                        options: ['110 votos', '105 votos', '115 votos', '100 votos'],
-                        correct: 0,
-                        explanation: '¡Excelente! 45 + 38 + 27 = 110 votos en total. ¡Pikachu ganó la encuesta!'
-                    },
-                    {
-                        type: 'reading',
-                        theme: 'mixed',
-                        learningHint: '<strong>🌱 Cuidado del medio ambiente:</strong> Todos podemos ayudar a cuidar nuestro planeta con acciones simples.',
-                        readingText: '<h4>🌍 Salvemos Nuestro Planeta</h4>El cuidado del medio ambiente es responsabilidad de todos. Pequeñas acciones como reciclar papel, plástico y vidrio pueden hacer una gran diferencia. También podemos ahorrar agua cerrando el grifo mientras nos lavamos los dientes, y ahorrar electricidad apagando las luces cuando no las necesitamos. Los árboles son muy importantes porque producen el oxígeno que respiramos y absorben el dióxido de carbono.',
-                        question: '¿Qué producen los árboles que nosotros necesitamos para respirar?',
-                        options: ['Dióxido de carbono', 'Oxígeno', 'Nitrógeno', 'Vapor de agua'],
-                        correct: 1,
-                        explanation: '¡Perfecto! Los árboles producen oxígeno, que es lo que necesitamos para respirar. ¡Por eso son tan importantes!'
-                    },
-                    {
-                        type: 'english',
-                        theme: 'mixed',
-                        learningHint: '<strong>🏠 La familia en inglés:</strong> "Family" incluye papá, mamá, hermanos, abuelos, etc.',
-                        question: '👨‍👩‍👧‍👦 Ash viaja con sus amigos, pero también quiere mucho a su familia. ¿Cómo se dice "familia" en inglés?',
-                        options: ['Friends', 'Family', 'School', 'House'],
-                        correct: 1,
-                        explanation: '¡Genial! "Family" significa familia. My family is very important! (¡Mi familia es muy importante!)'
-                    },
-                    {
-                        type: 'values',
-                        theme: 'mixed',
-                        learningHint: '<strong>🤝 Trabajo en equipo:</strong> Cuando trabajamos juntos, podemos lograr cosas increíbles.',
-                        question: '🎯 En todos los animes que hemos visto, los protagonistas trabajan en equipo. ¿Por qué es importante el trabajo en equipo?',
-                        options: ['Para ser más famosos', 'Para lograr objetivos juntos', 'Para competir contra otros', 'Para ganar más dinero'],
-                        correct: 1,
-                        explanation: '¡Perfecto! El trabajo en equipo es importante porque juntos podemos lograr objetivos que solos serían imposibles.'
-                    },
-                    {
-                        type: 'grammar',
-                        theme: 'mixed',
-                        learningHint: '<strong>📝 Género y número:</strong> Los sustantivos pueden ser masculinos/femeninos y singular/plural.',
-                        question: '✏️ ¿Cuál de estas palabras está en plural (más de uno)?',
-                        options: ['Pokémon', 'Titanes', 'Jugador', 'Entrenador'],
-                        correct: 1,
-                        explanation: '¡Correcto! "Titanes" está en plural (varios titanes). Las otras están en singular (uno solo).'
                     }
                 ]
             }
@@ -1484,15 +1533,11 @@
             { id: 'english_expert', name: 'Experto en Inglés', description: 'Completa 15 ejercicios de inglés', icon: '🇬🇧', requirement: 15 },
             { id: 'perfect_day', name: 'Día Perfecto', description: 'Completa todos los ejercicios de un día sin errores', icon: '⭐', requirement: 1 },
             { id: 'streak_week', name: 'Racha Semanal', description: 'Mantén una racha de 7 días', icon: '🔥', requirement: 7 },
-            { id: 'multiplication_master', name: 'Maestro de la Multiplicación', description: 'Completa 15 ejercicios de multiplicación correctos', icon: '✖️', requirement: 15 },
-            { id: 'reading_champion', name: 'Campeón de Lectura', description: 'Lee 25 textos completos', icon: '👑', requirement: 25 },
-            { id: 'interactive_genius', name: 'Genio Interactivo', description: 'Completa 10 ejercicios interactivos', icon: '🧩', requirement: 10 },
             { id: 'science_explorer', name: 'Explorador Científico', description: 'Completa 10 ejercicios de ciencias', icon: '🔬', requirement: 10 },
-            { id: 'speed_demon', name: 'Demonio de Velocidad', description: 'Completa un día en menos de 20 minutos', icon: '⚡', requirement: 1 },
             { id: 'hundred_club', name: 'Club de los 100', description: 'Alcanza 100 ejercicios completados', icon: '💯', requirement: 100 }
         ];
 
-        // Funciones principales (simplificadas por espacio)
+        // Funciones principales
         async function login() {
             const username = document.getElementById('usernameInput').value.trim();
             if (!username) {
@@ -1673,14 +1718,8 @@
                     technology: 0, grammar: 0, values: 0, nature: 0, money: 0 
                 },
                 exercisesByTheme: { pokemon: 0, titans: 0, football: 0, warframe: 0, mixed: 0 },
-                multiplicationExercises: 0,
-                textsRead: 0,
-                interactiveExercises: 0,
-                perfectDays: 0,
-                fastestDay: null,
                 completedExercises: {},
                 achievements: [],
-                sessionStartTime: null,
                 created: new Date().toISOString(),
                 lastActivity: new Date().toISOString()
             };
@@ -1717,19 +1756,28 @@
             document.getElementById('accuracy').textContent = accuracy + '%';
         }
 
-        // Gestión de pestañas
+        // Gestión de pestañas CORREGIDA
         function showTab(tabName) {
+            // Ocultar todos los contenidos
             document.querySelectorAll('.tab-content').forEach(tab => {
-                tab.style.display = 'none';
+                tab.classList.remove('active');
             });
             
+            // Remover clase active de todos los botones
             document.querySelectorAll('.nav-tab').forEach(btn => {
                 btn.classList.remove('active');
             });
             
-            document.getElementById(tabName + 'Tab').style.display = 'block';
+            // Mostrar el contenido seleccionado
+            const selectedTab = document.getElementById(tabName + 'Tab');
+            if (selectedTab) {
+                selectedTab.classList.add('active');
+            }
+            
+            // Marcar el botón como activo
             event.target.classList.add('active');
             
+            // Cargar contenido específico según la pestaña
             if (tabName === 'achievements') {
                 loadAchievements();
             } else if (tabName === 'stats') {
@@ -1752,11 +1800,10 @@
                 weekCard.onclick = () => showWeek(week);
                 
                 const completedDays = getCompletedDaysInWeek(week);
-                const totalDays = 5;
+                const totalDays = Object.keys(exerciseDatabase[`week${week}`]).length;
                 const progressPercent = (completedDays / totalDays) * 100;
                 
                 const weekEmojis = ['🔥', '🌟', '⚡', '🚀', '🏆'];
-                const weekColors = ['#ff6b6b', '#4ecdc4', '#fdcb6e', '#74b9ff', '#fd79a8'];
                 
                 weekCard.innerHTML = `
                     <h3>${weekEmojis[week - 1]} Semana ${week} - ¡Aventura ${week}!</h3>
@@ -1776,11 +1823,14 @@
 
         function getCompletedDaysInWeek(week) {
             let completed = 0;
-            for (let day = 1; day <= 5; day++) {
-                const dayKey = `week${week}_day${day}`;
-                if (appState.userData.completedExercises[dayKey]) {
-                    completed++;
-                }
+            const weekData = exerciseDatabase[`week${week}`];
+            if (weekData) {
+                Object.keys(weekData).forEach(day => {
+                    const dayKey = `week${week}_${day}`;
+                    if (appState.userData.completedExercises[dayKey]) {
+                        completed++;
+                    }
+                });
             }
             return completed;
         }
@@ -1797,22 +1847,29 @@
             
             document.getElementById('dayTitle').textContent = `🗓️ Semana ${weekNumber} - ¡Elige tu día de aventura!`;
             
-            for (let day = 1; day <= 5; day++) {
-                const dayKey = `week${weekNumber}_day${day}`;
-                const isCompleted = appState.userData.completedExercises[dayKey];
+            const weekData = exerciseDatabase[`week${weekNumber}`];
+            if (!weekData) {
+                dayGrid.innerHTML = '<div style="text-align: center; padding: 40px; color: #636e72; font-size: 18px; font-weight: 600;">🚧 ¡Pronto habrá más aventuras aquí! 🚧</div>';
+                return;
+            }
+            
+            Object.keys(weekData).forEach((dayKey, index) => {
+                const dayNumber = parseInt(dayKey.replace('day', ''));
+                const fullDayKey = `week${weekNumber}_${dayKey}`;
+                const isCompleted = appState.userData.completedExercises[fullDayKey];
                 
                 const dayCard = document.createElement('div');
                 dayCard.className = 'day-card';
-                dayCard.style.borderColor = dayColors[day - 1];
+                dayCard.style.borderColor = dayColors[index % dayColors.length];
                 
                 if (isCompleted) {
-                    dayCard.style.background = `linear-gradient(135deg, ${dayColors[day - 1]}, #2ecc71)`;
+                    dayCard.style.background = `linear-gradient(135deg, ${dayColors[index % dayColors.length]}, #2ecc71)`;
                     dayCard.style.color = 'white';
                 }
                 
-                dayCard.onclick = () => startDay(weekNumber, day);
+                dayCard.onclick = () => startDay(weekNumber, dayNumber);
                 
-                const exercises = getDayExercises(weekNumber, day);
+                const exercises = weekData[dayKey];
                 const exerciseList = exercises.map(ex => `
                     <div class="exercise-item" style="background: ${isCompleted ? 'rgba(255,255,255,0.2)' : '#f8f9fa'};">
                         <span>${getExerciseIcon(ex.type)} ${getExerciseTitle(ex.type, ex.theme)}</span>
@@ -1823,7 +1880,7 @@
                 const timeEstimate = Math.ceil(exercises.length * 4);
                 
                 dayCard.innerHTML = `
-                    <h4 style="font-family: 'Fredoka One', cursive; font-size: 20px; margin-bottom: 10px;">${days[day-1]} - Día ${day}</h4>
+                    <h4 style="font-family: 'Fredoka One', cursive; font-size: 20px; margin-bottom: 10px;">${days[index] || `Día ${dayNumber}`}</h4>
                     <p style="margin-bottom: 15px; font-weight: 600;">🕐 ~${timeEstimate} minutos de diversión | ${exercises.length} retos geniales</p>
                     <div class="exercise-list">
                         ${exerciseList}
@@ -1832,23 +1889,12 @@
                 `;
                 
                 dayGrid.appendChild(dayCard);
-            }
+            });
         }
 
         function backToWeeks() {
             document.getElementById('weekGrid').style.display = 'grid';
             document.getElementById('dayView').style.display = 'none';
-        }
-
-        function getDayExercises(week, day) {
-            const weekKey = `week${week}`;
-            const dayKey = `day${day}`;
-            
-            if (exerciseDatabase[weekKey] && exerciseDatabase[weekKey][dayKey]) {
-                return exerciseDatabase[weekKey][dayKey];
-            }
-            
-            return exerciseDatabase.week1.day1.slice(0, 3);
         }
 
         function getExerciseIcon(type) {
@@ -1898,7 +1944,163 @@
             return `${titles[type]} - ${themes[theme] || 'Aventura'}`;
         }
 
-        // Sistema de ranking estilo YouTube Kids
+        // FUNCIÓN CORREGIDA: Iniciar día de ejercicios
+        function startDay(week, day) {
+            const weekKey = `week${week}`;
+            const dayKey = `day${day}`;
+            
+            if (!exerciseDatabase[weekKey] || !exerciseDatabase[weekKey][dayKey]) {
+                alert('🚧 ¡Ups! Este día aún no está disponible. ¡Pronto habrá más aventuras! 🚧');
+                return;
+            }
+            
+            appState.currentExerciseSet = exerciseDatabase[weekKey][dayKey];
+            appState.currentExerciseIndex = 0;
+            appState.currentSessionStats = { correct: 0, total: 0 };
+            
+            createSparkles();
+            showExercise();
+        }
+
+        // FUNCIÓN NUEVA: Mostrar ejercicio
+        function showExercise() {
+            if (appState.currentExerciseIndex >= appState.currentExerciseSet.length) {
+                completeDay();
+                return;
+            }
+            
+            const exercise = appState.currentExerciseSet[appState.currentExerciseIndex];
+            const exerciseContainer = document.getElementById('exerciseContent');
+            
+            exerciseContainer.innerHTML = `
+                <div class="exercise-hint">
+                    ${exercise.learningHint}
+                </div>
+                
+                ${exercise.readingText ? `<div class="reading-text">${exercise.readingText}</div>` : ''}
+                
+                <div class="exercise-question">
+                    ${exercise.question}
+                </div>
+                
+                <div class="options-container" id="optionsContainer">
+                    ${exercise.options.map((option, index) => `
+                        <button class="option-btn" onclick="selectOption(${index})">
+                            ${option}
+                        </button>
+                    `).join('')}
+                </div>
+                
+                <div class="exercise-controls">
+                    <button class="exercise-btn secondary" onclick="closeExercise()">❌ Cerrar</button>
+                    <button class="exercise-btn primary" id="nextBtn" onclick="nextExercise()" disabled>➡️ Siguiente</button>
+                </div>
+                
+                <div style="text-align: center; margin-top: 20px; font-weight: 600; color: #636e72;">
+                    Ejercicio ${appState.currentExerciseIndex + 1} de ${appState.currentExerciseSet.length}
+                </div>
+            `;
+            
+            document.getElementById('exerciseOverlay').style.display = 'flex';
+            appState.selectedOption = null;
+        }
+
+        // FUNCIÓN NUEVA: Seleccionar opción
+        function selectOption(selectedIndex) {
+            // Remover selección anterior
+            document.querySelectorAll('.option-btn').forEach(btn => {
+                btn.classList.remove('selected');
+            });
+            
+            // Marcar opción seleccionada
+            document.querySelectorAll('.option-btn')[selectedIndex].classList.add('selected');
+            appState.selectedOption = selectedIndex;
+            
+            // Habilitar botón siguiente
+            document.getElementById('nextBtn').disabled = false;
+        }
+
+        // FUNCIÓN NUEVA: Siguiente ejercicio
+        function nextExercise() {
+            if (appState.selectedOption === null) return;
+            
+            const exercise = appState.currentExerciseSet[appState.currentExerciseIndex];
+            const isCorrect = appState.selectedOption === exercise.correct;
+            
+            appState.currentSessionStats.total++;
+            if (isCorrect) {
+                appState.currentSessionStats.correct++;
+            }
+            
+            // Mostrar retroalimentación
+            alert(isCorrect ? '🎉 ¡Correcto! ' + exercise.explanation : '❌ Incorrecto. ' + exercise.explanation);
+            
+            // Actualizar estadísticas del usuario
+            appState.userData.totalExercises++;
+            if (isCorrect) {
+                appState.userData.correctAnswers++;
+                appState.userData.totalPoints += 10;
+            }
+            
+            // Actualizar estadísticas por tipo y tema
+            appState.userData.exercisesByType[exercise.type] = (appState.userData.exercisesByType[exercise.type] || 0) + 1;
+            appState.userData.exercisesByTheme[exercise.theme] = (appState.userData.exercisesByTheme[exercise.theme] || 0) + 1;
+            
+            appState.currentExerciseIndex++;
+            
+            // Guardar progreso
+            saveUserData();
+            
+            // Mostrar siguiente ejercicio o completar día
+            showExercise();
+        }
+
+        // FUNCIÓN NUEVA: Cerrar ejercicio
+        function closeExercise() {
+            document.getElementById('exerciseOverlay').style.display = 'none';
+        }
+
+        // FUNCIÓN NUEVA: Completar día
+        function completeDay() {
+            const week = Math.floor((appState.currentExerciseIndex) / 5) + 1;
+            const day = ((appState.currentExerciseIndex) % 5) + 1;
+            
+            // Marcar día como completado
+            const dayKey = `week${week}_day${day}`;
+            appState.userData.completedExercises[dayKey] = true;
+            
+            // Actualizar racha
+            appState.userData.streak++;
+            
+            // Verificar si es día perfecto
+            if (appState.currentSessionStats.correct === appState.currentSessionStats.total) {
+                appState.userData.achievements.push('perfect_day');
+            }
+            
+            // Subir nivel cada 50 puntos
+            const newLevel = Math.floor(appState.userData.totalPoints / 50) + 1;
+            if (newLevel > appState.userData.level) {
+                appState.userData.level = newLevel;
+                alert(`🎉 ¡Subiste al nivel ${newLevel}! ¡Increíble progreso! 🚀`);
+            }
+            
+            // Guardar progreso
+            saveUserData();
+            
+            // Mostrar resumen del día
+            const accuracy = Math.round((appState.currentSessionStats.correct / appState.currentSessionStats.total) * 100);
+            
+            closeExercise();
+            createSparkles();
+            alert(`🎉 ¡DÍA COMPLETADO! 🎉\n\n✅ Respuestas correctas: ${appState.currentSessionStats.correct}/${appState.currentSessionStats.total}\n🎯 Precisión: ${accuracy}%\n💰 Puntos ganados: ${appState.currentSessionStats.correct * 10}\n\n¡Sigue así, campeón!`);
+            
+            // Actualizar interfaz y volver a vista de semanas
+            updateUserInterface();
+            generateWeeks();
+            backToWeeks();
+        }
+
+        // Sistema de ranking
         function loadRanking() {
             if (Object.keys(appState.allUsersData).length === 0) {
                 showNoRankingData();
@@ -2115,7 +2317,7 @@
             `;
         }
 
-        // Estadísticas kids-friendly
+        // Estadísticas
         function loadStats() {
             const content = document.getElementById('statsContent');
             const userData = appState.userData;
@@ -2136,7 +2338,6 @@
             });
             
             const userRankPosition = sortedByAchievements.findIndex(([username]) => username === appState.currentUser) + 1;
-            const totalUsers = allUsers.length;
             
             content.innerHTML = `
                 <div class="stats-kids">
@@ -2194,40 +2395,6 @@
                         </div>
                     </div>
                 </div>
-                
-                <div style="margin-top: 30px; padding: 25px; background: white; border-radius: 20px; border: 3px solid #fd79a8; text-align: center;">
-                    <h4 style="font-family: 'Fredoka One', cursive; font-size: 24px; margin-bottom: 15px; color: #2d3436;">🎮 Mis Temas Favoritos</h4>
-                    <div style="display: flex; justify-content: space-around; flex-wrap: wrap; gap: 15px;">
-                        <div style="text-align: center;">
-                            <div style="font-size: 30px;">🔴</div>
-                            <div style="font-family: 'Fredoka One', cursive; color: #fd79a8;">${userData.exercisesByTheme.pokemon || 0}</div>
-                            <div style="font-size: 12px; font-weight: 700;">Pokémon</div>
-                        </div>
-                        <div style="text-align: center;">
-                            <div style="font-size: 30px;">⚔️</div>
-                            <div style="font-family: 'Fredoka One', cursive; color: #fd79a8;">${userData.exercisesByTheme.titans || 0}</div>
-                            <div style="font-size: 12px; font-weight: 700;">Titanes</div>
-                        </div>
-                        <div style="text-align: center;">
-                            <div style="font-size: 30px;">⚽</div>
-                            <div style="font-family: 'Fredoka One', cursive; color: #fd79a8;">${userData.exercisesByTheme.football || 0}</div>
-                            <div style="font-size: 12px; font-weight: 700;">Fútbol</div>
-                        </div>
-                        <div style="text-align: center;">
-                            <div style="font-size: 30px;">🔫</div>
-                            <div style="font-family: 'Fredoka One', cursive; color: #fd79a8;">${userData.exercisesByTheme.warframe || 0}</div>
-                            <div style="font-size: 12px; font-weight: 700;">Warframe</div>
-                        </div>
-                    </div>
-                </div>
-                
-                ${userRankPosition <= 3 && userRankPosition > 0 ? `
-                    <div style="margin-top: 25px; padding: 25px; background: linear-gradient(135deg, #fdcb6e, #f39c12); border-radius: 20px; text-align: center; color: white; border: 3px solid white;">
-                        <div style="font-size: 60px; margin-bottom: 15px;">🎉</div>
-                        <h3 style="font-family: 'Fredoka One', cursive; font-size: 24px; text-shadow: 3px 3px 6px rgba(0,0,0,0.3);">¡ESTÁS EN EL PODIO!</h3>
-                        <p style="font-weight: 700; font-size: 16px;">¡Eres uno de los 3 mejores entrenadores! ¡Sigue así!</p>
-                    </div>
-                ` : ''}
             `;
         }
 
@@ -2240,7 +2407,6 @@
                 
                 const card = document.createElement('div');
                 card.className = `achievement-card ${isUnlocked ? 'unlocked' : ''}`;
-                card.style.border = `3px solid ${isUnlocked ? '#ffd700' : '#ddd'}`;
                 
                 card.innerHTML = `
                     <div class="achievement-icon">${achievement.icon}</div>
@@ -2253,12 +2419,6 @@
                 
                 grid.appendChild(card);
             });
-        }
-
-        // Funciones simplificadas para ejercicios
-        function startDay(week, day) {
-            createSparkles();
-            alert(`🎮 ¡Empezando aventura del día ${day} de la semana ${week}! 🚀\n\n(Función completa de ejercicios disponible en la versión completa)`);
         }
 
         // Funciones de administración
@@ -2301,20 +2461,7 @@
             const dataToExport = {
                 user: appState.currentUser,
                 data: appState.userData,
-                ranking: {
-                    position: calculateUserRankPosition(),
-                    totalUsers: Object.keys(appState.allUsersData).length
-                },
-                exportDate: new Date().toISOString(),
-                summary: {
-                    totalExercises: appState.userData.totalExercises,
-                    accuracy: appState.userData.totalExercises > 0 ? Math.round((appState.userData.correctAnswers / appState.userData.totalExercises) * 100) : 0,
-                    level: appState.userData.level,
-                    achievements: appState.userData.achievements.length,
-                    connectionStatus: appState.connectionStatus,
-                    perfectDays: appState.userData.perfectDays || 0,
-                    fastestDay: appState.userData.fastestDay || null
-                }
+                exportDate: new Date().toISOString()
             };
             
             const dataStr = JSON.stringify(dataToExport, null, 2);
@@ -2329,34 +2476,9 @@
             alert('📥 ¡Datos súper descargados! 🎉');
         }
 
-        function calculateUserRankPosition() {
-            const allUsers = Object.entries(appState.allUsersData);
-            const sortedByAchievements = allUsers.sort((a, b) => {
-                const aAchievements = a[1].achievements ? a[1].achievements.length : 0;
-                const bAchievements = b[1].achievements ? b[1].achievements.length : 0;
-                if (bAchievements !== aAchievements) {
-                    return bAchievements - aAchievements;
-                }
-                return (b[1].totalPoints || 0) - (a[1].totalPoints || 0);
-            });
-            
-            return sortedByAchievements.findIndex(([username]) => username === appState.currentUser) + 1;
-        }
-
-        // Sistema de recompensas
-        function showReward(title, icon, message) {
-            createSparkles();
-            alert(`${icon} ${title}\n\n${message}`);
-        }
-
-        function closeReward() {
-            // Función simplificada
-        }
-
         // Inicialización
         document.addEventListener('DOMContentLoaded', function() {
-            console.log('🎮 Academia Pokemon iniciada - Versión YouTube Kids Style');
-            console.log('🌈 ¡Diseño súper colorido y divertido activado!');
+            console.log('🎮 Academia Pokemon iniciada - Versión corregida');
             
             updateConnectionStatus('offline');
             document.getElementById('loginScreen').style.display = 'flex';
@@ -2376,99 +2498,6 @@
                 }
             }, 10000);
         });
-
-        // Funciones simplificadas para demo (por espacio)
-        function selectOption(selectedIndex) {
-            alert('🎮 Función completa de ejercicios disponible en la versión final');
-        }
-
-        function nextExercise() {
-            alert('🎮 Función completa de ejercicios disponible en la versión final');
-        }
-
-        function completeDay() {
-            alert('🎮 Función completa de ejercicios disponible en la versión final');
-        }
-
-        function closeExercise() {
-            // Función simplificada
-        }
-
-        function showExercise() {
-            alert('🎮 Función completa de ejercicios disponible en la versión final');
-        }
-
-        function showNormalExercise(exercise) {
-            alert('🎮 Función completa de ejercicios disponible en la versión final');
-        }
-
-        function showInteractiveExercise(exercise) {
-            alert('🎮 Función completa de ejercicios disponible en la versión final');
-        }
-
-        function createSequenceExercise(exercise) {
-            alert('🎮 Función completa de ejercicios disponible en la versión final');
-        }
-
-        function createDragDropExercise(exercise) {
-            alert('🎮 Función completa de ejercicios disponible en la versión final');
-        }
-
-        function handleInteractiveResult(isCorrect, explanation) {
-            alert('🎮 Función completa de ejercicios disponible en la versión final');
-        }
-
-        function checkAchievements() {
-            // Lógica simplificada
-        }
-
-        function showDayComplete(correct, total, duration) {
-            createSparkles();
-            alert(`🎉 ¡Día súper completado! ${correct}/${total} en ${duration} minutos 🚀`);
-        }
-
-        // Agregar más efectos visuales
-        function addFloatingEmoji() {
-            const emojis = ['🌟', '⭐', '✨', '🎉', '🚀', '🏆', '🎯', '💯'];
-            const emoji = emojis[Math.floor(Math.random() * emojis.length)];
-            
-            const element = document.createElement('div');
-            element.textContent = emoji;
-            element.style.position = 'fixed';
-            element.style.left = Math.random() * window.innerWidth + 'px';
-            element.style.top = window.innerHeight + 'px';
-            element.style.fontSize = '30px';
-            element.style.zIndex = '9999';
-            element.style.pointerEvents = 'none';
-            element.style.animation = 'floatUp 4s ease-out forwards';
-            
-            document.body.appendChild(element);
-            
-            setTimeout(() => element.remove(), 4000);
-        }
-
-        // Agregar CSS para animación flotante
-        const style = document.createElement('style');
-        style.textContent = `
-            @keyframes floatUp {
-                from {
-                    transform: translateY(0px) rotate(0deg);
-                    opacity: 1;
-                }
-                to {
-                    transform: translateY(-100vh) rotate(360deg);
-                    opacity: 0;
-                }
-            }
-        `;
-        document.head.appendChild(style);
-
-        // Activar efectos especiales ocasionalmente
-        setInterval(() => {
-            if (Math.random() > 0.8) {
-                addFloatingEmoji();
-            }
-        }, 5000);
     </script>
 </body>
 </html>
