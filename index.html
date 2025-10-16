@@ -43,34 +43,6 @@
             position: relative;
         }
 
-        .floating-shapes {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            overflow: hidden;
-            z-index: 1;
-        }
-
-        .shape {
-            position: absolute;
-            font-size: 60px;
-            animation: float 6s ease-in-out infinite;
-            opacity: 0.8;
-        }
-
-        .shape:nth-child(1) { top: 20%; left: 10%; animation-delay: 0s; }
-        .shape:nth-child(2) { top: 60%; left: 80%; animation-delay: 1s; }
-        .shape:nth-child(3) { top: 80%; left: 20%; animation-delay: 2s; }
-        .shape:nth-child(4) { top: 30%; left: 70%; animation-delay: 3s; }
-        .shape:nth-child(5) { top: 10%; left: 50%; animation-delay: 4s; }
-
-        @keyframes float {
-            0%, 100% { transform: translateY(0px) rotate(0deg); }
-            50% { transform: translateY(-20px) rotate(10deg); }
-        }
-
         .login-card {
             background: white;
             padding: 50px;
@@ -83,12 +55,6 @@
             z-index: 2;
             border: 5px solid transparent;
             background-clip: padding-box;
-            animation: cardBounce 2s ease-in-out infinite;
-        }
-
-        @keyframes cardBounce {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-5px); }
         }
 
         .login-card::before {
@@ -318,7 +284,6 @@
             text-shadow: 2px 2px 0px #ddd;
         }
 
-        /* Estilos del Ranking estilo YouTube Kids */
         .ranking-container {
             display: flex;
             flex-direction: column;
@@ -381,29 +346,6 @@
             overflow: hidden;
         }
 
-        .podium-place::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.3), transparent);
-            transform: rotate(45deg);
-            transition: all 0.6s;
-            opacity: 0;
-        }
-
-        .podium-place:hover::before {
-            animation: shine 0.6s ease-in-out;
-        }
-
-        @keyframes shine {
-            0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); opacity: 0; }
-            50% { opacity: 1; }
-            100% { transform: translateX(100%) translateY(100%) rotate(45deg); opacity: 0; }
-        }
-
         .podium-place:hover {
             transform: translateY(-8px) scale(1.05);
         }
@@ -413,12 +355,6 @@
             background: linear-gradient(135deg, #fdcb6e, #f39c12);
             border-color: #f39c12;
             order: 2;
-            animation: winner-glow 2s ease-in-out infinite;
-        }
-
-        @keyframes winner-glow {
-            0%, 100% { box-shadow: 0 10px 30px rgba(243, 156, 18, 0.3); }
-            50% { box-shadow: 0 15px 40px rgba(243, 156, 18, 0.6); }
         }
 
         .podium-place.second {
@@ -454,12 +390,6 @@
         .podium-crown {
             font-size: 50px;
             margin-bottom: 15px;
-            animation: crown-bounce 2s ease-in-out infinite;
-        }
-
-        @keyframes crown-bounce {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-5px); }
         }
 
         .podium-name {
@@ -519,12 +449,6 @@
             border: 3px solid #e17055;
             margin: 5px 0;
             border-radius: 15px;
-            animation: highlight-pulse 2s ease-in-out infinite;
-        }
-
-        @keyframes highlight-pulse {
-            0%, 100% { box-shadow: 0 5px 15px rgba(253, 203, 110, 0.3); }
-            50% { box-shadow: 0 10px 25px rgba(253, 203, 110, 0.6); }
         }
 
         .position {
@@ -537,12 +461,6 @@
         .position.first {
             color: #f39c12;
             font-size: 32px;
-            animation: winner-bounce 1s ease-in-out infinite;
-        }
-
-        @keyframes winner-bounce {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.1); }
         }
 
         .position.second {
@@ -612,15 +530,8 @@
             font-size: 12px;
             border: 2px solid white;
             box-shadow: 0 2px 6px rgba(0,0,0,0.2);
-            animation: achievement-glow 2s ease-in-out infinite;
         }
 
-        @keyframes achievement-glow {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.1); }
-        }
-
-        /* Semanas estilo YouTube Kids */
         .week-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
@@ -693,7 +604,6 @@
             box-shadow: 0 2px 6px rgba(0,0,0,0.2);
         }
 
-        /* Día individual - nuevo */
         .day-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -731,7 +641,6 @@
             font-weight: 600;
         }
 
-        /* Ejercicio individual - nuevo */
         #exerciseOverlay {
             position: fixed;
             top: 0;
@@ -864,7 +773,6 @@
             transform: none;
         }
 
-        /* Estadísticas kids-friendly */
         .stats-kids {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -914,12 +822,6 @@
         .stat-icon-big {
             font-size: 80px;
             margin-bottom: 20px;
-            animation: stat-bounce 2s ease-in-out infinite;
-        }
-
-        @keyframes stat-bounce {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-8px); }
         }
 
         .stat-number-big {
@@ -930,11 +832,11 @@
         }
 
         .stat-label-big {
-            font-size: 18pxfont-weight: 700;
+            font-size: 18px;
+            font-weight: 700;
             opacity: 0.9;
         }
 
-        /* Logros */
         .achievement-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -955,7 +857,6 @@
             border-color: #ffd700;
             background: linear-gradient(135deg, #fdcb6e, #f39c12);
             color: white;
-            animation: achievement-glow 2s ease-in-out infinite;
         }
 
         .achievement-card:hover {
@@ -989,7 +890,6 @@
             color: white;
         }
 
-        /* Responsive para móviles */
         @media (max-width: 768px) {
             .header {
                 flex-direction: column;
@@ -1081,48 +981,11 @@
                 font-size: 24px;
             }
         }
-
-        /* Efectos especiales para niños */
-        .sparkle {
-            position: absolute;
-            color: #fdcb6e;
-            font-size: 20px;
-            animation: sparkle 2s ease-in-out infinite;
-            pointer-events: none;
-        }
-
-        @keyframes sparkle {
-            0%, 100% { opacity: 0; transform: scale(0); }
-            50% { opacity: 1; transform: scale(1); }
-        }
-
-        /* Animación flotante */
-        @keyframes floatUp {
-            from {
-                transform: translateY(0px) rotate(0deg);
-                opacity: 1;
-            }
-            to {
-                transform: translateY(-100vh) rotate(360deg);
-                opacity: 0;
-            }
-        }
     </style>
 </head>
 <body>
-    <!-- Efectos de fondo -->
-    <div class="floating-shapes">
-        <div class="shape">🎮</div>
-        <div class="shape">🏆</div>
-        <div class="shape">⭐</div>
-        <div class="shape">🎯</div>
-        <div class="shape">🚀</div>
-    </div>
-
-    <!-- Indicador de conexión -->
     <div id="connectionStatus" class="connection-status offline">🔄 Conectando...</div>
 
-    <!-- Pantalla de Login -->
     <div id="loginScreen" class="login-screen">
         <div class="login-card">
             <h1>🎮 Academia Pokemon</h1>
@@ -1132,10 +995,8 @@
         </div>
     </div>
 
-    <!-- Aplicación Principal -->
     <div id="mainApp" class="main-app">
         <div class="container">
-            <!-- Header -->
             <div class="header">
                 <div class="user-info">
                     <div class="avatar" id="userAvatar">🏆</div>
@@ -1161,18 +1022,15 @@
                 <button onclick="logout()" style="background: linear-gradient(45deg, #e17055, #d63031); color: white; border: none; padding: 15px 25px; border-radius: 20px; cursor: pointer; font-weight: 700; box-shadow: 0 5px 15px rgba(225, 112, 85, 0.4);">👋 Salir</button>
             </div>
 
-            <!-- Navegación -->
             <div class="nav-tabs">
-                <button class="nav-tab active" onclick="showTab('training')">🎯 Entrenamiento</button>
-                <button class="nav-tab" onclick="showTab('ranking')">🏆 Ranking</button>
-                <button class="nav-tab" onclick="showTab('achievements')">🎖️ Mis Logros</button>
-                <button class="nav-tab" onclick="showTab('stats')">📊 Mis Estadísticas</button>
-                <button class="nav-tab" onclick="showTab('admin')">⚙️ Configuración</button>
+                <button class="nav-tab active" data-tab="training">🎯 Entrenamiento</button>
+                <button class="nav-tab" data-tab="ranking">🏆 Ranking</button>
+                <button class="nav-tab" data-tab="achievements">🎖️ Mis Logros</button>
+                <button class="nav-tab" data-tab="stats">📊 Mis Estadísticas</button>
+                <button class="nav-tab" data-tab="admin">⚙️ Configuración</button>
             </div>
 
-            <!-- Área de contenido -->
             <div class="content-area">
-                <!-- Pestaña de Entrenamiento -->
                 <div id="trainingTab" class="tab-content active">
                     <h2>🗓️ ¡Elige tu Semana de Aventuras!</h2>
                     <div class="week-grid" id="weekGrid"></div>
@@ -1183,11 +1041,9 @@
                     </div>
                 </div>
 
-                <!-- Pestaña de Ranking -->
                 <div id="rankingTab" class="tab-content">
                     <h2>🏆 ¡Tabla de Campeones!</h2>
                     <div class="ranking-container">
-                        <!-- Filtros -->
                         <div class="ranking-filters">
                             <button class="filter-btn active" onclick="setRankingFilter('achievements')">🎖️ Logros</button>
                             <button class="filter-btn" onclick="setRankingFilter('points')">💰 Puntos</button>
@@ -1196,28 +1052,21 @@
                             <button class="filter-btn" onclick="setRankingFilter('accuracy')">🎯 Precisión</button>
                             <button class="filter-btn" onclick="setRankingFilter('streak')">🔥 Racha</button>
                         </div>
-
-                        <!-- Podio para top 3 -->
                         <div id="podiumContainer" class="podium"></div>
-
-                        <!-- Tabla de ranking -->
                         <div id="rankingTableContainer"></div>
                     </div>
                 </div>
 
-                <!-- Pestaña de Logros -->
                 <div id="achievementsTab" class="tab-content">
                     <h2>🎖️ ¡Mis Súper Logros!</h2>
                     <div class="achievement-grid" id="achievementGrid"></div>
                 </div>
 
-                <!-- Pestaña de Estadísticas -->
                 <div id="statsTab" class="tab-content">
                     <h2>📊 ¡Mis Números Geniales!</h2>
                     <div id="statsContent"></div>
                 </div>
 
-                <!-- Pestaña de Administración -->
                 <div id="adminTab" class="tab-content">
                     <h2>⚙️ Mi Panel de Control</h2>
                     <div style="background: linear-gradient(135deg, #f8f9fa, #e9ecef); padding: 25px; border-radius: 20px; margin-bottom: 25px; border: 3px solid #74b9ff;">
@@ -1236,7 +1085,6 @@
         </div>
     </div>
 
-    <!-- Overlay para ejercicios -->
     <div id="exerciseOverlay">
         <div class="exercise-container">
             <button class="close-exercise" onclick="closeExercise()">✕</button>
@@ -1245,19 +1093,19 @@
     </div>
 
     <script>
-        // Configuración de JSONBin
         const JSONBIN_CONFIG = {
             binId: '68ee144343b1c97be96704f9',
             masterKey: '$2a$10$byEkgCiPtr6uA9j.sw5Uiuld00jGPRMT1Rn9TlhHYbPe3CFfaEu6G',
             apiUrl: 'https://api.jsonbin.io/v3'
         };
 
-        // Estado global de la aplicación
         let appState = {
             currentUser: null,
             userData: {},
             currentExerciseSet: [],
             currentExerciseIndex: 0,
+            currentWeek: 0,
+            currentDay: 0,
             currentSessionStats: { correct: 0, total: 0 },
             connectionStatus: 'offline',
             allUsersData: {},
@@ -1265,7 +1113,6 @@
             selectedOption: null
         };
 
-        // Base de datos de ejercicios AMPLIADA con 2 semanas completas
         const exerciseDatabase = {
             week1: {
                 day1: [
@@ -1325,43 +1172,6 @@
                         options: ['55 titanes', '53 titanes', '57 titanes', '52 titanes'],
                         correct: 0,
                         explanation: '¡Correcto! 15 + 23 + 17 = 55 titanes. Paso a paso: 15 + 23 = 38, luego 38 + 17 = 55.'
-                    },
-                    {
-                        type: 'reading',
-                        theme: 'titans',
-                        learningHint: '<strong>🧱 Organización espacial:</strong> Imagina las murallas como círculos concéntricos, una dentro de otra.',
-                        readingText: '<h4>🏰 El Sistema de Murallas Defensivas</h4>Las tres enormes murallas protegen a la humanidad de los gigantes titanes. La muralla exterior se llama María, tiene 50 metros de altura y es la primera línea de defensa contra los titanes. Dentro de María se encuentra la muralla Rose, de 45 metros de altura, que protege las ciudades intermedias. En el centro de todo está la muralla Sina, la más pequeña con 40 metros de altura, pero la más segura, donde vive la familia real.',
-                        question: '¿Cuál es la altura de la muralla Rose?',
-                        options: ['50 metros', '40 metros', '45 metros', '35 metros'],
-                        correct: 2,
-                        explanation: '¡Muy bien! El texto dice claramente que "la muralla Rose, de 45 metros de altura". ¡Has encontrado la información específica!'
-                    },
-                    {
-                        type: 'english',
-                        theme: 'titans',
-                        learningHint: '<strong>🗣️ Palabras cognadas:</strong> "Giant" y "gigante" suenan parecido porque vienen de la misma raíz latina.',
-                        question: '🗿 Los titanes son criaturas gigantes y terroríficas. ¿Cómo se dice "gigante" en inglés?',
-                        options: ['Small', 'Giant', 'Tiny', 'Little'],
-                        correct: 1,
-                        explanation: '¡Excelente! "Giant" significa gigante. ¿Notaste que suena similar a "gigante" en español?'
-                    },
-                    {
-                        type: 'math',
-                        theme: 'titans',
-                        learningHint: '<strong>✖️ Multiplicación práctica:</strong> 8 × 6 = 48. Piensa en 8 grupos de 6 soldados formados.',
-                        question: '🛡️ El escuadrón se organiza en 8 filas de soldados. En cada fila hay 6 soldados. ¿Cuántos soldados hay en total en la formación?',
-                        options: ['48 soldados', '42 soldados', '54 soldados', '46 soldados'],
-                        correct: 0,
-                        explanation: '¡Perfecto! 8 × 6 = 48 soldados. Es como sumar 6 ocho veces: 6+6+6+6+6+6+6+6 = 48.'
-                    },
-                    {
-                        type: 'geography',
-                        theme: 'titans',
-                        learningHint: '<strong>🗺️ Puntos cardinales:</strong> Norte arriba, Sur abajo, Este derecha, Oeste izquierda. Como una brújula.',
-                        question: '🧭 Los soldados salen de la muralla hacia donde sale el sol para explorar territorio titán. ¿En qué dirección van?',
-                        options: ['Norte', 'Sur', 'Este', 'Oeste'],
-                        correct: 2,
-                        explanation: '¡Perfecto! El sol sale por el Este. Si van hacia donde sale el sol, se dirigen al Este.'
                     }
                 ],
                 day3: [
@@ -1373,43 +1183,6 @@
                         options: ['1 gol', '2 goles', '0 goles', '3 goles'],
                         correct: 0,
                         explanation: '¡Muy bien! Real Madrid: 2 + 3 = 5 goles. Barcelona: 1 + 3 = 4 goles. Diferencia: 5 - 4 = 1 gol a favor del Real Madrid.'
-                    },
-                    {
-                        type: 'reading',
-                        theme: 'football',
-                        learningHint: '<strong>🏃‍♂️ Datos biográficos:</strong> Busca información específica sobre la persona: origen, profesión, logros.',
-                        readingText: '<h4>⭐ Lionel Messi: Una Leyenda del Fútbol</h4>Lionel Andrés Messi nació el 24 de junio de 1987 en Rosario, Argentina, una ciudad de Sudamérica. Comenzó a jugar fútbol profesional a los 17 años en el FC Barcelona de España. Messi es famoso mundialmente por ser un delantero extraordinariamente hábil con la pelota y por haber ganado 7 premios Balón de Oro, más que cualquier otro jugador en la historia.',
-                        question: '¿En qué año nació Lionel Messi según el texto?',
-                        options: ['1986', '1987', '1988', '1985'],
-                        correct: 1,
-                        explanation: '¡Perfecto! El texto dice claramente que "nació el 24 de junio de 1987". ¡Has leído con mucha precisión!'
-                    },
-                    {
-                        type: 'english',
-                        theme: 'football',
-                        learningHint: '<strong>⚽ Deportes en inglés:</strong> "Ball" viene de la palabra germánica para pelota. Se usa en muchos deportes.',
-                        question: '⚽ En el fútbol, los jugadores patean la pelota con los pies. ¿Cómo se dice "pelota" en inglés?',
-                        options: ['Ball', 'Goal', 'Field', 'Player'],
-                        correct: 0,
-                        explanation: '¡Genial! "Ball" significa pelota. Football = foot (pie) + ball (pelota) = fútbol.'
-                    },
-                    {
-                        type: 'math',
-                        theme: 'football',
-                        learningHint: '<strong>✖️ Problemas de multiplicación:</strong> 11 jugadores × 2 equipos. Cada equipo tiene el mismo número de jugadores.',
-                        question: '👥 En un partido oficial de fútbol juegan 2 equipos completos. Cada equipo tiene 11 jugadores en el campo. ¿Cuántos jugadores están jugando en total?',
-                        options: ['22 jugadores', '20 jugadores', '24 jugadores', '18 jugadores'],
-                        correct: 0,
-                        explanation: '¡Excelente! 11 × 2 = 22 jugadores en total. También puedes sumar: 11 + 11 = 22.'
-                    },
-                    {
-                        type: 'money',
-                        theme: 'football',
-                        learningHint: '<strong>💰 Euros y céntimos:</strong> 1 euro = 100 céntimos. Para sumar dinero, suma euros con euros y céntimos con céntimos.',
-                        question: '💰 Messi compra 3 balones de fútbol que cuestan 15,50 euros cada uno. ¿Cuánto paga en total?',
-                        options: ['46,50 euros', '45,00 euros', '47,50 euros', '44,50 euros'],
-                        correct: 0,
-                        explanation: '¡Genial! 3 × 15,50 = 46,50 euros. También puedes pensarlo como 15,50 + 15,50 + 15,50 = 46,50 euros.'
                     }
                 ],
                 day4: [
@@ -1421,34 +1194,6 @@
                         options: ['57 puntos', '63 puntos', '51 puntos', '59 puntos'],
                         correct: 0,
                         explanation: '¡Perfecto! 124 - 67 = 57 puntos. En la resta: 4 - 7 no se puede, pido prestado: 14 - 7 = 7, luego 1 - 6 no se puede, pido prestado: 11 - 6 = 5.'
-                    },
-                    {
-                        type: 'reading',
-                        theme: 'warframe',
-                        learningHint: '<strong>🚀 Ciencia ficción:</strong> Busca información sobre tecnología futurista y características especiales.',
-                        readingText: '<h4>🤖 Los Guerreros Tenno del Futuro</h4>Los Tenno son antiguos guerreros espaciales que despertaron después de siglos durmiendo en criosueño. Utilizan armaduras bio-mecánicas llamadas Warframes que les otorgan poderes sobrenaturales únicos. Existen más de 50 tipos diferentes de Warframes: algunos se especializan en velocidad extrema como Volt, otros en fuerza bruta como Rhino, y algunos en sigilo como Ash.',
-                        question: '¿Cuántos tipos diferentes de Warframes existen según el texto?',
-                        options: ['Más de 40', 'Exactamente 50', 'Más de 50', 'Menos de 50'],
-                        correct: 2,
-                        explanation: '¡Excelente! El texto dice "más de 50 tipos diferentes de Warframes". ¡Has leído con mucha atención!'
-                    },
-                    {
-                        type: 'english',
-                        theme: 'warframe',
-                        learningHint: '<strong>🌌 Vocabulario espacial:</strong> "Space" se relaciona con astronauta, spaceship (nave espacial).',
-                        question: '🌌 Los Tenno son guerreros que luchan en el espacio exterior. ¿Cómo se dice "espacio" en inglés?',
-                        options: ['Space', 'Time', 'World', 'Sky'],
-                        correct: 0,
-                        explanation: '¡Perfecto! "Space" significa espacio. Outer space = espacio exterior, donde luchan los Tenno.'
-                    },
-                    {
-                        type: 'science',
-                        theme: 'warframe',
-                        learningHint: '<strong>🌍 El Sistema Solar:</strong> Hay 8 planetas que giran alrededor del Sol. Los más cercanos son rocosos.',
-                        question: '🌍 Los Tenno protegen el Sistema Solar. ¿Cuántos planetas principales hay en nuestro Sistema Solar?',
-                        options: ['7 planetas', '8 planetas', '9 planetas', '10 planetas'],
-                        correct: 1,
-                        explanation: '¡Correcto! Hay 8 planetas: Mercurio, Venus, Tierra, Marte, Júpiter, Saturno, Urano y Neptuno.'
                     }
                 ],
                 day5: [
@@ -1460,34 +1205,6 @@
                         options: ['4 Pokéballs', '5 Pokéballs', '3 Pokéballs', '6 Pokéballs'],
                         correct: 0,
                         explanation: '¡Perfecto! 24 ÷ 6 = 4 Pokéballs cada uno. Puedes comprobarlo: 4 × 6 = 24. ¡Ash es muy generoso!'
-                    },
-                    {
-                        type: 'reading',
-                        theme: 'football',
-                        learningHint: '<strong>🥅 Reglas deportivas:</strong> Presta atención a las reglas especiales y las excepciones.',
-                        readingText: '<h4>⚽ Las Reglas Básicas del Fútbol</h4>En un partido oficial de fútbol, cada equipo tiene exactamente 11 jugadores en el campo simultáneamente. De estos 11 jugadores, hay 10 jugadores de campo que pueden correr libremente por todo el terreno, pero tienen una regla muy importante: solo pueden tocar la pelota con los pies, la cabeza, el pecho y los hombros. Sin embargo, existe un jugador muy especial llamado portero o guardameta.',
-                        question: '¿Cuántos jugadores de campo (sin contar el portero) hay en cada equipo?',
-                        options: ['9 jugadores', '10 jugadores', '11 jugadores', '12 jugadores'],
-                        correct: 1,
-                        explanation: '¡Correcto! Son 11 jugadores en total: 10 jugadores de campo + 1 portero = 11 jugadores por equipo.'
-                    },
-                    {
-                        type: 'english',
-                        theme: 'titans',
-                        learningHint: '<strong>🧱 Construcciones:</strong> "Wall" también se usa en "Great Wall of China" (Gran Muralla China).',
-                        question: '🏰 Las murallas protegen a la humanidad de los titanes. ¿Cómo se dice "muralla" o "muro" en inglés?',
-                        options: ['Wall', 'Door', 'Window', 'Roof'],
-                        correct: 0,
-                        explanation: '¡Excelente! "Wall" significa muro o muralla. The Great Wall = La Gran Muralla (de China).'
-                    },
-                    {
-                        type: 'values',
-                        theme: 'mixed',
-                        learningHint: '<strong>❤️ Valores sociales:</strong> El respeto, la ayuda mutua y la honestidad son valores importantes.',
-                        question: '🤝 Ash siempre ayuda a sus amigos cuando tienen problemas. ¿Qué valor positivo demuestra Ash?',
-                        options: ['Egoísmo', 'Solidaridad', 'Envidia', 'Pereza'],
-                        correct: 1,
-                        explanation: '¡Perfecto! Ash demuestra solidaridad al ayudar a sus amigos. La solidaridad es ayudar a otros sin esperar nada a cambio.'
                     }
                 ]
             },
@@ -1501,31 +1218,11 @@
                         options: ['63 rayos', '56 rayos', '72 rayos', '64 rayos'],
                         correct: 0,
                         explanation: '¡Increíble! 9 × 7 = 63 rayos. ¿Notaste que 6 + 3 = 9? ¡Ese es el truco de la tabla del 9!'
-                    },
-                    {
-                        type: 'reading',
-                        theme: 'pokemon',
-                        learningHint: '<strong>📊 Comparar información:</strong> Cuando el texto habla de varios personajes, organiza la información de cada uno por separado.',
-                        readingText: '<h4>🎮 La Liga Pokémon Regional</h4>En la Liga Pokémon de Kanto participaron este año 150 entrenadores de toda la región. Ash terminó en el puesto número 16, lo que significa que 15 entrenadores quedaron por delante de él. Su rival Gary Oak logró el puesto número 8, superando a Ash por 8 posiciones. Brock, el líder de gimnasio de Ciudad Plateada, no participó en la liga porque ya es un líder oficial y tiene otras responsabilidades.',
-                        question: '¿En qué puesto terminó Gary Oak en la Liga Pokémon?',
-                        options: ['Puesto 15', 'Puesto 8', 'Puesto 16', 'Puesto 24'],
-                        correct: 1,
-                        explanation: '¡Perfecto! El texto dice claramente que "Gary Oak logró el puesto número 8". ¡Gary lo hizo muy bien en la liga!'
-                    },
-                    {
-                        type: 'english',
-                        theme: 'pokemon',
-                        learningHint: '<strong>🎨 Más colores en inglés:</strong> "Blue" se pronuncia "blu" y es como el color del agua y del cielo.',
-                        question: '💙 Squirtle es un Pokémon de agua de color azul. ¿Cómo se dice "azul" en inglés?',
-                        options: ['Blue', 'Green', 'Purple', 'Orange'],
-                        correct: 0,
-                        explanation: '¡Genial! "Blue" significa azul en inglés. Squirtle is blue like the ocean! (¡Squirtle es azul como el océano!)'
                     }
                 ]
             }
         };
 
-        // Logros disponibles
         const achievements = [
             { id: 'first_exercise', name: 'Primer Paso', description: 'Completa tu primer ejercicio', icon: '🎯', requirement: 1 },
             { id: 'math_master', name: 'Maestro Matemático', description: 'Completa 20 ejercicios de matemáticas', icon: '🧮', requirement: 20 },
@@ -1537,11 +1234,9 @@
             { id: 'hundred_club', name: 'Club de los 100', description: 'Alcanza 100 ejercicios completados', icon: '💯', requirement: 100 }
         ];
 
-        // Funciones principales
         async function login() {
             const username = document.getElementById('usernameInput').value.trim();
             if (!username) {
-                createSparkles();
                 alert('¡Oye! ¡Escribe tu nombre genial de entrenador! 🌟');
                 return;
             }
@@ -1549,21 +1244,6 @@
             appState.currentUser = username;
             await loadUserData();
             showMainApp();
-        }
-
-        function createSparkles() {
-            for (let i = 0; i < 5; i++) {
-                setTimeout(() => {
-                    const sparkle = document.createElement('div');
-                    sparkle.className = 'sparkle';
-                    sparkle.textContent = '✨';
-                    sparkle.style.left = Math.random() * window.innerWidth + 'px';
-                    sparkle.style.top = Math.random() * window.innerHeight + 'px';
-                    document.body.appendChild(sparkle);
-                    
-                    setTimeout(() => sparkle.remove(), 2000);
-                }, i * 200);
-            }
         }
 
         function logout() {
@@ -1576,7 +1256,6 @@
             }
         }
 
-        // Gestión de datos con JSONBin
         async function loadUserData() {
             updateConnectionStatus('connecting');
             try {
@@ -1725,14 +1404,12 @@
             };
         }
 
-        // Interfaz principal
         function showMainApp() {
             document.getElementById('loginScreen').style.display = 'none';
             document.getElementById('mainApp').style.display = 'block';
             updateUserInterface();
             generateWeeks();
             
-            // Actualizar avatar con inicial
             const avatar = document.getElementById('userAvatar');
             if (avatar) {
                 avatar.textContent = appState.currentUser.charAt(0).toUpperCase();
@@ -1756,28 +1433,25 @@
             document.getElementById('accuracy').textContent = accuracy + '%';
         }
 
-        // Gestión de pestañas CORREGIDA
         function showTab(tabName) {
-            // Ocultar todos los contenidos
             document.querySelectorAll('.tab-content').forEach(tab => {
                 tab.classList.remove('active');
             });
             
-            // Remover clase active de todos los botones
             document.querySelectorAll('.nav-tab').forEach(btn => {
                 btn.classList.remove('active');
             });
             
-            // Mostrar el contenido seleccionado
             const selectedTab = document.getElementById(tabName + 'Tab');
             if (selectedTab) {
                 selectedTab.classList.add('active');
             }
             
-            // Marcar el botón como activo
-            event.target.classList.add('active');
+            const clickedButton = document.querySelector(`.nav-tab[data-tab="${tabName}"]`);
+            if (clickedButton) {
+                clickedButton.classList.add('active');
+            }
             
-            // Cargar contenido específico según la pestaña
             if (tabName === 'achievements') {
                 loadAchievements();
             } else if (tabName === 'stats') {
@@ -1787,7 +1461,6 @@
             }
         }
 
-        // Generación de semanas
         function generateWeeks() {
             const weekGrid = document.getElementById('weekGrid');
             weekGrid.innerHTML = '';
@@ -1944,7 +1617,6 @@
             return `${titles[type]} - ${themes[theme] || 'Aventura'}`;
         }
 
-        // FUNCIÓN CORREGIDA: Iniciar día de ejercicios
         function startDay(week, day) {
             const weekKey = `week${week}`;
             const dayKey = `day${day}`;
@@ -1954,15 +1626,15 @@
                 return;
             }
             
+            appState.currentWeek = week;
+            appState.currentDay = day;
             appState.currentExerciseSet = exerciseDatabase[weekKey][dayKey];
             appState.currentExerciseIndex = 0;
             appState.currentSessionStats = { correct: 0, total: 0 };
             
-            createSparkles();
             showExercise();
         }
 
-        // FUNCIÓN NUEVA: Mostrar ejercicio
         function showExercise() {
             if (appState.currentExerciseIndex >= appState.currentExerciseSet.length) {
                 completeDay();
@@ -2005,22 +1677,17 @@
             appState.selectedOption = null;
         }
 
-        // FUNCIÓN NUEVA: Seleccionar opción
         function selectOption(selectedIndex) {
-            // Remover selección anterior
             document.querySelectorAll('.option-btn').forEach(btn => {
                 btn.classList.remove('selected');
             });
             
-            // Marcar opción seleccionada
             document.querySelectorAll('.option-btn')[selectedIndex].classList.add('selected');
             appState.selectedOption = selectedIndex;
             
-            // Habilitar botón siguiente
             document.getElementById('nextBtn').disabled = false;
         }
 
-        // FUNCIÓN NUEVA: Siguiente ejercicio
         function nextExercise() {
             if (appState.selectedOption === null) return;
             
@@ -2032,75 +1699,58 @@
                 appState.currentSessionStats.correct++;
             }
             
-            // Mostrar retroalimentación
             alert(isCorrect ? '🎉 ¡Correcto! ' + exercise.explanation : '❌ Incorrecto. ' + exercise.explanation);
             
-            // Actualizar estadísticas del usuario
             appState.userData.totalExercises++;
             if (isCorrect) {
                 appState.userData.correctAnswers++;
                 appState.userData.totalPoints += 10;
             }
             
-            // Actualizar estadísticas por tipo y tema
             appState.userData.exercisesByType[exercise.type] = (appState.userData.exercisesByType[exercise.type] || 0) + 1;
             appState.userData.exercisesByTheme[exercise.theme] = (appState.userData.exercisesByTheme[exercise.theme] || 0) + 1;
             
             appState.currentExerciseIndex++;
             
-            // Guardar progreso
             saveUserData();
             
-            // Mostrar siguiente ejercicio o completar día
             showExercise();
         }
 
-        // FUNCIÓN NUEVA: Cerrar ejercicio
         function closeExercise() {
             document.getElementById('exerciseOverlay').style.display = 'none';
         }
 
-        // FUNCIÓN NUEVA: Completar día
         function completeDay() {
-            const week = Math.floor((appState.currentExerciseIndex) / 5) + 1;
-            const day = ((appState.currentExerciseIndex) % 5) + 1;
-            
-            // Marcar día como completado
-            const dayKey = `week${week}_day${day}`;
+            const dayKey = `week${appState.currentWeek}_day${appState.currentDay}`;
             appState.userData.completedExercises[dayKey] = true;
             
-            // Actualizar racha
             appState.userData.streak++;
             
-            // Verificar si es día perfecto
             if (appState.currentSessionStats.correct === appState.currentSessionStats.total) {
-                appState.userData.achievements.push('perfect_day');
+                if (!appState.userData.achievements.includes('perfect_day')) {
+                    appState.userData.achievements.push('perfect_day');
+                }
             }
             
-            // Subir nivel cada 50 puntos
             const newLevel = Math.floor(appState.userData.totalPoints / 50) + 1;
             if (newLevel > appState.userData.level) {
                 appState.userData.level = newLevel;
                 alert(`🎉 ¡Subiste al nivel ${newLevel}! ¡Increíble progreso! 🚀`);
             }
             
-            // Guardar progreso
             saveUserData();
             
-            // Mostrar resumen del día
             const accuracy = Math.round((appState.currentSessionStats.correct / appState.currentSessionStats.total) * 100);
             
             closeExercise();
-            createSparkles();
             alert(`🎉 ¡DÍA COMPLETADO! 🎉\n\n✅ Respuestas correctas: ${appState.currentSessionStats.correct}/${appState.currentSessionStats.total}\n🎯 Precisión: ${accuracy}%\n💰 Puntos ganados: ${appState.currentSessionStats.correct * 10}\n\n¡Sigue así, campeón!`);
             
-            // Actualizar interfaz y volver a vista de semanas
             updateUserInterface();
             generateWeeks();
             backToWeeks();
         }
 
-        // Sistema de ranking
         function loadRanking() {
             if (Object.keys(appState.allUsersData).length === 0) {
                 showNoRankingData();
@@ -2182,7 +1832,7 @@
                 
                 place.innerHTML = `
                     <div class="podium-crown">${data.crown}</div>
-                    <div class="podium-avatar" style="${isCurrentUser ? 'border: 4px solid #fdcb6e; animation: winner-glow 2s ease-in-out infinite;' : ''}">
+                    <div class="podium-avatar" style="${isCurrentUser ? 'border: 4px solid #fdcb6e;' : ''}">
                         ${data.user.username.charAt(0).toUpperCase()}
                     </div>
                     <div class="podium-name" style="${isCurrentUser ? 'text-shadow: 3px 3px 6px rgba(0,0,0,0.5);' : ''}">${data.user.username}</div>
@@ -2317,7 +1967,6 @@
             `;
         }
 
-        // Estadísticas
         function loadStats() {
             const content = document.getElementById('statsContent');
             const userData = appState.userData;
@@ -2326,7 +1975,6 @@
                 ? Math.round((userData.correctAnswers / userData.totalExercises) * 100)
                 : 0;
             
-            // Calcular posición en ranking
             const allUsers = Object.entries(appState.allUsersData);
             const sortedByAchievements = allUsers.sort((a, b) => {
                 const aAchievements = a[1].achievements ? a[1].achievements.length : 0;
@@ -2421,7 +2069,6 @@
             });
         }
 
-        // Funciones de administración
         async function testConnection() {
             updateConnectionStatus('connecting');
             try {
@@ -2452,7 +2099,6 @@
                 saveUserData();
                 updateUserInterface();
                 generateWeeks();
-                createSparkles();
                 alert('🎉 ¡Progreso reiniciado! ¡Nueva aventura comenzando! 🚀');
             }
         }
@@ -2472,31 +2118,28 @@
             link.download = `academia_pokemon_${appState.currentUser}_${new Date().toISOString().split('T')[0]}.json`;
             link.click();
             
-            createSparkles();
             alert('📥 ¡Datos súper descargados! 🎉');
         }
 
-        // Inicialización
         document.addEventListener('DOMContentLoaded', function() {
-            console.log('🎮 Academia Pokemon iniciada - Versión corregida');
+            console.log('🎮 Academia Pokemon iniciada');
             
             updateConnectionStatus('offline');
             document.getElementById('loginScreen').style.display = 'flex';
             document.getElementById('mainApp').style.display = 'none';
             
-            // Event listener para Enter en el input de login
             document.getElementById('usernameInput').addEventListener('keypress', function(e) {
                 if (e.key === 'Enter') {
                     login();
                 }
             });
 
-            // Añadir efectos de brillo aleatorios
-            setInterval(() => {
-                if (Math.random() > 0.7) {
-                    createSparkles();
-                }
-            }, 10000);
+            document.querySelectorAll('.nav-tab').forEach(tab => {
+                tab.addEventListener('click', function() {
+                    const tabName = this.getAttribute('data-tab');
+                    showTab(tabName);
+                });
+            });
         });
     </script>
 </body>
