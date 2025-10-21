@@ -1181,32 +1181,163 @@
         }
 
         @media (max-width: 768px) {
-            .calendar-grid {
-                grid-template-columns: repeat(7, 1fr);
-                gap: 8px;
+            .container {
+                padding: 10px;
             }
 
-            .day-number {
-                font-size: 16px;
+            .header {
+                padding: 15px;
+                flex-direction: column;
+                gap: 15px;
             }
 
-            .day-status {
+            .user-info {
+                flex-direction: column;
+                text-align: center;
+                width: 100%;
+            }
+
+            .avatar {
+                width: 60px;
+                height: 60px;
+                font-size: 28px;
+            }
+
+            .stats {
+                width: 100%;
+                justify-content: space-around;
+            }
+
+            .stat-card {
+                min-width: 80px;
+                padding: 12px;
+            }
+
+            .stat-card h3 {
                 font-size: 20px;
             }
 
+            .stat-card p {
+                font-size: 12px;
+            }
+
+            .tab-navigation {
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+                scrollbar-width: none;
+                -ms-overflow-style: none;
+            }
+
+            .tab-navigation::-webkit-scrollbar {
+                display: none;
+            }
+
+            .nav-tab {
+                min-width: 120px;
+                padding: 12px 15px;
+                font-size: 14px;
+                white-space: nowrap;
+            }
+
+            .calendar-grid {
+                grid-template-columns: repeat(7, 1fr);
+                gap: 6px;
+            }
+
+            .day-cell {
+                min-height: 60px;
+                padding: 5px;
+            }
+
+            .day-number {
+                font-size: 14px;
+            }
+
+            .day-status {
+                font-size: 18px;
+            }
+
             .exercise-content {
-                padding: 20px;
+                padding: 15px;
+            }
+
+            .exercise-modal {
+                padding: 15px;
+            }
+
+            .option-btn {
+                padding: 12px;
+                font-size: 15px;
             }
 
             .podium {
                 flex-direction: column;
                 align-items: center;
+                gap: 15px;
             }
 
             .podium-place {
                 width: 100%;
                 max-width: 300px;
                 height: auto !important;
+            }
+
+            .podium-place.first {
+                order: 1;
+            }
+
+            .podium-place.second {
+                order: 2;
+            }
+
+            .podium-place.third {
+                order: 3;
+            }
+
+            .ranking-table {
+                font-size: 14px;
+            }
+
+            .ranking-row td {
+                padding: 10px 5px;
+                font-size: 13px;
+            }
+
+            .achievement-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .calendar-header h2 {
+                font-size: 24px;
+            }
+
+            .login-card {
+                padding: 30px 20px;
+                margin: 10px;
+            }
+
+            .login-card h1 {
+                font-size: 2em;
+            }
+        }
+
+        /* Media query específica para pantallas grandes (S24 Ultra y similares) */
+        @media (min-width: 769px) and (max-width: 1024px) {
+            .calendar-grid {
+                gap: 10px;
+            }
+
+            .day-cell {
+                min-height: 80px;
+            }
+
+            .nav-tab {
+                padding: 15px 20px;
+                font-size: 15px;
             }
         }
     </style>
@@ -2011,11 +2142,20 @@
             const exercises = [];
             const subjects = ['math', 'reading', 'science', 'social'];
             
+            // Crear un "seed" único para el día actual basado en la fecha
+            const dateKey = appState.currentDay || new Date().toDateString();
+            const seed = hashString(dateKey);
+            
             subjects.forEach(subject => {
                 const subjectExercises = exerciseBank[subject];
                 const count = subject === 'math' || subject === 'reading' ? 3 : 2;
                 
-                const shuffled = [...subjectExercises].sort(() => Math.random() - 0.5);
+                // Usar el seed para obtener una selección determinística
+                const shuffled = [...subjectExercises].sort((a, b) => {
+                    const hashA = hashString(JSON.stringify(a) + seed);
+                    const hashB = hashString(JSON.stringify(b) + seed);
+                    return hashA - hashB;
+                });
                 
                 for (let i = 0; i < count && i < shuffled.length; i++) {
                     exercises.push({
@@ -2025,7 +2165,23 @@
                 }
             });
             
-            return exercises.sort(() => Math.random() - 0.5);
+            // Mezclar los ejercicios de forma determinística
+            return exercises.sort((a, b) => {
+                const hashA = hashString(JSON.stringify(a) + seed);
+                const hashB = hashString(JSON.stringify(b) + seed);
+                return hashA - hashB;
+            });
+        }
+
+        // Función para crear un hash simple y determinístico de una cadena
+        function hashString(str) {
+            let hash = 0;
+            for (let i = 0; i < str.length; i++) {
+                const char = str.charCodeAt(i);
+                hash = ((hash << 5) - hash) + char;
+                hash = hash & hash; // Convertir a entero de 32 bits
+            }
+            return Math.abs(hash);
         }
 
         function startDayExercises(dateKey) {
