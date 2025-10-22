@@ -1553,615 +1553,974 @@
             timeRemaining: 1800
         };
 
-        // BANCO DE EJERCICIOS EXPANDIDO - 70 EJERCICIOS ÚNICOS PARA UNA SEMANA COMPLETA
-// Copiar y pegar esta sección en lugar del exerciseBank existente
+        // BANCO DE EJERCICIOS CON TEXTOS LARGOS DE COMPRENSIÓN LECTORA
+        const exerciseBank = {
+                    "math": [
+                                {
+                                            "instruction": "🎮 Pikachu necesita tu ayuda con las matemáticas. Lee con atención y calcula:",
+                                            "question": "Pikachu ha derrotado a 234 Pokemon en batallas. Charizard ha derrotado el doble que Pikachu. ¿Cuántos Pokemon ha derrotado Charizard?",
+                                            "options": [
+                                                        "468 Pokemon",
+                                                        "334 Pokemon",
+                                                        "464 Pokemon",
+                                                        "234 Pokemon"
+                                            ],
+                                            "correct": 0,
+                                            "hint": "El doble significa multiplicar por 2. Puedes sumar 234 + 234 para encontrar la respuesta.",
+                                            "explanation": "Cuando decimos 'el doble', significa multiplicar por 2. Entonces: 234 × 2 = 468. ¡Charizard es súper fuerte! 🔥"
+                                },
+                                {
+                                            "instruction": "⚽ ¡Problema de fútbol! Vamos a resolver este ejercicio sobre el Real Madrid:",
+                                            "question": "En el Bernabéu caben 81.044 personas. Si ya hay 56.789 espectadores viendo el partido, ¿cuántas personas más pueden entrar?",
+                                            "options": [
+                                                        "24.255 personas",
+                                                        "25.255 personas",
+                                                        "24.155 personas",
+                                                        "23.255 personas"
+                                            ],
+                                            "correct": 0,
+                                            "hint": "Tienes que restar: lo que cabe menos lo que ya hay.",
+                                            "explanation": "Para saber cuántas personas más pueden entrar, restamos: 81.044 - 56.789 = 24.255. ⚽✨"
+                                },
+                                {
+                                            "instruction": "🎮 Eren necesita calcular recursos para proteger la muralla. ¡Ayúdalo!",
+                                            "question": "Los Titanes atacan en grupos de 8. Si Eren cuenta 96 Titanes acercándose, ¿cuántos grupos son?",
+                                            "options": [
+                                                        "12 grupos",
+                                                        "11 grupos",
+                                                        "13 grupos",
+                                                        "10 grupos"
+                                            ],
+                                            "correct": 0,
+                                            "hint": "Divide el total de Titanes entre el tamaño de cada grupo. Puedes usar la tabla del 8.",
+                                            "explanation": "Para saber cuántos grupos hay, dividimos: 96 ÷ 8 = 12 grupos. ⚔️"
+                                },
+                                {
+                                            "instruction": "⚽ ¡Problema con las medallas del Barcelona!",
+                                            "question": "El Barça tiene 3 cajas de medallas. Cada caja contiene 25 medallas. ¿Cuántas medallas tienen en total?",
+                                            "options": [
+                                                        "75 medallas",
+                                                        "70 medallas",
+                                                        "80 medallas",
+                                                        "65 medallas"
+                                            ],
+                                            "correct": 0,
+                                            "hint": "Multiplica el número de cajas por las medallas en cada caja. 25 × 3 = ?",
+                                            "explanation": "Multiplicamos: 3 cajas × 25 medallas = 75 medallas. 🏆"
+                                },
+                                {
+                                            "instruction": "🎮 ¡Ash está contando sus Pokeballs! Vamos a ayudarlo:",
+                                            "question": "Ash tiene 1/4 de sus Pokeballs llenas con Pokemon de tipo Agua. Si tiene 20 Pokeballs, ¿cuántas tienen Pokemon de Agua?",
+                                            "options": [
+                                                        "5 Pokeballs",
+                                                        "10 Pokeballs",
+                                                        "4 Pokeballs",
+                                                        "8 Pokeballs"
+                                            ],
+                                            "correct": 0,
+                                            "hint": "1/4 significa dividir en 4 partes iguales y tomar 1. Divide 20 ÷ 4.",
+                                            "explanation": "Una fracción 1/4 significa dividir algo en 4 partes iguales. 20 ÷ 4 = 5. 💧"
+                                },
+                                {
+                                            "instruction": "⚽ Cristiano Ronaldo está entrenando. ¡Necesita tu ayuda para contar!",
+                                            "question": "Cristiano ha marcado 567 goles en su carrera. Luego marca 345 goles más. ¿Cuántos goles lleva en total?",
+                                            "options": [
+                                                        "912 goles",
+                                                        "902 goles",
+                                                        "812 goles",
+                                                        "922 goles"
+                                            ],
+                                            "correct": 0,
+                                            "hint": "Suma los goles: 567 + 345.",
+                                            "explanation": "Sumamos: 567 + 345 = 912 goles. ⚽👑"
+                                },
+                                {
+                                            "instruction": "🎮 ¡Naruto necesita comprar ramen! Ayúdalo con esta cuenta:",
+                                            "question": "Un tazón de ramen cuesta 8 euros. Si Naruto compra 7 tazones para todo su equipo, ¿cuánto dinero necesita?",
+                                            "options": [
+                                                        "56 euros",
+                                                        "48 euros",
+                                                        "64 euros",
+                                                        "52 euros"
+                                            ],
+                                            "correct": 0,
+                                            "hint": "Multiplica el precio de un tazón por la cantidad: 8 × 7 = ?",
+                                            "explanation": "Multiplicamos: 8 × 7 = 56 euros. 🍜"
+                                },
+                                {
+                                            "instruction": "⚽ ¡Problema de la Liga! Vamos a calcular puntos:",
+                                            "question": "El Atlético ganó 18 partidos (3 puntos cada uno) y empató 6 partidos (1 punto cada uno). ¿Cuántos puntos tiene en total?",
+                                            "options": [
+                                                        "60 puntos",
+                                                        "54 puntos",
+                                                        "66 puntos",
+                                                        "72 puntos"
+                                            ],
+                                            "correct": 0,
+                                            "hint": "Calcula primero los puntos por victorias (18 × 3) y luego súmale los empates (6 × 1).",
+                                            "explanation": "Victorias: 18 × 3 = 54 puntos. Empates: 6 × 1 = 6 puntos. Total: 60 puntos. ⚽📊"
+                                },
+                                {
+                                            "instruction": "🎮 Los Pokemon están organizando un torneo. ¡Ayuda con los cálculos!",
+                                            "question": "Si hay 144 Pokemon y deben formar equipos de 12, ¿cuántos equipos se pueden formar?",
+                                            "options": [
+                                                        "12 equipos",
+                                                        "10 equipos",
+                                                        "14 equipos",
+                                                        "16 equipos"
+                                            ],
+                                            "correct": 0,
+                                            "hint": "Divide el total entre el tamaño de cada equipo: 144 ÷ 12 = ?",
+                                            "explanation": "Dividimos: 144 ÷ 12 = 12 equipos. 🏆"
+                                },
+                                {
+                                            "instruction": "⚡ ¡Problema de velocidad con Sonic!",
+                                            "question": "Sonic recorre 450 kilómetros en 3 horas. ¿Cuántos kilómetros recorre por hora?",
+                                            "options": [
+                                                        "150 km/h",
+                                                        "140 km/h",
+                                                        "160 km/h",
+                                                        "135 km/h"
+                                            ],
+                                            "correct": 0,
+                                            "hint": "Divide la distancia total entre las horas: 450 ÷ 3 = ?",
+                                            "explanation": "Para calcular el promedio por hora: 450 ÷ 3 = 150 km/h. 💨"
+                                },
+                                {
+                                            "instruction": "🎮 ¡Luffy necesita contar sus tesoros!",
+                                            "question": "Luffy tiene 3 cofres con 125 monedas cada uno y 2 cofres con 150 monedas cada uno. ¿Cuántas monedas tiene en total?",
+                                            "options": [
+                                                        "675 monedas",
+                                                        "625 monedas",
+                                                        "725 monedas",
+                                                        "575 monedas"
+                                            ],
+                                            "correct": 0,
+                                            "hint": "Calcula (3 × 125) + (2 × 150).",
+                                            "explanation": "Primero: 3 × 125 = 375. Luego: 2 × 150 = 300. Total: 675 monedas. 💰"
+                                },
+                                {
+                                            "instruction": "⚽ ¡Cálculo de asistencias! Vamos con Messi:",
+                                            "question": "Messi ha dado 89 asistencias. Neymar ha dado 2/3 de lo que dio Messi. ¿Cuántas asistencias dio Neymar?",
+                                            "options": [
+                                                        "59 asistencias",
+                                                        "60 asistencias",
+                                                        "45 asistencias",
+                                                        "66 asistencias"
+                                            ],
+                                            "correct": 0,
+                                            "hint": "Multiplica 89 × 2, luego divide entre 3.",
+                                            "explanation": "Calculamos 2/3 de 89: (89 × 2) ÷ 3 = 59.33, redondeamos a 59. ⚽✨"
+                                },
+                                {
+                                            "instruction": "🎮 ¡Problema de evolución Pokemon!",
+                                            "question": "Bulbasaur pesa 6.9 kg. Cuando evoluciona a Ivysaur, su peso aumenta 13.1 kg. ¿Cuánto pesa Ivysaur?",
+                                            "options": [
+                                                        "20 kg",
+                                                        "19 kg",
+                                                        "21 kg",
+                                                        "18 kg"
+                                            ],
+                                            "correct": 0,
+                                            "hint": "Suma el peso original más el aumento: 6.9 + 13.1 = ?",
+                                            "explanation": "Sumamos: 6.9 + 13.1 = 20 kg. 🌿"
+                                },
+                                {
+                                            "instruction": "⚽ ¡Problema del Camp Nou!",
+                                            "question": "El Camp Nou tiene 99.354 asientos. Si 87.642 ya están ocupados, ¿cuántos asientos quedan libres?",
+                                            "options": [
+                                                        "11.712 asientos",
+                                                        "12.712 asientos",
+                                                        "11.612 asientos",
+                                                        "10.712 asientos"
+                                            ],
+                                            "correct": 0,
+                                            "hint": "Resta: 99.354 - 87.642.",
+                                            "explanation": "Restamos: 99.354 - 87.642 = 11.712 asientos libres. 🏟️"
+                                },
+                                {
+                                            "instruction": "🎮 ¡Mario está recolectando monedas!",
+                                            "question": "Mario recoge 45 monedas por nivel. Si completa 8 niveles, ¿cuántas monedas recolectó?",
+                                            "options": [
+                                                        "360 monedas",
+                                                        "350 monedas",
+                                                        "405 monedas",
+                                                        "320 monedas"
+                                            ],
+                                            "correct": 0,
+                                            "hint": "Multiplica: 45 × 8.",
+                                            "explanation": "Multiplicamos: 45 × 8 = 360. 🍄"
+                                },
+                                {
+                                            "instruction": "⚽ ¡Mbappé está calculando su velocidad!",
+                                            "question": "Mbappé corrió 720 metros en 60 segundos. ¿Cuántos metros recorre por segundo?",
+                                            "options": [
+                                                        "12 m/s",
+                                                        "10 m/s",
+                                                        "14 m/s",
+                                                        "11 m/s"
+                                            ],
+                                            "correct": 0,
+                                            "hint": "Divide la distancia entre el tiempo: 720 ÷ 60 = ?",
+                                            "explanation": "Dividimos: 720 ÷ 60 = 12 metros por segundo. ⚡"
+                                },
+                                {
+                                            "instruction": "🎮 ¡Goku está entrenando con pesas!",
+                                            "question": "Goku levanta 250 kg en cada brazo. ¿Cuántos kilogramos levanta con ambos brazos?",
+                                            "options": [
+                                                        "500 kg",
+                                                        "450 kg",
+                                                        "550 kg",
+                                                        "400 kg"
+                                            ],
+                                            "correct": 0,
+                                            "hint": "Suma lo que levanta con cada brazo: 250 + 250 = ?",
+                                            "explanation": "Sumamos: 250 + 250 = 500 kg en total. 💪"
+                                },
+                                {
+                                            "instruction": "⚽ ¡Problema de la Copa del Mundo!",
+                                            "question": "En un mundial se juegan 64 partidos. Si cada partido dura 90 minutos, ¿cuántos minutos de fútbol hay en total?",
+                                            "options": [
+                                                        "5.760 minutos",
+                                                        "5.660 minutos",
+                                                        "5.860 minutos",
+                                                        "6.000 minutos"
+                                            ],
+                                            "correct": 0,
+                                            "hint": "Multiplica: 64 × 90.",
+                                            "explanation": "Multiplicamos: 64 × 90 = 5.760 minutos. ⚽🌍"
+                                }
+                    ],
+                    "reading": [
+                                {
+                                            "instruction": "📖 Lee este texto sobre la aventura de Pikachu:",
+                                            "passageTitle": "La Gran Aventura de Pikachu en el Bosque Misterioso",
+                                            "passage": "Era un día soleado en Ciudad Paleta cuando Pikachu decidió explorar el Bosque Verde. Ash le advirtió: 'Ten cuidado, Pikachu.'\n\nPikachu caminó durante una hora hasta que escuchó un ruido. Sus mejillas eléctricas brillaron. Apareció un pequeño Caterpie asustado.\n\nEl Caterpie explicó que se había perdido buscando hojas de mora. Pikachu decidió ayudarlo. Juntos caminaron dos horas hasta encontrar un árbol enorme lleno de hojas verdes.\n\nMientras Caterpie comía feliz, Pikachu escuchó un grito lejano. ¡Era Ash! Pikachu se despidió de su nuevo amigo y corrió hacia la voz de Ash.\n\nCuando llegó, Ash lo abrazó fuerte. 'Me preocupé mucho, Pikachu.'",
+                                            "question": "¿Cuánto tiempo caminó Pikachu en total? (inicio + ayuda a Caterpie)",
+                                            "options": [
+                                                        "3 horas",
+                                                        "1 hora",
+                                                        "2 horas",
+                                                        "4 horas"
+                                            ],
+                                            "correct": 0,
+                                            "hint": "1 hora al principio + 2 horas ayudando = ?",
+                                            "explanation": "Pikachu caminó 1 hora al principio y luego 2 horas más. Total: 1 + 2 = 3 horas. ⚡"
+                                },
+                                {
+                                            "instruction": "📖 Lee este texto sobre el Real Madrid:",
+                                            "passageTitle": "El Real Madrid: Historia de un Gigante",
+                                            "passage": "El Real Madrid fue fundado en 1902. En 1920 el Rey Alfonso XIII le dio el título de 'Real', que significa 'del Rey'.\n\nEl estadio se llama Santiago Bernabéu, construido en 1947. Tiene capacidad para más de 81.000 espectadores.\n\nEl equipo ha ganado 14 Champions League. Algunos jugadores famosos: Alfredo Di Stéfano marcó 308 goles; Cristiano Ronaldo marcó increíbles 450 goles entre 2009 y 2018.\n\nEl Real Madrid tiene una rivalidad con el FC Barcelona. Su partido se llama 'El Clásico' y lo ven más de 500 millones de personas.",
+                                            "question": "¿Cuántos goles marcó Cristiano Ronaldo en el Real Madrid?",
+                                            "options": [
+                                                        "450 goles",
+                                                        "308 goles",
+                                                        "500 goles",
+                                                        "81 goles"
+                                            ],
+                                            "correct": 0,
+                                            "hint": "Busca en el tercer párrafo donde habla de Cristiano.",
+                                            "explanation": "El texto dice: 'Cristiano Ronaldo marcó increíbles 450 goles entre 2009 y 2018'. ⚽👑"
+                                },
+                                {
+                                            "instruction": "📖 Lee esta historia sobre Ataque a los Titanes:",
+                                            "passageTitle": "La Caída del Muro María",
+                                            "passage": "Eren Yeager tenía 10 años cuando vivía en Shiganshina, protegido por tres murallas: María, Rose y Sina. Estas murallas de 50 metros habían protegido a la humanidad durante 100 años.\n\nEren vivía con su padre Grisha (médico), su madre Carla, y su hermana adoptiva Mikasa. Su amigo Armin le mostraba libros sobre el océano.\n\nUn día terrible apareció el Titán Colosal de 60 metros. Destruyó la puerta del Muro María. Eren vio cómo un titán atacaba a su madre.\n\nEsa tragedia cambió a Eren. Juró vengarse y unirse al Cuerpo de Exploración. Mikasa y Armin lo acompañaron.\n\nDespués de tres años de entrenamiento, se graduaron. Eren quedó en el puesto 5, Mikasa fue la número 1, y Armin era el más inteligente.",
+                                            "question": "¿En qué puesto quedó Eren en su graduación?",
+                                            "options": [
+                                                        "Puesto 5",
+                                                        "Puesto 1",
+                                                        "Puesto 10",
+                                                        "Puesto 3"
+                                            ],
+                                            "correct": 0,
+                                            "hint": "Busca en el último párrafo sobre la graduación.",
+                                            "explanation": "El texto dice: 'Eren quedó en el puesto número 5'. ⚔️"
+                                },
+                                {
+                                            "instruction": "📝 Gramática Pokemon:",
+                                            "question": "En 'Los Pokemon luchan valientemente' - ¿Cuál es el VERBO?",
+                                            "options": [
+                                                        "luchan",
+                                                        "Pokemon",
+                                                        "gimnasio",
+                                                        "valientemente"
+                                            ],
+                                            "correct": 0,
+                                            "hint": "El verbo indica la ACCIÓN. ¿Qué están haciendo?",
+                                            "explanation": "El verbo es 'luchan' porque indica la acción. 💪"
+                                },
+                                {
+                                            "instruction": "📝 ¡Ortografía futbolera!",
+                                            "question": "¿Cómo se escribe correctamente?",
+                                            "options": [
+                                                        "Messi jugó un partido increíble",
+                                                        "Mesi jugo un partido increible",
+                                                        "Messi jugo un partido increíble",
+                                                        "Mesi jugó un partido increible"
+                                            ],
+                                            "correct": 0,
+                                            "hint": "'Messi' lleva dos 's', 'jugó' lleva tilde, 'increíble' también.",
+                                            "explanation": "'Messi' con doble 's', 'jugó' con tilde, 'increíble' con tilde. ⚽📝"
+                                },
+                                {
+                                            "instruction": "📖 Lee sobre Naruto:",
+                                            "passageTitle": "El Ninja que Nunca se Rinde",
+                                            "passage": "Naruto Uzumaki quiere convertirse en Hokage. Cuando era pequeño, todos lo rechazaban porque dentro de él estaba sellado el Zorro de Nueve Colas.\n\nSu primer maestro fue Iruka-sensei. Luego, fue asignado al Equipo 7 con Sasuke, Sakura, y su maestro Kakashi.\n\nEl jutsu favorito de Naruto es el Rasengan, que le enseñó Jiraiya, uno de los Tres Sannin legendarios.\n\nLa frase que repite es: '¡Nunca me rindo! Ese es mi camino ninja'.",
+                                            "question": "¿Quién le enseñó a Naruto el Rasengan?",
+                                            "options": [
+                                                        "Jiraiya",
+                                                        "Kakashi",
+                                                        "Iruka",
+                                                        "Sasuke"
+                                            ],
+                                            "correct": 0,
+                                            "hint": "Busca en el tercer párrafo. Es uno de los Tres Sannin.",
+                                            "explanation": "El texto dice que le enseñó 'el legendario Jiraiya'. 🍜"
+                                },
+                                {
+                                            "instruction": "📝 Identificar el SUJETO:",
+                                            "question": "En 'El Real Madrid ganó la Champions' - ¿Cuál es el SUJETO?",
+                                            "options": [
+                                                        "El Real Madrid",
+                                                        "ganó",
+                                                        "la Champions League",
+                                                        "Madrid"
+                                            ],
+                                            "correct": 0,
+                                            "hint": "El sujeto es QUIÉN realiza la acción. ¿Quién ganó?",
+                                            "explanation": "El sujeto es 'El Real Madrid' porque es quien realiza la acción. ⚽🏆"
+                                },
+                                {
+                                            "instruction": "📖 Lee sobre Zelda:",
+                                            "passageTitle": "La Leyenda de Zelda",
+                                            "passage": "Link debe rescatar a la Princesa Zelda de Ganondorf. Para hacerlo, debe recolectar: la Master Sword, el Escudo de Hyrule, y la Ocarina del Tiempo.\n\nEn su aventura, Link viaja por mazmorras. Su compañera fiel es Navi, un hada pequeña de luz azul que le da consejos y dice '¡Hey! ¡Escucha!'.\n\nLink tiene un caballo llamado Epona que corre muy rápido.",
+                                            "question": "¿De qué color es la luz de Navi?",
+                                            "options": [
+                                                        "Azul",
+                                                        "Verde",
+                                                        "Amarilla",
+                                                        "Roja"
+                                            ],
+                                            "correct": 0,
+                                            "hint": "Revisa el segundo párrafo donde describe a Navi.",
+                                            "explanation": "El texto dice: 'un hada pequeña de luz azul'. 🧚‍♀️"
+                                },
+                                {
+                                            "instruction": "📝 Reconocer tipos de palabras:",
+                                            "question": "En 'Pikachu rápidamente atacó', la palabra 'rápidamente' es:",
+                                            "options": [
+                                                        "Un adverbio (dice CÓMO atacó)",
+                                                        "Un verbo (acción)",
+                                                        "Un sustantivo (nombre)",
+                                                        "Un adjetivo"
+                                            ],
+                                            "correct": 0,
+                                            "hint": "Termina en '-mente' y dice CÓMO hizo la acción.",
+                                            "explanation": "'Rápidamente' es un adverbio que nos dice CÓMO atacó. ⚡"
+                                },
+                                {
+                                            "instruction": "📖 Lee sobre Mario Bros:",
+                                            "passageTitle": "Los Hermanos Fontaneros",
+                                            "passage": "Mario y Luigi son hermanos fontaneros del Reino Champiñón. Mario viste de rojo y azul, Luigi de verde y azul. Luigi es más alto que Mario.\n\nSu misión es rescatar a la Princesa Peach de Bowser, un dragón tortuga gigante. Deben atravesar 8 mundos diferentes.\n\nYoshi, un dinosaurio verde, ayuda a Mario. Yoshi puede comer enemigos y poner huevos.",
+                                            "question": "¿Cuántos mundos deben atravesar Mario y Luigi?",
+                                            "options": [
+                                                        "8 mundos",
+                                                        "7 mundos",
+                                                        "10 mundos",
+                                                        "6 mundos"
+                                            ],
+                                            "correct": 0,
+                                            "hint": "Busca en el segundo párrafo el número exacto.",
+                                            "explanation": "El texto dice: 'deben atravesar 8 mundos diferentes'. 🍄"
+                                },
+                                {
+                                            "instruction": "📝 Conjugación de verbos:",
+                                            "question": "¿Cuál es el PASADO del verbo 'jugar' (YO)?",
+                                            "options": [
+                                                        "Yo jugué",
+                                                        "Yo jugo",
+                                                        "Yo jugaré",
+                                                        "Yo juego"
+                                            ],
+                                            "correct": 0,
+                                            "hint": "El pasado indica algo que YA sucedió. Busca '-é'.",
+                                            "explanation": "'Jugué' es el pasado de 'jugar' en primera persona. ⚽"
+                                },
+                                {
+                                            "instruction": "📖 Lee sobre Dragon Ball:",
+                                            "passageTitle": "Goku y las Esferas del Dragón",
+                                            "passage": "Goku es un Saiyan que llegó a la Tierra cuando era bebé. Fue criado por el maestro Gohan. Su comida favorita es el arroz con pollo.\n\nLas Esferas del Dragón son 7 bolas mágicas. Cuando se juntan todas, invocan al dragón Shenlong. Este dragón puede conceder dos deseos. Las esferas tienen desde una hasta siete estrellas.\n\nLos mejores amigos de Goku son Krillin (su compañero de entrenamiento) y Bulma (una genio científica).",
+                                            "question": "¿Cuántos deseos concede Shenlong?",
+                                            "options": [
+                                                        "Dos deseos",
+                                                        "Un deseo",
+                                                        "Tres deseos",
+                                                        "Siete deseos"
+                                            ],
+                                            "correct": 0,
+                                            "hint": "Busca en el segundo párrafo sobre el dragón.",
+                                            "explanation": "El texto dice: 'puede conceder dos deseos'. 🐉"
+                                },
+                                {
+                                            "instruction": "📝 Signos de puntuación:",
+                                            "question": "¿Qué signo va al inicio de una pregunta en español?",
+                                            "options": [
+                                                        "¿ (interrogación inicial)",
+                                                        "! (exclamación)",
+                                                        "? (interrogación final)",
+                                                        ", (coma)"
+                                            ],
+                                            "correct": 0,
+                                            "hint": "En español, las preguntas tienen un signo especial al INICIO y otro al final.",
+                                            "explanation": "En español, las preguntas comienzan con '¿' y terminan con '?'. 📝❓"
+                                },
+                                {
+                                            "instruction": "📖 Lee sobre Sonic:",
+                                            "passageTitle": "El Erizo Más Rápido",
+                                            "passage": "Sonic es un erizo azul que corre a la velocidad del sonido. Su velocidad máxima es de 1.200 km/h. Cuando corre, se enrolla en bola y destruye robots.\n\nSu archienemigo es el Dr. Eggman (Dr. Robotnik), un científico malvado con bigote grande y gafas oscuras.\n\nTails (Miles Prower) es el mejor amigo de Sonic. Es un zorro con dos colas que puede volar girándolas como helicóptero.",
+                                            "question": "¿Cuántas colas tiene Tails?",
+                                            "options": [
+                                                        "Dos colas",
+                                                        "Una cola",
+                                                        "Tres colas",
+                                                        "Cuatro colas"
+                                            ],
+                                            "correct": 0,
+                                            "hint": "Su nombre 'Tails' significa 'colas'. Lee el último párrafo.",
+                                            "explanation": "El texto dice: 'un zorro con dos colas'. 💨"
+                                },
+                                {
+                                            "instruction": "📝 Sinónimos:",
+                                            "question": "¿Cuál es un SINÓNIMO de 'valiente'?",
+                                            "options": [
+                                                        "Corajudo",
+                                                        "Miedoso",
+                                                        "Débil",
+                                                        "Triste"
+                                            ],
+                                            "correct": 0,
+                                            "hint": "Un sinónimo tiene significado parecido. Valiente = sin miedo.",
+                                            "explanation": "'Corajudo' es sinónimo de 'valiente'. Ambos significan tener coraje. 🦁"
+                                },
+                                {
+                                            "instruction": "📖 Lee sobre Minecraft:",
+                                            "passageTitle": "Construye Tu Mundo",
+                                            "passage": "Minecraft es un juego de bloques. Hay tres modos: Supervivencia (conseguir recursos), Creativo (recursos infinitos), y Aventura (mapas especiales).\n\nEn Supervivencia, por la noche aparecen: Creepers que explotan, Zombies, Esqueletos con flechas, y Arañas trepadoras. Debes construir refugio antes de que oscurezca.\n\nEl Diamante es el recurso más valioso. Solo se encuentra entre los niveles 5 y 12 en las cuevas. Con diamantes haces las herramientas más fuertes.",
+                                            "question": "¿Entre qué niveles se encuentran los diamantes?",
+                                            "options": [
+                                                        "Entre niveles 5 y 12",
+                                                        "Entre niveles 1 y 10",
+                                                        "Entre niveles 10 y 20",
+                                                        "Entre niveles 5 y 15"
+                                            ],
+                                            "correct": 0,
+                                            "hint": "Busca en el último párrafo sobre los diamantes.",
+                                            "explanation": "El texto dice: 'entre los niveles 5 y 12'. ⛏️💎"
+                                },
+                                {
+                                            "instruction": "📝 Antónimos:",
+                                            "question": "¿Cuál es un ANTÓNIMO de 'rápido'?",
+                                            "options": [
+                                                        "Lento",
+                                                        "Veloz",
+                                                        "Ágil",
+                                                        "Ligero"
+                                            ],
+                                            "correct": 0,
+                                            "hint": "Un antónimo es lo contrario. Opuesto de rápido es...",
+                                            "explanation": "'Lento' es antónimo de 'rápido'. Son opuestos. 🐢⚡"
+                                },
+                                {
+                                            "instruction": "📖 Lee sobre Fortnite:",
+                                            "passageTitle": "La Victoria Real",
+                                            "passage": "Fortnite es un juego donde 100 jugadores compiten en una isla. El objetivo es ser el último en pie para ganar la Victoria Real. La partida empieza saltando del autobús volador.\n\nPuedes construir con tres materiales: madera (débil pero rápida), ladrillo (equilibrado), y metal (la más fuerte pero lenta de construir).\n\nDurante la partida, una tormenta morada reduce el área de juego. Si te quedas fuera, pierdes vida constantemente.",
+                                            "question": "¿Cuál es el material MÁS FUERTE para construir?",
+                                            "options": [
+                                                        "Metal",
+                                                        "Madera",
+                                                        "Ladrillo",
+                                                        "Piedra"
+                                            ],
+                                            "correct": 0,
+                                            "hint": "Busca en el segundo párrafo donde compara los tres materiales.",
+                                            "explanation": "El texto dice: 'metal (la más fuerte pero lenta de construir)'. 🔨"
+                                }
+                    ],
+                    "science": [
+                                {
+                                            "instruction": "🔬 Estados de la materia:",
+                                            "question": "El agua en forma de hielo está en estado:",
+                                            "options": [
+                                                        "Sólido",
+                                                        "Líquido",
+                                                        "Gaseoso",
+                                                        "Plasma"
+                                            ],
+                                            "correct": 0,
+                                            "hint": "Cuando el agua se congela, se vuelve dura como piedra.",
+                                            "explanation": "El hielo es agua en estado SÓLIDO. A 0°C o menos, se vuelve duro. ❄️"
+                                },
+                                {
+                                            "instruction": "🌱 ¡Ciencias Naturales! Las plantas:",
+                                            "question": "¿Qué necesitan las plantas para hacer fotosíntesis?",
+                                            "options": [
+                                                        "Luz solar, agua y dióxido de carbono",
+                                                        "Solo agua",
+                                                        "Solo tierra",
+                                                        "Solo aire"
+                                            ],
+                                            "correct": 0,
+                                            "hint": "Las plantas usan: energía del sol, agua del suelo, y un gas del aire.",
+                                            "explanation": "Usan: luz solar (energía), agua (del suelo), y CO₂ (del aire). Producen su alimento y oxígeno. 🌳☀️"
+                                },
+                                {
+                                            "instruction": "⚡ ¡Electricidad con Pikachu!",
+                                            "question": "¿Qué tipo de energía produce Pikachu con sus ataques eléctricos?",
+                                            "options": [
+                                                        "Energía eléctrica",
+                                                        "Energía térmica",
+                                                        "Energía nuclear",
+                                                        "Energía química"
+                                            ],
+                                            "correct": 0,
+                                            "hint": "Pikachu lanza rayos y truenos. Eso es electricidad.",
+                                            "explanation": "Pikachu produce ENERGÍA ELÉCTRICA (movimiento de electrones). ⚡"
+                                },
+                                {
+                                            "instruction": "🌍 ¡Geografía del planeta Tierra!",
+                                            "question": "¿Cuál es el planeta más cercano al Sol?",
+                                            "options": [
+                                                        "Mercurio",
+                                                        "Venus",
+                                                        "Tierra",
+                                                        "Marte"
+                                            ],
+                                            "correct": 0,
+                                            "hint": "Es el más pequeño y el primero desde el Sol.",
+                                            "explanation": "MERCURIO está a 58 millones de km del Sol. Su temperatura puede llegar a 430°C. ☀️🪐"
+                                },
+                                {
+                                            "instruction": "🦴 ¡Sistema óseo humano!",
+                                            "question": "¿Cuántos huesos tiene aproximadamente un adulto humano?",
+                                            "options": [
+                                                        "206 huesos",
+                                                        "150 huesos",
+                                                        "300 huesos",
+                                                        "100 huesos"
+                                            ],
+                                            "correct": 0,
+                                            "hint": "Es un número entre 200 y 210. Los bebés tienen más pero se fusionan.",
+                                            "explanation": "Un adulto tiene aproximadamente 206 HUESOS. Los bebés nacen con unos 300. 🦴"
+                                },
+                                {
+                                            "instruction": "💧 ¡El ciclo del agua!",
+                                            "question": "¿Cómo se llama cuando el agua líquida se convierte en vapor?",
+                                            "options": [
+                                                        "Evaporación",
+                                                        "Condensación",
+                                                        "Precipitación",
+                                                        "Solidificación"
+                                            ],
+                                            "correct": 0,
+                                            "hint": "Es cuando el Sol calienta el agua y sube al cielo como vapor.",
+                                            "explanation": "La EVAPORACIÓN es cuando el agua líquida se transforma en vapor por el calor. ☁️💧"
+                                },
+                                {
+                                            "instruction": "🔋 ¡Energías renovables!",
+                                            "question": "¿Cuál de estas es una energía renovable?",
+                                            "options": [
+                                                        "Energía solar",
+                                                        "Petróleo",
+                                                        "Carbón",
+                                                        "Gas natural"
+                                            ],
+                                            "correct": 0,
+                                            "hint": "Renovable = no se agota. Piensa en algo del Sol.",
+                                            "explanation": "La ENERGÍA SOLAR es renovable porque el Sol brilla todos los días. ☀️🌱"
+                                },
+                                {
+                                            "instruction": "🐛 ¡Metamorfosis de los insectos!",
+                                            "question": "¿En qué orden ocurre la metamorfosis de una mariposa?",
+                                            "options": [
+                                                        "Huevo → Oruga → Crisálida → Mariposa",
+                                                        "Huevo → Crisálida → Oruga → Mariposa",
+                                                        "Oruga → Huevo → Mariposa → Crisálida",
+                                                        "Mariposa → Huevo → Oruga → Crisálida"
+                                            ],
+                                            "correct": 0,
+                                            "hint": "Primero nace como gusano, luego se envuelve, y sale volando.",
+                                            "explanation": "La metamorfosis: HUEVO → ORUGA (come mucho) → CRISÁLIDA (se transforma) → MARIPOSA. 🦋"
+                                },
+                                {
+                                            "instruction": "🌡️ ¡Temperatura y calor!",
+                                            "question": "¿A qué temperatura se congela el agua pura?",
+                                            "options": [
+                                                        "0 grados Celsius",
+                                                        "10 grados Celsius",
+                                                        "100 grados Celsius",
+                                                        "-10 grados Celsius"
+                                            ],
+                                            "correct": 0,
+                                            "hint": "Es el punto donde el agua se vuelve hielo. Número redondo fácil.",
+                                            "explanation": "El agua se congela a 0°C. A 100°C hierve y se evapora. ❄️🌡️"
+                                },
+                                {
+                                            "instruction": "🫀 ¡Sistema circulatorio!",
+                                            "question": "¿Qué órgano bombea la sangre por todo el cuerpo?",
+                                            "options": [
+                                                        "El corazón",
+                                                        "El cerebro",
+                                                        "Los pulmones",
+                                                        "El estómago"
+                                            ],
+                                            "correct": 0,
+                                            "hint": "Está en el pecho y late constantemente. Cuando corres, late más rápido.",
+                                            "explanation": "El CORAZÓN bombea sangre. Late aprox. 100.000 veces al día. ❤️"
+                                },
+                                {
+                                            "instruction": "🌙 ¡Las fases de la Luna!",
+                                            "question": "¿Cuánto tiempo tarda la Luna en dar una vuelta completa alrededor de la Tierra?",
+                                            "options": [
+                                                        "Aproximadamente 28 días",
+                                                        "7 días",
+                                                        "365 días",
+                                                        "24 horas"
+                                            ],
+                                            "correct": 0,
+                                            "hint": "Es casi un mes. Por eso cada semana la Luna se ve diferente.",
+                                            "explanation": "La Luna tarda aproximadamente 28 DÍAS (casi un mes) en orbitar la Tierra. 🌙"
+                                },
+                                {
+                                            "instruction": "⚛️ ¡Los átomos y las moléculas!",
+                                            "question": "¿Qué es lo más pequeño: un átomo o una molécula?",
+                                            "options": [
+                                                        "Un átomo",
+                                                        "Una molécula",
+                                                        "Son del mismo tamaño",
+                                                        "Una célula"
+                                            ],
+                                            "correct": 0,
+                                            "hint": "Las moléculas están hechas de varios átomos unidos.",
+                                            "explanation": "Un ÁTOMO es más pequeño. Las moléculas son grupos de átomos unidos. ⚛️"
+                                },
+                                {
+                                            "instruction": "🦷 ¡Los dientes humanos!",
+                                            "question": "¿Cuántos dientes permanentes tiene un adulto humano?",
+                                            "options": [
+                                                        "32 dientes",
+                                                        "20 dientes",
+                                                        "28 dientes",
+                                                        "40 dientes"
+                                            ],
+                                            "correct": 0,
+                                            "hint": "Incluye las muelas del juicio. Si cuentas arriba y abajo, son bastantes.",
+                                            "explanation": "Un adulto tiene 32 DIENTES (incluyendo 4 muelas del juicio). 🦷✨"
+                                },
+                                {
+                                            "instruction": "🌈 ¡La luz y los colores!",
+                                            "question": "¿Cuántos colores tiene el arcoíris?",
+                                            "options": [
+                                                        "7 colores",
+                                                        "5 colores",
+                                                        "10 colores",
+                                                        "3 colores"
+                                            ],
+                                            "correct": 0,
+                                            "hint": "Rojo, naranja, amarillo, verde, azul, añil y violeta. Cuenta.",
+                                            "explanation": "El arcoíris tiene 7 COLORES: Rojo, Naranja, Amarillo, Verde, Azul, Añil, Violeta. 🌈"
+                                },
+                                {
+                                            "instruction": "🐟 ¡Animales vertebrados e invertebrados!",
+                                            "question": "¿Cuál de estos animales es INVERTEBRADO (no tiene columna)?",
+                                            "options": [
+                                                        "Pulpo",
+                                                        "Perro",
+                                                        "Gato",
+                                                        "Pájaro"
+                                            ],
+                                            "correct": 0,
+                                            "hint": "Los invertebrados no tienen huesos en la espalda. Animales blandos.",
+                                            "explanation": "El PULPO es invertebrado porque no tiene columna ni huesos. 🐙"
+                                },
+                                {
+                                            "instruction": "🌋 ¡Volcanes y la Tierra!",
+                                            "question": "¿Cómo se llama la roca fundida que sale de un volcán?",
+                                            "options": [
+                                                        "Lava",
+                                                        "Magma",
+                                                        "Ceniza",
+                                                        "Roca ígnea"
+                                            ],
+                                            "correct": 0,
+                                            "hint": "Cuando está dentro se llama magma, pero cuando sale se llama...",
+                                            "explanation": "La roca fundida que SALE del volcán es LAVA. Dentro se llama magma. 🌋"
+                                },
+                                {
+                                            "instruction": "👂 ¡Los sentidos!",
+                                            "question": "¿Cuál es el sentido que nos permite mantener el equilibrio?",
+                                            "options": [
+                                                        "El equilibrio (oído interno)",
+                                                        "La vista",
+                                                        "El tacto",
+                                                        "El olfato"
+                                            ],
+                                            "correct": 0,
+                                            "hint": "Aunque no es uno de los 5 sentidos tradicionales, está en el oído.",
+                                            "explanation": "El EQUILIBRIO lo controla el oído interno (aparato vestibular). 👂⚖️"
+                                },
+                                {
+                                            "instruction": "🧲 ¡Magnetismo y fuerzas!",
+                                            "question": "¿Cuáles son los dos polos de un imán?",
+                                            "options": [
+                                                        "Norte y Sur",
+                                                        "Positivo y Negativo",
+                                                        "Este y Oeste",
+                                                        "Arriba y Abajo"
+                                            ],
+                                            "correct": 0,
+                                            "hint": "Son como los puntos cardinales de una brújula.",
+                                            "explanation": "Los imanes tienen polo NORTE y polo SUR. Opuestos se atraen, iguales se repelen. 🧲"
+                                }
+                    ],
+                    "social": [
+                                {
+                                            "instruction": "🗺️ ¡Geografía de España!",
+                                            "question": "¿Cuál es la capital de España?",
+                                            "options": [
+                                                        "Madrid",
+                                                        "Barcelona",
+                                                        "Sevilla",
+                                                        "Valencia"
+                                            ],
+                                            "correct": 0,
+                                            "hint": "Es la ciudad más grande y está en el centro del país.",
+                                            "explanation": "MADRID es la capital desde 1561. Tiene más de 3 millones de habitantes. 🇪🇸"
+                                },
+                                {
+                                            "instruction": "⚔️ ¡Historia de la Edad Media!",
+                                            "question": "¿Cómo se llamaban los soldados que iban a caballo con armadura?",
+                                            "options": [
+                                                        "Caballeros",
+                                                        "Arqueros",
+                                                        "Magos",
+                                                        "Piratas"
+                                            ],
+                                            "correct": 0,
+                                            "hint": "Usaban armadura de metal y protegían castillos. Montaban a...",
+                                            "explanation": "Los CABALLEROS eran guerreros nobles que luchaban a caballo. ⚔️🛡️"
+                                },
+                                {
+                                            "instruction": "🌍 ¡Los continentes!",
+                                            "question": "¿Cuántos continentes hay en el mundo?",
+                                            "options": [
+                                                        "7 continentes",
+                                                        "5 continentes",
+                                                        "6 continentes",
+                                                        "8 continentes"
+                                            ],
+                                            "correct": 0,
+                                            "hint": "Asia, África, Europa, América del Norte, América del Sur, Oceanía y...",
+                                            "explanation": "Hay 7 CONTINENTES: Asia, África, América del Norte, del Sur, Antártida, Europa y Oceanía. 🌏"
+                                },
+                                {
+                                            "instruction": "🏛️ ¡Civilizaciones antiguas!",
+                                            "question": "¿En qué país están las pirámides de Giza?",
+                                            "options": [
+                                                        "Egipto",
+                                                        "México",
+                                                        "China",
+                                                        "Grecia"
+                                            ],
+                                            "correct": 0,
+                                            "hint": "Es un país de África que está junto al río Nilo.",
+                                            "explanation": "Las pirámides están en EGIPTO, junto al Nilo. Construidas hace más de 4.500 años. 🏜️"
+                                },
+                                {
+                                            "instruction": "💰 ¡Economía básica!",
+                                            "question": "¿Cuál es la moneda que se usa en la mayoría de países de Europa?",
+                                            "options": [
+                                                        "Euro",
+                                                        "Dólar",
+                                                        "Libra",
+                                                        "Peso"
+                                            ],
+                                            "correct": 0,
+                                            "hint": "Símbolo: €. Se usa en España, Francia, Italia, Alemania...",
+                                            "explanation": "El EURO (€) es la moneda de 20 países de la Unión Europea. 💶"
+                                },
+                                {
+                                            "instruction": "🗽 ¡Monumentos famosos!",
+                                            "question": "¿En qué ciudad está la Estatua de la Libertad?",
+                                            "options": [
+                                                        "Nueva York",
+                                                        "París",
+                                                        "Londres",
+                                                        "Roma"
+                                            ],
+                                            "correct": 0,
+                                            "hint": "Es una ciudad de Estados Unidos, la más grande del país.",
+                                            "explanation": "La Estatua de la Libertad está en NUEVA YORK. Fue un regalo de Francia en 1886. 🗽"
+                                },
+                                {
+                                            "instruction": "🌊 ¡Océanos del mundo!",
+                                            "question": "¿Cuál es el océano más grande del planeta?",
+                                            "options": [
+                                                        "Océano Pacífico",
+                                                        "Océano Atlántico",
+                                                        "Océano Índico",
+                                                        "Océano Ártico"
+                                            ],
+                                            "correct": 0,
+                                            "hint": "Su nombre significa 'tranquilo'. Está entre América y Asia.",
+                                            "explanation": "El OCÉANO PACÍFICO es el más grande, cubre más de 165 millones de km². 🌊"
+                                },
+                                {
+                                            "instruction": "👥 ¡Derechos humanos!",
+                                            "question": "¿Cuál de estos es un derecho fundamental de todos los niños?",
+                                            "options": [
+                                                        "Derecho a la educación",
+                                                        "Derecho a trabajar",
+                                                        "Derecho a conducir",
+                                                        "Derecho a votar"
+                                            ],
+                                            "correct": 0,
+                                            "hint": "Todos los niños deben poder ir a...",
+                                            "explanation": "El DERECHO A LA EDUCACIÓN es fundamental. Todos los niños tienen derecho a aprender. 📚"
+                                },
+                                {
+                                            "instruction": "🗺️ ¡Comunidades Autónomas!",
+                                            "question": "¿Cuántas Comunidades Autónomas tiene España?",
+                                            "options": [
+                                                        "17 Comunidades",
+                                                        "15 Comunidades",
+                                                        "20 Comunidades",
+                                                        "12 Comunidades"
+                                            ],
+                                            "correct": 0,
+                                            "hint": "Incluye Cataluña, Andalucía, Madrid, Aragón... cuenta bien todas.",
+                                            "explanation": "España tiene 17 COMUNIDADES AUTÓNOMAS más 2 ciudades autónomas. 🇪🇸"
+                                },
+                                {
+                                            "instruction": "⏰ ¡La medida del tiempo!",
+                                            "question": "¿Cuántos años forman un siglo?",
+                                            "options": [
+                                                        "100 años",
+                                                        "50 años",
+                                                        "10 años",
+                                                        "1.000 años"
+                                            ],
+                                            "correct": 0,
+                                            "hint": "Un siglo es mucho tiempo. Es un número redondo muy grande.",
+                                            "explanation": "Un SIGLO son 100 AÑOS. Estamos en el siglo XXI (21), que comenzó en 2001. ⏰"
+                                },
+                                {
+                                            "instruction": "🏔️ ¡Geografía física de España!",
+                                            "question": "¿Cuál es el río más largo de España?",
+                                            "options": [
+                                                        "Río Tajo",
+                                                        "Río Ebro",
+                                                        "Río Duero",
+                                                        "Río Guadalquivir"
+                                            ],
+                                            "correct": 0,
+                                            "hint": "Pasa por Toledo y desemboca en Lisboa, Portugal.",
+                                            "explanation": "El RÍO TAJO es el más largo con 1.008 km. Desemboca en Lisboa. 🏞️"
+                                },
+                                {
+                                            "instruction": "🌐 ¡Las banderas del mundo!",
+                                            "question": "¿De qué colores es la bandera de España?",
+                                            "options": [
+                                                        "Rojo y amarillo",
+                                                        "Azul y blanco",
+                                                        "Verde y rojo",
+                                                        "Rojo y blanco"
+                                            ],
+                                            "correct": 0,
+                                            "hint": "Son dos colores. Uno es el color del sol.",
+                                            "explanation": "La bandera de España tiene franjas ROJA-AMARILLA-ROJA. 🇪🇸"
+                                },
+                                {
+                                            "instruction": "🏛️ ¡Democracia y gobierno!",
+                                            "question": "¿Cómo se llama la persona que dirige el gobierno de un país?",
+                                            "options": [
+                                                        "Presidente o Primer Ministro",
+                                                        "Rey o Reina",
+                                                        "Alcalde",
+                                                        "Gobernador"
+                                            ],
+                                            "correct": 0,
+                                            "hint": "En España se llama Presidente del Gobierno. Toma las decisiones políticas.",
+                                            "explanation": "Puede ser PRESIDENTE o PRIMER MINISTRO. Es elegido por votación. 🏛️"
+                                },
+                                {
+                                            "instruction": "🗓️ ¡Historia de España!",
+                                            "question": "¿En qué año descubrió Cristóbal Colón América?",
+                                            "options": [
+                                                        "1492",
+                                                        "1500",
+                                                        "1400",
+                                                        "1600"
+                                            ],
+                                            "correct": 0,
+                                            "hint": "Es un año muy famoso. Siglo XV.",
+                                            "explanation": "Cristóbal Colón llegó a América el 12 de octubre de 1492. 🚢"
+                                },
+                                {
+                                            "instruction": "🌍 ¡Países y capitales de Europa!",
+                                            "question": "¿Cuál es la capital de Francia?",
+                                            "options": [
+                                                        "París",
+                                                        "Londres",
+                                                        "Berlín",
+                                                        "Roma"
+                                            ],
+                                            "correct": 0,
+                                            "hint": "Es la ciudad de la Torre Eiffel y el río Sena.",
+                                            "explanation": "PARÍS es la capital de Francia. Famosa por la Torre Eiffel. 🗼"
+                                },
+                                {
+                                            "instruction": "🏰 ¡Edad Media en España!",
+                                            "question": "¿Cómo se llamaban los palacios fortificados donde vivían los reyes?",
+                                            "options": [
+                                                        "Castillos",
+                                                        "Iglesias",
+                                                        "Mezquitas",
+                                                        "Catedrales"
+                                            ],
+                                            "correct": 0,
+                                            "hint": "Tenían murallas, torres y un foso con agua. Protegían de los ataques.",
+                                            "explanation": "Los CASTILLOS eran fortalezas donde vivían reyes y nobles. 🏰⚔️"
+                                },
+                                {
+                                            "instruction": "🌏 ¡La población mundial!",
+                                            "question": "¿Cuál es el país con más habitantes del mundo?",
+                                            "options": [
+                                                        "India",
+                                                        "China",
+                                                        "Estados Unidos",
+                                                        "Indonesia"
+                                            ],
+                                            "correct": 0,
+                                            "hint": "Hasta 2023 era China, pero ahora otro país asiático lo superó.",
+                                            "explanation": "INDIA es actualmente el país más poblado con más de 1.400 millones. 👥"
+                                },
+                                {
+                                            "instruction": "📅 ¡El calendario!",
+                                            "question": "¿Cuántos meses tiene un año?",
+                                            "options": [
+                                                        "12 meses",
+                                                        "10 meses",
+                                                        "11 meses",
+                                                        "13 meses"
+                                            ],
+                                            "correct": 0,
+                                            "hint": "Enero, Febrero, Marzo... cuenta hasta Diciembre.",
+                                            "explanation": "Un año tiene 12 MESES. Algunos tienen 31 días, otros 30, y febrero 28/29. 📅"
+                                }
+                    ]
+        };
 
-const exerciseBank = {
-    math: [
-        {
-            instruction: "🎮 Pikachu necesita tu ayuda con las matemáticas. Lee con atención y calcula:",
-            question: "Pikachu ha derrotado a 234 Pokemon en batallas. Charizard ha derrotado el doble que Pikachu. ¿Cuántos Pokemon ha derrotado Charizard?",
-            options: ["468 Pokemon", "334 Pokemon", "464 Pokemon", "234 Pokemon"],
-            correct: 0,
-            hint: "El doble significa multiplicar por 2. Puedes sumar 234 + 234 para encontrar la respuesta.",
-            explanation: "Cuando decimos 'el doble', significa multiplicar por 2. Entonces: 234 × 2 = 468. ¡Charizard es súper fuerte! 🔥"
-        },
-        {
-            instruction: "⚽ ¡Problema de fútbol! Vamos a resolver este ejercicio sobre el Real Madrid:",
-            question: "En el Bernabéu caben 81.044 personas. Si ya hay 56.789 espectadores viendo el partido, ¿cuántas personas más pueden entrar?",
-            options: ["24.255 personas", "25.255 personas", "24.155 personas", "23.255 personas"],
-            correct: 0,
-            hint: "Tienes que restar: lo que cabe menos lo que ya hay.",
-            explanation: "Para saber cuántas personas más pueden entrar, restamos: 81.044 - 56.789 = 24.255. ⚽✨"
-        },
-        {
-            instruction: "🎮 Eren necesita calcular recursos para proteger la muralla. ¡Ayúdalo!",
-            question: "Los Titanes atacan en grupos de 8. Si Eren cuenta 96 Titanes acercándose, ¿cuántos grupos son?",
-            options: ["12 grupos", "11 grupos", "13 grupos", "10 grupos"],
-            correct: 0,
-            hint: "Divide el total de Titanes entre el tamaño de cada grupo. Puedes usar la tabla del 8.",
-            explanation: "Para saber cuántos grupos hay, dividimos: 96 ÷ 8 = 12 grupos. ⚔️"
-        },
-        {
-            instruction: "⚽ ¡Problema con las medallas del Barcelona!",
-            question: "El Barça tiene 3 cajas de medallas. Cada caja contiene 25 medallas. ¿Cuántas medallas tienen en total?",
-            options: ["75 medallas", "70 medallas", "80 medallas", "65 medallas"],
-            correct: 0,
-            hint: "Multiplica el número de cajas por las medallas en cada caja. 25 × 3 = ?",
-            explanation: "Multiplicamos: 3 cajas × 25 medallas = 75 medallas. 🏆"
-        },
-        {
-            instruction: "🎮 ¡Ash está contando sus Pokeballs! Vamos a ayudarlo:",
-            question: "Ash tiene 1/4 de sus Pokeballs llenas con Pokemon de tipo Agua. Si tiene 20 Pokeballs, ¿cuántas tienen Pokemon de Agua?",
-            options: ["5 Pokeballs", "10 Pokeballs", "4 Pokeballs", "8 Pokeballs"],
-            correct: 0,
-            hint: "1/4 significa dividir en 4 partes iguales y tomar 1. Divide 20 ÷ 4.",
-            explanation: "Una fracción 1/4 significa dividir algo en 4 partes iguales. 20 ÷ 4 = 5. 💧"
-        },
-        {
-            instruction: "⚽ Cristiano Ronaldo está entrenando. ¡Necesita tu ayuda para contar!",
-            question: "Cristiano ha marcado 567 goles en su carrera. Luego marca 345 goles más. ¿Cuántos goles lleva en total?",
-            options: ["912 goles", "902 goles", "812 goles", "922 goles"],
-            correct: 0,
-            hint: "Suma los goles: 567 + 345.",
-            explanation: "Sumamos: 567 + 345 = 912 goles. ⚽👑"
-        },
-        {
-            instruction: "🎮 ¡Naruto necesita comprar ramen! Ayúdalo con esta cuenta:",
-            question: "Un tazón de ramen cuesta 8 euros. Si Naruto compra 7 tazones para todo su equipo, ¿cuánto dinero necesita?",
-            options: ["56 euros", "48 euros", "64 euros", "52 euros"],
-            correct: 0,
-            hint: "Multiplica el precio de un tazón por la cantidad: 8 × 7 = ?",
-            explanation: "Multiplicamos: 8 × 7 = 56 euros. 🍜"
-        },
-        {
-            instruction: "⚽ ¡Problema de la Liga! Vamos a calcular puntos:",
-            question: "El Atlético ganó 18 partidos (3 puntos cada uno) y empató 6 partidos (1 punto cada uno). ¿Cuántos puntos tiene en total?",
-            options: ["60 puntos", "54 puntos", "66 puntos", "72 puntos"],
-            correct: 0,
-            hint: "Calcula primero los puntos por victorias (18 × 3) y luego súmale los empates (6 × 1).",
-            explanation: "Victorias: 18 × 3 = 54 puntos. Empates: 6 × 1 = 6 puntos. Total: 60 puntos. ⚽📊"
-        },
-        {
-            instruction: "🎮 Los Pokemon están organizando un torneo. ¡Ayuda con los cálculos!",
-            question: "Si hay 144 Pokemon y deben formar equipos de 12, ¿cuántos equipos se pueden formar?",
-            options: ["12 equipos", "10 equipos", "14 equipos", "16 equipos"],
-            correct: 0,
-            hint: "Divide el total entre el tamaño de cada equipo: 144 ÷ 12 = ?",
-            explanation: "Dividimos: 144 ÷ 12 = 12 equipos. 🏆"
-        },
-        {
-            instruction: "⚡ ¡Problema de velocidad con Sonic!",
-            question: "Sonic recorre 450 kilómetros en 3 horas. ¿Cuántos kilómetros recorre por hora?",
-            options: ["150 km/h", "140 km/h", "160 km/h", "135 km/h"],
-            correct: 0,
-            hint: "Divide la distancia total entre las horas: 450 ÷ 3 = ?",
-            explanation: "Para calcular el promedio por hora: 450 ÷ 3 = 150 km/h. 💨"
-        },
-        {
-            instruction: "🎮 ¡Luffy necesita contar sus tesoros!",
-            question: "Luffy tiene 3 cofres con 125 monedas cada uno y 2 cofres con 150 monedas cada uno. ¿Cuántas monedas tiene en total?",
-            options: ["675 monedas", "625 monedas", "725 monedas", "575 monedas"],
-            correct: 0,
-            hint: "Calcula (3 × 125) + (2 × 150).",
-            explanation: "Primero: 3 × 125 = 375. Luego: 2 × 150 = 300. Total: 675 monedas. 💰"
-        },
-        {
-            instruction: "⚽ ¡Cálculo de asistencias! Vamos con Messi:",
-            question: "Messi ha dado 89 asistencias. Neymar ha dado 2/3 de lo que dio Messi. ¿Cuántas asistencias dio Neymar?",
-            options: ["59 asistencias", "60 asistencias", "45 asistencias", "66 asistencias"],
-            correct: 0,
-            hint: "Multiplica 89 × 2, luego divide entre 3.",
-            explanation: "Calculamos 2/3 de 89: (89 × 2) ÷ 3 = 59.33, redondeamos a 59. ⚽✨"
-        },
-        {
-            instruction: "🎮 ¡Problema de evolución Pokemon!",
-            question: "Bulbasaur pesa 6.9 kg. Cuando evoluciona a Ivysaur, su peso aumenta 13.1 kg. ¿Cuánto pesa Ivysaur?",
-            options: ["20 kg", "19 kg", "21 kg", "18 kg"],
-            correct: 0,
-            hint: "Suma el peso original más el aumento: 6.9 + 13.1 = ?",
-            explanation: "Sumamos: 6.9 + 13.1 = 20 kg. 🌿"
-        },
-        {
-            instruction: "⚽ ¡Problema del Camp Nou!",
-            question: "El Camp Nou tiene 99.354 asientos. Si 87.642 ya están ocupados, ¿cuántos asientos quedan libres?",
-            options: ["11.712 asientos", "12.712 asientos", "11.612 asientos", "10.712 asientos"],
-            correct: 0,
-            hint: "Resta: 99.354 - 87.642.",
-            explanation: "Restamos: 99.354 - 87.642 = 11.712 asientos libres. 🏟️"
-        },
-        {
-            instruction: "🎮 ¡Mario está recolectando monedas!",
-            question: "Mario recoge 45 monedas por nivel. Si completa 8 niveles, ¿cuántas monedas recolectó?",
-            options: ["360 monedas", "350 monedas", "405 monedas", "320 monedas"],
-            correct: 0,
-            hint: "Multiplica: 45 × 8.",
-            explanation: "Multiplicamos: 45 × 8 = 360. 🍄"
-        },
-        {
-            instruction: "⚽ ¡Mbappé está calculando su velocidad!",
-            question: "Mbappé corrió 720 metros en 60 segundos. ¿Cuántos metros recorre por segundo?",
-            options: ["12 m/s", "10 m/s", "14 m/s", "11 m/s"],
-            correct: 0,
-            hint: "Divide la distancia entre el tiempo: 720 ÷ 60 = ?",
-            explanation: "Dividimos: 720 ÷ 60 = 12 metros por segundo. ⚡"
-        },
-        {
-            instruction: "🎮 ¡Goku está entrenando con pesas!",
-            question: "Goku levanta 250 kg en cada brazo. ¿Cuántos kilogramos levanta con ambos brazos?",
-            options: ["500 kg", "450 kg", "550 kg", "400 kg"],
-            correct: 0,
-            hint: "Suma lo que levanta con cada brazo: 250 + 250 = ?",
-            explanation: "Sumamos: 250 + 250 = 500 kg en total. 💪"
-        },
-        {
-            instruction: "⚽ ¡Problema de la Copa del Mundo!",
-            question: "En un mundial se juegan 64 partidos. Si cada partido dura 90 minutos, ¿cuántos minutos de fútbol hay en total?",
-            options: ["5.760 minutos", "5.660 minutos", "5.860 minutos", "6.000 minutos"],
-            correct: 0,
-            hint: "Multiplica: 64 × 90.",
-            explanation: "Multiplicamos: 64 × 90 = 5.760 minutos. ⚽🌍"
-        }
-    ],
-    reading: [
-        {
-            instruction: "📖 Lee este texto sobre la aventura de Pikachu:",
-            passageTitle: "La Gran Aventura de Pikachu en el Bosque Misterioso",
-            passage: "Era un día soleado en Ciudad Paleta cuando Pikachu decidió explorar el Bosque Verde. Ash le advirtió: 'Ten cuidado, Pikachu.'\n\nPikachu caminó durante una hora hasta que escuchó un ruido. Sus mejillas eléctricas brillaron. Apareció un pequeño Caterpie asustado.\n\nEl Caterpie explicó que se había perdido buscando hojas de mora. Pikachu decidió ayudarlo. Juntos caminaron dos horas hasta encontrar un árbol enorme lleno de hojas verdes.\n\nMientras Caterpie comía feliz, Pikachu escuchó un grito lejano. ¡Era Ash! Pikachu se despidió de su nuevo amigo y corrió hacia la voz de Ash.\n\nCuando llegó, Ash lo abrazó fuerte. 'Me preocupé mucho, Pikachu.'",
-            question: "¿Cuánto tiempo caminó Pikachu en total? (inicio + ayuda a Caterpie)",
-            options: ["3 horas", "1 hora", "2 horas", "4 horas"],
-            correct: 0,
-            hint: "1 hora al principio + 2 horas ayudando = ?",
-            explanation: "Pikachu caminó 1 hora al principio y luego 2 horas más. Total: 1 + 2 = 3 horas. ⚡"
-        },
-        {
-            instruction: "📖 Lee este texto sobre el Real Madrid:",
-            passageTitle: "El Real Madrid: Historia de un Gigante",
-            passage: "El Real Madrid fue fundado en 1902. En 1920 el Rey Alfonso XIII le dio el título de 'Real', que significa 'del Rey'.\n\nEl estadio se llama Santiago Bernabéu, construido en 1947. Tiene capacidad para más de 81.000 espectadores.\n\nEl equipo ha ganado 14 Champions League. Algunos jugadores famosos: Alfredo Di Stéfano marcó 308 goles; Cristiano Ronaldo marcó increíbles 450 goles entre 2009 y 2018.\n\nEl Real Madrid tiene una rivalidad con el FC Barcelona. Su partido se llama 'El Clásico' y lo ven más de 500 millones de personas.",
-            question: "¿Cuántos goles marcó Cristiano Ronaldo en el Real Madrid?",
-            options: ["450 goles", "308 goles", "500 goles", "81 goles"],
-            correct: 0,
-            hint: "Busca en el tercer párrafo donde habla de Cristiano.",
-            explanation: "El texto dice: 'Cristiano Ronaldo marcó increíbles 450 goles entre 2009 y 2018'. ⚽👑"
-        },
-        {
-            instruction: "📖 Lee esta historia sobre Ataque a los Titanes:",
-            passageTitle: "La Caída del Muro María",
-            passage: "Eren Yeager tenía 10 años cuando vivía en Shiganshina, protegido por tres murallas: María, Rose y Sina. Estas murallas de 50 metros habían protegido a la humanidad durante 100 años.\n\nEren vivía con su padre Grisha (médico), su madre Carla, y su hermana adoptiva Mikasa. Su amigo Armin le mostraba libros sobre el océano.\n\nUn día terrible apareció el Titán Colosal de 60 metros. Destruyó la puerta del Muro María. Eren vio cómo un titán atacaba a su madre.\n\nEsa tragedia cambió a Eren. Juró vengarse y unirse al Cuerpo de Exploración. Mikasa y Armin lo acompañaron.\n\nDespués de tres años de entrenamiento, se graduaron. Eren quedó en el puesto 5, Mikasa fue la número 1, y Armin era el más inteligente.",
-            question: "¿En qué puesto quedó Eren en su graduación?",
-            options: ["Puesto 5", "Puesto 1", "Puesto 10", "Puesto 3"],
-            correct: 0,
-            hint: "Busca en el último párrafo sobre la graduación.",
-            explanation: "El texto dice: 'Eren quedó en el puesto número 5'. ⚔️"
-        },
-        {
-            instruction: "📝 Gramática Pokemon:",
-            question: "En 'Los Pokemon luchan valientemente' - ¿Cuál es el VERBO?",
-            options: ["luchan", "Pokemon", "gimnasio", "valientemente"],
-            correct: 0,
-            hint: "El verbo indica la ACCIÓN. ¿Qué están haciendo?",
-            explanation: "El verbo es 'luchan' porque indica la acción. 💪"
-        },
-        {
-            instruction: "📝 ¡Ortografía futbolera!",
-            question: "¿Cómo se escribe correctamente?",
-            options: ["Messi jugó un partido increíble", "Mesi jugo un partido increible", "Messi jugo un partido increíble", "Mesi jugó un partido increible"],
-            correct: 0,
-            hint: "'Messi' lleva dos 's', 'jugó' lleva tilde, 'increíble' también.",
-            explanation: "'Messi' con doble 's', 'jugó' con tilde, 'increíble' con tilde. ⚽📝"
-        },
-        {
-            instruction: "📖 Lee sobre Naruto:",
-            passageTitle: "El Ninja que Nunca se Rinde",
-            passage: "Naruto Uzumaki quiere convertirse en Hokage. Cuando era pequeño, todos lo rechazaban porque dentro de él estaba sellado el Zorro de Nueve Colas.\n\nSu primer maestro fue Iruka-sensei. Luego, fue asignado al Equipo 7 con Sasuke, Sakura, y su maestro Kakashi.\n\nEl jutsu favorito de Naruto es el Rasengan, que le enseñó Jiraiya, uno de los Tres Sannin legendarios.\n\nLa frase que repite es: '¡Nunca me rindo! Ese es mi camino ninja'.",
-            question: "¿Quién le enseñó a Naruto el Rasengan?",
-            options: ["Jiraiya", "Kakashi", "Iruka", "Sasuke"],
-            correct: 0,
-            hint: "Busca en el tercer párrafo. Es uno de los Tres Sannin.",
-            explanation: "El texto dice que le enseñó 'el legendario Jiraiya'. 🍜"
-        },
-        {
-            instruction: "📝 Identificar el SUJETO:",
-            question: "En 'El Real Madrid ganó la Champions' - ¿Cuál es el SUJETO?",
-            options: ["El Real Madrid", "ganó", "la Champions League", "Madrid"],
-            correct: 0,
-            hint: "El sujeto es QUIÉN realiza la acción. ¿Quién ganó?",
-            explanation: "El sujeto es 'El Real Madrid' porque es quien realiza la acción. ⚽🏆"
-        },
-        {
-            instruction: "📖 Lee sobre Zelda:",
-            passageTitle: "La Leyenda de Zelda",
-            passage: "Link debe rescatar a la Princesa Zelda de Ganondorf. Para hacerlo, debe recolectar: la Master Sword, el Escudo de Hyrule, y la Ocarina del Tiempo.\n\nEn su aventura, Link viaja por mazmorras. Su compañera fiel es Navi, un hada pequeña de luz azul que le da consejos y dice '¡Hey! ¡Escucha!'.\n\nLink tiene un caballo llamado Epona que corre muy rápido.",
-            question: "¿De qué color es la luz de Navi?",
-            options: ["Azul", "Verde", "Amarilla", "Roja"],
-            correct: 0,
-            hint: "Revisa el segundo párrafo donde describe a Navi.",
-            explanation: "El texto dice: 'un hada pequeña de luz azul'. 🧚‍♀️"
-        },
-        {
-            instruction: "📝 Reconocer tipos de palabras:",
-            question: "En 'Pikachu rápidamente atacó', la palabra 'rápidamente' es:",
-            options: ["Un adverbio (dice CÓMO atacó)", "Un verbo (acción)", "Un sustantivo (nombre)", "Un adjetivo"],
-            correct: 0,
-            hint: "Termina en '-mente' y dice CÓMO hizo la acción.",
-            explanation: "'Rápidamente' es un adverbio que nos dice CÓMO atacó. ⚡"
-        },
-        {
-            instruction: "📖 Lee sobre Mario Bros:",
-            passageTitle: "Los Hermanos Fontaneros",
-            passage: "Mario y Luigi son hermanos fontaneros del Reino Champiñón. Mario viste de rojo y azul, Luigi de verde y azul. Luigi es más alto que Mario.\n\nSu misión es rescatar a la Princesa Peach de Bowser, un dragón tortuga gigante. Deben atravesar 8 mundos diferentes.\n\nYoshi, un dinosaurio verde, ayuda a Mario. Yoshi puede comer enemigos y poner huevos.",
-            question: "¿Cuántos mundos deben atravesar Mario y Luigi?",
-            options: ["8 mundos", "7 mundos", "10 mundos", "6 mundos"],
-            correct: 0,
-            hint: "Busca en el segundo párrafo el número exacto.",
-            explanation: "El texto dice: 'deben atravesar 8 mundos diferentes'. 🍄"
-        },
-        {
-            instruction: "📝 Conjugación de verbos:",
-            question: "¿Cuál es el PASADO del verbo 'jugar' (YO)?",
-            options: ["Yo jugué", "Yo jugo", "Yo jugaré", "Yo juego"],
-            correct: 0,
-            hint: "El pasado indica algo que YA sucedió. Busca '-é'.",
-            explanation: "'Jugué' es el pasado de 'jugar' en primera persona. ⚽"
-        },
-        {
-            instruction: "📖 Lee sobre Dragon Ball:",
-            passageTitle: "Goku y las Esferas del Dragón",
-            passage: "Goku es un Saiyan que llegó a la Tierra cuando era bebé. Fue criado por el maestro Gohan. Su comida favorita es el arroz con pollo.\n\nLas Esferas del Dragón son 7 bolas mágicas. Cuando se juntan todas, invocan al dragón Shenlong. Este dragón puede conceder dos deseos. Las esferas tienen desde una hasta siete estrellas.\n\nLos mejores amigos de Goku son Krillin (su compañero de entrenamiento) y Bulma (una genio científica).",
-            question: "¿Cuántos deseos concede Shenlong?",
-            options: ["Dos deseos", "Un deseo", "Tres deseos", "Siete deseos"],
-            correct: 0,
-            hint: "Busca en el segundo párrafo sobre el dragón.",
-            explanation: "El texto dice: 'puede conceder dos deseos'. 🐉"
-        },
-        {
-            instruction: "📝 Signos de puntuación:",
-            question: "¿Qué signo va al inicio de una pregunta en español?",
-            options: ["¿ (interrogación inicial)", "! (exclamación)", "? (interrogación final)", ", (coma)"],
-            correct: 0,
-            hint: "En español, las preguntas tienen un signo especial al INICIO y otro al final.",
-            explanation: "En español, las preguntas comienzan con '¿' y terminan con '?'. 📝❓"
-        },
-        {
-            instruction: "📖 Lee sobre Sonic:",
-            passageTitle: "El Erizo Más Rápido",
-            passage: "Sonic es un erizo azul que corre a la velocidad del sonido. Su velocidad máxima es de 1.200 km/h. Cuando corre, se enrolla en bola y destruye robots.\n\nSu archienemigo es el Dr. Eggman (Dr. Robotnik), un científico malvado con bigote grande y gafas oscuras.\n\nTails (Miles Prower) es el mejor amigo de Sonic. Es un zorro con dos colas que puede volar girándolas como helicóptero.",
-            question: "¿Cuántas colas tiene Tails?",
-            options: ["Dos colas", "Una cola", "Tres colas", "Cuatro colas"],
-            correct: 0,
-            hint: "Su nombre 'Tails' significa 'colas'. Lee el último párrafo.",
-            explanation: "El texto dice: 'un zorro con dos colas'. 💨"
-        },
-        {
-            instruction: "📝 Sinónimos:",
-            question: "¿Cuál es un SINÓNIMO de 'valiente'?",
-            options: ["Corajudo", "Miedoso", "Débil", "Triste"],
-            correct: 0,
-            hint: "Un sinónimo tiene significado parecido. Valiente = sin miedo.",
-            explanation: "'Corajudo' es sinónimo de 'valiente'. Ambos significan tener coraje. 🦁"
-        },
-        {
-            instruction: "📖 Lee sobre Minecraft:",
-            passageTitle: "Construye Tu Mundo",
-            passage: "Minecraft es un juego de bloques. Hay tres modos: Supervivencia (conseguir recursos), Creativo (recursos infinitos), y Aventura (mapas especiales).\n\nEn Supervivencia, por la noche aparecen: Creepers que explotan, Zombies, Esqueletos con flechas, y Arañas trepadoras. Debes construir refugio antes de que oscurezca.\n\nEl Diamante es el recurso más valioso. Solo se encuentra entre los niveles 5 y 12 en las cuevas. Con diamantes haces las herramientas más fuertes.",
-            question: "¿Entre qué niveles se encuentran los diamantes?",
-            options: ["Entre niveles 5 y 12", "Entre niveles 1 y 10", "Entre niveles 10 y 20", "Entre niveles 5 y 15"],
-            correct: 0,
-            hint: "Busca en el último párrafo sobre los diamantes.",
-            explanation: "El texto dice: 'entre los niveles 5 y 12'. ⛏️💎"
-        },
-        {
-            instruction: "📝 Antónimos:",
-            question: "¿Cuál es un ANTÓNIMO de 'rápido'?",
-            options: ["Lento", "Veloz", "Ágil", "Ligero"],
-            correct: 0,
-            hint: "Un antónimo es lo contrario. Opuesto de rápido es...",
-            explanation: "'Lento' es antónimo de 'rápido'. Son opuestos. 🐢⚡"
-        },
-        {
-            instruction: "📖 Lee sobre Fortnite:",
-            passageTitle: "La Victoria Real",
-            passage: "Fortnite es un juego donde 100 jugadores compiten en una isla. El objetivo es ser el último en pie para ganar la Victoria Real. La partida empieza saltando del autobús volador.\n\nPuedes construir con tres materiales: madera (débil pero rápida), ladrillo (equilibrado), y metal (la más fuerte pero lenta de construir).\n\nDurante la partida, una tormenta morada reduce el área de juego. Si te quedas fuera, pierdes vida constantemente.",
-            question: "¿Cuál es el material MÁS FUERTE para construir?",
-            options: ["Metal", "Madera", "Ladrillo", "Piedra"],
-            correct: 0,
-            hint: "Busca en el segundo párrafo donde compara los tres materiales.",
-            explanation: "El texto dice: 'metal (la más fuerte pero lenta de construir)'. 🔨"
-        }
-    ],
-    science: [
-        {
-            instruction: "🔬 Estados de la materia:",
-            question: "El agua en forma de hielo está en estado:",
-            options: ["Sólido", "Líquido", "Gaseoso", "Plasma"],
-            correct: 0,
-            hint: "Cuando el agua se congela, se vuelve dura como piedra.",
-            explanation: "El hielo es agua en estado SÓLIDO. A 0°C o menos, se vuelve duro. ❄️"
-        },
-        {
-            instruction: "🌱 ¡Ciencias Naturales! Las plantas:",
-            question: "¿Qué necesitan las plantas para hacer fotosíntesis?",
-            options: ["Luz solar, agua y dióxido de carbono", "Solo agua", "Solo tierra", "Solo aire"],
-            correct: 0,
-            hint: "Las plantas usan: energía del sol, agua del suelo, y un gas del aire.",
-            explanation: "Usan: luz solar (energía), agua (del suelo), y CO₂ (del aire). Producen su alimento y oxígeno. 🌳☀️"
-        },
-        {
-            instruction: "⚡ ¡Electricidad con Pikachu!",
-            question: "¿Qué tipo de energía produce Pikachu con sus ataques eléctricos?",
-            options: ["Energía eléctrica", "Energía térmica", "Energía nuclear", "Energía química"],
-            correct: 0,
-            hint: "Pikachu lanza rayos y truenos. Eso es electricidad.",
-            explanation: "Pikachu produce ENERGÍA ELÉCTRICA (movimiento de electrones). ⚡"
-        },
-        {
-            instruction: "🌍 ¡Geografía del planeta Tierra!",
-            question: "¿Cuál es el planeta más cercano al Sol?",
-            options: ["Mercurio", "Venus", "Tierra", "Marte"],
-            correct: 0,
-            hint: "Es el más pequeño y el primero desde el Sol.",
-            explanation: "MERCURIO está a 58 millones de km del Sol. Su temperatura puede llegar a 430°C. ☀️🪐"
-        },
-        {
-            instruction: "🦴 ¡Sistema óseo humano!",
-            question: "¿Cuántos huesos tiene aproximadamente un adulto humano?",
-            options: ["206 huesos", "150 huesos", "300 huesos", "100 huesos"],
-            correct: 0,
-            hint: "Es un número entre 200 y 210. Los bebés tienen más pero se fusionan.",
-            explanation: "Un adulto tiene aproximadamente 206 HUESOS. Los bebés nacen con unos 300. 🦴"
-        },
-        {
-            instruction: "💧 ¡El ciclo del agua!",
-            question: "¿Cómo se llama cuando el agua líquida se convierte en vapor?",
-            options: ["Evaporación", "Condensación", "Precipitación", "Solidificación"],
-            correct: 0,
-            hint: "Es cuando el Sol calienta el agua y sube al cielo como vapor.",
-            explanation: "La EVAPORACIÓN es cuando el agua líquida se transforma en vapor por el calor. ☁️💧"
-        },
-        {
-            instruction: "🔋 ¡Energías renovables!",
-            question: "¿Cuál de estas es una energía renovable?",
-            options: ["Energía solar", "Petróleo", "Carbón", "Gas natural"],
-            correct: 0,
-            hint: "Renovable = no se agota. Piensa en algo del Sol.",
-            explanation: "La ENERGÍA SOLAR es renovable porque el Sol brilla todos los días. ☀️🌱"
-        },
-        {
-            instruction: "🐛 ¡Metamorfosis de los insectos!",
-            question: "¿En qué orden ocurre la metamorfosis de una mariposa?",
-            options: ["Huevo → Oruga → Crisálida → Mariposa", "Huevo → Crisálida → Oruga → Mariposa", "Oruga → Huevo → Mariposa → Crisálida", "Mariposa → Huevo → Oruga → Crisálida"],
-            correct: 0,
-            hint: "Primero nace como gusano, luego se envuelve, y sale volando.",
-            explanation: "La metamorfosis: HUEVO → ORUGA (come mucho) → CRISÁLIDA (se transforma) → MARIPOSA. 🦋"
-        },
-        {
-            instruction: "🌡️ ¡Temperatura y calor!",
-            question: "¿A qué temperatura se congela el agua pura?",
-            options: ["0 grados Celsius", "10 grados Celsius", "100 grados Celsius", "-10 grados Celsius"],
-            correct: 0,
-            hint: "Es el punto donde el agua se vuelve hielo. Número redondo fácil.",
-            explanation: "El agua se congela a 0°C. A 100°C hierve y se evapora. ❄️🌡️"
-        },
-        {
-            instruction: "🫀 ¡Sistema circulatorio!",
-            question: "¿Qué órgano bombea la sangre por todo el cuerpo?",
-            options: ["El corazón", "El cerebro", "Los pulmones", "El estómago"],
-            correct: 0,
-            hint: "Está en el pecho y late constantemente. Cuando corres, late más rápido.",
-            explanation: "El CORAZÓN bombea sangre. Late aprox. 100.000 veces al día. ❤️"
-        },
-        {
-            instruction: "🌙 ¡Las fases de la Luna!",
-            question: "¿Cuánto tiempo tarda la Luna en dar una vuelta completa alrededor de la Tierra?",
-            options: ["Aproximadamente 28 días", "7 días", "365 días", "24 horas"],
-            correct: 0,
-            hint: "Es casi un mes. Por eso cada semana la Luna se ve diferente.",
-            explanation: "La Luna tarda aproximadamente 28 DÍAS (casi un mes) en orbitar la Tierra. 🌙"
-        },
-        {
-            instruction: "⚛️ ¡Los átomos y las moléculas!",
-            question: "¿Qué es lo más pequeño: un átomo o una molécula?",
-            options: ["Un átomo", "Una molécula", "Son del mismo tamaño", "Una célula"],
-            correct: 0,
-            hint: "Las moléculas están hechas de varios átomos unidos.",
-            explanation: "Un ÁTOMO es más pequeño. Las moléculas son grupos de átomos unidos. ⚛️"
-        },
-        {
-            instruction: "🦷 ¡Los dientes humanos!",
-            question: "¿Cuántos dientes permanentes tiene un adulto humano?",
-            options: ["32 dientes", "20 dientes", "28 dientes", "40 dientes"],
-            correct: 0,
-            hint: "Incluye las muelas del juicio. Si cuentas arriba y abajo, son bastantes.",
-            explanation: "Un adulto tiene 32 DIENTES (incluyendo 4 muelas del juicio). 🦷✨"
-        },
-        {
-            instruction: "🌈 ¡La luz y los colores!",
-            question: "¿Cuántos colores tiene el arcoíris?",
-            options: ["7 colores", "5 colores", "10 colores", "3 colores"],
-            correct: 0,
-            hint: "Rojo, naranja, amarillo, verde, azul, añil y violeta. Cuenta.",
-            explanation: "El arcoíris tiene 7 COLORES: Rojo, Naranja, Amarillo, Verde, Azul, Añil, Violeta. 🌈"
-        },
-        {
-            instruction: "🐟 ¡Animales vertebrados e invertebrados!",
-            question: "¿Cuál de estos animales es INVERTEBRADO (no tiene columna)?",
-            options: ["Pulpo", "Perro", "Gato", "Pájaro"],
-            correct: 0,
-            hint: "Los invertebrados no tienen huesos en la espalda. Animales blandos.",
-            explanation: "El PULPO es invertebrado porque no tiene columna ni huesos. 🐙"
-        },
-        {
-            instruction: "🌋 ¡Volcanes y la Tierra!",
-            question: "¿Cómo se llama la roca fundida que sale de un volcán?",
-            options: ["Lava", "Magma", "Ceniza", "Roca ígnea"],
-            correct: 0,
-            hint: "Cuando está dentro se llama magma, pero cuando sale se llama...",
-            explanation: "La roca fundida que SALE del volcán es LAVA. Dentro se llama magma. 🌋"
-        },
-        {
-            instruction: "👂 ¡Los sentidos!",
-            question: "¿Cuál es el sentido que nos permite mantener el equilibrio?",
-            options: ["El equilibrio (oído interno)", "La vista", "El tacto", "El olfato"],
-            correct: 0,
-            hint: "Aunque no es uno de los 5 sentidos tradicionales, está en el oído.",
-            explanation: "El EQUILIBRIO lo controla el oído interno (aparato vestibular). 👂⚖️"
-        },
-        {
-            instruction: "🧲 ¡Magnetismo y fuerzas!",
-            question: "¿Cuáles son los dos polos de un imán?",
-            options: ["Norte y Sur", "Positivo y Negativo", "Este y Oeste", "Arriba y Abajo"],
-            correct: 0,
-            hint: "Son como los puntos cardinales de una brújula.",
-            explanation: "Los imanes tienen polo NORTE y polo SUR. Opuestos se atraen, iguales se repelen. 🧲"
-        }
-    ],
-    social: [
-        {
-            instruction: "🗺️ ¡Geografía de España!",
-            question: "¿Cuál es la capital de España?",
-            options: ["Madrid", "Barcelona", "Sevilla", "Valencia"],
-            correct: 0,
-            hint: "Es la ciudad más grande y está en el centro del país.",
-            explanation: "MADRID es la capital desde 1561. Tiene más de 3 millones de habitantes. 🇪🇸"
-        },
-        {
-            instruction: "⚔️ ¡Historia de la Edad Media!",
-            question: "¿Cómo se llamaban los soldados que iban a caballo con armadura?",
-            options: ["Caballeros", "Arqueros", "Magos", "Piratas"],
-            correct: 0,
-            hint: "Usaban armadura de metal y protegían castillos. Montaban a...",
-            explanation: "Los CABALLEROS eran guerreros nobles que luchaban a caballo. ⚔️🛡️"
-        },
-        {
-            instruction: "🌍 ¡Los continentes!",
-            question: "¿Cuántos continentes hay en el mundo?",
-            options: ["7 continentes", "5 continentes", "6 continentes", "8 continentes"],
-            correct: 0,
-            hint: "Asia, África, Europa, América del Norte, América del Sur, Oceanía y...",
-            explanation: "Hay 7 CONTINENTES: Asia, África, América del Norte, del Sur, Antártida, Europa y Oceanía. 🌏"
-        },
-        {
-            instruction: "🏛️ ¡Civilizaciones antiguas!",
-            question: "¿En qué país están las pirámides de Giza?",
-            options: ["Egipto", "México", "China", "Grecia"],
-            correct: 0,
-            hint: "Es un país de África que está junto al río Nilo.",
-            explanation: "Las pirámides están en EGIPTO, junto al Nilo. Construidas hace más de 4.500 años. 🏜️"
-        },
-        {
-            instruction: "💰 ¡Economía básica!",
-            question: "¿Cuál es la moneda que se usa en la mayoría de países de Europa?",
-            options: ["Euro", "Dólar", "Libra", "Peso"],
-            correct: 0,
-            hint: "Símbolo: €. Se usa en España, Francia, Italia, Alemania...",
-            explanation: "El EURO (€) es la moneda de 20 países de la Unión Europea. 💶"
-        },
-        {
-            instruction: "🗽 ¡Monumentos famosos!",
-            question: "¿En qué ciudad está la Estatua de la Libertad?",
-            options: ["Nueva York", "París", "Londres", "Roma"],
-            correct: 0,
-            hint: "Es una ciudad de Estados Unidos, la más grande del país.",
-            explanation: "La Estatua de la Libertad está en NUEVA YORK. Fue un regalo de Francia en 1886. 🗽"
-        },
-        {
-            instruction: "🌊 ¡Océanos del mundo!",
-            question: "¿Cuál es el océano más grande del planeta?",
-            options: ["Océano Pacífico", "Océano Atlántico", "Océano Índico", "Océano Ártico"],
-            correct: 0,
-            hint: "Su nombre significa 'tranquilo'. Está entre América y Asia.",
-            explanation: "El OCÉANO PACÍFICO es el más grande, cubre más de 165 millones de km². 🌊"
-        },
-        {
-            instruction: "👥 ¡Derechos humanos!",
-            question: "¿Cuál de estos es un derecho fundamental de todos los niños?",
-            options: ["Derecho a la educación", "Derecho a trabajar", "Derecho a conducir", "Derecho a votar"],
-            correct: 0,
-            hint: "Todos los niños deben poder ir a...",
-            explanation: "El DERECHO A LA EDUCACIÓN es fundamental. Todos los niños tienen derecho a aprender. 📚"
-        },
-        {
-            instruction: "🗺️ ¡Comunidades Autónomas!",
-            question: "¿Cuántas Comunidades Autónomas tiene España?",
-            options: ["17 Comunidades", "15 Comunidades", "20 Comunidades", "12 Comunidades"],
-            correct: 0,
-            hint: "Incluye Cataluña, Andalucía, Madrid, Aragón... cuenta bien todas.",
-            explanation: "España tiene 17 COMUNIDADES AUTÓNOMAS más 2 ciudades autónomas. 🇪🇸"
-        },
-        {
-            instruction: "⏰ ¡La medida del tiempo!",
-            question: "¿Cuántos años forman un siglo?",
-            options: ["100 años", "50 años", "10 años", "1.000 años"],
-            correct: 0,
-            hint: "Un siglo es mucho tiempo. Es un número redondo muy grande.",
-            explanation: "Un SIGLO son 100 AÑOS. Estamos en el siglo XXI (21), que comenzó en 2001. ⏰"
-        },
-        {
-            instruction: "🏔️ ¡Geografía física de España!",
-            question: "¿Cuál es el río más largo de España?",
-            options: ["Río Tajo", "Río Ebro", "Río Duero", "Río Guadalquivir"],
-            correct: 0,
-            hint: "Pasa por Toledo y desemboca en Lisboa, Portugal.",
-            explanation: "El RÍO TAJO es el más largo con 1.008 km. Desemboca en Lisboa. 🏞️"
-        },
-        {
-            instruction: "🌐 ¡Las banderas del mundo!",
-            question: "¿De qué colores es la bandera de España?",
-            options: ["Rojo y amarillo", "Azul y blanco", "Verde y rojo", "Rojo y blanco"],
-            correct: 0,
-            hint: "Son dos colores. Uno es el color del sol.",
-            explanation: "La bandera de España tiene franjas ROJA-AMARILLA-ROJA. 🇪🇸"
-        },
-        {
-            instruction: "🏛️ ¡Democracia y gobierno!",
-            question: "¿Cómo se llama la persona que dirige el gobierno de un país?",
-            options: ["Presidente o Primer Ministro", "Rey o Reina", "Alcalde", "Gobernador"],
-            correct: 0,
-            hint: "En España se llama Presidente del Gobierno. Toma las decisiones políticas.",
-            explanation: "Puede ser PRESIDENTE o PRIMER MINISTRO. Es elegido por votación. 🏛️"
-        },
-        {
-            instruction: "🗓️ ¡Historia de España!",
-            question: "¿En qué año descubrió Cristóbal Colón América?",
-            options: ["1492", "1500", "1400", "1600"],
-            correct: 0,
-            hint: "Es un año muy famoso. Siglo XV.",
-            explanation: "Cristóbal Colón llegó a América el 12 de octubre de 1492. 🚢"
-        },
-        {
-            instruction: "🌍 ¡Países y capitales de Europa!",
-            question: "¿Cuál es la capital de Francia?",
-            options: ["París", "Londres", "Berlín", "Roma"],
-            correct: 0,
-            hint: "Es la ciudad de la Torre Eiffel y el río Sena.",
-            explanation: "PARÍS es la capital de Francia. Famosa por la Torre Eiffel. 🗼"
-        },
-        {
-            instruction: "🏰 ¡Edad Media en España!",
-            question: "¿Cómo se llamaban los palacios fortificados donde vivían los reyes?",
-            options: ["Castillos", "Iglesias", "Mezquitas", "Catedrales"],
-            correct: 0,
-            hint: "Tenían murallas, torres y un foso con agua. Protegían de los ataques.",
-            explanation: "Los CASTILLOS eran fortalezas donde vivían reyes y nobles. 🏰⚔️"
-        },
-        {
-            instruction: "🌏 ¡La población mundial!",
-            question: "¿Cuál es el país con más habitantes del mundo?",
-            options: ["India", "China", "Estados Unidos", "Indonesia"],
-            correct: 0,
-            hint: "Hasta 2023 era China, pero ahora otro país asiático lo superó.",
-            explanation: "INDIA es actualmente el país más poblado con más de 1.400 millones. 👥"
-        },
-        {
-            instruction: "📅 ¡El calendario!",
-            question: "¿Cuántos meses tiene un año?",
-            options: ["12 meses", "10 meses", "11 meses", "13 meses"],
-            correct: 0,
-            hint: "Enero, Febrero, Marzo... cuenta hasta Diciembre.",
-            explanation: "Un año tiene 12 MESES. Algunos tienen 31 días, otros 30, y febrero 28/29. 📅"
-        }
-    ]
-};
         const achievements = [
             { id: 'first_day', name: '¡Primer Día Genial!', description: 'Completa tu primer día de ejercicios', icon: '🌟' },
             { id: 'week_warrior', name: 'Guerrero de la Semana', description: 'Completa una semana completa', icon: '⚔️' },
