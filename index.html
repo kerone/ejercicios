@@ -2153,39 +2153,77 @@
             }
         }
 
+        /**
+         * Genera ejercicios únicos para cada día de la semana
+         * Cada semana tiene 7 días (L-D) con 10 ejercicios cada uno (70 ejercicios/semana)
+         * Los ejercicios NO se repiten dentro de la misma semana
+         */
         function generateDailyExercises() {
-            const exercises = [];
+            const dateKey = appState.currentDay || new Date().toDateString();
+            const date = new Date(dateKey);
+            
+            // Calcular número de semana y día de la semana (0=Domingo, 1=Lunes, ..., 6=Sábado)
+            const weekNumber = getWeekNumber(date);
+            const dayOfWeek = date.getDay(); // 0=Domingo, 1=Lunes, 2=Martes, etc.
+            
+            console.log(`📅 Generando ejercicios para: ${dateKey}, Semana ${weekNumber}, Día ${dayOfWeek}`);
+            
+            // Crear un pool de todos los ejercicios disponibles
+            const allExercises = [];
             const subjects = ['math', 'reading', 'science', 'social'];
             
-            // Crear un "seed" único para el día actual basado en la fecha
-            const dateKey = appState.currentDay || new Date().toDateString();
-            const seed = hashString(dateKey);
-            
             subjects.forEach(subject => {
-                const subjectExercises = exerciseBank[subject];
-                const count = subject === 'math' || subject === 'reading' ? 3 : 2;
-                
-                // Usar el seed para obtener una selección determinística
-                const shuffled = [...subjectExercises].sort((a, b) => {
-                    const hashA = hashString(JSON.stringify(a) + seed);
-                    const hashB = hashString(JSON.stringify(b) + seed);
-                    return hashA - hashB;
-                });
-                
-                for (let i = 0; i < count && i < shuffled.length; i++) {
-                    exercises.push({
-                        ...shuffled[i],
-                        subject: subject
+                exerciseBank[subject].forEach((exercise, index) => {
+                    allExercises.push({
+                        ...exercise,
+                        subject: subject,
+                        id: `${subject}_${index}` // ID único para cada ejercicio
                     });
-                }
+                });
             });
             
-            // Mezclar los ejercicios de forma determinística
-            return exercises.sort((a, b) => {
-                const hashA = hashString(JSON.stringify(a) + seed);
-                const hashB = hashString(JSON.stringify(b) + seed);
+            console.log(`📚 Total ejercicios en el banco: ${allExercises.length}`);
+            
+            // Usar semana como seed para shufflear
+            const weekSeed = hashString(`week_${weekNumber}`);
+            
+            // Shufflear todos los ejercicios de forma determinística para esta semana
+            const weekExercises = [...allExercises].sort((a, b) => {
+                const hashA = hashString(a.id + weekSeed);
+                const hashB = hashString(b.id + weekSeed);
                 return hashA - hashB;
             });
+            
+            // Dividir los ejercicios en 7 días (10 ejercicios por día)
+            const exercisesPerDay = 10;
+            const startIndex = dayOfWeek * exercisesPerDay;
+            const endIndex = startIndex + exercisesPerDay;
+            
+            // Obtener los ejercicios para este día específico
+            const todayExercises = weekExercises.slice(startIndex, endIndex);
+            
+            // Si no hay suficientes ejercicios (banco pequeño), repetir desde el principio
+            if (todayExercises.length < exercisesPerDay) {
+                const needed = exercisesPerDay - todayExercises.length;
+                const additional = weekExercises.slice(0, needed);
+                todayExercises.push(...additional);
+            }
+            
+            console.log(`✅ Ejercicios del día ${dayOfWeek}: ${todayExercises.length} ejercicios`);
+            console.log(`📝 IDs: ${todayExercises.map(e => e.id).join(', ')}`);
+            
+            return todayExercises;
+        }
+
+        /**
+         * Calcula el número de semana del año
+         */
+        function getWeekNumber(date) {
+            const d = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()));
+            const dayNum = d.getUTCDay() || 7;
+            d.setUTCDate(d.getUTCDate() + 4 - dayNum);
+            const yearStart = new Date(Date.UTC(d.getUTCFullYear(), 0, 1));
+            return Math.ceil((((d - yearStart) / 86400000) + 1) / 7);
         }
 
         // Función para crear un hash simple y determinístico de una cadena
