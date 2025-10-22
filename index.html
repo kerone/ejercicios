@@ -2604,12 +2604,27 @@
             
             console.log('📊 Usuarios filtrados:', filteredUsers.length);
             
+            // Ordenar usuarios por: 1) Logros, 2) Precisión, 3) Puntos totales
             const sortedUsers = filteredUsers.sort((a, b) => {
                 const aAchievements = a[1].achievements ? a[1].achievements.length : 0;
                 const bAchievements = b[1].achievements ? b[1].achievements.length : 0;
+                
+                // Primero por logros
                 if (bAchievements !== aAchievements) {
                     return bAchievements - aAchievements;
                 }
+                
+                // Luego por precisión (accuracy)
+                const aAttempts = a[1].totalAttempts || 0;
+                const bAttempts = b[1].totalAttempts || 0;
+                const aAccuracy = aAttempts > 0 ? (a[1].correctAnswers || 0) / aAttempts : 0;
+                const bAccuracy = bAttempts > 0 ? (b[1].correctAnswers || 0) / bAttempts : 0;
+                
+                if (Math.abs(bAccuracy - aAccuracy) > 0.01) { // Si hay diferencia significativa
+                    return bAccuracy - aAccuracy;
+                }
+                
+                // Finalmente por puntos totales
                 return (b[1].totalPoints || 0) - (a[1].totalPoints || 0);
             });
             
@@ -2632,36 +2647,45 @@
                 const podium = document.createElement('div');
                 podium.className = 'podium';
                 
-                const positions = ['second', 'first', 'third'];
-                const medals = ['🥈', '🥇', '🥉'];
-                
-                // Si solo hay 1 o 2 usuarios, ajustar orden
+                // Si solo hay 1 usuario
                 if (top3.length === 1) {
                     const [username, data] = top3[0];
+                    const accuracy = (data.totalAttempts || 0) > 0 
+                        ? Math.round(((data.correctAnswers || 0) / data.totalAttempts) * 100)
+                        : 0;
                     const place = document.createElement('div');
                     place.className = 'podium-place first';
                     place.innerHTML = `
                         <div class="podium-rank">🥇</div>
                         <div class="podium-name">${username}</div>
                         <div class="podium-score">⭐ ${data.totalPoints || 0}</div>
+                        <div class="podium-score">🎯 ${accuracy}%</div>
                         <div class="podium-score">🏆 ${data.achievements ? data.achievements.length : 0}</div>
                     `;
                     podium.appendChild(place);
-                } else if (top3.length === 2) {
+                } 
+                // Si hay 2 usuarios
+                else if (top3.length === 2) {
+                    const correctMedals = ['🥇', '🥈']; // Medallas correctas para 2 usuarios
                     [0, 1].forEach((index) => {
                         const [username, data] = top3[index];
+                        const accuracy = (data.totalAttempts || 0) > 0 
+                            ? Math.round(((data.correctAnswers || 0) / data.totalAttempts) * 100)
+                            : 0;
                         const place = document.createElement('div');
                         place.className = `podium-place ${index === 0 ? 'first' : 'second'}`;
                         place.innerHTML = `
-                            <div class="podium-rank">${medals[index]}</div>
+                            <div class="podium-rank">${correctMedals[index]}</div>
                             <div class="podium-name">${username}</div>
                             <div class="podium-score">⭐ ${data.totalPoints || 0}</div>
+                            <div class="podium-score">🎯 ${accuracy}%</div>
                             <div class="podium-score">🏆 ${data.achievements ? data.achievements.length : 0}</div>
                         `;
                         podium.appendChild(place);
                     });
-                } else {
-                    // 3 o más usuarios - orden visual: 2do, 1ro, 3ro (pero medallas correctas)
+                } 
+                // Si hay 3 o más usuarios - orden visual: 2do, 1ro, 3ro
+                else {
                     const displayOrder = [
                         { arrayIndex: 1, position: 'second', medal: '🥈' },  // 2do lugar (izquierda)
                         { arrayIndex: 0, position: 'first', medal: '🥇' },   // 1er lugar (centro)
@@ -2671,12 +2695,16 @@
                     displayOrder.forEach(({ arrayIndex, position, medal }) => {
                         if (top3[arrayIndex]) {
                             const [username, data] = top3[arrayIndex];
+                            const accuracy = (data.totalAttempts || 0) > 0 
+                                ? Math.round(((data.correctAnswers || 0) / data.totalAttempts) * 100)
+                                : 0;
                             const place = document.createElement('div');
                             place.className = `podium-place ${position}`;
                             place.innerHTML = `
                                 <div class="podium-rank">${medal}</div>
                                 <div class="podium-name">${username}</div>
                                 <div class="podium-score">⭐ ${data.totalPoints || 0}</div>
+                                <div class="podium-score">🎯 ${accuracy}%</div>
                                 <div class="podium-score">🏆 ${data.achievements ? data.achievements.length : 0}</div>
                             `;
                             podium.appendChild(place);
@@ -2691,6 +2719,9 @@
             const remainingUsers = sortedUsers.slice(3);
             if (remainingUsers.length > 0) {
                 remainingUsers.forEach(([username, data], index) => {
+                    const accuracy = (data.totalAttempts || 0) > 0 
+                        ? Math.round(((data.correctAnswers || 0) / data.totalAttempts) * 100)
+                        : 0;
                     const row = document.createElement('div');
                     row.className = 'ranking-row';
                     if (username === appState.currentUser) {
@@ -2702,6 +2733,7 @@
                         <div class="ranking-user">${username}</div>
                         <div class="ranking-stats">
                             <span>⭐ ${data.totalPoints || 0}</span>
+                            <span>🎯 ${accuracy}%</span>
                             <span>🏆 ${data.achievements ? data.achievements.length : 0}</span>
                             <span>🔥 ${data.streak || 0}</span>
                         </div>
