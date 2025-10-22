@@ -1927,22 +1927,33 @@
                 return;
             }
             
-            appState.currentUser = username;
-            document.getElementById('currentUserDisplay').textContent = username;
-            
-            updateConnectionStatus('connecting');
-            await loadUserData();
-            
-            document.getElementById('loginScreen').style.display = 'none';
-            document.getElementById('mainApp').style.display = 'block';
-            
-            updateUserInterface();
-            generateWeeks();
-            
-            // Cargar las pestañas iniciales
-            loadStats();
-            loadAchievements();
-            loadRanking();
+            try {
+                appState.currentUser = username;
+                const displayElement = document.getElementById('currentUserDisplay');
+                if (displayElement) {
+                    displayElement.textContent = username;
+                }
+                
+                updateConnectionStatus('connecting');
+                await loadUserData();
+                
+                document.getElementById('loginScreen').style.display = 'none';
+                document.getElementById('mainApp').style.display = 'block';
+                
+                updateUserInterface();
+                generateWeeks();
+                
+                // Cargar las pestañas iniciales
+                loadStats();
+                loadAchievements();
+                loadRanking();
+                
+                console.log('✅ Login completado exitosamente');
+            } catch (error) {
+                console.error('❌ Error en login:', error);
+                updateConnectionStatus('error');
+                alert('❌ Error al iniciar sesión. Por favor, intenta de nuevo.');
+            }
         }
 
         async function loadUserData() {
@@ -2738,154 +2749,163 @@
         }
 
         function loadStats() {
-            const content = document.getElementById('statsContent');
-            const userData = appState.userData || createNewUser();
-            
-            console.log('📊 LoadStats - userData:', userData);
-            console.log('📊 LoadStats - content element:', content);
-            
-            if (!content) {
-                console.error('❌ No se encontró el elemento statsContent');
-                return;
-            }
-            
-            // Calcular precisión (accuracy)
-            const accuracy = userData.totalAttempts > 0 
-                ? Math.round((userData.correctAnswers / userData.totalAttempts) * 100)
-                : 0;
-            
-            // Determinar nivel de precisión y emoji
-            let accuracyEmoji = '🎯';
-            let accuracyClass = '';
-            if (accuracy >= 90) {
-                accuracyEmoji = '🏆';
-                accuracyClass = 'excellent';
-            } else if (accuracy >= 75) {
-                accuracyEmoji = '⭐';
-                accuracyClass = 'good';
-            } else if (accuracy >= 50) {
-                accuracyEmoji = '📈';
-                accuracyClass = 'ok';
-            } else {
-                accuracyEmoji = '💪';
-                accuracyClass = 'needs-work';
-            }
-            
-            const allUsers = Object.entries(appState.allUsersData);
-            const sortedByAchievements = allUsers.sort((a, b) => {
-                const aAchievements = a[1].achievements ? a[1].achievements.length : 0;
-                const bAchievements = b[1].achievements ? b[1].achievements.length : 0;
-                if (bAchievements !== aAchievements) {
-                    return bAchievements - aAchievements;
+            try {
+                const content = document.getElementById('statsContent');
+                const userData = appState.userData || createNewUser();
+                
+                console.log('📊 LoadStats - userData:', userData);
+                console.log('📊 LoadStats - content element:', content);
+                
+                if (!content) {
+                    console.error('❌ No se encontró el elemento statsContent');
+                    return;
                 }
-                return (b[1].totalPoints || 0) - (a[1].totalPoints || 0);
-            });
-            
-            const userRankPosition = sortedByAchievements.findIndex(([username]) => username === appState.currentUser) + 1;
-            
-            content.innerHTML = `
-                <div class="stats-kids">
-                    <div class="stat-card-big">
-                        <div class="stat-icon-big">🎯</div>
-                        <div class="stat-number-big">${userData.totalExercises}</div>
-                        <div class="stat-label-big">Ejercicios Súper Completados</div>
-                    </div>
-                    
-                    <div class="stat-card-big">
-                        <div class="stat-icon-big">${accuracyEmoji}</div>
-                        <div class="stat-number-big">${accuracy}%</div>
-                        <div class="stat-label-big">Precisión (Aciertos a la Primera)</div>
-                    </div>
-                    
-                    <div class="stat-card-big">
-                        <div class="stat-icon-big">🏆</div>
-                        <div class="stat-number-big">${userRankPosition > 0 ? `#${userRankPosition}` : '🌟'}</div>
-                        <div class="stat-label-big">Mi Posición en el Ranking</div>
-                    </div>
-                    
-                    <div class="stat-card-big">
-                        <div class="stat-icon-big">🎖️</div>
-                        <div class="stat-number-big">${userData.achievements.length}</div>
-                        <div class="stat-label-big">Logros Súper Geniales</div>
-                    </div>
-                    
-                    <div class="stat-card-big">
-                        <div class="stat-icon-big">🔥</div>
-                        <div class="stat-number-big">${userData.streak}</div>
-                        <div class="stat-label-big">Días Seguidos Geniales</div>
-                    </div>
-                </div>
                 
-                <div style="margin-top: 30px; padding: 25px; background: linear-gradient(135deg, #fff3cd, #ffe69c); border-radius: 20px; border: 3px solid #ffc107;">
-                    <h4 style="font-family: 'Fredoka One', cursive; font-size: 20px; text-align: center; margin-bottom: 15px; color: #856404;">💡 Sistema de Puntos</h4>
-                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px; font-weight: 700; font-size: 15px; color: #856404;">
-                        <div>✅ Respuesta correcta: <span style="color: #28a745;">+10 puntos</span></div>
-                        <div>❌ Respuesta incorrecta: <span style="color: #dc3545;">-3 puntos</span></div>
-                        <div>🎯 Tu precisión: <strong style="font-size: 18px;">${accuracy}%</strong></div>
-                    </div>
-                    <p style="margin-top: 15px; text-align: center; font-weight: 600; color: #856404; font-size: 14px;">
-                        💭 ¡Piensa bien antes de responder! Cada error resta puntos.
-                    </p>
-                </div>
+                // Asegurar que existan los campos necesarios con valores por defecto
+                const totalAttempts = userData.totalAttempts || 0;
+                const correctAnswers = userData.correctAnswers || 0;
+                const wrongAnswers = userData.wrongAnswers || 0;
+                const totalExercises = userData.totalExercises || 0;
                 
-                <div style="margin-top: 30px; padding: 25px; background: white; border-radius: 20px; border: 3px solid #17a2b8;">
-                    <h4 style="font-family: 'Fredoka One', cursive; font-size: 20px; text-align: center; margin-bottom: 20px; color: #2d3436;">📈 Mis Números Detallados</h4>
-                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px; text-align: center;">
-                        <div style="padding: 15px; background: #d4edda; border-radius: 15px; border: 3px solid #28a745;">
-                            <div style="font-size: 32px; margin-bottom: 5px;">✅</div>
-                            <div style="font-family: 'Fredoka One', cursive; font-size: 24px; color: #155724;">${userData.correctAnswers || 0}</div>
-                            <div style="font-weight: 700; color: #155724; font-size: 14px;">Aciertos</div>
-                        </div>
-                        <div style="padding: 15px; background: #f8d7da; border-radius: 15px; border: 3px solid #dc3545;">
-                            <div style="font-size: 32px; margin-bottom: 5px;">❌</div>
-                            <div style="font-family: 'Fredoka One', cursive; font-size: 24px; color: #721c24;">${userData.wrongAnswers || 0}</div>
-                            <div style="font-weight: 700; color: #721c24; font-size: 14px;">Errores</div>
-                        </div>
-                        <div style="padding: 15px; background: #d1ecf1; border-radius: 15px; border: 3px solid #17a2b8;">
-                            <div style="font-size: 32px; margin-bottom: 5px;">📝</div>
-                            <div style="font-family: 'Fredoka One', cursive; font-size: 24px; color: #0c5460;">${userData.totalAttempts || 0}</div>
-                            <div style="font-weight: 700; color: #0c5460; font-size: 14px;">Intentos Totales</div>
-                        </div>
-                    </div>
-                </div>
+                // Calcular precisión (accuracy)
+                const accuracy = totalAttempts > 0 
+                    ? Math.round((correctAnswers / totalAttempts) * 100)
+                    : 0;
                 
-                <div style="margin-top: 40px; padding: 30px; background: linear-gradient(135deg, #f8f9fa, #e9ecef); border-radius: 25px; border: 3px solid #74b9ff;">
-                    <h3 style="font-family: 'Fredoka One', cursive; font-size: 28px; text-align: center; margin-bottom: 30px; color: #2d3436;">📊 ¡Mis Números por Materia!</h3>
-                    
-                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px;">
-                        <div style="text-align: center; padding: 20px; background: white; border-radius: 15px; border: 3px solid #ff6b6b;">
-                            <div style="font-size: 40px; margin-bottom: 10px;">🧮</div>
-                            <div style="font-family: 'Fredoka One', cursive; font-size: 24px; color: #ff6b6b;">${userData.exercisesByType.math || 0}</div>
-                            <div style="font-weight: 700; color: #636e72;">Mates Geniales</div>
+                // Determinar nivel de precisión y emoji
+                let accuracyEmoji = '🎯';
+                let accuracyClass = '';
+                if (accuracy >= 90) {
+                    accuracyEmoji = '🏆';
+                    accuracyClass = 'excellent';
+                } else if (accuracy >= 75) {
+                    accuracyEmoji = '⭐';
+                    accuracyClass = 'good';
+                } else if (accuracy >= 50) {
+                    accuracyEmoji = '📈';
+                    accuracyClass = 'ok';
+                } else {
+                    accuracyEmoji = '💪';
+                    accuracyClass = 'needs-work';
+                }
+                
+                const allUsers = Object.entries(appState.allUsersData || {});
+                const sortedByAchievements = allUsers.sort((a, b) => {
+                    const aAchievements = a[1].achievements ? a[1].achievements.length : 0;
+                    const bAchievements = b[1].achievements ? b[1].achievements.length : 0;
+                    if (bAchievements !== aAchievements) {
+                        return bAchievements - aAchievements;
+                    }
+                    return (b[1].totalPoints || 0) - (a[1].totalPoints || 0);
+                });
+                
+                const userRankPosition = sortedByAchievements.findIndex(([username]) => username === appState.currentUser) + 1;
+                
+                content.innerHTML = `
+                    <div class="stats-kids">
+                        <div class="stat-card-big">
+                            <div class="stat-icon-big">🎯</div>
+                            <div class="stat-number-big">${totalExercises}</div>
+                            <div class="stat-label-big">Ejercicios Súper Completados</div>
                         </div>
                         
-                        <div style="text-align: center; padding: 20px; background: white; border-radius: 15px; border: 3px solid #4ecdc4;">
-                            <div style="font-size: 40px; margin-bottom: 10px;">📖</div>
-                            <div style="font-family: 'Fredoka One', cursive; font-size: 24px; color: #4ecdc4;">${userData.exercisesByType.reading || 0}</div>
-                            <div style="font-weight: 700; color: #636e72;">Súper Lectura</div>
+                        <div class="stat-card-big">
+                            <div class="stat-icon-big">${accuracyEmoji}</div>
+                            <div class="stat-number-big">${accuracy}%</div>
+                            <div class="stat-label-big">Precisión (Aciertos a la Primera)</div>
                         </div>
                         
-                        <div style="text-align: center; padding: 20px; background: white; border-radius: 15px; border: 3px solid #74b9ff;">
-                            <div style="font-size: 40px; margin-bottom: 10px;">🔬</div>
-                            <div style="font-family: 'Fredoka One', cursive; font-size: 24px; color: #74b9ff;">${userData.exercisesByType.science || 0}</div>
-                            <div style="font-weight: 700; color: #636e72;">Ciencias Naturales</div>
+                        <div class="stat-card-big">
+                            <div class="stat-icon-big">🏆</div>
+                            <div class="stat-number-big">${userRankPosition > 0 ? `#${userRankPosition}` : '🌟'}</div>
+                            <div class="stat-label-big">Mi Posición en el Ranking</div>
                         </div>
                         
-                        <div style="text-align: center; padding: 20px; background: white; border-radius: 15px; border: 3px solid #a29bfe;">
-                            <div style="font-size: 40px; margin-bottom: 10px;">🌍</div>
-                            <div style="font-family: 'Fredoka One', cursive; font-size: 24px; color: #a29bfe;">${userData.exercisesByType.social || 0}</div>
-                            <div style="font-weight: 700; color: #636e72;">Ciencias Sociales</div>
+                        <div class="stat-card-big">
+                            <div class="stat-icon-big">🎖️</div>
+                            <div class="stat-number-big">${userData.achievements ? userData.achievements.length : 0}</div>
+                            <div class="stat-label-big">Logros Súper Geniales</div>
+                        </div>
+                        
+                        <div class="stat-card-big">
+                            <div class="stat-icon-big">🔥</div>
+                            <div class="stat-number-big">${userData.streak || 0}</div>
+                            <div class="stat-label-big">Días Seguidos Geniales</div>
                         </div>
                     </div>
-                </div>
-            `;
-        }                            <div style="font-size: 40px; margin-bottom: 10px;">🌍</div>
-                            <div style="font-family: 'Fredoka One', cursive; font-size: 24px; color: #a29bfe;">${userData.exercisesByType.social || 0}</div>
-                            <div style="font-weight: 700; color: #636e72;">Ciencias Sociales</div>
+                    
+                    <div style="margin-top: 30px; padding: 25px; background: linear-gradient(135deg, #fff3cd, #ffe69c); border-radius: 20px; border: 3px solid #ffc107;">
+                        <h4 style="font-family: 'Fredoka One', cursive; font-size: 20px; text-align: center; margin-bottom: 15px; color: #856404;">💡 Sistema de Puntos</h4>
+                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px; font-weight: 700; font-size: 15px; color: #856404;">
+                            <div>✅ Respuesta correcta: <span style="color: #28a745;">+10 puntos</span></div>
+                            <div>❌ Respuesta incorrecta: <span style="color: #dc3545;">-3 puntos</span></div>
+                            <div>🎯 Tu precisión: <strong style="font-size: 18px;">${accuracy}%</strong></div>
+                        </div>
+                        <p style="margin-top: 15px; text-align: center; font-weight: 600; color: #856404; font-size: 14px;">
+                            💭 ¡Piensa bien antes de responder! Cada error resta puntos.
+                        </p>
+                    </div>
+                    
+                    <div style="margin-top: 30px; padding: 25px; background: white; border-radius: 20px; border: 3px solid #17a2b8;">
+                        <h4 style="font-family: 'Fredoka One', cursive; font-size: 20px; text-align: center; margin-bottom: 20px; color: #2d3436;">📈 Mis Números Detallados</h4>
+                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px; text-align: center;">
+                            <div style="padding: 15px; background: #d4edda; border-radius: 15px; border: 3px solid #28a745;">
+                                <div style="font-size: 32px; margin-bottom: 5px;">✅</div>
+                                <div style="font-family: 'Fredoka One', cursive; font-size: 24px; color: #155724;">${correctAnswers}</div>
+                                <div style="font-weight: 700; color: #155724; font-size: 14px;">Aciertos</div>
+                            </div>
+                            <div style="padding: 15px; background: #f8d7da; border-radius: 15px; border: 3px solid #dc3545;">
+                                <div style="font-size: 32px; margin-bottom: 5px;">❌</div>
+                                <div style="font-family: 'Fredoka One', cursive; font-size: 24px; color: #721c24;">${wrongAnswers}</div>
+                                <div style="font-weight: 700; color: #721c24; font-size: 14px;">Errores</div>
+                            </div>
+                            <div style="padding: 15px; background: #d1ecf1; border-radius: 15px; border: 3px solid #17a2b8;">
+                                <div style="font-size: 32px; margin-bottom: 5px;">📝</div>
+                                <div style="font-family: 'Fredoka One', cursive; font-size: 24px; color: #0c5460;">${totalAttempts}</div>
+                                <div style="font-weight: 700; color: #0c5460; font-size: 14px;">Intentos Totales</div>
+                            </div>
                         </div>
                     </div>
-                </div>
-            `;
+                    
+                    <div style="margin-top: 40px; padding: 30px; background: linear-gradient(135deg, #f8f9fa, #e9ecef); border-radius: 25px; border: 3px solid #74b9ff;">
+                        <h3 style="font-family: 'Fredoka One', cursive; font-size: 28px; text-align: center; margin-bottom: 30px; color: #2d3436;">📊 ¡Mis Números por Materia!</h3>
+                        
+                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px;">
+                            <div style="text-align: center; padding: 20px; background: white; border-radius: 15px; border: 3px solid #ff6b6b;">
+                                <div style="font-size: 40px; margin-bottom: 10px;">🧮</div>
+                                <div style="font-family: 'Fredoka One', cursive; font-size: 24px; color: #ff6b6b;">${(userData.exercisesByType && userData.exercisesByType.math) || 0}</div>
+                                <div style="font-weight: 700; color: #636e72;">Mates Geniales</div>
+                            </div>
+                            
+                            <div style="text-align: center; padding: 20px; background: white; border-radius: 15px; border: 3px solid #4ecdc4;">
+                                <div style="font-size: 40px; margin-bottom: 10px;">📖</div>
+                                <div style="font-family: 'Fredoka One', cursive; font-size: 24px; color: #4ecdc4;">${(userData.exercisesByType && userData.exercisesByType.reading) || 0}</div>
+                                <div style="font-weight: 700; color: #636e72;">Súper Lectura</div>
+                            </div>
+                            
+                            <div style="text-align: center; padding: 20px; background: white; border-radius: 15px; border: 3px solid #74b9ff;">
+                                <div style="font-size: 40px; margin-bottom: 10px;">🔬</div>
+                                <div style="font-family: 'Fredoka One', cursive; font-size: 24px; color: #74b9ff;">${(userData.exercisesByType && userData.exercisesByType.science) || 0}</div>
+                                <div style="font-weight: 700; color: #636e72;">Ciencias Naturales</div>
+                            </div>
+                            
+                            <div style="text-align: center; padding: 20px; background: white; border-radius: 15px; border: 3px solid #a29bfe;">
+                                <div style="font-size: 40px; margin-bottom: 10px;">🌍</div>
+                                <div style="font-family: 'Fredoka One', cursive; font-size: 24px; color: #a29bfe;">${(userData.exercisesByType && userData.exercisesByType.social) || 0}</div>
+                                <div style="font-weight: 700; color: #636e72;">Ciencias Sociales</div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                
+                console.log('✅ LoadStats completado exitosamente');
+            } catch (error) {
+                console.error('❌ Error en loadStats:', error);
+                const content = document.getElementById('statsContent');
+                if (content) {
+                    content.innerHTML = '<p style="text-align: center; color: red; padding: 20px;">Error al cargar estadísticas. Por favor, recarga la página.</p>';
+                }
+            }
         }
 
         function loadAchievements() {
