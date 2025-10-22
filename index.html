@@ -1802,6 +1802,8 @@
                 completedDays: [],
                 totalExercises: 0,
                 correctAnswers: 0,
+                totalAttempts: 0, // NUEVO: Total de intentos (incluye fallos)
+                wrongAnswers: 0,   // NUEVO: Respuestas incorrectas
                 exercisesByType: {
                     math: 0,
                     reading: 0,
@@ -1830,6 +1832,8 @@
             if (typeof userData.streak !== 'number') userData.streak = 0;
             if (typeof userData.totalExercises !== 'number') userData.totalExercises = 0;
             if (typeof userData.correctAnswers !== 'number') userData.correctAnswers = 0;
+            if (typeof userData.totalAttempts !== 'number') userData.totalAttempts = 0;
+            if (typeof userData.wrongAnswers !== 'number') userData.wrongAnswers = 0;
             
             return userData;
         }
@@ -2345,6 +2349,9 @@
             
             const isCorrect = appState.selectedAnswer === exercise.correct;
             
+            // REGISTRAR INTENTO
+            appState.userData.totalAttempts++;
+            
             document.querySelectorAll('.option-btn').forEach((btn, index) => {
                 btn.style.pointerEvents = 'none';
                 if (index === exercise.correct) {
@@ -2362,6 +2369,10 @@
                 appState.userData.totalPoints += 10;
                 showFeedback(true, exercise);
             } else {
+                // REGISTRAR FALLO Y PENALIZAR
+                appState.userData.wrongAnswers++;
+                // Penalización: -3 puntos por error (pero nunca bajar de 0)
+                appState.userData.totalPoints = Math.max(0, appState.userData.totalPoints - 3);
                 showFeedback(false, exercise);
             }
             
@@ -2639,14 +2650,20 @@
                         podium.appendChild(place);
                     });
                 } else {
-                    // 3 o más usuarios - orden normal: 2do, 1ro, 3ro
-                    [1, 0, 2].forEach((index, displayIndex) => {
-                        if (top3[index]) {
-                            const [username, data] = top3[index];
+                    // 3 o más usuarios - orden visual: 2do, 1ro, 3ro (pero medallas correctas)
+                    const displayOrder = [
+                        { arrayIndex: 1, position: 'second', medal: '🥈' },  // 2do lugar (izquierda)
+                        { arrayIndex: 0, position: 'first', medal: '🥇' },   // 1er lugar (centro)
+                        { arrayIndex: 2, position: 'third', medal: '🥉' }    // 3er lugar (derecha)
+                    ];
+                    
+                    displayOrder.forEach(({ arrayIndex, position, medal }) => {
+                        if (top3[arrayIndex]) {
+                            const [username, data] = top3[arrayIndex];
                             const place = document.createElement('div');
-                            place.className = `podium-place ${positions[displayIndex]}`;
+                            place.className = `podium-place ${position}`;
                             place.innerHTML = `
-                                <div class="podium-rank">${medals[index]}</div>
+                                <div class="podium-rank">${medal}</div>
                                 <div class="podium-name">${username}</div>
                                 <div class="podium-score">⭐ ${data.totalPoints || 0}</div>
                                 <div class="podium-score">🏆 ${data.achievements ? data.achievements.length : 0}</div>
@@ -2732,9 +2749,27 @@
                 return;
             }
             
-            const accuracy = userData.totalExercises > 0 
-                ? Math.round((userData.correctAnswers / userData.totalExercises) * 100)
+            // Calcular precisión (accuracy)
+            const accuracy = userData.totalAttempts > 0 
+                ? Math.round((userData.correctAnswers / userData.totalAttempts) * 100)
                 : 0;
+            
+            // Determinar nivel de precisión y emoji
+            let accuracyEmoji = '🎯';
+            let accuracyClass = '';
+            if (accuracy >= 90) {
+                accuracyEmoji = '🏆';
+                accuracyClass = 'excellent';
+            } else if (accuracy >= 75) {
+                accuracyEmoji = '⭐';
+                accuracyClass = 'good';
+            } else if (accuracy >= 50) {
+                accuracyEmoji = '📈';
+                accuracyClass = 'ok';
+            } else {
+                accuracyEmoji = '💪';
+                accuracyClass = 'needs-work';
+            }
             
             const allUsers = Object.entries(appState.allUsersData);
             const sortedByAchievements = allUsers.sort((a, b) => {
@@ -2757,6 +2792,12 @@
                     </div>
                     
                     <div class="stat-card-big">
+                        <div class="stat-icon-big">${accuracyEmoji}</div>
+                        <div class="stat-number-big">${accuracy}%</div>
+                        <div class="stat-label-big">Precisión (Aciertos a la Primera)</div>
+                    </div>
+                    
+                    <div class="stat-card-big">
                         <div class="stat-icon-big">🏆</div>
                         <div class="stat-number-big">${userRankPosition > 0 ? `#${userRankPosition}` : '🌟'}</div>
                         <div class="stat-label-big">Mi Posición en el Ranking</div>
@@ -2775,8 +2816,41 @@
                     </div>
                 </div>
                 
+                <div style="margin-top: 30px; padding: 25px; background: linear-gradient(135deg, #fff3cd, #ffe69c); border-radius: 20px; border: 3px solid #ffc107;">
+                    <h4 style="font-family: 'Fredoka One', cursive; font-size: 20px; text-align: center; margin-bottom: 15px; color: #856404;">💡 Sistema de Puntos</h4>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px; font-weight: 700; font-size: 15px; color: #856404;">
+                        <div>✅ Respuesta correcta: <span style="color: #28a745;">+10 puntos</span></div>
+                        <div>❌ Respuesta incorrecta: <span style="color: #dc3545;">-3 puntos</span></div>
+                        <div>🎯 Tu precisión: <strong style="font-size: 18px;">${accuracy}%</strong></div>
+                    </div>
+                    <p style="margin-top: 15px; text-align: center; font-weight: 600; color: #856404; font-size: 14px;">
+                        💭 ¡Piensa bien antes de responder! Cada error resta puntos.
+                    </p>
+                </div>
+                
+                <div style="margin-top: 30px; padding: 25px; background: white; border-radius: 20px; border: 3px solid #17a2b8;">
+                    <h4 style="font-family: 'Fredoka One', cursive; font-size: 20px; text-align: center; margin-bottom: 20px; color: #2d3436;">📈 Mis Números Detallados</h4>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px; text-align: center;">
+                        <div style="padding: 15px; background: #d4edda; border-radius: 15px; border: 3px solid #28a745;">
+                            <div style="font-size: 32px; margin-bottom: 5px;">✅</div>
+                            <div style="font-family: 'Fredoka One', cursive; font-size: 24px; color: #155724;">${userData.correctAnswers || 0}</div>
+                            <div style="font-weight: 700; color: #155724; font-size: 14px;">Aciertos</div>
+                        </div>
+                        <div style="padding: 15px; background: #f8d7da; border-radius: 15px; border: 3px solid #dc3545;">
+                            <div style="font-size: 32px; margin-bottom: 5px;">❌</div>
+                            <div style="font-family: 'Fredoka One', cursive; font-size: 24px; color: #721c24;">${userData.wrongAnswers || 0}</div>
+                            <div style="font-weight: 700; color: #721c24; font-size: 14px;">Errores</div>
+                        </div>
+                        <div style="padding: 15px; background: #d1ecf1; border-radius: 15px; border: 3px solid #17a2b8;">
+                            <div style="font-size: 32px; margin-bottom: 5px;">📝</div>
+                            <div style="font-family: 'Fredoka One', cursive; font-size: 24px; color: #0c5460;">${userData.totalAttempts || 0}</div>
+                            <div style="font-weight: 700; color: #0c5460; font-size: 14px;">Intentos Totales</div>
+                        </div>
+                    </div>
+                </div>
+                
                 <div style="margin-top: 40px; padding: 30px; background: linear-gradient(135deg, #f8f9fa, #e9ecef); border-radius: 25px; border: 3px solid #74b9ff;">
-                    <h3 style="font-family: 'Fredoka One', cursive; font-size: 28px; text-align: center; margin-bottom: 30px; color: #2d3436;">📊 ¡Mis Números Súper Geniales!</h3>
+                    <h3 style="font-family: 'Fredoka One', cursive; font-size: 28px; text-align: center; margin-bottom: 30px; color: #2d3436;">📊 ¡Mis Números por Materia!</h3>
                     
                     <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px;">
                         <div style="text-align: center; padding: 20px; background: white; border-radius: 15px; border: 3px solid #ff6b6b;">
@@ -2799,6 +2873,13 @@
                         
                         <div style="text-align: center; padding: 20px; background: white; border-radius: 15px; border: 3px solid #a29bfe;">
                             <div style="font-size: 40px; margin-bottom: 10px;">🌍</div>
+                            <div style="font-family: 'Fredoka One', cursive; font-size: 24px; color: #a29bfe;">${userData.exercisesByType.social || 0}</div>
+                            <div style="font-weight: 700; color: #636e72;">Ciencias Sociales</div>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }                            <div style="font-size: 40px; margin-bottom: 10px;">🌍</div>
                             <div style="font-family: 'Fredoka One', cursive; font-size: 24px; color: #a29bfe;">${userData.exercisesByType.social || 0}</div>
                             <div style="font-weight: 700; color: #636e72;">Ciencias Sociales</div>
                         </div>
