@@ -1353,6 +1353,7 @@
             <h1>🎮 Academia Pokemon</h1>
             <p>¡Bienvenido, Súper Entrenador! 🚀</p>
             <input type="text" id="usernameInput" placeholder="Escribe tu nombre de entrenador">
+            <input type="password" id="passwordInput" placeholder="Escribe tu contraseña secreta 🔐" style="margin-top: 15px;">
             <button onclick="login()">¡Comenzar Aventura! 🌟</button>
         </div>
     </div>
@@ -1533,6 +1534,41 @@
     </div>
 
     <script>
+        // ========================================
+        // 🔐 CONTROL DE ACCESO CON CONTRASEÑAS
+        // ========================================
+        // INSTRUCCIONES:
+        // 1. Cada usuario tiene su propia contraseña
+        // 2. Formato: "nombre_usuario": "su_contraseña"
+        // 3. Los nombres NO distinguen mayúsculas
+        // 4. Las contraseñas SÍ distinguen mayúsculas
+        
+        const USUARIOS_CON_CONTRASEÑA = {
+            // Formato: "nombre": "contraseña"
+            "Carlos": "1234",
+            "Eren": "1234",
+            
+            // Agrega más usuarios y contraseñas aquí...
+        };
+        
+        // Función para verificar usuario y contraseña
+        function verificarCredenciales(username, password) {
+            const nombreNormalizado = username.trim().toLowerCase();
+            
+            // Buscar el usuario en el objeto
+            for (let usuario in USUARIOS_CON_CONTRASEÑA) {
+                if (usuario.toLowerCase() === nombreNormalizado) {
+                    // Usuario encontrado, verificar contraseña
+                    return USUARIOS_CON_CONTRASEÑA[usuario] === password;
+                }
+            }
+            
+            return false; // Usuario no encontrado
+        }
+        
+        // ========================================
+        // CONFIGURACIÓN DE JSONBIN (NUBE)
+        // ========================================
         const JSONBIN_CONFIG = {
             binId: '68ee144343b1c97be96704f9',
             masterKey: '$2a$10$byEkgCiPtr6uA9j.sw5Uiuld00jGPRMT1Rn9TlhHYbPe3CFfaEu6G',
@@ -2679,9 +2715,26 @@
 
         async function login() {
             const username = document.getElementById('usernameInput').value.trim();
+            const password = document.getElementById('passwordInput').value;
             
             if (!username) {
-                alert('¡Por favor escribe tu nombre de entrenador súper genial! 😊');
+                alert('¡Por favor escribe tu nombre de entrenador! 😊');
+                return;
+            }
+            
+            if (!password) {
+                alert('¡Por favor escribe tu contraseña secreta! 🔐');
+                return;
+            }
+            
+            // 🔐 VERIFICAR USUARIO Y CONTRASEÑA
+            if (!verificarCredenciales(username, password)) {
+                alert('❌ Acceso Denegado\n\n' +
+                      'Usuario o contraseña incorrectos.\n\n' +
+                      'Verifica que hayas escrito bien tu nombre y contraseña.\n' +
+                      'Si no tienes acceso, contacta al administrador. 🔐');
+                // Limpiar campo de contraseña
+                document.getElementById('passwordInput').value = '';
                 return;
             }
             
