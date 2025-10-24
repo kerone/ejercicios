@@ -291,7 +291,7 @@
 
         .calendar-grid {
             display: grid;
-            grid-template-columns: repeat(7, 1fr);
+            grid-template-columns: repeat(5, 1fr); /* Solo 5 días por semana */
             gap: 15px;
             margin-top: 20px;
         }
@@ -1067,43 +1067,57 @@
             top: 20px;
             right: 20px;
             background: white;
-            padding: 15px 25px;
-            border-radius: 20px;
-            box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+            padding: 10px;
+            border-radius: 50%;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.15);
             z-index: 1500;
-            font-weight: 800;
             border: 3px solid;
             display: flex;
             align-items: center;
-            gap: 10px;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            cursor: help;
         }
 
         .connection-status.online {
             border-color: #00b894;
-            color: #00b894;
         }
 
         .connection-status.offline {
             border-color: #636e72;
-            color: #636e72;
         }
 
         .connection-status.connecting {
             border-color: #fdcb6e;
-            color: #e17055;
         }
 
         .connection-status.error {
             border-color: #d63031;
-            color: #d63031;
         }
 
         .status-dot {
-            width: 12px;
-            height: 12px;
+            width: 16px;
+            height: 16px;
             border-radius: 50%;
             background: currentColor;
             animation: pulse 2s infinite;
+        }
+
+        .connection-status.online .status-dot {
+            background: #00b894;
+        }
+
+        .connection-status.offline .status-dot {
+            background: #636e72;
+        }
+
+        .connection-status.connecting .status-dot {
+            background: #fdcb6e;
+        }
+
+        .connection-status.error .status-dot {
+            background: #d63031;
         }
 
         @keyframes pulse {
@@ -1240,7 +1254,7 @@
             }
 
             .calendar-grid {
-                grid-template-columns: repeat(7, 1fr);
+                grid-template-columns: repeat(5, 1fr); /* Solo 5 días por semana */
                 gap: 6px;
             }
 
@@ -1343,9 +1357,8 @@
     </style>
 </head>
 <body>
-    <div class="connection-status" id="connectionStatus">
+    <div class="connection-status" id="connectionStatus" title="Estado de conexión">
         <div class="status-dot"></div>
-        <span id="statusText">Desconectado</span>
     </div>
 
     <div class="login-screen" id="loginScreen">
@@ -2563,6 +2576,348 @@
                     ]
         };
 
+        
+        // ========================================
+        // BANCO DE EJERCICIOS SEMANA 2
+        // Nivel: 3º Primaria (Espectro Difícil)
+        // ========================================
+        const exerciseBankWeek2 = {
+            "math": [
+                {
+                    "instruction": "🎮 Problema con cartas Pokemon:",
+                    "question": "Tienes 145 cartas Pokemon. Compras 3 sobres con 12 cartas cada uno. ¿Cuántas cartas tienes ahora?",
+                    "options": ["181 cartas", "171 cartas", "191 cartas", "175 cartas"],
+                    "correct": 0,
+                    "hint": "Primero multiplica 3 × 12, luego suma al total",
+                    "explanation": "3 × 12 = 36 cartas nuevas. 145 + 36 = 181 cartas total. 🎴"
+                },
+                {
+                    "instruction": "⚽ Problema de fútbol:",
+                    "question": "El estadio tiene 45,000 asientos. Hay 28,350 espectadores. ¿Cuántos asientos vacíos hay?",
+                    "options": ["16,650", "17,650", "15,650", "16,550"],
+                    "correct": 0,
+                    "hint": "Resta: 45,000 - 28,350",
+                    "explanation": "45,000 - 28,350 = 16,650 asientos vacíos. ⚽"
+                },
+                {
+                    "instruction": "🐉 Goku reparte Senzus:",
+                    "question": "Goku tiene 24 Senzus y los reparte entre 6 amigos. ¿Cuántos recibe cada uno?",
+                    "options": ["4 Senzus", "5 Senzus", "3 Senzus", "6 Senzus"],
+                    "correct": 0,
+                    "hint": "Divide: 24 ÷ 6",
+                    "explanation": "24 ÷ 6 = 4 Senzus para cada amigo. 🥋"
+                },
+                {
+                    "instruction": "⛏️ Steve en Minecraft:",
+                    "question": "Steve tiene 560 bloques. Usa 285 para construir. ¿Cuántos le quedan?",
+                    "options": ["275", "285", "265", "295"],
+                    "correct": 0,
+                    "hint": "Resta: 560 - 285",
+                    "explanation": "560 - 285 = 275 bloques. ⛏️"
+                },
+                {
+                    "instruction": "⚽ Medidas en el campo:",
+                    "question": "Un campo de fútbol mide 90 metros. ¿Cuántos centímetros son?",
+                    "options": ["9,000 cm", "900 cm", "90,000 cm", "9 cm"],
+                    "correct": 0,
+                    "hint": "1 metro = 100 centímetros",
+                    "explanation": "90 × 100 = 9,000 centímetros. 📏"
+                },
+                {
+                    "instruction": "🎮 Problema con Robux:",
+                    "question": "Tienes 850 Robux. Compras algo de 425 Robux. ¿Cuántos te quedan?",
+                    "options": ["425", "435", "415", "445"],
+                    "correct": 0,
+                    "hint": "Resta: 850 - 425",
+                    "explanation": "850 - 425 = 425 Robux. 🎮"
+                },
+                {
+                    "instruction": "🐉 Vegeta entrena:",
+                    "question": "Vegeta hace 35 flexiones cada día durante 7 días. ¿Cuántas en total?",
+                    "options": ["245", "235", "255", "225"],
+                    "correct": 0,
+                    "hint": "Multiplica: 35 × 7",
+                    "explanation": "35 × 7 = 245 flexiones. 💪"
+                },
+                {
+                    "instruction": "🏎️ Mario Kart:",
+                    "question": "Una carrera tiene 4 vueltas de 650 metros. ¿Cuántos metros en total?",
+                    "options": ["2,600 m", "2,500 m", "2,700 m", "2,400 m"],
+                    "correct": 0,
+                    "hint": "Multiplica: 4 × 650",
+                    "explanation": "4 × 650 = 2,600 metros. 🏎️"
+                },
+                {
+                    "instruction": "⚽ Promedio de goles:",
+                    "question": "Messi marcó 12 goles en 4 partidos. ¿Cuál es el promedio por partido?",
+                    "options": ["3 goles", "2 goles", "4 goles", "5 goles"],
+                    "correct": 0,
+                    "hint": "Divide: 12 ÷ 4",
+                    "explanation": "12 ÷ 4 = 3 goles de promedio. ⚽"
+                },
+                {
+                    "instruction": "🚀 Among Us - tiempo:",
+                    "question": "Una tarea toma 4 minutos. Tienes 8 tareas. ¿Cuántos minutos necesitas?",
+                    "options": ["32 min", "28 min", "36 min", "30 min"],
+                    "correct": 0,
+                    "hint": "Multiplica: 4 × 8",
+                    "explanation": "4 × 8 = 32 minutos. 🚀"
+                }
+            ],
+            "reading": [
+                {
+                    "instruction": "📖 Lee sobre Pikachu:",
+                    "passageTitle": "Pikachu",
+                    "passage": "Pikachu es un Pokemon eléctrico muy popular. Tiene mejillas rojas que brillan cuando usa electricidad. Su cola tiene forma de rayo y le ayuda a mantener el equilibrio.\n\nCuando Pikachu está feliz, sus mejillas chispean. Su ataque favorito es el Impactrueno. Los entrenadores adoran a Pikachu porque es leal y valiente.",
+                    "question": "¿Qué forma tiene la cola de Pikachu?",
+                    "options": ["Forma de rayo", "Forma redonda", "Forma de estrella", "Forma de corazón"],
+                    "correct": 0,
+                    "hint": "Busca en el primer párrafo",
+                    "explanation": "El texto dice: 'Su cola tiene forma de rayo'. ⚡"
+                },
+                {
+                    "instruction": "📝 Identifica el verbo:",
+                    "question": "En 'Los futbolistas corren en el campo', ¿cuál es el verbo?",
+                    "options": ["corren", "futbolistas", "campo", "los"],
+                    "correct": 0,
+                    "hint": "El verbo es la acción",
+                    "explanation": "'Corren' es el verbo (acción). ⚽"
+                },
+                {
+                    "instruction": "📝 Sinónimos:",
+                    "question": "¿Cuál es sinónimo de 'rápido'?",
+                    "options": ["Veloz", "Lento", "Pesado", "Grande"],
+                    "correct": 0,
+                    "hint": "Significa lo mismo",
+                    "explanation": "'Veloz' significa lo mismo que 'rápido'. 🏃"
+                },
+                {
+                    "instruction": "📖 Lee sobre Goku:",
+                    "passageTitle": "Goku y las Esferas",
+                    "passage": "Goku busca las 7 Esferas del Dragón. Son bolas naranjas con estrellas rojas. Cuando reúne las 7 esferas, puede invocar al dragón Shenlong y pedir dos deseos.\n\nGoku entrena todos los días para ser más fuerte. Su comida favorita es el arroz. Su mejor amigo es Krillin.",
+                    "question": "¿Cuántos deseos puede pedir con las 7 esferas?",
+                    "options": ["Dos deseos", "Un deseo", "Tres deseos", "Siete deseos"],
+                    "correct": 0,
+                    "hint": "Busca en el primer párrafo",
+                    "explanation": "El texto dice 'pedir dos deseos'. 🐉"
+                },
+                {
+                    "instruction": "📝 Ortografía:",
+                    "question": "¿Cuál palabra está bien escrita?",
+                    "options": ["Viento", "Biento", "Vento", "Viemto"],
+                    "correct": 0,
+                    "hint": "Se escribe con 'v'",
+                    "explanation": "'Viento' es la forma correcta. 💨"
+                },
+                {
+                    "instruction": "📝 El sujeto:",
+                    "question": "En 'El Pokemon salvaje apareció', ¿cuál es el sujeto?",
+                    "options": ["El Pokemon salvaje", "apareció", "salvaje", "Pokemon"],
+                    "correct": 0,
+                    "hint": "El sujeto es quien hace la acción",
+                    "explanation": "'El Pokemon salvaje' es el sujeto. 🎮"
+                },
+                {
+                    "instruction": "📝 Familia de palabras:",
+                    "question": "¿Cuál grupo es familia de 'libro'?",
+                    "options": ["libro, librería, librero", "leer, lectura, lector", "página, hoja, papel", "escribir, escritor, escrito"],
+                    "correct": 0,
+                    "hint": "Todas tienen la raíz 'libr-'",
+                    "explanation": "Todas comparten la raíz 'libr-'. 📚"
+                },
+                {
+                    "instruction": "📖 Lee sobre Mario:",
+                    "passageTitle": "Mario Bros",
+                    "passage": "Mario y Luigi son hermanos fontaneros. Mario viste de rojo y Luigi de verde. Luigi es más alto.\n\nDeben rescatar a la Princesa Peach del malvado Bowser. Para lograrlo, atraviesan 8 mundos diferentes. Yoshi, un dinosaurio verde, les ayuda comiendo enemigos.",
+                    "question": "¿Cuántos mundos deben atravesar?",
+                    "options": ["8 mundos", "7 mundos", "10 mundos", "6 mundos"],
+                    "correct": 0,
+                    "hint": "Busca en el segundo párrafo",
+                    "explanation": "El texto dice '8 mundos diferentes'. 🍄"
+                },
+                {
+                    "instruction": "📝 Adjetivo:",
+                    "question": "En 'El impostor sospechoso mintió', ¿cuál es el adjetivo?",
+                    "options": ["sospechoso", "impostor", "mintió", "el"],
+                    "correct": 0,
+                    "hint": "Describe al impostor",
+                    "explanation": "'Sospechoso' describe al impostor. 🕵️"
+                },
+                {
+                    "instruction": "📝 Oración correcta:",
+                    "question": "¿Cuál frase está bien escrita?",
+                    "options": ["Ayer jugué con mi hermano", "Aller jugué con mi hermano", "Ayer juge con mi hermano", "Ayer jugé con mi ermano"],
+                    "correct": 0,
+                    "hint": "Busca la que no tiene errores",
+                    "explanation": "La primera no tiene errores ortográficos. ✅"
+                }
+            ],
+            "science": [
+                {
+                    "instruction": "🔬 Animales Pokemon:",
+                    "question": "Squirtle vive en agua y tierra. Los animales así se llaman:",
+                    "options": ["Anfibios", "Mamíferos", "Reptiles", "Peces"],
+                    "correct": 0,
+                    "hint": "Como las ranas",
+                    "explanation": "Los anfibios viven en agua y tierra. 🐸"
+                },
+                {
+                    "instruction": "🔬 El cuerpo humano:",
+                    "question": "Los futbolistas respiran más al correr. ¿Qué órganos usan para respirar?",
+                    "options": ["Los pulmones", "El corazón", "El estómago", "Los músculos"],
+                    "correct": 0,
+                    "hint": "Donde entra el aire",
+                    "explanation": "Los pulmones son para respirar. 🫁"
+                },
+                {
+                    "instruction": "🔬 Digestión:",
+                    "question": "Goku come mucho arroz. ¿Qué sistema procesa la comida?",
+                    "options": ["Sistema digestivo", "Sistema respiratorio", "Sistema circulatorio", "Sistema nervioso"],
+                    "correct": 0,
+                    "hint": "El que digiere",
+                    "explanation": "El sistema digestivo procesa la comida. 🍚"
+                },
+                {
+                    "instruction": "🔬 Estados de la materia:",
+                    "question": "El hielo se derrite y se vuelve agua. ¿Cómo se llama este cambio?",
+                    "options": ["Fusión", "Evaporación", "Condensación", "Solidificación"],
+                    "correct": 0,
+                    "hint": "De sólido a líquido",
+                    "explanation": "Fusión: sólido → líquido. ❄️→💧"
+                },
+                {
+                    "instruction": "🔬 Las plantas:",
+                    "question": "Las plantas necesitan luz para crecer. ¿Cómo se llama este proceso?",
+                    "options": ["Fotosíntesis", "Respiración", "Digestión", "Evaporación"],
+                    "correct": 0,
+                    "hint": "Usan luz solar",
+                    "explanation": "La fotosíntesis usa luz para crear alimento. 🌱☀️"
+                },
+                {
+                    "instruction": "🔬 El agua en el cuerpo:",
+                    "question": "Cuando sudamos perdemos agua. ¿Cuánta parte de nuestro cuerpo es agua?",
+                    "options": ["Más de la mitad (60%)", "Un cuarto (25%)", "Todo (100%)", "Muy poco (10%)"],
+                    "correct": 0,
+                    "hint": "Es la mayor parte",
+                    "explanation": "Somos 60% agua aproximadamente. 💧"
+                },
+                {
+                    "instruction": "🔬 Animales con cola:",
+                    "question": "Los Saiyajin tienen cola. ¿Qué animales reales tienen cola?",
+                    "options": ["Monos y lagartos", "Solo peces", "Solo aves", "Solo insectos"],
+                    "correct": 0,
+                    "hint": "Piensa en mamíferos y reptiles",
+                    "explanation": "Muchos mamíferos y reptiles tienen cola. 🐒"
+                },
+                {
+                    "instruction": "🔬 Energía de movimiento:",
+                    "question": "Cuando lanzas un balón, ¿qué energía tiene mientras se mueve?",
+                    "options": ["Energía cinética", "Energía química", "Energía nuclear", "Energía eólica"],
+                    "correct": 0,
+                    "hint": "Energía del movimiento",
+                    "explanation": "La energía cinética es la del movimiento. ⚽💨"
+                },
+                {
+                    "instruction": "🔬 Oxígeno:",
+                    "question": "En la Tierra, ¿qué produce oxígeno?",
+                    "options": ["Las plantas", "Los animales", "Las rocas", "El agua"],
+                    "correct": 0,
+                    "hint": "Hacen fotosíntesis",
+                    "explanation": "Las plantas producen oxígeno. 🌳"
+                },
+                {
+                    "instruction": "🔬 Propiedad de la materia:",
+                    "question": "Los caparazones de Mario rebotan. ¿Qué propiedad permite rebotar?",
+                    "options": ["Elasticidad", "Temperatura", "Color", "Peso"],
+                    "correct": 0,
+                    "hint": "Capacidad de recuperar forma",
+                    "explanation": "La elasticidad permite rebotar. 🏎️"
+                }
+            ],
+            "social": [
+                {
+                    "instruction": "🌍 Puntos cardinales:",
+                    "question": "Ciudad Celeste está al Norte. ¿Qué es opuesto al Norte?",
+                    "options": ["Sur", "Este", "Oeste", "Noreste"],
+                    "correct": 0,
+                    "hint": "El punto contrario",
+                    "explanation": "El Sur es opuesto al Norte. 🧭"
+                },
+                {
+                    "instruction": "🌍 Aragón:",
+                    "question": "Zaragoza está en Aragón. ¿Cuál es su paisaje principal?",
+                    "options": ["Valle del Ebro", "Costa mediterránea", "Alta montaña", "Selva tropical"],
+                    "correct": 0,
+                    "hint": "Río Ebro",
+                    "explanation": "El Valle del Ebro es una llanura. 🏞️"
+                },
+                {
+                    "instruction": "🌍 Continentes:",
+                    "question": "¿Cuántos continentes hay?",
+                    "options": ["6 continentes", "5 continentes", "7 continentes", "4 continentes"],
+                    "correct": 0,
+                    "hint": "Europa, Asia, África, América, Oceanía, Antártida",
+                    "explanation": "Hay 6 continentes. 🌍"
+                },
+                {
+                    "instruction": "🌍 Paisaje humanizado:",
+                    "question": "Construyes una ciudad en Minecraft. ¿Qué tipo de paisaje es?",
+                    "options": ["Paisaje humanizado", "Paisaje natural", "Paisaje de costa", "Paisaje de montaña"],
+                    "correct": 0,
+                    "hint": "Lo hiciste tú",
+                    "explanation": "Paisaje humanizado = modificado por humanos. 🏘️"
+                },
+                {
+                    "instruction": "🌍 Servicios públicos:",
+                    "question": "El ayuntamiento, escuelas y hospitales son:",
+                    "options": ["Servicios públicos", "Solo para turistas", "Servicios privados", "No importantes"],
+                    "correct": 0,
+                    "hint": "Para toda la población",
+                    "explanation": "Son servicios públicos para todos. 🏥"
+                },
+                {
+                    "instruction": "🌍 Capital:",
+                    "question": "Madrid es la capital de España. ¿Qué significa capital?",
+                    "options": ["Ciudad donde está el gobierno", "Ciudad más grande", "Ciudad más antigua", "Ciudad con más gente"],
+                    "correct": 0,
+                    "hint": "Donde gobierna el país",
+                    "explanation": "Capital = ciudad principal con el gobierno. 🏛️"
+                },
+                {
+                    "instruction": "🌍 Sistema Solar:",
+                    "question": "La Tierra gira alrededor de:",
+                    "options": ["El Sol", "La Luna", "Marte", "Júpiter"],
+                    "correct": 0,
+                    "hint": "Estrella del sistema",
+                    "explanation": "La Tierra gira alrededor del Sol. ☀️"
+                },
+                {
+                    "instruction": "🌍 Democracia:",
+                    "question": "En Among Us votan todos. ¿Cómo se llama cuando todos votan?",
+                    "options": ["Democracia", "Dictadura", "Monarquía", "Anarquía"],
+                    "correct": 0,
+                    "hint": "Sistema de votación",
+                    "explanation": "Democracia = todos votan. 🗳️"
+                },
+                {
+                    "instruction": "🌍 Paisajes diferentes:",
+                    "question": "Mario va del Mundo 1 (hierba) al Mundo 2 (desierto). ¿Qué cambia?",
+                    "options": ["Vegetación y clima", "Solo el color", "Nada", "Solo temperatura"],
+                    "correct": 0,
+                    "hint": "Plantas y tiempo atmosférico",
+                    "explanation": "Cambian las plantas y el clima. 🌱🏜️"
+                },
+                {
+                    "instruction": "🌍 Orientación:",
+                    "question": "Si vas al Norte y quieres volver, ¿hacia dónde vas?",
+                    "options": ["Sur", "Norte", "Este", "Oeste"],
+                    "correct": 0,
+                    "hint": "Dirección opuesta",
+                    "explanation": "Regresas hacia el Sur. 🧭"
+                }
+            ]
+        };
+
         const achievements = [
             { id: 'first_day', name: '¡Primer Día Genial!', description: 'Completa tu primer día de ejercicios', icon: '🌟' },
             { id: 'week_warrior', name: 'Guerrero de la Semana', description: 'Completa una semana completa', icon: '⚔️' },
@@ -2579,18 +2934,17 @@
 
         function updateConnectionStatus(status) {
             const statusElement = document.getElementById('connectionStatus');
-            const statusText = document.getElementById('statusText');
             
             statusElement.className = 'connection-status ' + status;
             
-            const statusMessages = {
-                'online': '✅ Conectado',
-                'offline': '⚠️ Desconectado',
-                'connecting': '🔄 Conectando...',
-                'error': '❌ Error'
+            const statusTitles = {
+                'online': 'Conectado a la nube',
+                'offline': 'Desconectado - guardado local',
+                'connecting': 'Conectando...',
+                'error': 'Error de conexión - guardado local'
             };
             
-            statusText.textContent = statusMessages[status] || 'Desconocido';
+            statusElement.title = statusTitles[status] || 'Estado desconocido';
         }
 
         function createNewUser() {
@@ -2882,7 +3236,7 @@
             container.innerHTML = '';
             
             const today = new Date();
-            const weeks = 1;
+            const weeks = 2;
             
             for (let week = 0; week < weeks; week++) {
                 const weekDiv = document.createElement('div');
@@ -2899,7 +3253,7 @@
                 const grid = document.createElement('div');
                 grid.className = 'calendar-grid';
                 
-                const dayNames = ['L', 'M', 'X', 'J', 'V', 'S', 'D'];
+                const dayNames = ['L', 'M', 'X', 'J', 'S']; // Solo 5 días - sin viernes ni domingo
                 dayNames.forEach(day => {
                     const header = document.createElement('div');
                     header.className = 'day-header';
@@ -2921,6 +3275,12 @@
                 for (let day = 0; day < 7; day++) {
                     const currentDate = new Date(startDate);
                     currentDate.setDate(startDate.getDate() + day);
+                    const dayOfWeek = currentDate.getDay();
+                    
+                    // NO mostrar viernes (5) ni domingo (0)
+                    if (dayOfWeek === 5 || dayOfWeek === 0) {
+                        continue; // Saltar este día
+                    }
                     
                     const dayCell = document.createElement('div');
                     dayCell.className = 'day-cell';
@@ -2978,25 +3338,47 @@
         function generateDailyExercises() {
             const dateKey = appState.currentDay || new Date().toDateString();
             const date = new Date(dateKey);
+            const dayOfWeek = date.getDay();
             
-            // Calcular número de semana y día de la semana (0=Domingo, 1=Lunes, ..., 6=Sábado)
+            // NO generar ejercicios para viernes (5) y domingo (0)
+            if (dayOfWeek === 0 || dayOfWeek === 5) {
+                console.log(`⚠️ Día no activo (${dayOfWeek === 0 ? 'domingo' : 'viernes'})`);
+                return [];
+            }
+            
             const weekNumber = getWeekNumber(date);
-            const dayOfWeek = date.getDay(); // 0=Domingo, 1=Lunes, 2=Martes, etc.
-            
             console.log(`📅 Generando ejercicios para: ${dateKey}, Semana ${weekNumber}, Día ${dayOfWeek}`);
             
             // Crear un pool de todos los ejercicios disponibles
             const allExercises = [];
             const subjects = ['math', 'reading', 'science', 'social'];
             
+            // Determinar qué semana estamos mostrando (1 o 2)
+            const today = new Date();
+            const startOfThisWeek = new Date(today);
+            startOfThisWeek.setDate(today.getDate() - today.getDay() + 1);
+            
+            const startOfTargetWeek = new Date(date);
+            startOfTargetWeek.setDate(date.getDate() - date.getDay() + 1);
+            
+            const weeksDiff = Math.round((startOfTargetWeek - startOfThisWeek) / (7 * 24 * 60 * 60 * 1000));
+            const currentWeek = weeksDiff === 0 ? 1 : 2;
+            
+            console.log(`📚 Usando banco de Semana ${currentWeek}`);
+            
+            // Seleccionar banco apropiado
+            const bankToUse = currentWeek === 1 ? exerciseBank : (typeof exerciseBankWeek2 !== 'undefined' ? exerciseBankWeek2 : exerciseBank);
+            
             subjects.forEach(subject => {
-                exerciseBank[subject].forEach((exercise, index) => {
-                    allExercises.push({
-                        ...exercise,
-                        subject: subject,
-                        id: `${subject}_${index}` // ID único para cada ejercicio
+                if (bankToUse[subject]) {
+                    bankToUse[subject].forEach((exercise, index) => {
+                        allExercises.push({
+                            ...exercise,
+                            subject: subject,
+                            id: `w${currentWeek}_${subject}_${index}`
+                        });
                     });
-                });
+                }
             });
             
             console.log(`📚 Total ejercicios en el banco: ${allExercises.length}`);
@@ -3461,26 +3843,29 @@
             
             // Ordenar usuarios por: 1) Logros, 2) Precisión, 3) Puntos totales
             const sortedUsers = filteredUsers.sort((a, b) => {
+                // 1. PRIMERO: Por puntos totales (lo más importante)
+                const aPoints = a[1].totalPoints || 0;
+                const bPoints = b[1].totalPoints || 0;
+                
+                if (bPoints !== aPoints) {
+                    return bPoints - aPoints;
+                }
+                
+                // 2. SEGUNDO: Por medallas/logros (desempate)
                 const aAchievements = a[1].achievements ? a[1].achievements.length : 0;
                 const bAchievements = b[1].achievements ? b[1].achievements.length : 0;
                 
-                // Primero por logros
                 if (bAchievements !== aAchievements) {
                     return bAchievements - aAchievements;
                 }
                 
-                // Luego por precisión (accuracy)
+                // 3. TERCERO: Por precisión (último desempate)
                 const aAttempts = a[1].totalAttempts || 0;
                 const bAttempts = b[1].totalAttempts || 0;
                 const aAccuracy = aAttempts > 0 ? (a[1].correctAnswers || 0) / aAttempts : 0;
                 const bAccuracy = bAttempts > 0 ? (b[1].correctAnswers || 0) / bAttempts : 0;
                 
-                if (Math.abs(bAccuracy - aAccuracy) > 0.01) { // Si hay diferencia significativa
-                    return bAccuracy - aAccuracy;
-                }
-                
-                // Finalmente por puntos totales
-                return (b[1].totalPoints || 0) - (a[1].totalPoints || 0);
+                return bAccuracy - aAccuracy;
             });
             
             const podiumContainer = document.getElementById('podiumContainer');
@@ -3529,6 +3914,8 @@
                             : 0;
                         const place = document.createElement('div');
                         place.className = `podium-place ${index === 0 ? 'first' : 'second'}`;
+                        place.style.cursor = 'pointer';
+                        place.title = 'Click para ver estadísticas completas';
                         place.innerHTML = `
                             <div class="podium-rank">${correctMedals[index]}</div>
                             <div class="podium-name">${username}</div>
@@ -3536,6 +3923,7 @@
                             <div class="podium-score">🎯 ${accuracy}%</div>
                             <div class="podium-score">🏆 ${data.achievements ? data.achievements.length : 0}</div>
                         `;
+                        place.onclick = () => showUserStatsModal(username, data);
                         podium.appendChild(place);
                     });
                 } 
@@ -3555,6 +3943,8 @@
                                 : 0;
                             const place = document.createElement('div');
                             place.className = `podium-place ${position}`;
+                            place.style.cursor = 'pointer';
+                            place.title = 'Click para ver estadísticas completas';
                             place.innerHTML = `
                                 <div class="podium-rank">${medal}</div>
                                 <div class="podium-name">${username}</div>
@@ -3562,6 +3952,7 @@
                                 <div class="podium-score">🎯 ${accuracy}%</div>
                                 <div class="podium-score">🏆 ${data.achievements ? data.achievements.length : 0}</div>
                             `;
+                            place.onclick = () => showUserStatsModal(username, data);
                             podium.appendChild(place);
                         }
                     });
@@ -3619,6 +4010,93 @@
             event.target.classList.add('active');
             
             loadRanking();
+        }
+
+        function showUserStatsModal(username, data) {
+            const totalExercises = data.totalAttempts || 0;
+            const correctAnswers = data.correctAnswers || 0;
+            const accuracy = totalExercises > 0 ? Math.round((correctAnswers / totalExercises) * 100) : 0;
+            const incorrectAnswers = totalExercises - correctAnswers;
+            
+            const modal = document.createElement('div');
+            modal.style.cssText = 'position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); display: flex; align-items: center; justify-content: center; z-index: 10000; padding: 20px; overflow-y: auto;';
+            modal.onclick = (e) => { if (e.target === modal) modal.remove(); };
+            
+            modal.innerHTML = `
+                <div style="background: white; padding: 30px; border-radius: 20px; max-width: 600px; width: 100%; max-height: 90vh; overflow-y: auto;" onclick="event.stopPropagation();">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                        <h2 style="font-family: 'Fredoka One', cursive; color: #2d3436; margin: 0;">
+                            📊 ${username}
+                        </h2>
+                        <button onclick="this.closest('[style*=fixed]').remove()" style="background: #e74c3c; color: white; border: none; border-radius: 50%; width: 35px; height: 35px; font-size: 20px; cursor: pointer; font-weight: bold;">×</button>
+                    </div>
+                    
+                    <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 25px; border-radius: 15px; margin-bottom: 20px; text-align: center;">
+                        <div style="font-size: 56px; font-weight: 700; font-family: 'Fredoka One', cursive; margin-bottom: 5px;">${data.totalPoints || 0}</div>
+                        <div style="font-size: 20px; opacity: 0.9;">Puntos Totales</div>
+                    </div>
+                    
+                    <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; margin-bottom: 20px;">
+                        <div style="background: linear-gradient(135deg, #e8f5e9, #c8e6c9); padding: 20px; border-radius: 12px; text-align: center; border: 3px solid #27ae60;">
+                            <div style="font-size: 32px; font-weight: 700; color: #27ae60; font-family: 'Fredoka One', cursive;">${data.daysCompleted || 0}</div>
+                            <div style="color: #2d3436; font-size: 14px; font-weight: 600; margin-top: 5px;">🎯 Días Completados</div>
+                        </div>
+                        <div style="background: linear-gradient(135deg, #fff3e0, #ffe0b2); padding: 20px; border-radius: 12px; text-align: center; border: 3px solid #f39c12;">
+                            <div style="font-size: 32px; font-weight: 700; color: #f39c12; font-family: 'Fredoka One', cursive;">${data.streak || 0}</div>
+                            <div style="color: #2d3436; font-size: 14px; font-weight: 600; margin-top: 5px;">🔥 Racha Actual</div>
+                        </div>
+                        <div style="background: linear-gradient(135deg, #e3f2fd, #bbdefb); padding: 20px; border-radius: 12px; text-align: center; border: 3px solid #3498db;">
+                            <div style="font-size: 32px; font-weight: 700; color: #3498db; font-family: 'Fredoka One', cursive;">${totalExercises}</div>
+                            <div style="color: #2d3436; font-size: 14px; font-weight: 600; margin-top: 5px;">✏️ Total Ejercicios</div>
+                        </div>
+                        <div style="background: linear-gradient(135deg, #f3e5f5, #e1bee7); padding: 20px; border-radius: 12px; text-align: center; border: 3px solid #9b59b6;">
+                            <div style="font-size: 32px; font-weight: 700; color: #9b59b6; font-family: 'Fredoka One', cursive;">${accuracy}%</div>
+                            <div style="color: #2d3436; font-size: 14px; font-weight: 600; margin-top: 5px;">💯 Precisión</div>
+                        </div>
+                    </div>
+                    
+                    <div style="background: #f8f9fa; padding: 20px; border-radius: 12px; margin-bottom: 20px; border: 2px solid #dfe6e9;">
+                        <h3 style="margin: 0 0 15px 0; font-size: 18px; color: #2d3436; font-family: 'Fredoka One', cursive;">📈 Desglose Detallado</h3>
+                        <div style="font-size: 15px; color: #2d3436; line-height: 2;">
+                            <div style="display: flex; justify-content: space-between; padding: 8px; background: white; border-radius: 8px; margin-bottom: 8px;">
+                                <span>✅ Respuestas correctas:</span>
+                                <strong style="color: #27ae60;">${correctAnswers}</strong>
+                            </div>
+                            <div style="display: flex; justify-content: space-between; padding: 8px; background: white; border-radius: 8px; margin-bottom: 8px;">
+                                <span>❌ Respuestas incorrectas:</span>
+                                <strong style="color: #e74c3c;">${incorrectAnswers}</strong>
+                            </div>
+                            <div style="display: flex; justify-content: space-between; padding: 8px; background: white; border-radius: 8px; margin-bottom: 8px;">
+                                <span>🏆 Medallas conseguidas:</span>
+                                <strong style="color: #f39c12;">${(data.achievements || []).length}</strong>
+                            </div>
+                            <div style="display: flex; justify-content: space-between; padding: 8px; background: white; border-radius: 8px;">
+                                <span>📅 Mejor racha:</span>
+                                <strong style="color: #3498db;">${data.longestStreak || data.streak || 0} días</strong>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    ${(data.achievements && data.achievements.length > 0) ? `
+                        <div style="background: linear-gradient(135deg, #fff9e6, #ffecb3); padding: 20px; border-radius: 12px; margin-bottom: 20px; border: 3px solid #f39c12;">
+                            <h3 style="margin: 0 0 15px 0; font-size: 18px; color: #2d3436; font-family: 'Fredoka One', cursive;">🏆 Medallas Conseguidas</h3>
+                            <div style="display: flex; flex-wrap: wrap; gap: 10px;">
+                                ${data.achievements.map(achId => {
+                                    const ach = achievements.find(a => a.id === achId);
+                                    return ach ? `<div style="background: white; padding: 10px 15px; border-radius: 10px; font-size: 14px; border: 2px solid #f39c12; font-weight: 600;" title="${ach.description}">${ach.icon} ${ach.name}</div>` : '';
+                                }).join('')}
+                            </div>
+                        </div>
+                    ` : '<div style="background: #ecf0f1; padding: 20px; border-radius: 12px; text-align: center; color: #7f8c8d; margin-bottom: 20px;">🏆 Aún no hay medallas conseguidas</div>'}
+                    
+                    <button onclick="this.closest('[style*=fixed]').remove()" 
+                            style="width: 100%; padding: 18px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border: none; border-radius: 12px; font-size: 18px; font-weight: 700; cursor: pointer; font-family: 'Fredoka One', cursive; box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);">
+                        Cerrar
+                    </button>
+                </div>
+            `;
+            
+            document.body.appendChild(modal);
         }
 
         function showNoRankingData() {
