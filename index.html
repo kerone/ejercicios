@@ -291,7 +291,7 @@
 
         .calendar-grid {
             display: grid;
-            grid-template-columns: repeat(5, 1fr); /* Solo 5 días por semana */
+            grid-template-columns: repeat(6, 1fr); /* 6 días por semana (sin viernes) */
             gap: 15px;
             margin-top: 20px;
         }
@@ -1254,7 +1254,7 @@
             }
 
             .calendar-grid {
-                grid-template-columns: repeat(5, 1fr); /* Solo 5 días por semana */
+                grid-template-columns: repeat(6, 1fr); /* 6 días por semana (sin viernes) */
                 gap: 6px;
             }
 
@@ -3253,7 +3253,7 @@
                 const grid = document.createElement('div');
                 grid.className = 'calendar-grid';
                 
-                const dayNames = ['L', 'M', 'X', 'J', 'S']; // Solo 5 días - sin viernes ni domingo
+                const dayNames = ['L', 'M', 'X', 'J', 'S', 'D']; // 6 días - sin viernes
                 dayNames.forEach(day => {
                     const header = document.createElement('div');
                     header.className = 'day-header';
@@ -3262,25 +3262,21 @@
                 });
                 
                 const startDate = new Date(today);
-                startDate.setDate(today.getDate() - today.getDay() + 1 + (week * 7));
+                // Ajustar para que el domingo (0) se trate como parte de la semana anterior
+                const dayOffset = today.getDay() === 0 ? -6 : 1 - today.getDay();
+                startDate.setDate(today.getDate() + dayOffset + (week * 7));
                 
-                const firstDayOfWeek = startDate.getDay() === 0 ? 6 : startDate.getDay() - 1;
+                // Array de días de la semana: [lunes(1), martes(2), miércoles(3), jueves(4), sábado(6), domingo(0)]
+                const daysToShow = [1, 2, 3, 4, 6, 0]; // Omitimos viernes (5)
                 
-                for (let i = 0; i < firstDayOfWeek; i++) {
-                    const emptyCell = document.createElement('div');
-                    emptyCell.className = 'day-cell empty';
-                    grid.appendChild(emptyCell);
-                }
+                // NO necesitamos celdas vacías al inicio porque siempre empezamos con lunes
                 
-                for (let day = 0; day < 7; day++) {
+                // Generar solo los 6 días que queremos mostrar
+                daysToShow.forEach((targetDayOfWeek, index) => {
+                    // Calcular qué día del mes corresponde
+                    let daysFromMonday = targetDayOfWeek === 0 ? 6 : targetDayOfWeek - 1; // domingo es el día 6 desde el lunes
                     const currentDate = new Date(startDate);
-                    currentDate.setDate(startDate.getDate() + day);
-                    const dayOfWeek = currentDate.getDay();
-                    
-                    // NO mostrar viernes (5) ni domingo (0)
-                    if (dayOfWeek === 5 || dayOfWeek === 0) {
-                        continue; // Saltar este día
-                    }
+                    currentDate.setDate(startDate.getDate() + daysFromMonday);
                     
                     const dayCell = document.createElement('div');
                     dayCell.className = 'day-cell';
@@ -3296,6 +3292,17 @@
                     const isPast = currentDate < today && !isToday;
                     const isFuture = currentDate > today;
                     
+                    // Calcular si el día está en la misma semana que hoy
+                    const todayWeekStart = new Date(today);
+                    const todayDayOffset = today.getDay() === 0 ? -6 : 1 - today.getDay();
+                    todayWeekStart.setDate(today.getDate() + todayDayOffset);
+                    
+                    const currentWeekStart = new Date(currentDate);
+                    const currentDayOffset = currentDate.getDay() === 0 ? -6 : 1 - currentDate.getDay();
+                    currentWeekStart.setDate(currentDate.getDate() + currentDayOffset);
+                    
+                    const isSameWeek = todayWeekStart.toDateString() === currentWeekStart.toDateString();
+                    
                     const statusIcon = document.createElement('div');
                     statusIcon.className = 'day-status';
                     
@@ -3305,25 +3312,26 @@
                     } else if (isToday) {
                         dayCell.classList.add('current');
                         statusIcon.textContent = '🎯';
-                    } else if (isFuture) {
+                    } else if (isFuture && !isSameWeek) {
+                        // Solo bloquear días futuros de OTRAS semanas
                         dayCell.classList.add('disabled');
                         statusIcon.textContent = '🔒';
-                    } else if (isPast) {
-                        // Los días pasados NO completados están disponibles para recuperar
+                    } else if (!isCompleted) {
+                        // Días no completados (pasados O de esta semana) están disponibles
                         dayCell.classList.add('recoverable');
                         statusIcon.textContent = '📝';
                     }
                     
                     dayCell.appendChild(statusIcon);
                     
-                    // Permitir click en día actual O días pasados no completados
-                    if ((isToday || isPast) && !isCompleted) {
+                    // Permitir click en: día actual, días pasados no completados, o días de esta semana no completados
+                    if (!isCompleted && (isToday || isPast || isSameWeek)) {
                         dayCell.onclick = () => startDayExercises(dateKey);
                         dayCell.style.cursor = 'pointer';
                     }
                     
                     grid.appendChild(dayCell);
-                }
+                });
                 
                 weekDiv.appendChild(grid);
                 container.appendChild(weekDiv);
@@ -3340,9 +3348,9 @@
             const date = new Date(dateKey);
             const dayOfWeek = date.getDay();
             
-            // NO generar ejercicios para viernes (5) y domingo (0)
-            if (dayOfWeek === 0 || dayOfWeek === 5) {
-                console.log(`⚠️ Día no activo (${dayOfWeek === 0 ? 'domingo' : 'viernes'})`);
+            // NO generar ejercicios para viernes (5)
+            if (dayOfWeek === 5) {
+                console.log(`⚠️ Día no activo (viernes)`);
                 return [];
             }
             
@@ -3356,10 +3364,12 @@
             // Determinar qué semana estamos mostrando (1 o 2)
             const today = new Date();
             const startOfThisWeek = new Date(today);
-            startOfThisWeek.setDate(today.getDate() - today.getDay() + 1);
+            const todayDayOffset = today.getDay() === 0 ? -6 : 1 - today.getDay();
+            startOfThisWeek.setDate(today.getDate() + todayDayOffset);
             
             const startOfTargetWeek = new Date(date);
-            startOfTargetWeek.setDate(date.getDate() - date.getDay() + 1);
+            const targetDayOffset = date.getDay() === 0 ? -6 : 1 - date.getDay();
+            startOfTargetWeek.setDate(date.getDate() + targetDayOffset);
             
             const weeksDiff = Math.round((startOfTargetWeek - startOfThisWeek) / (7 * 24 * 60 * 60 * 1000));
             const currentWeek = weeksDiff === 0 ? 1 : 2;
@@ -3393,9 +3403,19 @@
                 return hashA - hashB;
             });
             
-            // Dividir los ejercicios en 7 días (10 ejercicios por día)
+            // Mapear día de la semana a índice de día activo (sin viernes)
+            // Lunes=0, Martes=1, Miércoles=2, Jueves=3, Sábado=4, Domingo=5
+            let dayIndex;
+            if (dayOfWeek === 1) dayIndex = 0;      // Lunes
+            else if (dayOfWeek === 2) dayIndex = 1; // Martes
+            else if (dayOfWeek === 3) dayIndex = 2; // Miércoles
+            else if (dayOfWeek === 4) dayIndex = 3; // Jueves
+            else if (dayOfWeek === 6) dayIndex = 4; // Sábado
+            else if (dayOfWeek === 0) dayIndex = 5; // Domingo
+            
+            // Dividir los ejercicios en 6 días (10 ejercicios por día)
             const exercisesPerDay = 10;
-            const startIndex = dayOfWeek * exercisesPerDay;
+            const startIndex = dayIndex * exercisesPerDay;
             const endIndex = startIndex + exercisesPerDay;
             
             // Obtener los ejercicios para este día específico
@@ -3408,7 +3428,7 @@
                 todayExercises.push(...additional);
             }
             
-            console.log(`✅ Ejercicios del día ${dayOfWeek}: ${todayExercises.length} ejercicios`);
+            console.log(`✅ Ejercicios del día ${dayOfWeek} (índice ${dayIndex}): ${todayExercises.length} ejercicios`);
             console.log(`📝 IDs: ${todayExercises.map(e => e.id).join(', ')}`);
             
             return todayExercises;
