@@ -3278,7 +3278,7 @@
                     const dayOfWeek = currentDate.getDay();
                     
                     // NO mostrar viernes (5) ni domingo (0)
-                    if (dayOfWeek === 5) {
+                    if (dayOfWeek === 5 || dayOfWeek === 0) {
                         continue; // Saltar este día
                     }
                     
@@ -3341,10 +3341,10 @@
             const dayOfWeek = date.getDay();
             
             // NO generar ejercicios para viernes (5) y domingo (0)
-            if (dayOfWeek === 5) {
-    console.log(`⚠️ Día no activo (viernes)`);
-    return [];
-}
+            if (dayOfWeek === 0 || dayOfWeek === 5) {
+                console.log(`⚠️ Día no activo (${dayOfWeek === 0 ? 'domingo' : 'viernes'})`);
+                return [];
+            }
             
             const weekNumber = getWeekNumber(date);
             console.log(`📅 Generando ejercicios para: ${dateKey}, Semana ${weekNumber}, Día ${dayOfWeek}`);
