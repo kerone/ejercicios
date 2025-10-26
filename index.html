@@ -2918,6 +2918,32 @@
             ]
         };
 
+        // ========================================
+        // 📚 INSTRUCCIONES PARA AGREGAR MÁS SEMANAS
+        // ========================================
+        // Para agregar nuevas semanas y evitar que se repitan ejercicios:
+        //
+        // 1. Copia la estructura de exerciseBankWeek2
+        // 2. Renómbrala como exerciseBankWeek3, exerciseBankWeek4, etc.
+        // 3. Crea NUEVOS ejercicios diferentes (no copies los anteriores)
+        // 4. El sistema automáticamente detectará los nuevos bancos
+        // 5. Cada semana debe tener al menos 60 ejercicios únicos (10 por día × 6 días)
+        //
+        // EJEMPLO:
+        // const exerciseBankWeek3 = {
+        //     "math": [ ... 20+ ejercicios nuevos de matemáticas ... ],
+        //     "reading": [ ... 20+ ejercicios nuevos de lectura ... ],
+        //     "science": [ ... 20+ ejercicios nuevos de ciencias ... ],
+        //     "social": [ ... 20+ ejercicios nuevos de sociales ... ]
+        // };
+        //
+        // IMPORTANTE:
+        // - Cada banco debe tener ejercicios COMPLETAMENTE DIFERENTES
+        // - NO copies ejercicios de otras semanas
+        // - Si no hay banco para una semana, el sistema mostrará un error al usuario
+        // - El sistema soporta hasta exerciseBankWeek6 (puedes agregar más editando el código)
+        // ========================================
+
         const achievements = [
             { id: 'first_day', name: '¡Primer Día Genial!', description: 'Completa tu primer día de ejercicios', icon: '🌟' },
             { id: 'week_warrior', name: 'Guerrero de la Semana', description: 'Completa una semana completa', icon: '⚔️' },
@@ -3361,7 +3387,7 @@
             const allExercises = [];
             const subjects = ['math', 'reading', 'science', 'social'];
             
-            // Determinar qué semana estamos mostrando (1 o 2)
+            // Determinar qué semana estamos mostrando (basado en fecha absoluta)
             const today = new Date();
             const startOfThisWeek = new Date(today);
             const todayDayOffset = today.getDay() === 0 ? -6 : 1 - today.getDay();
@@ -3372,12 +3398,43 @@
             startOfTargetWeek.setDate(date.getDate() + targetDayOffset);
             
             const weeksDiff = Math.round((startOfTargetWeek - startOfThisWeek) / (7 * 24 * 60 * 60 * 1000));
-            const currentWeek = weeksDiff === 0 ? 1 : 2;
             
-            console.log(`📚 Usando banco de Semana ${currentWeek}`);
+            // Calcular número de semana (1, 2, 3, 4, etc.)
+            const currentWeek = weeksDiff + 1;
             
-            // Seleccionar banco apropiado
-            const bankToUse = currentWeek === 1 ? exerciseBank : (typeof exerciseBankWeek2 !== 'undefined' ? exerciseBankWeek2 : exerciseBank);
+            console.log(`📚 Calculando banco para Semana ${currentWeek} (weeksDiff: ${weeksDiff})`);
+            
+            // Crear un array con todos los bancos disponibles
+            const availableBanks = [exerciseBank]; // Semana 1 siempre existe
+            
+            // Agregar bancos adicionales si existen
+            if (typeof exerciseBankWeek2 !== 'undefined') availableBanks.push(exerciseBankWeek2);
+            if (typeof exerciseBankWeek3 !== 'undefined') availableBanks.push(exerciseBankWeek3);
+            if (typeof exerciseBankWeek4 !== 'undefined') availableBanks.push(exerciseBankWeek4);
+            if (typeof exerciseBankWeek5 !== 'undefined') availableBanks.push(exerciseBankWeek5);
+            if (typeof exerciseBankWeek6 !== 'undefined') availableBanks.push(exerciseBankWeek6);
+            // Puedes agregar más semanas aquí según vayas creando los bancos
+            
+            console.log(`📚 Bancos disponibles: ${availableBanks.length} semanas`);
+            
+            // Seleccionar el banco apropiado (ajustando el índice porque los arrays empiezan en 0)
+            let bankToUse;
+            const bankIndex = currentWeek - 1; // Convertir semana 1 a índice 0
+            
+            if (bankIndex >= 0 && bankIndex < availableBanks.length) {
+                bankToUse = availableBanks[bankIndex];
+                console.log(`✅ Usando banco de Semana ${currentWeek}`);
+            } else if (currentWeek < 1) {
+                // Si es una semana pasada (antes de la semana 1), usar el último banco disponible
+                bankToUse = availableBanks[availableBanks.length - 1];
+                console.log(`⚠️ Semana pasada, usando último banco disponible (Semana ${availableBanks.length})`);
+            } else {
+                // Si no hay banco para esta semana, mostrar error
+                console.error(`❌ No hay banco de ejercicios para la Semana ${currentWeek}`);
+                console.error(`❌ Por favor, crea 'exerciseBankWeek${currentWeek}' con ejercicios nuevos`);
+                alert(`⚠️ ATENCIÓN ⚠️\n\nNo hay ejercicios disponibles para la Semana ${currentWeek}.\n\nPor favor, contacta al administrador para agregar nuevos ejercicios.\n\nActualmente solo hay ${availableBanks.length} semana(s) de ejercicios disponibles.`);
+                return [];
+            }
             
             subjects.forEach(subject => {
                 if (bankToUse[subject]) {
